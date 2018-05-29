@@ -5,6 +5,11 @@ h1 {
     font-size: 200%;
   }
 
+  a {
+    cursor: pointer;
+    cursor: hand;
+  }
+
   nav a {
     padding: 5px 10px;
     text-decoration: none;
@@ -18,9 +23,9 @@ h1 {
     color: #607D8B;
   }
   nav a:hover {
-    color: #039be5;
+    color: rgb(172, 22, 47);
     background-color: #CFD8DC;
   }
   nav a.active {
-    color: #039be5;
+    color: rgb(172, 22, 47);
   }
