@@ -5,6 +5,9 @@ import { LoginComponent } from './home/login/login.component';
 import { RegisterComponent } from './home/login/register.component';
 import { AboutComponent } from './home/website/about/about.component';
 import { ContactComponent } from './home/website/contact/contact.component';
+import { UserNamesComponent } from './home/login/user-names.component';
+import { AuthGuard } from './home/login/auth.guard';
+
 
 const appRoutes: Routes = [
   {
@@ -21,7 +24,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'contact',
-    component: ContactComponent
+    component: UserNamesComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

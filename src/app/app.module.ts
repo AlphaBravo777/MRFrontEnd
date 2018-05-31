@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -11,6 +11,10 @@ import { LoginComponent } from './home/login/login.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { RegisterComponent } from './home/login/register.component';
 import { AuthService } from './home/login/auth.service';
+import { UserdataService } from './home/login/userdata.service';
+import { UserNamesComponent } from './home/login/user-names.component';
+import { AuthGuard } from './home/login/auth.guard';
+import { TokenInterceptorService } from './home/services/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,8 @@ import { AuthService } from './home/login/auth.service';
     AboutComponent,
     ContactComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserNamesComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +32,16 @@ import { AuthService } from './home/login/auth.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthGuard,
+    AuthService,
+    UserdataService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

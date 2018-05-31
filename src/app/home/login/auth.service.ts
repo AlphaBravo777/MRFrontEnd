@@ -7,11 +7,23 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
 
   constructor(private http: HttpClient) { }
-  private _loginUrl = 'http://127.0.0.1:8000/api/api/users/register';
-  private _registerUrl = 'http://127.0.0.1:8000/api/api/users/login';
+  private _loginUrl = 'http://127.0.0.1:8000/api/rest-auth/login/';
+  private _registerUrl = 'http://127.0.0.1:8000/api/rest-auth/registration/';
 
   registerUser(user) {
     return this.http.post<any>(this._registerUrl, user);
+  }
+
+  loginUser(user) {
+    return this.http.post<any>(this._loginUrl, user);
+  }
+
+  loggedIn() {
+    return !!localStorage.getItem('token');
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
   }
 
 }
