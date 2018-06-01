@@ -19,15 +19,15 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    console.log(this.loginUserData);
+    // console.log(this.loginUserData);
       this._auth.loginUser(this.loginUserData)
       .subscribe(
         res =>  {
-          console.log(res);
+          console.log(res , 'This is the positive response');
           localStorage.setItem('token', res.token);
           this._router.navigate(['contact/']);
         },
-        err => console.log(err)
+        err => console.log(err, 'You are not authorized')
       );
       console.log(this.loginUserData);
   }
