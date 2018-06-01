@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { resolve } from 'q';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this._auth.logout();
   }
 
   loginUser() {
@@ -23,11 +25,11 @@ export class LoginComponent implements OnInit {
       this._auth.loginUser(this.loginUserData)
       .subscribe(
         res =>  {
-          console.log(res , 'This is the positive response');
+          console.log(res);
           localStorage.setItem('token', res.token);
           this._router.navigate(['contact/']);
         },
-        err => console.log(err, 'You are not authorized')
+        err => console.log(err)
       );
       console.log(this.loginUserData);
   }

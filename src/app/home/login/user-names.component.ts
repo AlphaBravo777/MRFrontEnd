@@ -10,12 +10,12 @@ export class UserNamesComponent implements OnInit {
 
   constructor(private _userData: UserdataService) { }
 
-  user = [];
+  products = [];
 
   ngOnInit() {
     this._userData.getUsers()
       .subscribe(
-        res =>  this.user = res,
+        response =>  this.products = response,
         err => console.log(err)
       );
   }
