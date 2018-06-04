@@ -13,11 +13,11 @@ export class AuthService {
   private _registerUrl2 = 'http://192.168.2.45:8000/api/rest-auth/registration/';
 
   registerUser(user) {
-    return this.http.post<any>(this._registerUrl2, user);
+    return this.http.post<any>(this._registerUrl, user);
   }
 
   loginUser(user) {
-    return this.http.post<any>(this._loginUrl2, user);
+    return this.http.post<any>(this._loginUrl, user);
   }
 
   loggedIn() {

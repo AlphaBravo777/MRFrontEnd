@@ -1,6 +1,25 @@
-<div>
+
+<div class="list-type1">
   <h2>Products</h2>
-  <ul>
-    <li *ngFor="let product of products">{{product.productid}}, - {{product.proddescription}}</li>
-  </ul>
+  <ol>
+    <li *ngFor="let product of products">
+      <a href="#">
+        <span class="prodName">{{product.productid}} </span>
+        <span>{{product.proddescription}}</span>
+      </a>
+    </li>
+  </ol>
 </div>
+
+
+
+
+<div class="list-type1">
+  <ol>
+    <li><a href="#">please Enter Your Content here.</a></li>
+    <li><a href="#">please Enter Your Content here.</a></li>
+    <li><a href="#">please Enter Your Content here.</a></li>
+  </ol>
+</div>
+
+
