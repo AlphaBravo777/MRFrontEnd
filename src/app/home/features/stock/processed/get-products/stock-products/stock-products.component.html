@@ -1,0 +1,12 @@
+<table>
+  <tr>
+    <th>Brand</th>
+    <th>Packaging</th>
+    <th>Weight</th>
+  </tr>
+  <tr *ngFor="let stock of processedStocks">
+        <td>{{stock.brand}}</td>
+        <td>{{stock.packaging}}</td> 
+        <td>{{stock.weight}}kg</td> 
+  </tr>
+</table>

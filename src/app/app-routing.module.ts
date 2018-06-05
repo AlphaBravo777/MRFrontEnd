@@ -7,17 +7,18 @@ import { AboutComponent } from './home/website/about/about.component';
 import { ContactComponent } from './home/website/contact/contact.component';
 import { UserNamesComponent } from './home/login/user-names.component';
 import { AuthGuard } from './home/login/auth.guard';
+import { StockTakingComponent } from './home/features/stock/stock-taking.component';
 
 
 const appRoutes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent
+    path: 'stock-taking',
+    component: StockTakingComponent
   },
   {
-    path: 'about',
-    component: AboutComponent,
-    canActivate: [AuthGuard]
+    path: 'login',
+    component: LoginComponent
+    // canActivate: [AuthGuard]
   },
   {
     path: 'register',
