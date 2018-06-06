@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ProcessedStock } from './ProcessedStock';
+import { ProcessedStock } from './../../stock-services/Stock';
+import { StockTakingService } from './../../stock-services/stock-taking.service';
 
 @Component({
   selector: 'app-get-products',
@@ -9,11 +10,19 @@ import { ProcessedStock } from './ProcessedStock';
 })
 export class GetProductsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _stockTakingService: StockTakingService) { }
 
-  processedStocks: ProcessedStock[];
+  products: ProcessedStock[];
 
   ngOnInit() {
+
+    this._stockTakingService.getUsers()
+    .subscribe(
+      response =>  this.products = response,
+      err => console.log(err)
+    );
+
+  /*
     this.processedStocks = [
       {
         brand: 'Shoprite',
@@ -29,5 +38,7 @@ export class GetProductsComponent implements OnInit {
       }
     ];
   }
+*/
 
+  }
 }

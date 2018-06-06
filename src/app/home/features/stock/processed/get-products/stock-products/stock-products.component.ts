@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { ProcessedStock } from '../../get-products/processedStock';
+import { ProcessedStock } from './../../../stock-services/Stock';
 
 @Component({
   selector: 'app-stock-products',
@@ -9,7 +9,7 @@ import { ProcessedStock } from '../../get-products/processedStock';
 })
 export class StockProductsComponent implements OnInit {
 
-  @Input() processedStocks: ProcessedStock;
+  @Input() products: ProcessedStock;
 
   constructor() { }
 

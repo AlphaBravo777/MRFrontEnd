@@ -3,10 +3,12 @@
     <th>Brand</th>
     <th>Packaging</th>
     <th>Weight</th>
+    <th>Code</th>
   </tr>
-  <tr *ngFor="let stock of processedStocks">
+  <tr *ngFor="let stock of products">
         <td>{{stock.brand}}</td>
         <td>{{stock.packaging}}</td> 
-        <td>{{stock.weight}}kg</td> 
+        <td>{{stock.unitweight}}kg</td> 
+        <td>{{stock.productid}}</td>
   </tr>
 </table>

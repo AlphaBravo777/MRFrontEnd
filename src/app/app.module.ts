@@ -15,9 +15,8 @@ import { UserdataService } from './home/login/userdata.service';
 import { UserNamesComponent } from './home/login/user-names.component';
 import { AuthGuard } from './home/login/auth.guard';
 import { TokenInterceptorService } from './home/services/token-interceptor.service';
-import { GetProductsComponent } from './home/features/stock/processed/get-products/get-products.component';
-import { StockProductsComponent } from './home/features/stock/processed/get-products/stock-products/stock-products.component';
 import { StocksModule } from './home/features/stock/stocks.module';
+import { UrlsService } from './home/core/urls.service';
 
 @NgModule({
   declarations: [
@@ -28,8 +27,6 @@ import { StocksModule } from './home/features/stock/stocks.module';
     LoginComponent,
     RegisterComponent,
     UserNamesComponent,
-    GetProductsComponent,
-    StockProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +38,7 @@ import { StocksModule } from './home/features/stock/stocks.module';
   providers: [
     AuthGuard,
     AuthService,
+    UrlsService,
     UserdataService,
     {
       provide: HTTP_INTERCEPTORS,
