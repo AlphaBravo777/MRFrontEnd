@@ -1,34 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginComponent } from './home/login/login.component';
-import { RegisterComponent } from './home/login/register.component';
 import { AboutComponent } from './home/website/about/about.component';
 import { ContactComponent } from './home/website/contact/contact.component';
-import { UserNamesComponent } from './home/login/user-names.component';
-import { AuthGuard } from './home/login/auth.guard';
 import { StockTakingComponent } from './home/features/stock/stock-taking.component';
+import { LoginComponent } from './home/features/admin/login/login.component';
+import { AuthGuard } from './home/features/admin/auth.guard';
+import { HomeComponent } from './home/home.component';
 
 
 const appRoutes: Routes = [
+  // {
+  //   // { path: ‘’, pathMatch: ‘full’, redirectTo: ‘first’ },
+  //   path: '',
+  //   pathMatch: 'full', redirectTo: 'login'
+  // },
   {
-    path: 'stock-taking',
-    component: StockTakingComponent
+    path: '',
+    component: HomeComponent
   },
   {
-    path: 'login',
-    component: LoginComponent
-    // canActivate: [AuthGuard]
+    path: 'home',
+    component: HomeComponent
   },
   {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'contact',
-    component: UserNamesComponent,
+    path: 'factory',
+    component: StockTakingComponent,
     canActivate: [AuthGuard]
-  }
+  },
 ];
 
 @NgModule({

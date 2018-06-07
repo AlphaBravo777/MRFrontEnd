@@ -1,0 +1,9 @@
+<div class="center-screen">
+  <nav>
+    <a routerLink="/home" routerLinkActive="active">Home</a>
+    <a [routerLink]="[{outlets: {'websiteNav': ['about']}} ]">About</a>
+    <a [routerLink]="[{outlets: {'websiteNav': ['contact']}} ]">Contacts</a>
+    <a [routerLink]="[{outlets: {'websiteNav': ['login']}} ]">Login</a>
+  </nav>
+</div>
+

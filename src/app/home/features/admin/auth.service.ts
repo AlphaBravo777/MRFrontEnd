@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UrlsService } from '../../core/urls.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
-  private _loginUrl = 'http://127.0.0.1:8000/api/rest-auth/login/';
-  private _loginUrl2 = 'http://192.168.45.2:8000/api/rest-auth/login/';
-  private _registerUrl = 'http://127.0.0.1:8000/api/rest-auth/registration/';
-  private _registerUrl2 = 'http://192.168.2.45:8000/api/rest-auth/registration/';
+  constructor(private http: HttpClient, private _urlService: UrlsService) { }
+
+  private _loginUrl = this._urlService.rootUrl + 'api/rest-auth/login/';
+  private _registerUrl = this._urlService.rootUrl + 'api/rest-auth/registration/';
 
   registerUser(user) {
     return this.http.post<any>(this._registerUrl, user);

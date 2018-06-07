@@ -4,34 +4,23 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './home/website/about/about.component';
-import { ContactComponent } from './home/website/contact/contact.component';
-import { LoginComponent } from './home/login/login.component';
-import { AppRoutingModule } from './/app-routing.module';
-import { RegisterComponent } from './home/login/register.component';
-import { AuthService } from './home/login/auth.service';
-import { UserdataService } from './home/login/userdata.service';
-import { UserNamesComponent } from './home/login/user-names.component';
-import { AuthGuard } from './home/login/auth.guard';
-import { TokenInterceptorService } from './home/services/token-interceptor.service';
+import { AppRoutingModule } from './app-routing.module';
+import { TokenInterceptorService } from './home/core/token-interceptor.service';
 import { StocksModule } from './home/features/stock/stocks.module';
 import { UrlsService } from './home/core/urls.service';
+import { AuthService } from './home/features/admin/auth.service';
+import { AuthGuard } from './home/features/admin/auth.guard';
+import { WebsiteModule } from './home/website/website.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    AboutComponent,
-    ContactComponent,
-    LoginComponent,
-    RegisterComponent,
-    UserNamesComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    WebsiteModule,
     HttpClientModule,
     StocksModule
   ],
@@ -39,7 +28,6 @@ import { UrlsService } from './home/core/urls.service';
     AuthGuard,
     AuthService,
     UrlsService,
-    UserdataService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

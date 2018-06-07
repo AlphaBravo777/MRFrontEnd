@@ -1,16 +1,10 @@
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="100" alt="Meatrite Logo" src="assets/images/MRLogo.jpg">
+    <h1>
+      Welcome to {{ title }}!
+    </h1>
+    <img width="100" alt="Meatrite Logo" src="assets/images/MRLogo.jpg">
 </div>
 
-<div class="center-screen">
-  <nav>
-    <a routerLink="/stock-taking" routerLinkActive="stock-taking">Stock</a>
-    <a routerLink="/contact" routerLinkActive="active">Products</a>
-    <a routerLink="/login" routerLinkActive="active">Login</a>
-    <a routerLink="/register" routerLinkActive="active">Register</a>
-  </nav>
-</div>
-<router-outlet></router-outlet>
+<app-website-nav></app-website-nav>
+
+<router-outlet name='websiteNav'></router-outlet>

@@ -21,24 +21,7 @@ export class GetProductsComponent implements OnInit {
       response =>  this.products = response,
       err => console.log(err)
     );
-
-  /*
-    this.processedStocks = [
-      {
-        brand: 'Shoprite',
-        packaging: 'Vacuum',
-        weight: 2,
-        code: 'MV2'
-      },
-      {
-        brand: 'Makro',
-        packaging: 'Box',
-        weight: 1,
-        code: 'MV1'
-      }
-    ];
-  }
-*/
-
   }
 }
+
+// TODO: Sort different products into batches
