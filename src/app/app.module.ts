@@ -6,11 +6,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TokenInterceptorService } from './home/core/token-interceptor.service';
-import { StocksModule } from './home/features/stock/stocks.module';
 import { UrlsService } from './home/core/urls.service';
 import { AuthService } from './home/features/admin/auth.service';
 import { AuthGuard } from './home/features/admin/auth.guard';
 import { WebsiteModule } from './home/website/website.module';
+import { UserEntryModule } from './home/shared/user-entry.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { WebsiteModule } from './home/website/website.module';
     AppRoutingModule,
     WebsiteModule,
     HttpClientModule,
-    StocksModule
+    UserEntryModule
   ],
   providers: [
     AuthGuard,

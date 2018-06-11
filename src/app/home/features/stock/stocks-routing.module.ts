@@ -1,13 +1,13 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { StockTakingComponent } from './stock-taking.component';
+import { StocksComponent } from './stocks.component';
 import { GetProductsComponent } from './processed/get-products/get-products.component';
 
 const routes: Routes = [
   {
     path: 'stock-taking',
-    component: StockTakingComponent
+    component: StocksComponent
   },
   {
     path: 'processed',

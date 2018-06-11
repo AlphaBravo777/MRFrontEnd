@@ -15,21 +15,23 @@ const websiteRoutes: Routes = [
             {
               path: 'about',
               component: AboutComponent,
-              outlet: 'websiteNav'
+              // outlet: 'websiteNav'
             },
             {
               path: 'contact',
               component: ContactComponent,
-              outlet: 'websiteNav'
+              // outlet: 'websiteNav'
             },
             {
               path: 'login',
               component: LoginComponent,
-              outlet: 'websiteNav'
+              // outlet: 'websiteNav'
             }
         ]
   },
 ];
+
+
 
 @NgModule({
   imports: [
