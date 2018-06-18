@@ -1,0 +1,37 @@
+<div *ngxPermissionsOnly="['ADMIN', 'GUEST']">
+  <div>You can see this text congrats</div>
+</div>
+
+<ng-template ngxPermissionsOnly="ADMIN">
+  <nav>
+    <a class='buttonMenus' routerLink="/user-nav" routerLinkActive="active">ADMIN</a>
+  </nav>
+</ng-template>
+
+<ng-template [ngxPermissionsExcept]="['JOHNY']">
+  <nav>
+    <a class='buttonMenus' routerLink="/user-nav" routerLinkActive="active">NOT JOHNY</a>
+  </nav>
+</ng-template>
+
+
+<!--
+
+<router-outlet name='factoryNav'></router-outlet>   
+
+<div class="center-screen">
+  <nav>
+    <a class='buttonMenus' routerLink="/user-nav" routerLinkActive="active">Stock1</a>
+    <a class='buttonMenus' [routerLink]="[{outlets: {'factoryNav': ['stocks']}} ]">Stock</a>
+    <a class='buttonMenus' [routerLink]="[{outlets: {'factoryNav': ['high-risk']}} ]">Hi-Risk</a>
+    <a class='buttonMenus' [routerLink]="[{outlets: {'factoryNav': ['user-nav']}} ]">Production</a>
+    <a class='buttonMenus' [routerLink]="[{outlets: {'websiteNav': ['stocks']}} ]">L-Shape</a>
+    <a class='buttonMenus' [routerLink]="[{outlets: {'websiteNav': ['stocks']}} ]">Storage</a>
+    <a class='buttonMenus' [routerLink]="[{outlets: {'websiteNav': ['stocks']}} ]">Receiving</a>
+    <a class='buttonMenus' [routerLink]="[{outlets: {'websiteNav': ['stocks']}} ]">Factory Office</a>
+    <a class='buttonMenus' [routerLink]="[{outlets: {'websiteNav': ['stocks']}} ]">Workshop</a>
+    <a class='buttonMenus' [routerLink]="[{outlets: {'websiteNav': ['stocks']}} ]">Food safety</a>
+  </nav>
+</div>
+
+ -->

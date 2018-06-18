@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StocksComponent } from '../features/stock/stocks.component';
 import { UserEntryComponent } from './user-entry.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
+import { FactoryComponent } from '../features/factory/factory.component';
 
 const userEntryRoutes: Routes = [
   {
@@ -19,8 +20,8 @@ const userEntryRoutes: Routes = [
           // outlet: 'factoryNav'
         },
         {
-          path: 'high-risk',
-          component: StocksComponent,
+          path: 'factory',
+          component: FactoryComponent,
           // outlet: 'factoryNav'
         },
         {

@@ -11,6 +11,7 @@ import { AuthService } from './home/features/admin/auth.service';
 import { AuthGuard } from './home/features/admin/auth.guard';
 import { WebsiteModule } from './home/website/website.module';
 import { UserEntryModule } from './home/shared/user-entry.module';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserEntryModule } from './home/shared/user-entry.module';
     AppRoutingModule,
     WebsiteModule,
     HttpClientModule,
-    UserEntryModule
+    UserEntryModule,
+    NgxPermissionsModule.forRoot(),
   ],
   providers: [
     AuthGuard,
