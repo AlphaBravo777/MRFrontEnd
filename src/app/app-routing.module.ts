@@ -31,6 +31,16 @@ const appRoutes: Routes = [
     component: UserNavComponent,
     // canActivate: [AuthGuard]
   },
+  {
+    path: 'about',
+    component: AboutComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    // canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

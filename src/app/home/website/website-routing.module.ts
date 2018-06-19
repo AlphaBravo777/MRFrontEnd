@@ -12,11 +12,11 @@ const websiteRoutes: Routes = [
     path: 'home',
     component: HomeComponent,
         children: [
-            {
-              path: 'about',
-              component: AboutComponent,
-              // outlet: 'websiteNav'
-            },
+            // {
+            //   path: 'about',
+            //   component: AboutComponent,
+            //   // outlet: 'websiteNav'
+            // },
             {
               path: 'contact',
               component: ContactComponent,

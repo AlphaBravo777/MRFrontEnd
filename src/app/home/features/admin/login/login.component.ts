@@ -4,34 +4,34 @@ import { Router } from '@angular/router';
 import { resolve } from 'q';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
-  loginUserData = {};
+    loginUserData = {};
 
-  constructor(private _auth: AuthService,
-    private _router: Router
-  ) { }
+    constructor(private _auth: AuthService,
+        private _router: Router
+    ) { }
 
-  ngOnInit() {
-    this._auth.logout();
-  }
+    ngOnInit() {
+        this._auth.logout();
+    }
 
-  loginUser() {
-    // console.log(this.loginUserData);
-      this._auth.loginUser(this.loginUserData)
-      .subscribe(
-        res =>  {
-          console.log(res);
-          localStorage.setItem('token', res.token);
-          this._router.navigate(['user-nav/']);
-        },
-        err => console.log(err)
-      );
-      console.log(this.loginUserData);
-  }
-
+    loginUser() {
+        // console.log(this.loginUserData);
+        this._auth.loginUser(this.loginUserData)
+            .subscribe(
+                res => {
+                    console.log(res);
+                    localStorage.setItem('token', res.token);
+                    localStorage.setItem('userID', res.user.pk);
+                    this._router.navigate(['user-nav/']);
+                },
+                err => console.log(err)
+            );
+        console.log(this.loginUserData);
+    }
 }
