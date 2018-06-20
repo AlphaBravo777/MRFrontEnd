@@ -1,8 +1,8 @@
-<div *ngxPermissionsOnly="['ADMIN', 'GUEST']">
+<div *ngxPermissionsOnly="['floor-supervisor', 'Lshape-leader']">
   <div>You can see this text congrats</div>
 </div>
 
-<ng-template ngxPermissionsOnly="ADMIN">
+<ng-template ngxPermissionsOnly="floor-supervisor">
   <nav>
     <a class='buttonMenus' routerLink="/user-nav" routerLinkActive="active">ADMIN</a>
   </nav>
