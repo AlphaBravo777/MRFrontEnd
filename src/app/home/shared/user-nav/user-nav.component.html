@@ -1,15 +1,41 @@
 <div class="center-screen">
-  <nav>
-    <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Stock</a>
-    <a class='buttonMenus' routerLink="../user/factory" routerLinkActive="active">Factory</a>
-    <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Production</a>
-    <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">L-Shape</a>
-    <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Storage</a>
-    <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Receiving</a>
-    <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Factory Office</a>
-    <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Workshop</a>
-    <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Food safety</a>
-  </nav>
+    <nav>
+        <ng-template [ngxPermissionsOnly]="['factory-supervisor', 'Lshape-leader', 'shift-supervisor']">
+            <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Stock</a>
+        </ng-template>
+
+        <ng-template [ngxPermissionsOnly]="['factory-supervisor']">
+            <a class='buttonMenus' routerLink="../user/factory" routerLinkActive="active">Factory</a>
+        </ng-template>
+
+        <ng-template [ngxPermissionsOnly]="['factory-supervisor']">
+            <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Production</a>
+        </ng-template>
+
+        <ng-template [ngxPermissionsOnly]="['shift-supervisor','factory-supervisor','Lshape-leader']">
+            <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">L-Shape</a>
+        </ng-template>
+
+        <ng-template [ngxPermissionsOnly]="['shift-supervisor','factory-supervisor']">
+            <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Storage</a>
+        </ng-template>
+
+        <ng-template [ngxPermissionsOnly]="['shift-supervisor','factory-supervisor']">
+            <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Receiving</a>
+        </ng-template>
+
+        <ng-template [ngxPermissionsOnly]="['factory-supervisor']">
+            <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Factory Office</a>
+        </ng-template>
+
+        <ng-template [ngxPermissionsOnly]="['factory-supervisor']">
+            <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Workshop</a>
+        </ng-template>
+
+        <ng-template [ngxPermissionsOnly]="['factory-supervisor']">
+            <a class='buttonMenus' routerLink="../user/stocks" routerLinkActive="active">Food safety</a>
+        </ng-template>
+    </nav>
 </div>
 <!--
     <a class='buttonMenus' [routerLink]="[{outlets: {'factoryNav': ['user']}} ]">Stock</a>

@@ -19,21 +19,19 @@ export class FactoryComponent implements OnInit {
 
     private test = this._urlService.rootUrl + 'api/test/';
     private data = [];
-    private data2 = [];
 
     ngOnInit(): void {
-        const perm = ['EDITOR'];
+        // const perm = ['EDITOR'];
 
         // this.permissionsService.loadPermissions(perm);
 
         this.http.get<any>(this.test).subscribe((groups) => {
-            this.data.push(groups.groups);
-             for (const key of Object.keys(this.data[0])) {
+             for (const key of Object.keys(groups.groups)) {
                  // console.log(this.data[0][key].name);
-                 this.data2.push(this.data[0][key].name);
+                 this.data.push(groups.groups[key].name);
                }
-            this.permissionsService.loadPermissions(this.data2);
-            console.log(this.data2);
+            this.permissionsService.loadPermissions(this.data);
+            console.log(this.data);
         });
 
 

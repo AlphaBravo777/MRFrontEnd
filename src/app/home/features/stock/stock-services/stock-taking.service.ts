@@ -12,7 +12,7 @@ export class StockTakingService {
 
    private products = this._urlService.rootUrl + 'api/products/';
 
-  getUsers() {
+  getProducts() {
     return this.http.get<any>(this.products);
   }
 }
