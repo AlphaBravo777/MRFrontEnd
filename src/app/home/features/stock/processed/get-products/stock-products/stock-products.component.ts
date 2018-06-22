@@ -12,6 +12,7 @@ export class StockProductsComponent implements OnInit {
 
     private _products = new BehaviorSubject<ProcessedStock[]>([]);
     processedGroup: ProcessedGroup[];
+    batch: String;
 
     @Input()
     set products(value) {
@@ -29,20 +30,18 @@ export class StockProductsComponent implements OnInit {
         });
     }
 
-    groupByCategory(product: ProcessedStock[]): ProcessedGroup[] {
-        if (!product) {return; }
-        const categories = new Set(product.map(x => x.batchGroup));
+    groupByCategory(products: ProcessedStock[]): ProcessedGroup[] {
+        if (!products) {return; } // This helps also to avoid an "undefined" error
+        const categories = new Set(products.map(x => x.batchgroup).sort());
+        const result = Array.from(categories).map(x => ({
+            group: x,
+            stock: products.filter(stocks => stocks.batchgroup === x)
+        }));
+        return result;
+    }
+
+    BatchGroup(batch) {
+        this.batch = batch;
+        console.log(this.batch);
     }
 }
-
-// groupByCategory(data: Post[]): GroupPosts[] {
-//     if (!data) return;
-//     const categories = new Set(data.map(x => x.category));
-//     const result = Array.from(categories).map(x => ({
-//         category: x,
-//         posts: data.filter(post => post.category === x)
-//     }));
-
-//     return result;
-// }
-

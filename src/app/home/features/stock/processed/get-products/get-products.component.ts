@@ -18,7 +18,6 @@ export class GetProductsComponent implements OnInit {
         this._stockTakingService.getProducts()
             .subscribe(response => {
                 this.products = response;
-                console.log(this.products[1]);
             },
                 err => console.log(err)
             );

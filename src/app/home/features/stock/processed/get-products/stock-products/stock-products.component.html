@@ -1,14 +1,23 @@
+<a class='buttonMenus' *ngFor="let group of processedGroup" (click)="BatchGroup(group.group)">{{group.group}}</a>
+
+<!-- <app-stock-batch [batchName]="batch"></app-stock-batch> -->
+
 <table>
-  <tr>
-    <th>Brand</th>
-    <th>Packaging</th>
-    <th>Weight</th>
-    <th>Code</th>
-  </tr>
-  <tr *ngFor="let stock of products">
-        <td>{{stock.brand}}</td>
-        <td>{{stock.packaging}}</td> 
-        <td>{{stock.unitweight}}kg</td> 
-        <td>{{stock.productid}}</td>
-  </tr>
+    <div *ngFor="let group of processedGroup">
+        <div *ngIf="group.group == batch">
+            <h3>{{group.group}}</h3>
+            <tr>
+                <th>Brand</th>
+                <th>Packaging</th>
+                <th>Weight</th>
+                <th>Code</th>
+            </tr>
+            <tr *ngFor="let stock of group.stock">
+                <td>{{stock.brand}}</td>
+                <td>{{stock.packaging}}</td>
+                <td>{{stock.unitweight}}kg</td>
+                <td>{{stock.productid}}</td>
+            </tr>
+        </div>
+    </div>
 </table>
