@@ -7,7 +7,6 @@ import { WebsiteRoutingModule, WebsiteRoutingComponents } from './website-routin
 
 @NgModule({
   declarations: [
-    WebsiteNavComponent,
     WebsiteRoutingComponents,
   ],
   imports: [

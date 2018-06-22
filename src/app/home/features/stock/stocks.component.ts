@@ -10,7 +10,6 @@ export class StocksComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('I was hit');
   }
 
 }
