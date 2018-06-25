@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { WebsiteComponent } from './home/website/website.component';
+import { UserEntryComponent } from './home/shared/user-entry.component';
 
 
 const appRoutes: Routes = [
@@ -13,6 +14,10 @@ const appRoutes: Routes = [
   {
     path: 'home',
     component: WebsiteComponent
+  },
+  {
+    path: 'user',
+    component: UserEntryComponent
   },
 ];
 
