@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { ProcessedStock, ProcessedGroup } from './../../../stock-services/Stock';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-stock-products',
@@ -13,6 +14,9 @@ export class StockProductsComponent implements OnInit {
     private _products = new BehaviorSubject<ProcessedStock[]>([]);
     processedGroup: ProcessedGroup[];
     batch: String;
+    productName: String;
+    processedStock = {};
+    amounts = [];
 
     @Input()
     set products(value) {
@@ -44,4 +48,22 @@ export class StockProductsComponent implements OnInit {
         this.batch = batch;
         console.log(this.batch);
     }
+
+    changeProduct(productName) {
+        const stock =  localStorage.getItem('stock');
+        this.processedStock = JSON.parse(stock);
+            if (this.processedStock.hasOwnProperty(productName)) {
+                // console.log('++++++++', JSON.parse(this.processedStock[productName]));
+                // console.log('++++++++', this.processedStock[productName]);
+                console.log('++++++++', this.processedStock[productName].split(','));
+                this.amounts = this.processedStock[productName].split(',');
+                console.log(this.amounts);
+            } else {this.amounts = []; }
+        this.productName = productName;
+    }
 }
+
+// ++++++++ [10,20,30,8*10] {SV1: "[10,20,30,8*10]", RV1: "[3*4,5,20,10*7,10]"}
+// ++++++++ (4) [40, 50, 60, "8*10"] {time: "16:00", RV1: [10, 20, 30], SV1: [40, 50, 60, "8*10"]}
+
+// TODO: Make Colored LED's that shows if there is a connection, and also if there is data that needs to be saved.

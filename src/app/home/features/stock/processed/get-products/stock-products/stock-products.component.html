@@ -1,4 +1,5 @@
 <a class='buttonMenus' *ngFor="let group of processedGroup" (click)="BatchGroup(group.group)">{{group.group}}</a>
+<app-ind-stock-prod [productName]='productName' [amounts]='amounts'></app-ind-stock-prod>
 
 <table>
     <div *ngFor="let group of processedGroup">
@@ -14,7 +15,7 @@
                 <td>{{stock.brand}}</td>
                 <td>{{stock.packaging}}</td>
                 <td>{{stock.unitweight}}kg</td>
-                <td>{{stock.productid}}</td>
+                <td><a class='buttonMenus' (click)="changeProduct(stock.productid)">{{stock.productid}}</a></td>
             </tr>
         </div>
     </div>

@@ -15,4 +15,10 @@ export class StockTakingService {
   getProducts() {
     return this.http.get<any>(this.products);
   }
+
+  getTimedStock(time: String) {
+    this.products = this.products + time;
+    console.log(this.products);
+    return this.http.get<any>(this.products);
+  }
 }
