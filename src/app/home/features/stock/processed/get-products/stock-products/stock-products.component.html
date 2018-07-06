@@ -1,4 +1,5 @@
 <a class='buttonMenus' *ngFor="let group of processedGroup" (click)="BatchGroup(group.group)">{{group.group}}</a>
+<button type="button" (click)="stockFinished()">Finished With Stock</button>
 <app-ind-stock-prod [productName]='productName' [amounts]='amounts'></app-ind-stock-prod>
 
 <table>

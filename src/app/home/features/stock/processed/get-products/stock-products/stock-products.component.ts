@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { ProcessedStock, ProcessedGroup } from './../../../stock-services/Stock';
 import { BehaviorSubject } from 'rxjs';
-import { Router } from '@angular/router';
+import { StockTakingService } from '../../../stock-services/stock-taking.service';
 
 @Component({
     selector: 'app-stock-products',
@@ -26,7 +26,7 @@ export class StockProductsComponent implements OnInit {
         return this._products.getValue();
     }
 
-    constructor() { }
+    constructor(private _stockTakingService: StockTakingService) { }
 
     ngOnInit() {
         this._products.subscribe(x => {
@@ -53,13 +53,13 @@ export class StockProductsComponent implements OnInit {
         const stock =  localStorage.getItem('stock');
         this.processedStock = JSON.parse(stock);
             if (this.processedStock.hasOwnProperty(productName)) {
-                // console.log('++++++++', JSON.parse(this.processedStock[productName]));
-                // console.log('++++++++', this.processedStock[productName]);
-                console.log('++++++++', this.processedStock[productName].split(','));
                 this.amounts = this.processedStock[productName].split(',');
-                console.log(this.amounts);
             } else {this.amounts = []; }
         this.productName = productName;
+    }
+
+    stockFinished() {
+        this._stockTakingService.sendProcessedProducts().subscribe(x => console.log(x));
     }
 }
 

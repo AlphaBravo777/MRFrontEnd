@@ -12,7 +12,7 @@ export class IndStockProdComponent implements OnInit {
     private _amounts = new BehaviorSubject([]);
     private amountForm: FormGroup;
     total = 0;
-    @Input() productName: String;
+    @Input() productName: string;
     @Input()
     set amounts(value) {
         this._amounts.next(value);
@@ -44,11 +44,24 @@ export class IndStockProdComponent implements OnInit {
             console.log(Function('"use strict"; return (' + val + ')')());
             this.total = this.total + Function('"use strict"; return (' + val + ')')();
         }
-        console.log(this.total);
-        const productt = {name: this.productName, amount: a};
-        localStorage.setItem('product', JSON.stringify(productt));
-        const producttt = localStorage.getItem('product');
-        console.log(producttt);
+        const key = this.productName;
+        const productt = {};
+        productt[key] = a;
+        if (localStorage['stock']) {
+            const JSObject = JSON.parse(localStorage.getItem('stock'));
+            if (key in JSObject) {
+                const b = a.toString();
+                JSObject[key] = b;
+                localStorage.setItem('stock', JSON.stringify(JSObject));
+            } else {
+                const b = a.toString();
+                JSObject[key] = b;
+                localStorage.setItem('stock', JSON.stringify(JSObject));
+            }
+           }
+        // localStorage.setItem('product', JSON.stringify(productt));
+        // const producttt = localStorage.getItem('product');
+        // console.log(producttt);
 
     }
 
@@ -64,3 +77,8 @@ export class IndStockProdComponent implements OnInit {
     }
 
 }
+
+
+// "RV1":"3*4,5,20,10*7,10"
+//        3*4,5,20,10*7,10
+// "RV1":["3*4","5","20","10*7","10"]
