@@ -1,7 +1,5 @@
 <div class='container'>
-    <br>
-    Products {{productName}}
-    <br>
+    <h3>{{productName}}</h3>
     <form [formGroup]="amountForm" (ngSubmit)="submitResult()">
         <span formArrayName="amounting" *ngFor="let item of amountForm.controls.amounting.controls; let i=index" class="inputs">
             <input type="text" placeholder="{{item.value}}" [formControlName]="i"> +
@@ -9,5 +7,4 @@
         <button type="button" (click)="addAmount()">Add</button>
         <button type="submit">Submit</button>
     </form>
-    total = {{total}}
 </div>

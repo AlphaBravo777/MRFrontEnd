@@ -6,8 +6,21 @@
 .inputs input {
     width: 80px;
     font-size: 2em;
+    margin: 5px;
 }
 button {
-    margin-left: 10px;
+    margin: 5px;
     font-size: 1.2em;
 }
+
+.container {
+    margin: 20px;
+    padding: 10px;
+    background-color: #ffbe7d;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px 5px #888;
+    -webkit-box-shadow: 0 0 5px 5px#888;
+    box-shadow: 0 0 5px 5px #888;
+    }
+

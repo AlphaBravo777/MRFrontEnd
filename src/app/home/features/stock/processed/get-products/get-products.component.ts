@@ -14,10 +14,11 @@ export class GetProductsComponent implements OnInit {
 
     products: ProcessedStock[];
     processedStock = {};
+    processedTime = localStorage.getItem('stocktime');
 
     ngOnInit() {
         this.getProducts();
-        this.getStocklist();
+        this.getStocklist(JSON.parse(this.processedTime));
     }
 
     getProducts() {
@@ -29,14 +30,27 @@ export class GetProductsComponent implements OnInit {
         );
     }
 
-    getStocklist() {
-        this._stockTakingService.getTimedStock('06:00')
+    getStocklist(time) {
+        this._stockTakingService.getTimedStock(time)
         .subscribe(response => {
-            console.log('+++++++', response);
-            localStorage.setItem('stock', JSON.stringify(this.turnIntoObject(response)));
+            const stock = this.gatherData(response);
+            // console.log('+++++++', stock);
+            localStorage.setItem('stock', JSON.stringify(stock));
         },
             err => console.log(err)
         );
+    }
+
+    gatherData(response) {
+        const final = {};
+        for (let i = 0; i < response.length; ++i) {
+            if (Object.keys(response[i])[0] in final) {
+                final[Object.keys(response[i])[0]] = final[Object.keys(response[i])[0]] + ',' + response[i][Object.keys(response[i])[0]];
+            } else {
+                final[Object.keys(response[i])[0]] = response[i][Object.keys(response[i])[0]];
+            }
+        }
+        return final;
     }
 
     turnIntoObject(arr) {

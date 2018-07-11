@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges  } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
     templateUrl: './ind-stock-prod.component.html',
     styleUrls: ['./ind-stock-prod.component.css']
 })
-export class IndStockProdComponent implements OnInit {
+export class IndStockProdComponent implements OnInit  {
 
     private _amounts = new BehaviorSubject([]);
     private amountForm: FormGroup;
@@ -37,13 +37,7 @@ export class IndStockProdComponent implements OnInit {
     }
 
     submitResult() {
-        let val;
-        this.total = 0;
         const a = this.amountForm.controls.amounting.value;
-        for (val of a) {
-            console.log(Function('"use strict"; return (' + val + ')')());
-            this.total = this.total + Function('"use strict"; return (' + val + ')')();
-        }
         const key = this.productName;
         const productt = {};
         productt[key] = a;
@@ -58,24 +52,35 @@ export class IndStockProdComponent implements OnInit {
                 JSObject[key] = b;
                 localStorage.setItem('stock', JSON.stringify(JSObject));
             }
-           }
-        // localStorage.setItem('product', JSON.stringify(productt));
-        // const producttt = localStorage.getItem('product');
-        // console.log(producttt);
-
+        }
     }
 
     addAmount() {
         console.log(this.productName);
         const control = <FormArray>this.amountForm.controls['amounting'];
         control.push(this.initItemRows());
-        console.log(this.amountForm.controls.amounting.value);
+        // console.log(this.amountForm.controls.amounting.value);
     }
 
     initItemRows() {
         return this.fb.control('');
     }
 
+    calculateTotal() {
+        let val;
+        this.total = 0;
+        const a = this.amountForm.controls.amounting.value;
+        for (val of a) {
+            console.log(Function('"use strict"; return (' + val + ')')());
+            this.total = this.total + Function('"use strict"; return (' + val + ')')();
+        }
+    }
+    // ngOnChanges(changes: SimpleChanges) {
+    //     if (changes.amounts.firstChange !== true) {
+    //         this.submitResult();
+    //         console.log('Result submitted');
+    //     }
+    // }
 }
 
 

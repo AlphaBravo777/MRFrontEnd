@@ -14,7 +14,7 @@ export class StockProductsComponent implements OnInit {
     private _products = new BehaviorSubject<ProcessedStock[]>([]);
     processedGroup: ProcessedGroup[];
     batch: String;
-    productName: String;
+    productName = 'Select a product';
     processedStock = {};
     amounts = [];
 
