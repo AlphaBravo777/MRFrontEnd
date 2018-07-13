@@ -15,6 +15,10 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { HomeComponent } from './home/home.component';
 import { WebsiteComponent } from './home/website/website.component';
 import { WebsiteNavComponent } from './home/website/website-nav/website-nav.component';
+import { UnderConstructionComponent } from './home/shared/under-construction/under-construction.component';
+import { AlertComponent } from './home/core/alerts/alert.component';
+import { AlertService } from './home/core/alerts/alert.service';
+
 
 
 
@@ -24,7 +28,9 @@ import { WebsiteNavComponent } from './home/website/website-nav/website-nav.comp
     AppComponent,
     HomeComponent,
     WebsiteComponent,
-    WebsiteNavComponent
+    WebsiteNavComponent,
+    UnderConstructionComponent,
+    AlertComponent
   ],
   imports: [
     WebsiteModule,
@@ -39,6 +45,7 @@ import { WebsiteNavComponent } from './home/website/website-nav/website-nav.comp
     AuthGuard,
     AuthService,
     UrlsService,
+    AlertService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

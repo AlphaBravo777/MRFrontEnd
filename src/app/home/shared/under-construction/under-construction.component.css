@@ -1,0 +1,17 @@
+div.horizontal {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+div.vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+img {
+    -moz-box-shadow: 5px 5px 5px #888;
+    -webkit-box-shadow: 5px 5px 10px #888;
+    box-shadow: 5px 5px 10px #888;
+    }

@@ -18,7 +18,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
   ],
   declarations: [
       UserEntryComponent,
-      UserNavComponent
+      UserNavComponent,
   ]
 })
 export class UserEntryModule { }

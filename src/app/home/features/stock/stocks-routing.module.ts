@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { GetProductsComponent } from './processed/get-products/get-products.component';
 import { UserEntryComponent } from '../../shared/user-entry.component';
+import { UnderConstructionComponent } from '../../shared/under-construction/under-construction.component';
 
 const stockRoutes: Routes = [
     {
@@ -11,7 +12,7 @@ const stockRoutes: Routes = [
         children: [
             {
                 path: 'stock-taking',
-                component: GetProductsComponent
+                component: UnderConstructionComponent
             },
             {
                 path: 'processed',

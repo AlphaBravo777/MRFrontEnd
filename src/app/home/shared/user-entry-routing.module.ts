@@ -5,6 +5,8 @@ import { UserEntryComponent } from './user-entry.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
 import { FactoryComponent } from '../features/factory/factory.component';
 import { GetProductsComponent } from '../features/stock/processed/get-products/get-products.component';
+import { UnderConstructionComponent } from './under-construction/under-construction.component';
+
 
 const userEntryRoutes: Routes = [
     {
@@ -24,8 +26,8 @@ const userEntryRoutes: Routes = [
                 component: StocksComponent,
             },
             {
-                path: 'factory',
-                component: FactoryComponent,
+                path: 'L-shape',
+                component: UnderConstructionComponent,
             },
         ],
     },

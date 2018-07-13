@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { ProcessedStock } from './../../stock-services/Stock';
 import { StockTakingService } from './../../stock-services/stock-taking.service';
 import { first } from 'rxjs/operators';
+import { AlertService } from '../../../../core/alerts/alert.service';
 
 @Component({
     selector: 'app-get-products',
@@ -11,7 +12,7 @@ import { first } from 'rxjs/operators';
 })
 export class GetProductsComponent implements OnInit, OnDestroy {
 
-    constructor(private _stockTakingService: StockTakingService) { }
+    constructor(private _stockTakingService: StockTakingService, private alertService: AlertService) { }
 
     products: ProcessedStock[];
     processedStock = {};
@@ -26,6 +27,7 @@ export class GetProductsComponent implements OnInit, OnDestroy {
         this._stockTakingService.getProducts()
         .subscribe(response => {
             this.products = response;
+            // this.alertService.success('Stock data recieved');
         },
             err => console.log(err)
         );
@@ -34,7 +36,6 @@ export class GetProductsComponent implements OnInit, OnDestroy {
     getStocklist(time) {
         this._stockTakingService.getTimedStock(time).pipe(first())
         .subscribe(response => {
-            console.log('Subscriber = ', response);
             const stock = this.gatherData(response);
             localStorage.setItem('stock', JSON.stringify(stock));
         },
@@ -72,6 +73,11 @@ export class GetProductsComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         window.alert('You are about to navigate away');
+        if (confirm('Are you sure you want to save this thing into the database?')) {
+            // Save it!
+        } else {
+            // Do nothing!
+        }
     }
 
 }
