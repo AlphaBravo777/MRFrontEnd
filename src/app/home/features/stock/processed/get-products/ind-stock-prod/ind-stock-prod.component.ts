@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges  } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef  } from '@angular/core';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { StockTakingService } from '../../../stock-services/stock-taking.service';
 
 @Component({
     selector: 'app-ind-stock-prod',
@@ -11,7 +12,8 @@ export class IndStockProdComponent implements OnInit  {
 
     private _amounts = new BehaviorSubject([]);
     private amountForm: FormGroup;
-    total = 0;
+    private total = 0;
+    private arrayNumber: number;
     @Input() productName: string;
     @Input()
     set amounts(value) {
@@ -20,14 +22,14 @@ export class IndStockProdComponent implements OnInit  {
     get products() {
         return this._amounts.getValue();
     }
+    @Output() changeProductName: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder, private _stockTakingService: StockTakingService, private elRef: ElementRef) {}
 
     ngOnInit() {
         this._amounts.subscribe(x => {
             this.buildAmountForm(x);
         });
-        //
     }
 
     buildAmountForm(x) {
@@ -37,29 +39,32 @@ export class IndStockProdComponent implements OnInit  {
     }
 
     submitResult() {
-        const a = this.amountForm.controls.amounting.value;
+        let a = this.amountForm.controls.amounting.value;
+        a = this.removeZeros(a);
         const key = this.productName;
-        const productt = {};
-        productt[key] = a;
         if (localStorage['stock']) {
             const JSObject = JSON.parse(localStorage.getItem('stock'));
-            if (key in JSObject) {
-                const b = a.toString();
-                JSObject[key] = b;
-                localStorage.setItem('stock', JSON.stringify(JSObject));
-            } else {
-                const b = a.toString();
-                JSObject[key] = b;
-                localStorage.setItem('stock', JSON.stringify(JSObject));
-            }
+            const b = a.toString();
+            JSObject[key] = b;
+            localStorage.setItem('stock', JSON.stringify(JSObject));
         }
+    //    this.changeProduct('Select next product');
     }
 
     addAmount() {
-        console.log(this.productName);
+        // console.log(this.productName);
         const control = <FormArray>this.amountForm.controls['amounting'];
         control.push(this.initItemRows());
         // console.log(this.amountForm.controls.amounting.value);
+    }
+
+    removeZeros(array) {
+        for (let i = array.length - 1; i >= 0; i--) {
+            if (array[i] === '0' || array[i] === '' ) {
+               array.splice(i, 1);
+            }
+        }
+        return array;
     }
 
     initItemRows() {
@@ -75,12 +80,28 @@ export class IndStockProdComponent implements OnInit  {
             this.total = this.total + Function('"use strict"; return (' + val + ')')();
         }
     }
-    // ngOnChanges(changes: SimpleChanges) {
-    //     if (changes.amounts.firstChange !== true) {
-    //         this.submitResult();
-    //         console.log('Result submitted');
-    //     }
-    // }
+
+    public changeProduct(name: any): void { // Clears the window
+        this.changeProductName.emit(name);
+    }
+
+    keyboardSetup(arrayNumber) {
+        this.arrayNumber = arrayNumber;
+    }
+
+    keyboardClick(number) {
+        const inputVar = '#inputNames' + this.arrayNumber;
+        const val = this.amountForm.controls.amounting.value[this.arrayNumber];
+        if (number !== 'minus') {
+            this.amountForm.controls.amounting.value[this.arrayNumber] = val + number;
+        } else {
+            console.log('I should be subtrackting right now');
+        }
+        this.submitResult();
+        this.changeProduct(this.productName);
+        this.elRef.nativeElement.querySelector(inputVar).focus();
+        console.log(this.amountForm.controls.amounting.value[this.arrayNumber], this.productName);
+    }
 }
 
 

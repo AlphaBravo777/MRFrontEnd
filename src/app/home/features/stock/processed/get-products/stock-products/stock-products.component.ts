@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ProcessedStock, ProcessedGroup } from './../../../stock-services/Stock';
 import { BehaviorSubject } from 'rxjs';
 import { StockTakingService } from '../../../stock-services/stock-taking.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-stock-products',
@@ -59,7 +60,14 @@ export class StockProductsComponent implements OnInit {
     }
 
     stockFinished() {
-        this._stockTakingService.sendProcessedProducts().subscribe(x => console.log(x));
+        this._stockTakingService.sendProcessedProducts().subscribe();
+    }
+
+    startStocktaking() {
+        const item = {};
+        localStorage.setItem('stock', JSON.stringify(item));
+        // const time = JSON.parse(localStorage.getItem('stocktime'));
+        // this._stockTakingService.deleteAllTimeProcessedStock(time).subscribe(x => console.log(x));
     }
 }
 

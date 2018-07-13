@@ -1,10 +1,22 @@
 <div class='container'>
-    <h3>{{productName}}</h3>
+    <h3>Product: {{productName}}</h3>
     <form [formGroup]="amountForm" (ngSubmit)="submitResult()">
         <span formArrayName="amounting" *ngFor="let item of amountForm.controls.amounting.controls; let i=index" class="inputs">
-            <input type="text" placeholder="{{item.value}}" [formControlName]="i"> +
-        </span>
+            <input type="text" #inputName id="inputNames{{i}}" [formControlName]="i" (focus)="keyboardSetup(i)" [value]='this.amountForm.controls.amounting.value[i]'> +
+        </span><br>
         <button type="button" (click)="addAmount()">Add</button>
         <button type="submit">Submit</button>
+        <button type="button" (click)="keyboardClick(1)">1</button>
+        <button type="button" (click)="keyboardClick(2)">2</button>
+        <button type="button" (click)="keyboardClick(3)">3</button>
+        <button type="button" (click)="keyboardClick(4)">4</button>
+        <button type="button" (click)="keyboardClick(5)">5</button>
+        <button type="button" (click)="keyboardClick(6)">6</button>
+        <button type="button" (click)="keyboardClick(7)">7</button>
+        <button type="button" (click)="keyboardClick(8)">8</button>
+        <button type="button" (click)="keyboardClick(9)">9</button>   
+        <button type="button" (click)="keyboardClick(0)">0</button>      
+        <button type="button" (click)="keyboardClick('*')">*</button>   
+        <button type="button" (click)="keyboardClick('minus')">Del</button>    
     </form>
 </div>

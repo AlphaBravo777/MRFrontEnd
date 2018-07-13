@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { UrlsService } from '../../../core/urls.service';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
 })
 export class StockTakingService {
 
-    constructor(private http: HttpClient, private _urlService: UrlsService) { }
+    constructor(private http: HttpClient, private _urlService: UrlsService, private _router: Router) { }
 
     private productsUrl = this._urlService.rootUrl + 'api/products/';
 
@@ -34,7 +35,12 @@ export class StockTakingService {
                 }
             }
         }
-        this.deleteAllTimeProcessedStock(time).subscribe(x => console.log(x));
+        this.deleteAllTimeProcessedStock(time).subscribe(x => {
+            if (!x) {
+                // console.log('Order success');
+                this._router.navigate(['user/user-nav/']);
+            }
+        });
         console.log(finalArray);
         return this.http.post<any>(this.productsUrl + 'input/', finalArray);
     }
@@ -44,6 +50,7 @@ export class StockTakingService {
         return this.http.delete<any>(timeUrl);
     }
 }
+
 
         // const product = [
         //         {'id': 1, 'prodName': 'SV1', 'amount': '22', 'time' : '06:00:00'},

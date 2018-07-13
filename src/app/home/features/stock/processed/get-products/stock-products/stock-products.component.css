@@ -1,8 +1,27 @@
 table {
-    margin-top: 10px;
     font-family: arial, sans-serif;
     /*border-collapse: collapse;*/
     width: 100%;
+    font-size: 1.2em;
+}
+
+table h3 {
+    margin-top: 0px;
+}
+
+.wrapper {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(45%, 0.45fr) ) ;
+}
+
+.groups {
+    align-self: start;
+}
+
+#finishButton {
+    background-color: rgb(211, 106, 112);
+    /* float: right; */
 }
 
 td, th {
@@ -16,6 +35,8 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 
-table {
-    font-size: 1.2em;
+#spanning{
+    display: grid;
+    white-space: nowrap;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }

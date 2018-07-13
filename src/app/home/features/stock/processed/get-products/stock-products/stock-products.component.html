@@ -1,24 +1,33 @@
-<a class='buttonMenus' *ngFor="let group of processedGroup" (click)="BatchGroup(group.group)">{{group.group}}</a>
-<button type="button" (click)="stockFinished()">Finished With Stock</button>
-
-<app-ind-stock-prod [productName]='productName' [amounts]='amounts'></app-ind-stock-prod>
-
-<table>
-    <div *ngFor="let group of processedGroup">
-        <div *ngIf="group.group == batch">
-            <h3>{{group.group}}</h3>
-            <tr>
-                <th>Brand</th>
-                <th>Packaging</th>
-                <th>Weight</th>
-                <th>Code</th>
-            </tr>
-            <tr *ngFor="let stock of group.stock">
-                <td>{{stock.brand}}</td>
-                <td>{{stock.packaging}}</td>
-                <td>{{stock.unitweight}}kg</td>
-                <td><a class='buttonMenus' (click)="changeProduct(stock.productid)">{{stock.productid}}</a></td>
-            </tr>
-        </div>
+<div>
+    <a class='buttonMenus' id='finishButton' (click)="stockFinished()">Finished Stocktaking</a>
+    <a class='buttonMenus' id='finishButton' (click)="startStocktaking()">Clear Stock</a>
+</div>
+<app-ind-stock-prod (changeProductName)="changeProduct($event)" [productName]='productName' [amounts]='amounts'></app-ind-stock-prod>
+<div class='wrapper'>
+    <div class='groups' id='spanning'>
+        <a class='buttonMenus' *ngFor="let group of processedGroup" (click)="BatchGroup(group.group)">{{group.group}}</a>
     </div>
-</table>
+    <div class='tables'>
+        <table>
+            <div *ngFor="let group of processedGroup">
+                <div *ngIf="group.group == batch">
+                    <h3>{{group.group}}</h3>
+                    <tr>
+                        <th>Brand</th>
+                        <th>Packaging</th>
+                        <th>Weight</th>
+                        <th>Code</th>
+                    </tr>
+                    <tr *ngFor="let stock of group.stock">
+                        <td>{{stock.brand}}</td>
+                        <td>{{stock.packaging}}</td>
+                        <td>{{stock.unitweight}}kg</td>
+                        <td>
+                            <a class='buttonMenus' (click)="changeProduct(stock.productid)">{{stock.productid}}</a>
+                        </td>
+                    </tr>
+                </div>
+            </div>
+        </table>
+    </div>
+</div>

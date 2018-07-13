@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 
 import { ProcessedStock } from './../../stock-services/Stock';
 import { StockTakingService } from './../../stock-services/stock-taking.service';
+import { first } from 'rxjs/operators';
 
 @Component({
     selector: 'app-get-products',
     templateUrl: './get-products.component.html',
     styleUrls: ['./get-products.component.css']
 })
-export class GetProductsComponent implements OnInit {
+export class GetProductsComponent implements OnInit, OnDestroy {
 
     constructor(private _stockTakingService: StockTakingService) { }
 
@@ -31,10 +32,10 @@ export class GetProductsComponent implements OnInit {
     }
 
     getStocklist(time) {
-        this._stockTakingService.getTimedStock(time)
+        this._stockTakingService.getTimedStock(time).pipe(first())
         .subscribe(response => {
+            console.log('Subscriber = ', response);
             const stock = this.gatherData(response);
-            // console.log('+++++++', stock);
             localStorage.setItem('stock', JSON.stringify(stock));
         },
             err => console.log(err)
@@ -67,6 +68,12 @@ export class GetProductsComponent implements OnInit {
         }
         return rb;
     }
+
+
+    ngOnDestroy(): void {
+        window.alert('You are about to navigate away');
+    }
+
 }
 
 // TODO: Sort different products into batches
