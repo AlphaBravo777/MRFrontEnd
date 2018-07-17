@@ -9,18 +9,9 @@ import { Router } from '@angular/router';
 })
 export class StockTakingService {
 
-    constructor(private http: HttpClient, private _urlService: UrlsService, private _router: Router) { }
+    constructor(private http: HttpClient, private _urlService: UrlsService, private router: Router) { }
 
     private productsUrl = this._urlService.rootUrl + 'api/products/';
-
-    getProducts() {
-        return this.http.get<any>(this.productsUrl);
-    }
-
-    getTimedStock(time: String) {
-        const timeUrl = this.productsUrl + time;
-        return this.http.get<any>(timeUrl);
-    }
 
     sendProcessedProducts() {
         const finalArray  = [];
@@ -38,7 +29,7 @@ export class StockTakingService {
         this.deleteAllTimeProcessedStock(time).subscribe(x => {
             if (!x) {
                 // console.log('Order success');
-                this._router.navigate(['user/user-nav/']);
+                this.router.navigate(['user/user-nav/']);
             }
         });
         console.log(finalArray);

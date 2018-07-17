@@ -20,6 +20,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.subscription = this.alertService.getMessage().subscribe(message => {
+            if (!message) {return; }
             this.message = message;
             console.log('===', message);
         });

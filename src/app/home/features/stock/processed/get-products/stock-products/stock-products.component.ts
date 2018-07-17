@@ -3,7 +3,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ProcessedStock, ProcessedGroup } from './../../../stock-services/Stock';
 import { BehaviorSubject } from 'rxjs';
 import { StockTakingService } from '../../../stock-services/stock-taking.service';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-stock-products',
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class StockProductsComponent implements OnInit {
 
-    private _products = new BehaviorSubject<ProcessedStock[]>([]);
+    private _productNames = new BehaviorSubject<ProcessedStock[]>([]);
     processedGroup: ProcessedGroup[];
     batch: String;
     productName = 'Select a product';
@@ -20,18 +19,18 @@ export class StockProductsComponent implements OnInit {
     amounts = [];
 
     @Input()
-    set products(value) {
-        this._products.next(value);
+    set productNames(value) {
+        this._productNames.next(value);
     }
-    get products() {
-        return this._products.getValue();
+    get productNames() {
+        return this._productNames.getValue();
     }
 
     constructor(private _stockTakingService: StockTakingService) { }
 
     ngOnInit() {
-        this._products.subscribe(x => {
-            this.processedGroup = this.groupByCategory(this.products);
+        this._productNames.subscribe(x => {
+            this.processedGroup = this.groupByCategory(this.productNames);
         });
     }
 

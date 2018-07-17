@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule} from './app-routing.module';
@@ -18,6 +19,8 @@ import { WebsiteNavComponent } from './home/website/website-nav/website-nav.comp
 import { UnderConstructionComponent } from './home/shared/under-construction/under-construction.component';
 import { AlertComponent } from './home/core/alerts/alert.component';
 import { AlertService } from './home/core/alerts/alert.service';
+import { DialogBoxComponent } from './home/core/dialog-box/dialog-box.component';
+import { MatDialogModule } from '../../node_modules/@angular/material';
 
 
 
@@ -30,9 +33,12 @@ import { AlertService } from './home/core/alerts/alert.service';
     WebsiteComponent,
     WebsiteNavComponent,
     UnderConstructionComponent,
-    AlertComponent
+    AlertComponent,
+    DialogBoxComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
+    MatDialogModule,
     WebsiteModule,
     BrowserModule,
     FormsModule,
@@ -51,6 +57,9 @@ import { AlertService } from './home/core/alerts/alert.service';
       useClass: TokenInterceptorService,
       multi: true
     }
+  ],
+  entryComponents: [
+    DialogBoxComponent,
   ],
   bootstrap: [AppComponent]
 })

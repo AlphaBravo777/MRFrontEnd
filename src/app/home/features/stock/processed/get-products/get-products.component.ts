@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { ProcessedStock } from './../../stock-services/Stock';
-import { StockTakingService } from './../../stock-services/stock-taking.service';
-import { first } from 'rxjs/operators';
-import { AlertService } from '../../../../core/alerts/alert.service';
+import { DialogBoxService } from '../../../../core/dialog-box/dialog-box.service';
+import { ProcessedStockService } from '../../stock-services/processed-stock.service';
+import { StockAPIService } from '../../stock-services/stock-api.service';
+
 
 @Component({
     selector: 'app-get-products',
@@ -12,75 +13,41 @@ import { AlertService } from '../../../../core/alerts/alert.service';
 })
 export class GetProductsComponent implements OnInit, OnDestroy {
 
-    constructor(private _stockTakingService: StockTakingService, private alertService: AlertService) { }
+    constructor(
+        private dialogBoxService: DialogBoxService,
+        private processedStockService: ProcessedStockService,
+        private stockAPI: StockAPIService
+    ) { }
 
-    products: ProcessedStock[];
-    processedStock = {};
-    processedTime = localStorage.getItem('stocktime');
+    productNames: ProcessedStock[];
+    processedStockTime = JSON.parse(localStorage.getItem('stocktime'));
 
     ngOnInit() {
-        this.getProducts();
-        this.getStocklist(JSON.parse(this.processedTime));
+        this.getProductNames();
+        this.getStocklist(this.processedStockTime);
     }
 
-    getProducts() {
-        this._stockTakingService.getProducts()
-        .subscribe(response => {
-            this.products = response;
-            // this.alertService.success('Stock data recieved');
-        },
-            err => console.log(err)
-        );
+    getProductNames(): void {
+        this.stockAPI.getProducts()
+            .subscribe(response => {
+                this.productNames = response;
+            },
+                err => console.log(err)
+            );
     }
 
-    getStocklist(time) {
-        this._stockTakingService.getTimedStock(time).pipe(first())
-        .subscribe(response => {
-            const stock = this.gatherData(response);
-            localStorage.setItem('stock', JSON.stringify(stock));
-        },
-            err => console.log(err)
-        );
+    getStocklist(time): void {
+        let processedStock;
+        this.stockAPI.getTimedStock(time)
+            .subscribe(stock => {
+                processedStock = this.processedStockService.groupStockData(stock);
+                localStorage.setItem('stock', JSON.stringify(processedStock));
+            },
+                err => console.log(err)
+            );
     }
-
-    gatherData(response) {
-        const final = {};
-        for (let i = 0; i < response.length; ++i) {
-            if (Object.keys(response[i])[0] in final) {
-                final[Object.keys(response[i])[0]] = final[Object.keys(response[i])[0]] + ',' + response[i][Object.keys(response[i])[0]];
-            } else {
-                final[Object.keys(response[i])[0]] = response[i][Object.keys(response[i])[0]];
-            }
-        }
-        return final;
-    }
-
-    turnIntoObject(arr) {
-        const rv = {};
-        const rb = {};
-        for (let i = 0; i < arr.length; ++i) {
-            Object.assign(rv, arr[i]);
-            }
-        for (const key in rv) {
-            if (rv.hasOwnProperty(key)) {
-                rv[key].replace(/"/g, '');
-                rb[key] = rv[key].replace(/[\[\]'"]+/g, '');
-            }
-        }
-        return rb;
-    }
-
 
     ngOnDestroy(): void {
-        window.alert('You are about to navigate away');
-        if (confirm('Are you sure you want to save this thing into the database?')) {
-            // Save it!
-        } else {
-            // Do nothing!
-        }
+        this.dialogBoxService.openConfirmationDialog();
     }
-
 }
-
-// TODO: Sort different products into batches
-// this.processedStock = {time: '16:00', RV1: [10, 20, 30], SV1: [40, 50, 60, '8*10']};
