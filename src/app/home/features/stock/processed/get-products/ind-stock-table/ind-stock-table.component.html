@@ -1,0 +1,21 @@
+<table>
+    <div *ngFor="let group of processedGroup">
+        <div *ngIf="group.group == batch">
+            <h3>{{group.group}}</h3>
+            <tr>
+                <th>Brand</th>
+                <th>Packaging</th>
+                <th>Weight</th>
+                <th>Code</th>
+            </tr>
+            <tr *ngFor="let stock of group.stock">
+                <td>{{stock.brand}}</td>
+                <td>{{stock.packaging}}</td>
+                <td>{{stock.unitweight}}kg</td>
+                <td>
+                    <a class='buttonMenus' (click)="changeProduct(stock.productid)">{{stock.productid}}</a>
+                </td>
+            </tr>
+        </div>
+    </div>
+</table>

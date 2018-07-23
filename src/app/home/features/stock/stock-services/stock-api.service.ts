@@ -21,4 +21,9 @@ export class StockAPIService {
         return this.http.get<any>(timeUrl);
     }
 
+    getAlternativeStock(time: String) {
+        const timeUrl = this.productsUrl + 'stock/' + time;
+        return this.http.get<any>(timeUrl);
+    }
+
 }

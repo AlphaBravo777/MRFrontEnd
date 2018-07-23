@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { StockAPIService } from './stock-services/stock-api.service';
 
 @Component({
     selector: 'app-stocks',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class StocksComponent implements OnInit {
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private stockAPI: StockAPIService) { }
 
     ngOnInit() {
     }
@@ -17,4 +18,11 @@ export class StocksComponent implements OnInit {
         localStorage.setItem('stocktime', JSON.stringify(time));
     }
 
+    test() {
+        this.stockAPI.getAlternativeStock('06:00').subscribe(stock => {
+            console.log(stock);
+        },
+            err => console.log(err)
+        );
+    }
 }

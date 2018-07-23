@@ -23,9 +23,6 @@ import { DialogBoxComponent } from './home/core/dialog-box/dialog-box.component'
 import { MatDialogModule } from '../../node_modules/@angular/material';
 
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,

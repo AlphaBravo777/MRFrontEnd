@@ -1,18 +1,21 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef  } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, OnDestroy  } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { StockTakingService } from '../../../stock-services/stock-taking.service';
+import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
 
 @Component({
     selector: 'app-ind-stock-prod',
     templateUrl: './ind-stock-prod.component.html',
     styleUrls: ['./ind-stock-prod.component.css']
 })
-export class IndStockProdComponent implements OnInit  {
+export class IndStockProdComponent implements OnInit, OnDestroy  {
+
+    constructor(private fb: FormBuilder,
+        private elRef: ElementRef,
+        private processedStockService: ProcessedStockService) {}
 
     private _amounts = new BehaviorSubject([]);
     private amountForm: FormGroup;
-    private total = 0;
     private arrayNumber: number;
     @Input() productName: string;
     @Input()
@@ -24,61 +27,29 @@ export class IndStockProdComponent implements OnInit  {
     }
     @Output() changeProductName: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor(private fb: FormBuilder, private _stockTakingService: StockTakingService, private elRef: ElementRef) {}
-
     ngOnInit() {
-        this._amounts.subscribe(x => {
-            this.buildAmountForm(x);
+        this._amounts.subscribe(amounts => {
+            this.buildAmountForm(amounts);
         });
     }
 
-    buildAmountForm(x) {
+    buildAmountForm(amounts) {
         this.amountForm = this.fb.group({
-            amounting: this.fb.array(x),
+            amounting: this.fb.array(amounts),
         });
     }
 
     submitResult() {
-        let a = this.amountForm.controls.amounting.value;
-        a = this.removeZeros(a);
-        const key = this.productName;
-        if (localStorage['stock']) {
-            const JSObject = JSON.parse(localStorage.getItem('stock'));
-            const b = a.toString();
-            JSObject[key] = b;
-            localStorage.setItem('stock', JSON.stringify(JSObject));
-        }
-    //    this.changeProduct('Select next product');
+        this.processedStockService.submitResult(this.amountForm.controls.amounting.value, this.productName);
     }
 
     addAmount() {
-        // console.log(this.productName);
         const control = <FormArray>this.amountForm.controls['amounting'];
         control.push(this.initItemRows());
-        // console.log(this.amountForm.controls.amounting.value);
-    }
-
-    removeZeros(array) {
-        for (let i = array.length - 1; i >= 0; i--) {
-            if (array[i] === '0' || array[i] === '' ) {
-               array.splice(i, 1);
-            }
-        }
-        return array;
     }
 
     initItemRows() {
         return this.fb.control('');
-    }
-
-    calculateTotal() {
-        let val;
-        this.total = 0;
-        const a = this.amountForm.controls.amounting.value;
-        for (val of a) {
-            console.log(Function('"use strict"; return (' + val + ')')());
-            this.total = this.total + Function('"use strict"; return (' + val + ')')();
-        }
     }
 
     public changeProduct(name: any): void { // Clears the window
@@ -101,6 +72,10 @@ export class IndStockProdComponent implements OnInit  {
         this.changeProduct(this.productName);
         this.elRef.nativeElement.querySelector(inputVar).focus();
         console.log(this.amountForm.controls.amounting.value[this.arrayNumber], this.productName);
+    }
+
+    ngOnDestroy(): void {
+        this._amounts.unsubscribe();
     }
 }
 

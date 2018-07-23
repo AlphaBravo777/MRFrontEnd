@@ -1,14 +1,3 @@
-table {
-    font-family: arial, sans-serif;
-    /*border-collapse: collapse;*/
-    width: 100%;
-    font-size: 1.2em;
-}
-
-table h3 {
-    margin-top: 0px;
-}
-
 .wrapper {
     display: grid;
     grid-gap: 10px;
@@ -22,17 +11,6 @@ table h3 {
 #finishButton {
     background-color: rgb(211, 106, 112);
     /* float: right; */
-}
-
-td, th {
-    font-size: .9rem;
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 2px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
 }
 
 #spanning{
