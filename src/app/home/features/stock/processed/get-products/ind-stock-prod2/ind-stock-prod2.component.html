@@ -1,0 +1,30 @@
+<div *ngIf='containers' class='main'>
+
+    <form [formGroup]="amountForm">
+        <div formArrayName="companies">
+            <div *ngFor="let comp of amountForm.get('companies')['controls']; let i=index">
+                <fieldset class='container'>
+                    <h3>{{comp.value.company}}</h3>
+                    <div [formGroupName]="i">
+                        <div formArrayName="projects">
+                            <span *ngFor="let project of comp.get('projects')['controls']; let j=index" class="inputs">
+                                <span [formGroupName]="j">
+                                    <input formControlName="projectName" />
+                                    <span>
+                                        <button class='redButton' (click)="deleteProject(comp.controls.projects, j)">X</button>
+                                    </span>
+                                </span>
+                            </span>
+                            <div>
+                                <button class='greenButton' (click)="addNewProject(comp.controls.projects)">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <br>
+    </form>
+
+    <pre>{{amountForm.value | json}}</pre>
+</div>

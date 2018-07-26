@@ -1,4 +1,4 @@
-export class ProcessedStock {
+export class ProductDetails {
     brand: String;
     packaging: String;
     unitweight: Number;
@@ -14,7 +14,22 @@ export class ProcessedStock {
     }
 }
 
-export class ProcessedGroup {
-    stock: ProcessedStock[];
+export class ProductGroup {
+    stock: ProductDetails[];
     group: String;
 }
+
+
+
+
+export class ProcessedStockProducts {
+    product: string;
+    mainContainer: ProcessedStockContainer[];
+}
+
+export class ProcessedStockContainer {
+    container: string;
+    amount: string[];
+}
+
+// When you have something with a ? mark like: 'age?: number', then it means that it is an optional parameter.

@@ -9,6 +9,8 @@ import { IndStockProdComponent } from './processed/get-products/ind-stock-prod/i
 import { ReactiveFormsModule } from '@angular/forms';
 import { IndStockTableComponent } from './processed/get-products/ind-stock-table/ind-stock-table.component';
 import { NumKeyboardComponent } from './processed/get-products/num-keyboard/num-keyboard.component';
+import { IndStockProd2Component } from './processed/get-products/ind-stock-prod2/ind-stock-prod2.component';
+import { IndStockContainerComponent } from './processed/get-products/ind-stock-prod2/ind-stock-container/ind-stock-container.component';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import { NumKeyboardComponent } from './processed/get-products/num-keyboard/num-
     IndStockProdComponent,
     IndStockTableComponent,
     NumKeyboardComponent,
+    IndStockProd2Component,
+    IndStockContainerComponent,
   ],
   providers: [
     StockTakingService

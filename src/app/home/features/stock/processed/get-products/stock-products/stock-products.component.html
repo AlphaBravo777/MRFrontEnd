@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <a class='buttonMenus' id='finishButton' (click)="uploadProcessedStock()">Finished Stocktaking</a>
     <a class='buttonMenus' id='finishButton' (click)="startStocktaking()">Clear Stock</a>
 </div>
@@ -9,3 +9,22 @@
     </div>
     <app-ind-stock-table *ngIf="processedGroup" [processedGroup]="processedGroup" [batch]="batch" (changeProductName)="changeProduct($event)"></app-ind-stock-table>
 </div>  
+
+------------------------------------------------------------------------------------------------------------------------------ -->
+<div *ngIf="processedGroup && processedStockMain && productContainers">
+    <app-ind-stock-prod2 *ngIf='productName && productContainerOptions' 
+        [productName]='productNameWithContainer' 
+        [containers]='productContainerOptions'>
+    </app-ind-stock-prod2>
+    <div class='wrapper'>
+        <div class='groups' id='spanning'>
+            <h3>Batch Groups</h3><br>
+            <a class='buttonMenus' *ngFor="let group of processedGroup" (click)="BatchGroup(group.group)">{{group.group}}</a>
+        </div>
+        <app-ind-stock-table *ngIf="processedGroup" 
+            [processedGroup]="processedGroup" 
+            [batch]="batch" 
+            (changeProductName)="changeProduct2($event)">
+        </app-ind-stock-table>
+    </div>
+</div>

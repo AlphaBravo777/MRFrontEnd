@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StockAPIService } from './stock-api.service';
-import { ProcessedGroup, ProcessedStock } from './Stock';
+import { ProductGroup, ProductDetails } from './Stock';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +21,7 @@ export class ProcessedStockService {
         return groupedStock;
     }
 
-    groupByCategory(products: ProcessedStock[]): ProcessedGroup[] {
+    groupByCategory(products: ProductDetails[]): ProductGroup[] {
         if (!products) {return; } // This helps also to avoid an "undefined" error
         const categories = new Set(products.map(x => x.batchgroup).sort());
         const result = Array.from(categories).map(x => ({

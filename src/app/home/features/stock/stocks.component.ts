@@ -18,11 +18,4 @@ export class StocksComponent implements OnInit {
         localStorage.setItem('stocktime', JSON.stringify(time));
     }
 
-    test() {
-        this.stockAPI.getAlternativeStock('06:00').subscribe(stock => {
-            console.log(stock);
-        },
-            err => console.log(err)
-        );
-    }
 }

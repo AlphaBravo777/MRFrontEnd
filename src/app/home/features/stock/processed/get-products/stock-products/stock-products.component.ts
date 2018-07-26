@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
-import { ProcessedStock, ProcessedGroup } from './../../../stock-services/Stock';
+import { ProductDetails, ProductGroup, ProcessedStockProducts } from './../../../stock-services/Stock';
 import { BehaviorSubject } from 'rxjs';
 import { StockTakingService } from '../../../stock-services/stock-taking.service';
 import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
@@ -14,14 +14,19 @@ export class StockProductsComponent implements OnInit, OnDestroy {
 
     constructor(private stockTakingService: StockTakingService, private processedStockService: ProcessedStockService) { }
 
-    private _productNames = new BehaviorSubject<ProcessedStock[]>([]);
-    processedGroup: ProcessedGroup[];
+    private _productNames = new BehaviorSubject<ProductDetails[]>([]);
+    processedGroup: ProductGroup[];
     batch: String;
     productName = 'Select a product';
+    productNameWithContainer = {};
+    productContainerOptions;
     processedStock = {};
     amounts = [];
 
-    @Input()
+    @Input() processedStockMain: ProcessedStockProducts[];  // This can just load with *ngIF cause it only comes in once
+    @Input() productContainers: any[];
+
+    @Input()   // This can just load with *ngIF cause it only comes in once
     set productNames(value) {
         this._productNames.next(value);
     }
@@ -30,6 +35,7 @@ export class StockProductsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        // this can probably all be done in parent component and just the group inserted here without any change detection
         this._productNames.subscribe(x => {
             this.processedGroup = this.processedStockService.groupByCategory(this.productNames);
         });
@@ -40,7 +46,29 @@ export class StockProductsComponent implements OnInit, OnDestroy {
         console.log(this.batch);
     }
 
-    changeProduct(productName) {
+
+    changeProduct2(productName) {
+        for (let i = 0; i < this.processedStockMain.length; ++i) {
+            if (this.processedStockMain[i].product === productName) {
+                this.productNameWithContainer = this.processedStockMain[i];
+                this.getContainers(productName);
+                return;
+            }
+        }
+        console.log('There was no stock');
+        this.productNameWithContainer = {};
+    }
+
+    getContainers(productName) {
+        for (let i = 0; i < this.productContainers.length; ++i) {
+            if (this.productContainers[i].name === productName) {
+                this.productContainerOptions = this.productContainers[i];
+                return;
+            }
+        }
+    }
+
+    changeProduct(productName) { // This is the function that starts the invividual product component
         const stock =  localStorage.getItem('stock');
         this.processedStock = JSON.parse(stock);
             if (this.processedStock.hasOwnProperty(productName)) {

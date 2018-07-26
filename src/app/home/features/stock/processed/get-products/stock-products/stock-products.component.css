@@ -18,3 +18,8 @@
     white-space: nowrap;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
+
+h3 {
+    font-size: 1.3em;
+    margin-top: 0px;
+}
