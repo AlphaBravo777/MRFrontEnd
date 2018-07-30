@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { IProcessedStockContainer, IProcessedStockProducts } from './Stock';
-import { container } from '../../../../../../node_modules/@angular/core/src/render3/instructions';
 
 @Injectable({
     providedIn: 'root'
@@ -10,52 +9,33 @@ export class ProcessedStockFormService {
 
     constructor(private fb: FormBuilder) { }
 
-    toFormGroup(data: IProcessedStockProducts) {
-        // let group: any = {};
-        // console.log('----------- ', data);
-
-        // for (let i = 0; i < data.mainContainer.length; ++i) {
-        //     group[i] = this.fb.group({
-        //     productName: this.fb.control(data.mainContainer[i].container),
-        //     amounts: this.fb.array(data.mainContainer[i].amount),
-        //     });
-
-        // }
-
-        // data.mainContainer.forEach(x => {
-        //     let i = 0;
-        //     group[x.container] = this.fb.group({
-        //             productName: this.fb.control(data.mainContainer[i].container),
-        //             amounts: this.fb.array(data.mainContainer[i].amount),
-        //             });
-        //     i = i + 1;
-        //   });
-
-
-        // return new FormGroup(group);
+    turnIntoProductUnit(productName, containerAmounts) {
+        const productUnit: IProcessedStockProducts = { product: productName, mainContainer: [] };
+        for (let a = 0; a < containerAmounts.mainContainer.length; ++a) {
+            const amount: string[] = [];
+            for (let b = 0; b < containerAmounts.mainContainer[a].amount.length; ++b) {
+                if (containerAmounts.mainContainer[a].amount[b].amount !== '') {
+                    amount.push(containerAmounts.mainContainer[a].amount[b].amount);
+                }
+            }
+            const container = { container: containerAmounts.mainContainer[a].container, amount: amount };
+            productUnit.mainContainer.push(container);
+            console.log('-------- ', containerAmounts.mainContainer[a]);
+        }
+        console.log('-------- ', containerAmounts.mainContainer);
+        this.checkToSeeIfProductThere(productUnit);
     }
 
-    //     containers.mainContainer.forEach(container => {
-    //         group[container[0]] =
-    //               new FormControl(container.value || '', Validators.required)
-    //             : new FormControl(container.value || '');
-    //     });
-    //     return new FormGroup(group);
-    // }
-
-
+    checkToSeeIfProductThere(productName: IProcessedStockProducts) {
+        const stock: IProcessedStockProducts[] = JSON.parse(localStorage.getItem('stock'));
+        for (let prodnum = 0; prodnum < stock.length; ++prodnum) {
+            if (stock[prodnum].product === productName.product) {
+                stock[prodnum].mainContainer = productName.mainContainer;
+                localStorage.removeItem('stock');
+                localStorage.setItem('stock', JSON.stringify(stock));
+                return;
+            }
+        }
+        console.log('------ STOCK DOES NOT EXIST !!!!! ------ ');
+    }
 }
-
-
-// private amountForm: FormGroup;
-
-// ngOnInit() {
-//     // console.log('+++ ', this.containerWithAmount.amount);
-//     this.buildAmountForm(this.containerWithAmount.amount);
-// }
-
-// buildAmountForm(amounts) {
-//     this.amountForm = this.fb.group({
-//         amounting: this.fb.array(amounts),
-//     });
-// }

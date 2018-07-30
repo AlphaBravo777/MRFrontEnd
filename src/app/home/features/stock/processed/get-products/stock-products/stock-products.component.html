@@ -11,6 +11,8 @@
 </div>  
 
 ------------------------------------------------------------------------------------------------------------------------------ -->
+<a class='buttonMenus' (click)="submitToDataBase()" >FINISH AND SAVE</a>
+<a class='buttonMenus' (click)="clearAllProducts()" >Clear All Products</a>
 <div *ngIf="processedGroup && processedStockMain && productContainers">
     <app-ind-stock-prod2 *ngIf='productName && productContainerOptions' 
         [productName]='productNameWithContainer' 

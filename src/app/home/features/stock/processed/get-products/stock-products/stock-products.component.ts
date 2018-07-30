@@ -4,6 +4,7 @@ import { IProductDetails, IProductGroup, IProcessedStockProducts, IContainerGrou
 import { BehaviorSubject } from 'rxjs';
 import { StockTakingService } from '../../../stock-services/stock-taking.service';
 import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
+import { StockAPIService } from '../../../stock-services/stock-api.service';
 
 @Component({
     selector: 'app-stock-products',
@@ -12,7 +13,9 @@ import { ProcessedStockService } from '../../../stock-services/processed-stock.s
 })
 export class StockProductsComponent implements OnInit, OnDestroy {
 
-    constructor(private stockTakingService: StockTakingService, private processedStockService: ProcessedStockService) { }
+    constructor(private stockTakingService: StockTakingService,
+        private processedStockService: ProcessedStockService,
+        private stockAPIService: StockAPIService) { }
 
     private _productNames = new BehaviorSubject<IProductDetails[]>([]);
     processedGroup: IProductGroup[];
@@ -88,6 +91,17 @@ export class StockProductsComponent implements OnInit, OnDestroy {
     startStocktaking() {
         const item = {};
         localStorage.setItem('stock', JSON.stringify(item));
+    }
+
+    submitToDataBase() {
+        this.processedStockService.insertProcStockIntoDB();
+    }
+
+    clearAllProducts() {
+        this.stockAPIService.deleteAllTimeProcessedStock(JSON.parse(localStorage.getItem('stocktime')))
+        .subscribe(x => {
+            console.log(x);
+        });
     }
 
     ngOnDestroy(): void {

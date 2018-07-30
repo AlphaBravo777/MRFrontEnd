@@ -37,6 +37,7 @@ export class IRawProcessedStock {
     name: string;
     amount: string;
     container: string;
+    time?: string;
 }
 
 export class IProductContainers {
@@ -48,13 +49,3 @@ export class IContainerGroups {
     name: string;
     containers: string[];
 }
-
-
-
-
-// [
-// {name: "SV1", amount: "3", container: "Box"}
-// {name: "SV1", amount: "3", container: "Box"}
-// {name: "SV1", amount: "3", container: "Box"}
-// ]
-// When you have something with a ? mark like: 'age?: number', then it means that it is an optional parameter.

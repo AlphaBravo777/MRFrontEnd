@@ -32,10 +32,8 @@ export class GetProductsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.getProductNames();
-        this.getStocklist(this.processedStockTime);
         this.productContainers = this.stockAPI.getHardcodedProductContainers();  // ######
         this.getProcessedStockMain();
-        // this.processedStockMain = this.stockAPI.getHardcodedStock();
 
     }
 
@@ -82,7 +80,7 @@ export class GetProductsComponent implements OnInit, OnDestroy {
     this.stockAPI.getTimedStock(this.processedStockTime)
         .subscribe(stock => {
             this.grantTotal = this.getGrandTotal(stock, processedStockMain);
-            console.log(this.grantTotal);
+            // console.log(this.grantTotal);
             this.processedStockMain = this.grantTotal;
         });
     }
@@ -99,27 +97,16 @@ export class GetProductsComponent implements OnInit, OnDestroy {
                 }
             }
         }
+        localStorage.setItem('stock', JSON.stringify(processedStockMain));
         return processedStockMain;
     }
 
-
+// {product: "SG2", mainContainer: [{container: "Box", amount: ["3", "4", "7*9", "22", "9*9", "6*6"]},…]}
 
     getProductNames(): void {
         this.stockAPI.getProducts()
             .subscribe(response => {
                 this.productNames = response;
-            },
-                err => console.log(err)
-            );
-    }
-
-    getStocklist(time): void {  // Gets the stock-list and puts it into the localstorage after grouping
-        let processedStock: IProcessedStockProducts[];
-        this.stockAPI.getTimedStock(time)
-            .subscribe(stock => {
-                processedStock = this.processedStockService.groupStockData(stock);
-                localStorage.setItem('stock', JSON.stringify(processedStock));
-                console.log(stock);
             },
                 err => console.log(err)
             );

@@ -29,6 +29,14 @@ export class StockAPIService {
         return this.http.get<IProductContainers[]>(timeUrl);
     }
 
+    deleteAllTimeProcessedStock(time: String) {
+        const timeUrl = this.productsUrl + 'delete/' + time;
+        return this.http.delete<any>(timeUrl);
+    }
+
+    enterAllProcessedProductsIntoDB(finalArray) {
+        return this.http.post<any>(this.productsUrl + 'input/', finalArray);
+    }
 
 
     getHardcodedStock(): IProcessedStockProducts[] {

@@ -1,89 +1,91 @@
 import { Injectable } from '@angular/core';
 import { StockAPIService } from './stock-api.service';
-import {    IProductGroup,
-            IProductDetails,
-            IProcessedStockProducts,
-            IRawProcessedStock,
-            IProductContainers,
-            IProcessedStockContainer } from './Stock';
+import {
+    IProductGroup,
+    IProductDetails,
+    IProcessedStockProducts,
+    IRawProcessedStock,
+    IProductContainers,
+    IProcessedStockContainer
+} from './Stock';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProcessedStockService {
 
-    constructor(private stockAPI: StockAPIService) { }
+    constructor(private stockAPI: StockAPIService, private router: Router) { }
 
-    getProcessedStockMain(): IProcessedStockProducts[] {
-        let ProdConGroup: IProcessedStockProducts[] = [];
-        this.stockAPI.getProductContainers()
-            .subscribe(prodContainers => {
-                ProdConGroup = this.getProductsAndContainers(prodContainers);
-                console.log('1', ProdConGroup);
-                return ProdConGroup;
-            }
-        );
-        return ProdConGroup;
+    insertProcStockIntoDB() {
+        const time = JSON.parse(localStorage.getItem('stocktime'));
+        const databaseArray = this.getStockReadyForDatabase(time);
+        this.deleteOldStock(time);
+        this.insertStockIntoDB(databaseArray);
+        this.router.navigate(['user/user-nav/']);
     }
 
-    getProductsAndContainers(prodContainers: IProductContainers[]): IProcessedStockProducts[] {
-        let emptyProdConGroup: IProcessedStockProducts[] = [];
-        let fullprodConGroup: IProcessedStockProducts[] = [];
-        this.stockAPI.getProducts()
-            .subscribe(products => {
-                emptyProdConGroup = this.createGroupWithProducts(products);
-                fullprodConGroup = this.insertContainers(emptyProdConGroup, prodContainers);
-                return fullprodConGroup;
-            });
-        return fullprodConGroup;
-    }
-
-    createGroupWithProducts(products: IProductDetails[]): IProcessedStockProducts[] {
-        const emptyProdConGroup: IProcessedStockProducts[] = [];
-        for (let prodnum = 0; prodnum < products.length; ++prodnum) {
-            const emptyProdCon: IProcessedStockProducts = {product: products[prodnum].productid, mainContainer: []};
-            emptyProdConGroup.push(emptyProdCon);
-        }
-        return emptyProdConGroup;
-    }
-
-    insertContainers(fullProdConGroup: IProcessedStockProducts[], containers: IProductContainers[]): IProcessedStockProducts[] {
-        for (let connum = 0; connum < containers.length; ++connum) {
-            for (let prodgroup = 0; prodgroup < fullProdConGroup.length; ++prodgroup) {
-                if (fullProdConGroup[prodgroup].product === containers[connum].productid) {
-                    const con: IProcessedStockContainer = {container: containers[connum].container, amount: []};
-                    fullProdConGroup[prodgroup].mainContainer.push(con);
+    getStockReadyForDatabase(time) {
+        const finalArray = [];
+        const stockArray: IProcessedStockProducts[] = JSON.parse(localStorage.getItem('stock'));
+        for (let array = 0; array < stockArray.length; ++array) {
+            if (stockArray[array].mainContainer.length > 0) {
+                for (let mainCon = 0; mainCon < stockArray[array].mainContainer.length; ++mainCon) {
+                    if (stockArray[array].mainContainer[mainCon].amount.length > 0) {
+                        for (let amt = 0; amt < stockArray[array].mainContainer[mainCon].amount.length; ++amt) {
+                            const name = stockArray[array].product;
+                            const amount = stockArray[array].mainContainer[mainCon].amount[amt];
+                            const container = stockArray[array].mainContainer[mainCon].container;
+                            const indProduct = { prodName: name, amount: amount, container: container, time: time };
+                            finalArray.push(indProduct);
+                        }
+                    }
                 }
             }
         }
-        return fullProdConGroup;
+        return finalArray;
     }
 
-    groupStockData(stock: IRawProcessedStock[]): IProcessedStockProducts[] {
-        const groupedStock: IProcessedStockProducts[] = [];
-        const init = { product: stock[0].name, mainContainer: [{ container: stock[0].container, amount: [stock[0].amount] }] };
-        groupedStock.push(init);
-        for (let b = 0; b < groupedStock.length; ++b) {
-            for (let a = 1; a < stock.length; ++a) {
-                if (stock[a].name === groupedStock[b].product) {
-                    const holder = { container: stock[a].container, amount: [stock[a].amount] };
-                    groupedStock[b].mainContainer.push(holder);
-                    break;
-                }
+    deleteOldStock(time) {
+        this.stockAPI.deleteAllTimeProcessedStock(time).subscribe(x => {
+            if (!x) {
+                console.log('Orders deleted');
+            } else {
+                console.log('Orders NOT deleted');
             }
-            // tslint:disable-next-line:max-line-length
-            // const holder2 = { product: stock[a].name, mainContainer: [{ container: stock[a].container, amount: [stock[a].amount] }] };
-            // groupedStock.push(holder2);
-        }
-        // if (Object.keys(stock[a])[0] in groupedStock) {
-        // tslint:disable-next-line:max-line-length
-        //     groupedStock[Object.keys(stock[a])[0]] = groupedStock[Object.keys(stock[a])[0]] + ',' + stock[a][Object.keys(stock[a])[0]];
-        // } else {
-        //     groupedStock[Object.keys(stock[a])[0]] = stock[a][Object.keys(stock[a])[0]];
-        // }
-        console.log('---- ', groupedStock);
-        return groupedStock;
+        });
     }
+
+    insertStockIntoDB(databaseArray) {
+        this.stockAPI.enterAllProcessedProductsIntoDB(databaseArray).subscribe(x => {
+            console.log(x);
+        });
+    }
+
+    // sendProcessedProducts() {
+    //     const finalArray  = [];
+    //     const time = JSON.parse(localStorage.getItem('stocktime'));
+    //     const stock = JSON.parse(localStorage.getItem('stock'));
+    //     for (const key in stock) {
+    //         if (stock.hasOwnProperty(key)) {
+    //             const array = stock[key].split(',');
+    //             for (let a = 0; a < array.length; ++a) {
+    //                 const product = {'prodName': key, 'amount': array[a], 'time': time};
+    //                 finalArray.push(product);
+    //             }
+    //         }
+    //     }
+    //     this.deleteAllTimeProcessedStock(time).subscribe(x => {
+    //         if (!x) {
+    //             // console.log('Order success');
+    //             this.router.navigate(['user/user-nav/']);
+    //         }
+    //     });
+    //     console.log(finalArray);
+    //     return this.http.post<any>(this.productsUrl + 'input/', finalArray);
+    // }
+
+
 
     groupByCategory(products: IProductDetails[]): IProductGroup[] {
         if (!products) { return; } // This helps also to avoid an "undefined" error

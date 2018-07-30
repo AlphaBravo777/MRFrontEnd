@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { ProcessedStockFormService } from '../../../stock-services/processed-stock-form.service';
 import { FormGroup, FormBuilder, FormArray } from '../../../../../../../../node_modules/@angular/forms';
 import { IProcessedStockContainer, IProcessedStockProducts } from '../../../stock-services/Stock';
+import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
 
 @Component({
     selector: 'app-ind-stock-prod2',
@@ -10,32 +11,29 @@ import { IProcessedStockContainer, IProcessedStockProducts } from '../../../stoc
 })
 export class IndStockProd2Component implements OnInit, OnChanges {
 
-    constructor(private psf: ProcessedStockFormService, private fb: FormBuilder) { }
+    constructor(private processedStockFormService: ProcessedStockFormService, private fb: FormBuilder) { }
 
     @Input() productName: IProcessedStockProducts;
     @Input() containers;
     amountForm: FormGroup;
 
     ngOnInit() {
-        console.log('1234', this.productName);
-        // this.form = this.psf.toFormGroup(this.productName);
-        // this.buildAmountForm(this.productName);
         this.buildForm();
     }
 
     buildForm() {
         this.amountForm = this.fb.group({
-            product: this.fb.array([])
+            mainContainer: this.fb.array([])
         });
         this.setCompanies();
     }
 
     setCompanies() {
-        const control = <FormArray>this.amountForm.controls.product;
+        const control = <FormArray>this.amountForm.controls.mainContainer;
         this.productName.mainContainer.forEach(x => {
             control.push(this.fb.group({
                 container: x.container,
-                amounts: this.setProjects(x)
+                amount: this.setProjects(x)
             }));
         });
     }
@@ -62,63 +60,14 @@ export class IndStockProd2Component implements OnInit, OnChanges {
     }
 
     amountFormSubmit() {
-        console.log('Form was submitted');
+        // console.log(this.amountForm.value);
+        this.processedStockFormService.turnIntoProductUnit(this.productName.product, this.amountForm.value);
     }
-
-
-
-
-
-
-
-
-
-
-
-    // --------------------------------------------------------------------------
-
-    // buildAmountForm(amounts: ProcessedStockProducts) {
-    //     const formArray = [];
-    //     for (let i = 0; i < amounts.mainContainer.length; ++i) {
-    //         formArray[i] = this.fb.group({
-    //             container : this.fb.control(amounts.mainContainer[i].container),
-    //             amount : this.fb.array(amounts.mainContainer[i].amount),
-    //         });
-    //     }
-    //     this.amountForm = this.fb.group({
-    //         productArray: this.fb.array(formArray)
-    //     });
-    //     console.log('------' , this.amountForm);
-    // }
-
-
-    // buildAmountForm(amounts: ProcessedStockProducts) {
-    //     const formArray = [];
-    //     for (let i = 0; i < amounts.mainContainer.length; ++i) {
-    //         formArray[i] = this.fb.group({
-    //             container : this.fb.control(amounts.mainContainer[i].container),
-    //             amount : this.fb.array(amounts.mainContainer[i].amount),
-    //         });
-    //     }
-    //     this.amountForm = this.fb.array(formArray);
-    //     console.log(this.amountForm);
-    // }
-
-    // data.mainContainer.forEach(x => {
-    //     let i = 0;
-    //     group[x.container] = this.fb.group({
-    //             productName: this.fb.control(data.mainContainer[i].container),
-    //             amounts: this.fb.array(data.mainContainer[i].amount),
-    //             });
-    //     i = i + 1;
-    //   });
-
-    // { "container": "Crate", "name": [ "6", "7", "8 * 9" ] }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['productName']) {
             this.buildForm();
-            console.log(this.productName);
+            // console.log(this.productName);
             // this.buildAmountForm(this.productName);
         }
     }

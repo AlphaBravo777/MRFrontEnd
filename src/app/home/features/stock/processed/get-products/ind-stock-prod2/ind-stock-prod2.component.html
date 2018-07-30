@@ -4,21 +4,21 @@
         <div *ngFor='let con of containers.containers'>
             <fieldset class='container'>
                 <h3 class='miniH3'>{{con}}</h3>
-                <div formArrayName="product">
-                    <div *ngFor="let comp of amountForm.get('product')['controls']; let i=index">
+                <div formArrayName="mainContainer">
+                    <div *ngFor="let comp of amountForm.get('mainContainer')['controls']; let i=index">
                         <span *ngIf='comp.value.container==con'>
                             <div [formGroupName]="i">
-                                <div formArrayName="amounts">
-                                    <span *ngFor="let project of comp.get('amounts')['controls']; let j=index" class="inputs">
+                                <div formArrayName="amount">
+                                    <span *ngFor="let project of comp.get('amount')['controls']; let j=index" class="inputs">
                                         <span [formGroupName]="j">
                                             <input formControlName="amount" />
                                             <span>
-                                                <button class='redButton' type="button" (click)="deleteProject(comp.controls.amounts, j)">X</button>
+                                                <button class='redButton' type="button" (click)="deleteProject(comp.controls.amount, j)">X</button>
                                             </span>
                                         </span>
                                     </span>
                                     <div>
-                                        <button class='greenButton' type="button" (click)="addNewProject(comp.controls.amounts)">Add</button>
+                                        <button class='greenButton' type="button" (click)="addNewProject(comp.controls.amount)">Add</button>
                                     </div>
                                 </div>
                             </div>
