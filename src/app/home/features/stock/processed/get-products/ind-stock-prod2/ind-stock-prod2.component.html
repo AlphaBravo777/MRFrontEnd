@@ -1,30 +1,33 @@
 <div *ngIf='containers' class='main'>
-
-    <form [formGroup]="amountForm">
-        <div formArrayName="companies">
-            <div *ngFor="let comp of amountForm.get('companies')['controls']; let i=index">
-                <fieldset class='container'>
-                    <h3>{{comp.value.company}}</h3>
-                    <div [formGroupName]="i">
-                        <div formArrayName="projects">
-                            <span *ngFor="let project of comp.get('projects')['controls']; let j=index" class="inputs">
-                                <span [formGroupName]="j">
-                                    <input formControlName="projectName" />
-                                    <span>
-                                        <button class='redButton' (click)="deleteProject(comp.controls.projects, j)">X</button>
+    <form [formGroup]="amountForm" (ngSubmit)='amountFormSubmit()'>
+        <h3>Product: {{productName.product}}</h3>
+        <div *ngFor='let con of containers.containers'>
+            <fieldset class='container'>
+                <h3 class='miniH3'>{{con}}</h3>
+                <div formArrayName="product">
+                    <div *ngFor="let comp of amountForm.get('product')['controls']; let i=index">
+                        <span *ngIf='comp.value.container==con'>
+                            <div [formGroupName]="i">
+                                <div formArrayName="amounts">
+                                    <span *ngFor="let project of comp.get('amounts')['controls']; let j=index" class="inputs">
+                                        <span [formGroupName]="j">
+                                            <input formControlName="amount" />
+                                            <span>
+                                                <button class='redButton' type="button" (click)="deleteProject(comp.controls.amounts, j)">X</button>
+                                            </span>
+                                        </span>
                                     </span>
-                                </span>
-                            </span>
-                            <div>
-                                <button class='greenButton' (click)="addNewProject(comp.controls.projects)">Add</button>
+                                    <div>
+                                        <button class='greenButton' type="button" (click)="addNewProject(comp.controls.amounts)">Add</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </span>
                     </div>
-                </fieldset>
-            </div>
+                </div>
+            </fieldset>
         </div>
-        <br>
+        <button class='goldButton' type="submit">Submit Total</button>
     </form>
-
-    <pre>{{amountForm.value | json}}</pre>
+    <!-- <pre>{{amountForm.value | json}}</pre> -->
 </div>

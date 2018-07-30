@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ProcessedStockFormService } from '../../../stock-services/processed-stock-form.service';
 import { FormGroup, FormBuilder, FormArray } from '../../../../../../../../node_modules/@angular/forms';
-import { ProcessedStockContainer, ProcessedStockProducts } from '../../../stock-services/Stock';
+import { IProcessedStockContainer, IProcessedStockProducts } from '../../../stock-services/Stock';
 
 @Component({
     selector: 'app-ind-stock-prod2',
@@ -12,7 +12,7 @@ export class IndStockProd2Component implements OnInit, OnChanges {
 
     constructor(private psf: ProcessedStockFormService, private fb: FormBuilder) { }
 
-    @Input() productName: ProcessedStockProducts;
+    @Input() productName: IProcessedStockProducts;
     @Input() containers;
     amountForm: FormGroup;
 
@@ -25,26 +25,26 @@ export class IndStockProd2Component implements OnInit, OnChanges {
 
     buildForm() {
         this.amountForm = this.fb.group({
-            companies: this.fb.array([])
+            product: this.fb.array([])
         });
         this.setCompanies();
     }
 
     setCompanies() {
-        const control = <FormArray>this.amountForm.controls.companies;
+        const control = <FormArray>this.amountForm.controls.product;
         this.productName.mainContainer.forEach(x => {
             control.push(this.fb.group({
-                company: x.container,
-                projects: this.setProjects(x)
+                container: x.container,
+                amounts: this.setProjects(x)
             }));
         });
     }
 
-    setProjects(x: ProcessedStockContainer) {
+    setProjects(x: IProcessedStockContainer) {
         const arr = new FormArray([]);
         x.amount.forEach(y => {
             arr.push(this.fb.group({
-                projectName: y
+                amount: y
             }));
         });
         return arr;
@@ -57,8 +57,12 @@ export class IndStockProd2Component implements OnInit, OnChanges {
     addNewProject(control) {
         control.push(
             this.fb.group({
-                projectName: ['']
+                amount: ['']
             }));
+    }
+
+    amountFormSubmit() {
+        console.log('Form was submitted');
     }
 
 

@@ -1,11 +1,11 @@
-export class ProductDetails {
-    brand: String;
-    packaging: String;
+export class IProductDetails {
+    brand: string;
+    packaging: string;
     unitweight: Number;
-    productid: String;
-    batchgroup: String;
+    productid: string;
+    batchgroup: string;
 
-    constructor (brand: String, packaging: String, weight: Number, code: String, batchGroup: String) {
+    constructor (brand: string, packaging: string, weight: Number, code: string, batchGroup: string) {
         this.brand = brand;
         this.packaging = packaging;
         this.unitweight = weight;
@@ -14,22 +14,47 @@ export class ProductDetails {
     }
 }
 
-export class ProductGroup {
-    stock: ProductDetails[];
-    group: String;
+export class IProductGroup {
+    stock: IProductDetails[];
+    group: string;
 }
 
+// -------------------------------------------------------------------
 
-
-
-export class ProcessedStockProducts {
+export class IProcessedStockProducts {
     product: string;
-    mainContainer: ProcessedStockContainer[];
+    mainContainer: IProcessedStockContainer[];
 }
 
-export class ProcessedStockContainer {
+export class IProcessedStockContainer {
     container: string;
     amount: string[];
 }
 
+// -------------------------------------------------------------------
+
+export class IRawProcessedStock {
+    name: string;
+    amount: string;
+    container: string;
+}
+
+export class IProductContainers {
+    productid: string;
+    container: string;
+}
+
+export class IContainerGroups {
+    name: string;
+    containers: string[];
+}
+
+
+
+
+// [
+// {name: "SV1", amount: "3", container: "Box"}
+// {name: "SV1", amount: "3", container: "Box"}
+// {name: "SV1", amount: "3", container: "Box"}
+// ]
 // When you have something with a ? mark like: 'age?: number', then it means that it is an optional parameter.

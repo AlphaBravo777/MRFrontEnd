@@ -2,7 +2,7 @@
 
 ------------------------------------------------------------------------------------------ -->
 
-<app-stock-products 
+<app-stock-products *ngIf='processedStockMain'
 [productNames]="productNames" 
 [processedStockMain]="processedStockMain" 
 [productContainers]='productContainers'>

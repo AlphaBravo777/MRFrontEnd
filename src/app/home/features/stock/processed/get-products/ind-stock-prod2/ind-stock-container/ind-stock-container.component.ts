@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder } from '../../../../../../../../../node_modules/@angular/forms';
+import { FormGroup } from '../../../../../../../../../node_modules/@angular/forms';
 
 @Component({
     selector: 'app-ind-stock-container',
@@ -8,21 +8,11 @@ import { FormGroup, FormBuilder } from '../../../../../../../../../node_modules/
 })
 export class IndStockContainerComponent implements OnInit {
 
-    constructor(private fb: FormBuilder) { }
+    constructor() { }
 
-    @Input() containerWithAmount;
-    @Input() currentContainer: String;
-    private amountForm: FormGroup;
+
 
     ngOnInit() {
-        // console.log('+++ ', this.containerWithAmount.amount);
-        // this.buildAmountForm(this.containerWithAmount.amount);
-    }
 
-    buildAmountForm(amounts) {
-        this.amountForm = this.fb.group({
-            amounting: this.fb.array(amounts),
-        });
     }
-
 }

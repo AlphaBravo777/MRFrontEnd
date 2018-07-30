@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { ProcessedStockContainer, ProcessedStockProducts } from './Stock';
+import { IProcessedStockContainer, IProcessedStockProducts } from './Stock';
 import { container } from '../../../../../../node_modules/@angular/core/src/render3/instructions';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class ProcessedStockFormService {
 
     constructor(private fb: FormBuilder) { }
 
-    toFormGroup(data: ProcessedStockProducts) {
+    toFormGroup(data: IProcessedStockProducts) {
         // let group: any = {};
         // console.log('----------- ', data);
 

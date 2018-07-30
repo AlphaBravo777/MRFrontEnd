@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
-import { ProductDetails, ProductGroup, ProcessedStockProducts } from './../../../stock-services/Stock';
+import { IProductDetails, IProductGroup, IProcessedStockProducts, IContainerGroups } from './../../../stock-services/Stock';
 import { BehaviorSubject } from 'rxjs';
 import { StockTakingService } from '../../../stock-services/stock-taking.service';
 import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
@@ -14,17 +14,17 @@ export class StockProductsComponent implements OnInit, OnDestroy {
 
     constructor(private stockTakingService: StockTakingService, private processedStockService: ProcessedStockService) { }
 
-    private _productNames = new BehaviorSubject<ProductDetails[]>([]);
-    processedGroup: ProductGroup[];
+    private _productNames = new BehaviorSubject<IProductDetails[]>([]);
+    processedGroup: IProductGroup[];
     batch: String;
     productName = 'Select a product';
     productNameWithContainer = {};
-    productContainerOptions;
+    productContainerOptions: IContainerGroups;  // This is the containers that are given through to show.
     processedStock = {};
     amounts = [];
 
-    @Input() processedStockMain: ProcessedStockProducts[];  // This can just load with *ngIF cause it only comes in once
-    @Input() productContainers: any[];
+    @Input() processedStockMain: IProcessedStockProducts[];  // (This is the main data)
+    @Input() productContainers: IContainerGroups[];
 
     @Input()   // This can just load with *ngIF cause it only comes in once
     set productNames(value) {
@@ -59,21 +59,25 @@ export class StockProductsComponent implements OnInit, OnDestroy {
         this.productNameWithContainer = {};
     }
 
-    getContainers(productName) {
-        for (let i = 0; i < this.productContainers.length; ++i) {
-            if (this.productContainers[i].name === productName) {
-                this.productContainerOptions = this.productContainers[i];
-                return;
+    getContainers(productName) {  // This function is giving problems (Go through main data and get container data)
+        const holder: IContainerGroups = { name: '', containers: [] };
+        for (let i = 0; i < this.processedStockMain.length; ++i) {
+            if (this.processedStockMain[i].product === productName) {
+                holder.name = this.processedStockMain[i].product;
+                for (let j = 0; j < this.processedStockMain[i].mainContainer.length; ++j) {
+                    holder.containers.push(this.processedStockMain[i].mainContainer[j].container);
+                }
+            this.productContainerOptions =  holder;
             }
         }
     }
 
     changeProduct(productName) { // This is the function that starts the invividual product component
-        const stock =  localStorage.getItem('stock');
+        const stock = localStorage.getItem('stock');
         this.processedStock = JSON.parse(stock);
-            if (this.processedStock.hasOwnProperty(productName)) {
-                this.amounts = this.processedStock[productName].split(',');
-            } else {this.amounts = []; }
+        if (this.processedStock.hasOwnProperty(productName)) {
+            this.amounts = this.processedStock[productName].split(',');
+        } else { this.amounts = []; }
         this.productName = productName;
     }
 
