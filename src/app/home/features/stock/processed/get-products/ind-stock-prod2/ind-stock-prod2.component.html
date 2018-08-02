@@ -1,9 +1,9 @@
 <div *ngIf='containers' class='main'>
     <form [formGroup]="amountForm" (ngSubmit)='amountFormSubmit()'>
-        <h3>Product: {{productName.product}}</h3>
+        <h3>Product: {{productName.product}} - {{prodDescription}}</h3>
         <div *ngFor='let con of containers.containers'>
             <fieldset class='container'>
-                <h3 class='miniH3'>{{con}}</h3>
+                <h3 id='miniH3'>{{con}}</h3>
                 <div formArrayName="mainContainer">
                     <div *ngFor="let comp of amountForm.get('mainContainer')['controls']; let i=index">
                         <span *ngIf='comp.value.container==con'>
@@ -11,7 +11,7 @@
                                 <div formArrayName="amount">
                                     <span *ngFor="let project of comp.get('amount')['controls']; let j=index" class="inputs">
                                         <span [formGroupName]="j">
-                                            <input formControlName="amount" />
+                                            <input formControlName="amount" (keyup)='amountFormSubmit()'/>
                                             <span>
                                                 <button class='redButton' type="button" (click)="deleteProject(comp.controls.amount, j)">X</button>
                                             </span>
@@ -27,7 +27,7 @@
                 </div>
             </fieldset>
         </div>
-        <button class='goldButton' type="submit">Submit Total</button>
+        <!-- <button class='goldButton' type="submit">Submit Total</button> -->
     </form>
     <!-- <pre>{{amountForm.value | json}}</pre> -->
 </div>

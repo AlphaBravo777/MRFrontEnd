@@ -1,22 +1,10 @@
-<!-- <div>
-    <a class='buttonMenus' id='finishButton' (click)="uploadProcessedStock()">Finished Stocktaking</a>
-    <a class='buttonMenus' id='finishButton' (click)="startStocktaking()">Clear Stock</a>
-</div>
-<app-ind-stock-prod (changeProductName)="changeProduct($event)" [productName]='productName' [amounts]='amounts'></app-ind-stock-prod>
-<div class='wrapper'>
-    <div class='groups' id='spanning'>
-        <a class='buttonMenus' *ngFor="let group of processedGroup" (click)="BatchGroup(group.group)">{{group.group}}</a>
-    </div>
-    <app-ind-stock-table *ngIf="processedGroup" [processedGroup]="processedGroup" [batch]="batch" (changeProductName)="changeProduct($event)"></app-ind-stock-table>
-</div>  
-
------------------------------------------------------------------------------------------------------------------------------- -->
-<a class='buttonMenus' (click)="submitToDataBase()" >FINISH AND SAVE</a>
-<a class='buttonMenus' (click)="clearAllProducts()" >Clear All Products</a>
-<div *ngIf="processedGroup && processedStockMain && productContainers">
+<button class='goldButton' (click)="submitToDataBase()" >FINISH AND SAVE</button>
+<button class='goldButton' (click)="clearAllProducts()" >Clear All Products</button>
+<div *ngIf="processedGroup && processedStockMain">
     <app-ind-stock-prod2 *ngIf='productName && productContainerOptions' 
         [productName]='productNameWithContainer' 
-        [containers]='productContainerOptions'>
+        [containers]='productContainerOptions'
+        [prodDescription]='productDescription'>
     </app-ind-stock-prod2>
     <div class='wrapper'>
         <div class='groups' id='spanning'>

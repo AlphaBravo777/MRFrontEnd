@@ -10,6 +10,7 @@ export class ProcessedStockFormService {
     constructor(private fb: FormBuilder) { }
 
     turnIntoProductUnit(productName, containerAmounts) {
+        // console.log('I am hit');
         const productUnit: IProcessedStockProducts = { product: productName, mainContainer: [] };
         for (let a = 0; a < containerAmounts.mainContainer.length; ++a) {
             const amount: string[] = [];
@@ -20,9 +21,9 @@ export class ProcessedStockFormService {
             }
             const container = { container: containerAmounts.mainContainer[a].container, amount: amount };
             productUnit.mainContainer.push(container);
-            console.log('-------- ', containerAmounts.mainContainer[a]);
+            // console.log('-------- ', containerAmounts.mainContainer[a]);
         }
-        console.log('-------- ', containerAmounts.mainContainer);
+        // console.log('-------- ', containerAmounts.mainContainer);
         this.checkToSeeIfProductThere(productUnit);
     }
 

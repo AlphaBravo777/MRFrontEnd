@@ -27,14 +27,13 @@ export class GetProductsComponent implements OnInit, OnDestroy {
     productNames: IProductDetails[];
     processedStockTime = JSON.parse(localStorage.getItem('stocktime'));
     processedStockMain: IProcessedStockProducts[];   // Main data with all the products, containers, and the amounts
-    productContainers: IContainerGroups[];  // ########
     grantTotal: IProcessedStockProducts[];
+    testdata;
 
     ngOnInit() {
-        this.getProductNames();
-        this.productContainers = this.stockAPI.getHardcodedProductContainers();  // ######
         this.getProcessedStockMain();
-
+        // this.processedStockService.getTestdata().subscribe(x => this.testdata = x);
+        // console.log(this.testdata);
     }
 
     getProcessedStockMain() {
@@ -49,6 +48,7 @@ export class GetProductsComponent implements OnInit, OnDestroy {
         let emptyProdConGroup: IProcessedStockProducts[] = [];
         this.stockAPI.getProducts()
             .subscribe(products => {
+                this.productNames = products;
                 emptyProdConGroup = this.createGroupWithProducts(products);
                 this.processedStockMain = this.insertContainers(emptyProdConGroup, prodContainers);
                 this.addAmountsToStockMain(this.processedStockMain);
@@ -82,6 +82,7 @@ export class GetProductsComponent implements OnInit, OnDestroy {
             this.grantTotal = this.getGrandTotal(stock, processedStockMain);
             // console.log(this.grantTotal);
             this.processedStockMain = this.grantTotal;
+            localStorage.setItem('stock', JSON.stringify(processedStockMain));
         });
     }
 
@@ -97,22 +98,10 @@ export class GetProductsComponent implements OnInit, OnDestroy {
                 }
             }
         }
-        localStorage.setItem('stock', JSON.stringify(processedStockMain));
+
         return processedStockMain;
     }
-
-// {product: "SG2", mainContainer: [{container: "Box", amount: ["3", "4", "7*9", "22", "9*9", "6*6"]},…]}
-
-    getProductNames(): void {
-        this.stockAPI.getProducts()
-            .subscribe(response => {
-                this.productNames = response;
-            },
-                err => console.log(err)
-            );
-    }
-
     ngOnDestroy(): void {
-        this.dialogBoxService.openConfirmationDialog();
+        // this.dialogBoxService.openConfirmationDialog();
     }
 }

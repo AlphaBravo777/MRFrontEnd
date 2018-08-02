@@ -4,13 +4,15 @@ export class IProductDetails {
     unitweight: Number;
     productid: string;
     batchgroup: string;
+    description: string;
 
-    constructor (brand: string, packaging: string, weight: Number, code: string, batchGroup: string) {
+    constructor (brand: string, packaging: string, weight: Number, code: string, batchGroup: string, description: string) {
         this.brand = brand;
         this.packaging = packaging;
         this.unitweight = weight;
         this.productid = code;
         this.batchgroup = batchGroup;
+        this.description = description;
     }
 }
 

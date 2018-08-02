@@ -16,8 +16,9 @@ export class IndStockTableComponent implements OnInit {
     ngOnInit() {
     }
 
-    public changeProduct(name: any): void { // Clears the window
-        this.changeProductName.emit(name);
+    public changeProduct(name: any, desc: string): void { // Clears the window
+        const prod = {name: name, description: desc};
+        this.changeProductName.emit(prod);
     }
 
 }

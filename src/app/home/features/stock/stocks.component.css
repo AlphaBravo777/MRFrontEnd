@@ -3,6 +3,11 @@
     width: 20%;
 }
 
+.buttonMenus{
+    margin: 10px;
+    font-size: 1.5em;
+}
+
 h3 {
     margin: 0px;
 }

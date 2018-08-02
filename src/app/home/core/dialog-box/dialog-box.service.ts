@@ -16,7 +16,7 @@ export class DialogBoxService {
         panelClass: 'my-centered-dialog',
         disableClose: false
     });
-    this.dialogRef.componentInstance.confirmMessage = 'You are about to leave stocktaking page, do you want to save stock?';
+    this.dialogRef.componentInstance.confirmMessage = 'The stock did not safe correctly, check connection and try again!';
 
     this.dialogRef.afterClosed().subscribe(result => {
         if (result) {

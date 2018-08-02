@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StockAPIService } from './stock-api.service';
+
 import {
     IProductGroup,
     IProductDetails,
@@ -9,20 +10,23 @@ import {
     IProcessedStockContainer
 } from './Stock';
 import { Router } from '@angular/router';
+import { ReplaySubject } from '../../../../../../node_modules/rxjs';
+import { DialogBoxService } from '../../../core/dialog-box/dialog-box.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProcessedStockService {
 
-    constructor(private stockAPI: StockAPIService, private router: Router) { }
+    personStream: ReplaySubject<any> = new ReplaySubject();
+    constructor(private stockAPI: StockAPIService, private router: Router, private dialogBoxService: DialogBoxService) { }
 
     insertProcStockIntoDB() {
         const time = JSON.parse(localStorage.getItem('stocktime'));
         const databaseArray = this.getStockReadyForDatabase(time);
         this.deleteOldStock(time);
         this.insertStockIntoDB(databaseArray);
-        this.router.navigate(['user/user-nav/']);
+
     }
 
     getStockReadyForDatabase(time) {
@@ -51,41 +55,21 @@ export class ProcessedStockService {
             if (!x) {
                 console.log('Orders deleted');
             } else {
-                console.log('Orders NOT deleted');
+                this.dialogBoxService.openConfirmationDialog();
             }
         });
     }
 
     insertStockIntoDB(databaseArray) {
         this.stockAPI.enterAllProcessedProductsIntoDB(databaseArray).subscribe(x => {
-            console.log(x);
+            console.log('Number of orders:', databaseArray.length, ', Number of orders inserted:', x.length);
+            if (databaseArray.length === x.length) {
+                this.router.navigate(['user/user-nav/']);
+            } else {
+            this.dialogBoxService.openConfirmationDialog();
+            }
         });
     }
-
-    // sendProcessedProducts() {
-    //     const finalArray  = [];
-    //     const time = JSON.parse(localStorage.getItem('stocktime'));
-    //     const stock = JSON.parse(localStorage.getItem('stock'));
-    //     for (const key in stock) {
-    //         if (stock.hasOwnProperty(key)) {
-    //             const array = stock[key].split(',');
-    //             for (let a = 0; a < array.length; ++a) {
-    //                 const product = {'prodName': key, 'amount': array[a], 'time': time};
-    //                 finalArray.push(product);
-    //             }
-    //         }
-    //     }
-    //     this.deleteAllTimeProcessedStock(time).subscribe(x => {
-    //         if (!x) {
-    //             // console.log('Order success');
-    //             this.router.navigate(['user/user-nav/']);
-    //         }
-    //     });
-    //     console.log(finalArray);
-    //     return this.http.post<any>(this.productsUrl + 'input/', finalArray);
-    // }
-
-
 
     groupByCategory(products: IProductDetails[]): IProductGroup[] {
         if (!products) { return; } // This helps also to avoid an "undefined" error
@@ -128,6 +112,11 @@ export class ProcessedStockService {
         return total;
     }
 
+    getTestdata(): any {
+        this.stockAPI.getProducts().subscribe(response => {
+                this.personStream.next(response);
+            });
+    }
 
 
 }

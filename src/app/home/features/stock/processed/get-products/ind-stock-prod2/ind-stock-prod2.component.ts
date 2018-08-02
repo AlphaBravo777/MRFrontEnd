@@ -15,6 +15,7 @@ export class IndStockProd2Component implements OnInit, OnChanges {
 
     @Input() productName: IProcessedStockProducts;
     @Input() containers;
+    @Input() prodDescription;
     amountForm: FormGroup;
 
     ngOnInit() {
@@ -50,6 +51,7 @@ export class IndStockProd2Component implements OnInit, OnChanges {
 
     deleteProject(control, index) {
         control.removeAt(index);
+        this.processedStockFormService.turnIntoProductUnit(this.productName.product, this.amountForm.value);
     }
 
     addNewProject(control) {

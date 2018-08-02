@@ -1,5 +1,10 @@
 h3 {
+    margin-top: 2px;
+}
+
+fieldset h3 {
     margin: 2px;
+    color: saddlebrown;
 }
 
 .inputs input {

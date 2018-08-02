@@ -25,11 +25,11 @@ export class StockProductsComponent implements OnInit, OnDestroy {
     productContainerOptions: IContainerGroups;  // This is the containers that are given through to show.
     processedStock = {};
     amounts = [];
+    productDescription;
 
-    @Input() processedStockMain: IProcessedStockProducts[];  // (This is the main data)
-    @Input() productContainers: IContainerGroups[];
+    @Input() processedStockMain: IProcessedStockProducts[];  // (This is the main data, we will try and change it to localStorage)
 
-    @Input()   // This can just load with *ngIF cause it only comes in once
+    @Input()   // This can just load with *ngIF cause it only comes in once (Just normal list of productnames)
     set productNames(value) {
         this._productNames.next(value);
     }
@@ -50,11 +50,14 @@ export class StockProductsComponent implements OnInit, OnDestroy {
     }
 
 
-    changeProduct2(productName) {
+    changeProduct2(product) {
+        this.processedStockMain = JSON.parse(localStorage.getItem('stock'));
+        // this.processedStockMain = [];
         for (let i = 0; i < this.processedStockMain.length; ++i) {
-            if (this.processedStockMain[i].product === productName) {
+            if (this.processedStockMain[i].product === product.name) {
                 this.productNameWithContainer = this.processedStockMain[i];
-                this.getContainers(productName);
+                this.productDescription = product.description;
+                this.getContainers(product.name);
                 return;
             }
         }
