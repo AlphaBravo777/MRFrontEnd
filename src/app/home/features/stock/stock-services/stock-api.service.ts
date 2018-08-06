@@ -38,7 +38,8 @@ export class StockAPIService {
     }
 
     enterAllProcessedProductsIntoDB(finalArray) {
-        return this.http.post<any>(this.productsUrl + 'input/', finalArray);
+        console.log(finalArray);
+        return this.http.post<any>(this.productsUrl + 'input/', finalArray[0]);
     }
 
 
