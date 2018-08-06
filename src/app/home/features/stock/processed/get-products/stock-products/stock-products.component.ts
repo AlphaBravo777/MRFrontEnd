@@ -47,6 +47,7 @@ export class StockProductsComponent implements OnInit, OnDestroy {
     BatchGroup(batch) {
         this.batch = batch;
         console.log(this.batch);
+        this.productContainerOptions = undefined;
     }
 
 

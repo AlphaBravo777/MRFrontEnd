@@ -9,9 +9,9 @@
                         <span *ngIf='comp.value.container==con'>
                             <div [formGroupName]="i">
                                 <div formArrayName="amount">
-                                    <span *ngFor="let project of comp.get('amount')['controls']; let j=index" class="inputs">
-                                        <span [formGroupName]="j">
-                                            <input formControlName="amount" (keyup)='amountFormSubmit()'/>
+                                    <span #myInput *ngFor="let project of comp.get('amount')['controls']; let j=index" class="inputs">
+                                        <span [formGroupName]="j" >
+                                            <input type="text" formControlName="amount" (keyup)='amountFormSubmit()'/>
                                             <span>
                                                 <button class='redButton' type="button" (click)="deleteProject(comp.controls.amount, j)">X</button>
                                             </span>

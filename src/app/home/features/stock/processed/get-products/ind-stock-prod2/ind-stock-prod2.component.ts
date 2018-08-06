@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Directive, Renderer2, ElementRef } from '@angular/core';
 import { ProcessedStockFormService } from '../../../stock-services/processed-stock-form.service';
 import { FormGroup, FormBuilder, FormArray } from '../../../../../../../../node_modules/@angular/forms';
 import { IProcessedStockContainer, IProcessedStockProducts } from '../../../stock-services/Stock';
-import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
+
 
 @Component({
     selector: 'app-ind-stock-prod2',
@@ -65,6 +65,7 @@ export class IndStockProd2Component implements OnInit, OnChanges {
         // console.log(this.amountForm.value);
         this.processedStockFormService.turnIntoProductUnit(this.productName.product, this.amountForm.value);
     }
+
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['productName']) {

@@ -4,7 +4,6 @@ import {IProductDetails,
         IProcessedStockProducts,
         IProductContainers,
         IProcessedStockContainer,
-        IContainerGroups,
         IRawProcessedStock} from './../../stock-services/Stock';
 import { DialogBoxService } from '../../../../core/dialog-box/dialog-box.service';
 import { ProcessedStockService } from '../../stock-services/processed-stock.service';

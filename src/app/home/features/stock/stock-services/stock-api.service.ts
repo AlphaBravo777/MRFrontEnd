@@ -13,6 +13,7 @@ export class StockAPIService {
 
     constructor(private http: HttpClient, private urlService: UrlsService) { }
 
+    // http://192.168.45.2:8000/api/products/containers
     private productsUrl = this.urlService.rootUrl + 'api/products/';
 
     getProducts(): Observable<IProductDetails[]> {
@@ -20,12 +21,14 @@ export class StockAPIService {
     }
 
     getTimedStock(time: String): Observable<IRawProcessedStock[]> {
-        const timeUrl = this.productsUrl + time;
+        const timeUrl = this.productsUrl + time + '/';
+        console.log(timeUrl);
         return this.http.get<IRawProcessedStock[]>(timeUrl);
     }
 
     getProductContainers(): Observable<IProductContainers[]> {
-        const timeUrl = this.productsUrl + 'containers';
+        const timeUrl = this.productsUrl + 'containers/';
+        console.log(timeUrl);
         return this.http.get<IProductContainers[]>(timeUrl);
     }
 

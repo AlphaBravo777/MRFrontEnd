@@ -11,6 +11,7 @@ import { IndStockTableComponent } from './processed/get-products/ind-stock-table
 import { NumKeyboardComponent } from './processed/get-products/num-keyboard/num-keyboard.component';
 import { IndStockProd2Component } from './processed/get-products/ind-stock-prod2/ind-stock-prod2.component';
 import { IndStockContainerComponent } from './processed/get-products/ind-stock-prod2/ind-stock-container/ind-stock-container.component';
+import { MyInputDirective } from './stock-services/my-input.directive';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { IndStockContainerComponent } from './processed/get-products/ind-stock-p
     NumKeyboardComponent,
     IndStockProd2Component,
     IndStockContainerComponent,
+    MyInputDirective,
   ],
   providers: [
     StockTakingService
