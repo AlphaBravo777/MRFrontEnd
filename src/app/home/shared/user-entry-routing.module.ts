@@ -13,14 +13,7 @@ const userEntryRoutes: Routes = [
     {
         path: 'user',
         component: UserEntryComponent,
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        canActivate: [AuthGuard],
->>>>>>> 346651d... commit to change branch
-=======
         // canActivate: [AuthGuard],
->>>>>>> 4d77b00... Just before trying to make authService work better
         children: [
             {
                 path: 'user',

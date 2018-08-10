@@ -22,8 +22,9 @@ export class AuthService {
   }
 
   isTokenValid() {
-    // const a = {"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNSwidXNlcm5hbWUiOiJhIiwiZXhwIjoxNTMzODk5Njg5LCJlbWFpbCI6ImFAYS5jb20iLCJvcmlnX2lhdCI6MTUzMzg4ODg4OX0.1YbPXlsTx2WlzGBZukzIz4OEHQ_NTPCdMsI99SQlnTw"}
-    const a = localStorage.getItem('token');
+      // tslint:disable-next-line
+    // const a = {"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNSwidXNlcm5hbWUiOiJhIiwiZXhwIjoxNTMzOTE0NTQ3LCJlbWFpbCI6ImFAYS5jb20iLCJvcmlnX2lhdCI6MTUzMzkwMzc0N30._V6GQkkMB5XUfcuXA-H1ZNEnll-3dhpfpXpdYkG6goA"}
+    const a = {'token': localStorage.getItem('token')};
     return this.http.post<any>(this.checkToken, a, {observe: 'response'});
   }
 

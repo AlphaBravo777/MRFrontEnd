@@ -10,28 +10,11 @@ const stockRoutes: Routes = [
     {
         path: 'user',
         component: UserEntryComponent,
-<<<<<<< HEAD
-<<<<<<< HEAD
-        children: [
-            {
-                path: 'stock-taking',
-                component: UnderConstructionComponent
-=======
-        canActivate: [AuthGuard],
-        children: [
-            {
-                path: 'stock-taking',
-                component: UnderConstructionComponent,
-                canActivate: [AuthGuard],
->>>>>>> 346651d... commit to change branch
-=======
-        // canActivate: [AuthGuard],
         children: [
             {
                 path: 'stock-taking',
                 component: UnderConstructionComponent,
                 // canActivate: [AuthGuard],
->>>>>>> 4d77b00... Just before trying to make authService work better
             },
             {
                 path: 'processed/:time',
