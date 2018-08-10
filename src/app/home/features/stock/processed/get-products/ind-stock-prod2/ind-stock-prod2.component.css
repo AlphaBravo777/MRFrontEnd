@@ -2,6 +2,16 @@ h3 {
     margin-top: 2px;
 }
 
+h3.inline {
+    display: inline;
+    padding-left: 10px;
+}
+
+h5.inline {
+    display: inline;
+    padding-left: 10px;
+}
+
 fieldset h3 {
     margin: 2px;
     color: saddlebrown;

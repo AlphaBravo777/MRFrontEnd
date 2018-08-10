@@ -18,18 +18,21 @@ import { DialogBoxService } from '../../../core/dialog-box/dialog-box.service';
 })
 export class ProcessedStockService {
 
-    personStream: ReplaySubject<any> = new ReplaySubject();
-    constructor(private stockAPI: StockAPIService, private router: Router, private dialogBoxService: DialogBoxService) { }
+    constructor(
+        private stockAPI: StockAPIService,
+        private router: Router,
+        private dialogBoxService: DialogBoxService) { }
 
-    insertProcStockIntoDB() {
-        const time = JSON.parse(localStorage.getItem('stocktime'));
-        const databaseArray = this.getStockReadyForDatabase(time);
-        this.deleteOldStock(time);
+    personStream: ReplaySubject<any> = new ReplaySubject();
+
+    insertProcStockIntoDB(stocktime) {
+        const databaseArray = this.getStockReadyForDatabase(stocktime);
+        this.deleteOldStock(stocktime);
         this.insertStockIntoDB(databaseArray);
 
     }
 
-    getStockReadyForDatabase(time) {
+    getStockReadyForDatabase(stocktime) {
         const finalArray = [];
         const stockArray: IProcessedStockProducts[] = JSON.parse(localStorage.getItem('stock'));
         for (let array = 0; array < stockArray.length; ++array) {
@@ -40,7 +43,7 @@ export class ProcessedStockService {
                             const name = stockArray[array].product;
                             const amount = stockArray[array].mainContainer[mainCon].amount[amt];
                             const container = stockArray[array].mainContainer[mainCon].container;
-                            const indProduct = { prodName: name, amount: amount, container: container, time: time };
+                            const indProduct = { prodName: name, amount: amount, container: container, time: stocktime };
                             finalArray.push(indProduct);
                         }
                     }
@@ -50,11 +53,12 @@ export class ProcessedStockService {
         return finalArray;
     }
 
-    deleteOldStock(time) {
-        this.stockAPI.deleteAllTimeProcessedStock(time).subscribe(x => {
+    deleteOldStock(stocktime) {
+        this.stockAPI.deleteAllTimeProcessedStock(stocktime).subscribe(x => {
             if (!x) {
-                console.log('Orders deleted');
+                console.log('Orders deleted', x);
             } else {
+                console.log('Orders NOT deleted', x);
                 this.dialogBoxService.openConfirmationDialog();
             }
         });
@@ -66,7 +70,7 @@ export class ProcessedStockService {
             if (databaseArray.length === x.length) {
                 this.router.navigate(['user/user-nav/']);
             } else {
-            this.dialogBoxService.openConfirmationDialog();
+                this.dialogBoxService.openConfirmationDialog();
             }
         });
     }
@@ -114,7 +118,16 @@ export class ProcessedStockService {
 
     getTestdata(): any {
         this.stockAPI.getProducts().subscribe(response => {
-                this.personStream.next(response);
+            this.personStream.next(response);
+        });
+    }
+
+    clearAllProducts(stocktime) {
+        this.stockAPI.deleteAllTimeProcessedStock(stocktime)
+            .subscribe(x => {
+                console.log(x);
+                this.router.navigate(['user/user-nav/']);
+                this.dialogBoxService.openStockClearedDialog();
             });
     }
 

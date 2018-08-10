@@ -7,6 +7,7 @@ import { UserEntryComponent } from './user-entry.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
 import { FactoryModule } from '../features/factory/factory.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { RegisterComponent } from '../features/admin/register-user/register.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
   declarations: [
       UserEntryComponent,
       UserNavComponent,
+      RegisterComponent,
   ]
 })
 export class UserEntryModule { }

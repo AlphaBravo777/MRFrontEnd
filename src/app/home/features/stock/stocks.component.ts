@@ -9,13 +9,9 @@ import { StockAPIService } from './stock-services/stock-api.service';
 })
 export class StocksComponent implements OnInit {
 
-    constructor(private router: Router, private stockAPI: StockAPIService) { }
+    constructor() { }
 
     ngOnInit() {
-    }
-
-    setTime(time) {
-        localStorage.setItem('stocktime', JSON.stringify(time));
     }
 
 }

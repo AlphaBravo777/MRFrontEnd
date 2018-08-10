@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
 import {IProductDetails,
         IProcessedStockProducts,
@@ -8,7 +8,13 @@ import {IProductDetails,
 import { DialogBoxService } from '../../../../core/dialog-box/dialog-box.service';
 import { ProcessedStockService } from '../../stock-services/processed-stock.service';
 import { StockAPIService } from '../../stock-services/stock-api.service';
+import { ActivatedRoute } from '../../../../../../../node_modules/@angular/router';
 
+// https://stackoverflow.com/questions/32575695/disable-chrome-auto-reload-on-time-out-error/32718801#32718801
+// http://devarea.com/building-a-simple-website-with-angular-4-and-django-and-deploy-it-to-heroku/
+// https://medium.com/@nicholaskajoh/heres-a-dead-simple-react-django-setup-for-your-next-project-c0b0036663c6
+// https://octaviancorlade.github.io/django-angular5-web-app-building/
+// connecting angular and django app
 
 @Component({
     selector: 'app-get-products',
@@ -20,19 +26,23 @@ export class GetProductsComponent implements OnInit, OnDestroy {
     constructor(
         private dialogBoxService: DialogBoxService,
         private processedStockService: ProcessedStockService,
-        private stockAPI: StockAPIService
-    ) { }
+        private stockAPI: StockAPIService,
+        private route: ActivatedRoute
+    ) {
+        this.route.params.subscribe( params =>
+            this.stocktime = params['time']
+        );
+     }
 
+    @Input() stocktime: string;
     productNames: IProductDetails[];
-    processedStockTime = JSON.parse(localStorage.getItem('stocktime'));
     processedStockMain: IProcessedStockProducts[];   // Main data with all the products, containers, and the amounts
     grantTotal: IProcessedStockProducts[];
     testdata;
 
     ngOnInit() {
+        console.log(this.stocktime);
         this.getProcessedStockMain();
-        // this.processedStockService.getTestdata().subscribe(x => this.testdata = x);
-        // console.log(this.testdata);
     }
 
     getProcessedStockMain() {
@@ -76,7 +86,7 @@ export class GetProductsComponent implements OnInit, OnDestroy {
     }
 
     addAmountsToStockMain(processedStockMain: IProcessedStockProducts[]) {
-    this.stockAPI.getTimedStock(this.processedStockTime)
+    this.stockAPI.getTimedStock(this.stocktime)
         .subscribe(stock => {
             this.grantTotal = this.getGrandTotal(stock, processedStockMain);
             // console.log(this.grantTotal);

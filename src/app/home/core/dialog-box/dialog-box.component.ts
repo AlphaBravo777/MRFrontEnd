@@ -11,6 +11,7 @@ export class DialogBoxComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DialogBoxComponent>) { }
 
   public confirmMessage: string;
+  public dialogtype: string;
 
   ngOnInit() {
   }

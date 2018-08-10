@@ -24,6 +24,11 @@ h3 {
     margin-top: 0px;
 }
 
+h3.inline{
+    display: inline;
+    padding-left: 10px;
+}
+
 .buttonMenus {
     margin: 5px;
 }

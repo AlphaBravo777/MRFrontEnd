@@ -3,7 +3,8 @@
         <h3>Product: {{productName.product}} - {{prodDescription}}</h3>
         <div *ngFor='let con of containers.containers'>
             <fieldset class='container'>
-                <h3 id='miniH3'>{{con}}</h3>
+                <h3 class='inline' id='miniH3'>{{con}}</h3>
+                <h5 class='inline'>{{prodDescription}}</h5> <br>
                 <div formArrayName="mainContainer">
                     <div *ngFor="let comp of amountForm.get('mainContainer')['controls']; let i=index">
                         <span *ngIf='comp.value.container==con'>

@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../features/admin/auth.service';
+import { DialogBoxService } from './dialog-box/dialog-box.service';
+import { Router } from '../../../../node_modules/@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor {
 
-  constructor(private _auth: AuthService) { }
+  constructor(private _auth: AuthService, private dialogBoxService: DialogBoxService) { }
 
   // Here we intercept ANY HTTP request, and we return an observable that I think the next handler can intercept if neccesary
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -22,7 +24,10 @@ export class TokenInterceptorService implements HttpInterceptor {
           Authorization: `JWT ${this._auth.getToken()}`
         }
       });
-    } else {console.log('There is no token'); }
+    } else {
+        console.log('There is no token');
+        // this.dialogBoxService.passwordNotCorrect();
+    }
   // We now return the request, and if there is another interceptor it will pick it up, or it will be send through
     return next.handle(request);
   }

@@ -2,7 +2,6 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { IProductDetails, IProductGroup, IProcessedStockProducts, IContainerGroups } from './../../../stock-services/Stock';
 import { BehaviorSubject } from 'rxjs';
-import { StockTakingService } from '../../../stock-services/stock-taking.service';
 import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
 import { StockAPIService } from '../../../stock-services/stock-api.service';
 
@@ -13,7 +12,7 @@ import { StockAPIService } from '../../../stock-services/stock-api.service';
 })
 export class StockProductsComponent implements OnInit, OnDestroy {
 
-    constructor(private stockTakingService: StockTakingService,
+    constructor(
         private processedStockService: ProcessedStockService,
         private stockAPIService: StockAPIService) { }
 
@@ -26,9 +25,10 @@ export class StockProductsComponent implements OnInit, OnDestroy {
     processedStock = {};
     amounts = [];
     productDescription;
+    // stocktime = JSON.parse(localStorage.getItem('stocktime'));
 
     @Input() processedStockMain: IProcessedStockProducts[];  // (This is the main data, we will try and change it to localStorage)
-
+    @Input() stocktime;
     @Input()   // This can just load with *ngIF cause it only comes in once (Just normal list of productnames)
     set productNames(value) {
         this._productNames.next(value);
@@ -50,8 +50,7 @@ export class StockProductsComponent implements OnInit, OnDestroy {
         this.productContainerOptions = undefined;
     }
 
-
-    changeProduct2(product) {
+    changeProduct(product) {
         this.processedStockMain = JSON.parse(localStorage.getItem('stock'));
         // this.processedStockMain = [];
         for (let i = 0; i < this.processedStockMain.length; ++i) {
@@ -79,33 +78,12 @@ export class StockProductsComponent implements OnInit, OnDestroy {
         }
     }
 
-    changeProduct(productName) { // This is the function that starts the invividual product component
-        const stock = localStorage.getItem('stock');
-        this.processedStock = JSON.parse(stock);
-        if (this.processedStock.hasOwnProperty(productName)) {
-            this.amounts = this.processedStock[productName].split(',');
-        } else { this.amounts = []; }
-        this.productName = productName;
-    }
-
-    uploadProcessedStock() {
-        this.stockTakingService.sendProcessedProducts().subscribe();
-    }
-
-    startStocktaking() {
-        const item = {};
-        localStorage.setItem('stock', JSON.stringify(item));
-    }
-
     submitToDataBase() {
-        this.processedStockService.insertProcStockIntoDB();
+        this.processedStockService.insertProcStockIntoDB(this.stocktime);
     }
 
     clearAllProducts() {
-        this.stockAPIService.deleteAllTimeProcessedStock(JSON.parse(localStorage.getItem('stocktime')))
-        .subscribe(x => {
-            console.log(x);
-        });
+        this.processedStockService.clearAllProducts(this.stocktime);
     }
 
     ngOnDestroy(): void {
