@@ -9,10 +9,19 @@ const stockRoutes: Routes = [
     {
         path: 'user',
         component: UserEntryComponent,
+<<<<<<< HEAD
         children: [
             {
                 path: 'stock-taking',
                 component: UnderConstructionComponent
+=======
+        canActivate: [AuthGuard],
+        children: [
+            {
+                path: 'stock-taking',
+                component: UnderConstructionComponent,
+                canActivate: [AuthGuard],
+>>>>>>> 346651d... commit to change branch
             },
             {
                 path: 'processed',

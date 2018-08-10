@@ -12,6 +12,10 @@ const userEntryRoutes: Routes = [
     {
         path: 'user',
         component: UserEntryComponent,
+<<<<<<< HEAD
+=======
+        canActivate: [AuthGuard],
+>>>>>>> 346651d... commit to change branch
         children: [
             {
                 path: 'user',
@@ -24,6 +28,7 @@ const userEntryRoutes: Routes = [
             {
                 path: 'stocks',
                 component: StocksComponent,
+                canActivate: [AuthGuard],
             },
             {
                 path: 'L-shape',

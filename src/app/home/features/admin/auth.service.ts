@@ -10,6 +10,7 @@ export class AuthService {
   constructor(private http: HttpClient, private _urlService: UrlsService) { }
 
   private _loginUrl = this._urlService.rootUrl + 'api/rest-auth/login/';
+  private checkToken = this._urlService.rootUrl + 'api/api-token-verify/';
   private _registerUrl = this._urlService.rootUrl + 'api/rest-auth/registration/';
 
   registerUser(user) {
@@ -18,6 +19,12 @@ export class AuthService {
 
   loginUser(user) {
     return this.http.post<any>(this._loginUrl, user);
+  }
+
+  isTokenValid() {
+    // const a = {"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNSwidXNlcm5hbWUiOiJhIiwiZXhwIjoxNTMzODk5Njg5LCJlbWFpbCI6ImFAYS5jb20iLCJvcmlnX2lhdCI6MTUzMzg4ODg4OX0.1YbPXlsTx2WlzGBZukzIz4OEHQ_NTPCdMsI99SQlnTw"}
+    const a = localStorage.getItem('token');
+    return this.http.post<any>(this.checkToken, a, {observe: 'response'});
   }
 
   loggedIn() {
