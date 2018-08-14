@@ -4,23 +4,22 @@
         <div *ngFor='let con of containers.containers'>
             <fieldset class='container'>
                 <h3 class='inline' id='miniH3'>{{con}}</h3>
-                <h5 class='inline'>{{prodDescription}}</h5> <br>
+                <h5 class='inline'>{{prodDescription}}</h5>
+                <br>
                 <div formArrayName="mainContainer">
                     <div *ngFor="let comp of amountForm.get('mainContainer')['controls']; let i=index">
                         <span *ngIf='comp.value.container==con'>
                             <div [formGroupName]="i">
                                 <div formArrayName="amount">
                                     <span #myInput *ngFor="let project of comp.get('amount')['controls']; let j=index" class="inputs">
-                                        <span [formGroupName]="j" >
-                                            <input type="text" formControlName="amount" (keyup)='amountFormSubmit()'/>
+                                        <span [formGroupName]="j">
+                                            <input type="text" formControlName="amount" (keyup)='amountFormSubmit()' />
                                             <span>
                                                 <button class='redButton' type="button" (click)="deleteProject(comp.controls.amount, j)">X</button>
                                             </span>
                                         </span>
                                     </span>
-                                    <div>
-                                        <button class='greenButton' type="button" (click)="addNewProject(comp.controls.amount)">Add</button>
-                                    </div>
+                                    <button class='greenButton' type="button" (click)="addNewProject(comp.controls.amount)">Add</button>
                                 </div>
                             </div>
                         </span>
@@ -28,7 +27,6 @@
                 </div>
             </fieldset>
         </div>
-        <!-- <button class='goldButton' type="submit">Submit Total</button> -->
     </form>
     <!-- <pre>{{amountForm.value | json}}</pre> -->
 </div>

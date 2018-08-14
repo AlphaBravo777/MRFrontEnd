@@ -1,4 +1,4 @@
-<button class='goldButton' (click)="submitToDataBase()" >FINISH AND SAVE</button>
+<button class='goldButton' #submitToDBButton (click)="submitToDataBase()" >FINISH AND SAVE</button>
 <button class='goldButton' (click)="clearAllProducts()" >Clear All Products</button>
 <h3 class='inline'>{{stocktime}}</h3>
 <div *ngIf="processedGroup && processedStockMain">

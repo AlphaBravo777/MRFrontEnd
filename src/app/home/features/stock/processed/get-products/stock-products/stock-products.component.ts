@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, Renderer2 } from '@angular/core';
 
 import { IProductDetails, IProductGroup, IProcessedStockProducts, IContainerGroups } from './../../../stock-services/Stock';
 import { BehaviorSubject } from 'rxjs';
@@ -14,7 +14,10 @@ export class StockProductsComponent implements OnInit, OnDestroy {
 
     constructor(
         private processedStockService: ProcessedStockService,
-        private stockAPIService: StockAPIService) { }
+        private renderer: Renderer2
+    ) { }
+
+    @ViewChild('submitToDBButton') submitToDBButton;
 
     private _productNames = new BehaviorSubject<IProductDetails[]>([]);
     processedGroup: IProductGroup[];
@@ -79,6 +82,8 @@ export class StockProductsComponent implements OnInit, OnDestroy {
     }
 
     submitToDataBase() {
+        this.renderer.setProperty(this.submitToDBButton.nativeElement, 'disabled', 'true');
+        this.renderer.setStyle(this.submitToDBButton.nativeElement, 'background', 'gray');
         this.processedStockService.insertProcStockIntoDB(this.stocktime);
     }
 
