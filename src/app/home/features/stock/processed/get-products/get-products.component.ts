@@ -10,12 +10,6 @@ import { ProcessedStockService } from '../../stock-services/processed-stock.serv
 import { StockAPIService } from '../../stock-services/stock-api.service';
 import { ActivatedRoute } from '../../../../../../../node_modules/@angular/router';
 
-// https://stackoverflow.com/questions/32575695/disable-chrome-auto-reload-on-time-out-error/32718801#32718801
-// http://devarea.com/building-a-simple-website-with-angular-4-and-django-and-deploy-it-to-heroku/
-// https://medium.com/@nicholaskajoh/heres-a-dead-simple-react-django-setup-for-your-next-project-c0b0036663c6
-// https://octaviancorlade.github.io/django-angular5-web-app-building/
-// connecting angular and django app
-
 @Component({
     selector: 'app-get-products',
     templateUrl: './get-products.component.html',
@@ -41,13 +35,14 @@ export class GetProductsComponent implements OnInit, OnDestroy {
     testdata;
 
     ngOnInit() {
-        console.log(this.stocktime);
+        // console.log(this.stocktime);
         this.getProcessedStockMain();
     }
 
     getProcessedStockMain() {
         this.stockAPI.getProductContainers()
             .subscribe(prodContainers => {
+                // console.log(prodContainers);  // This is to check if containers returns empty array
                 this.getProductsAndContainers(prodContainers);
             }
         );
