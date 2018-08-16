@@ -1,11 +1,13 @@
 <button class='goldButton' #submitToDBButton (click)="submitToDataBase()" >FINISH AND SAVE</button>
-<button class='goldButton' (click)="clearAllProducts()" >Clear All Products</button>
+<button class='goldButton' (click)="confirmClearAllProducts()" >Clear All Products</button>
 <h3 class='inline'>{{stocktime}}</h3>
+<button class='goldButton' (click)="loadOldStock()" >Recover</button>
 <div *ngIf="processedGroup && processedStockMain">
     <app-ind-stock-prod2 *ngIf='productName && productContainerOptions' 
         [productName]='productNameWithContainer' 
         [containers]='productContainerOptions'
-        [prodDescription]='productDescription'>
+        [prodDescription]='productDescription'
+        [stocktime]='stocktime'>
     </app-ind-stock-prod2>
     <div class='wrapper'>
         <div class='groups' id='spanning'>

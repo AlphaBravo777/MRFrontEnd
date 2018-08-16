@@ -3,7 +3,6 @@ import { Component, OnInit, Input, OnDestroy, ViewChild, Renderer2 } from '@angu
 import { IProductDetails, IProductGroup, IProcessedStockProducts, IContainerGroups } from './../../../stock-services/Stock';
 import { BehaviorSubject } from 'rxjs';
 import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
-import { StockAPIService } from '../../../stock-services/stock-api.service';
 
 @Component({
     selector: 'app-stock-products',
@@ -28,7 +27,6 @@ export class StockProductsComponent implements OnInit, OnDestroy {
     processedStock = {};
     amounts = [];
     productDescription;
-    // stocktime = JSON.parse(localStorage.getItem('stocktime'));
 
     @Input() processedStockMain: IProcessedStockProducts[];  // (This is the main data, we will try and change it to localStorage)
     @Input() stocktime;
@@ -55,7 +53,6 @@ export class StockProductsComponent implements OnInit, OnDestroy {
 
     changeProduct(product) {
         this.processedStockMain = JSON.parse(localStorage.getItem('stock'));
-        // this.processedStockMain = [];
         for (let i = 0; i < this.processedStockMain.length; ++i) {
             if (this.processedStockMain[i].product === product.name) {
                 this.productNameWithContainer = this.processedStockMain[i];
@@ -76,7 +73,7 @@ export class StockProductsComponent implements OnInit, OnDestroy {
                 for (let j = 0; j < this.processedStockMain[i].mainContainer.length; ++j) {
                     holder.containers.push(this.processedStockMain[i].mainContainer[j].container);
                 }
-            this.productContainerOptions =  holder;
+                this.productContainerOptions = holder;
             }
         }
     }
@@ -87,8 +84,13 @@ export class StockProductsComponent implements OnInit, OnDestroy {
         this.processedStockService.insertProcStockIntoDB(this.stocktime);
     }
 
-    clearAllProducts() {
-        this.processedStockService.clearAllProducts(this.stocktime);
+    confirmClearAllProducts() {
+        this.processedStockService.confirmClearAllProducts(this.stocktime);
+    }
+
+    loadOldStock() {
+        const recoveredStock = JSON.parse(localStorage.getItem(this.stocktime));
+        localStorage.setItem('stock', JSON.stringify(recoveredStock));
     }
 
     ngOnDestroy(): void {

@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '../../../../../node_modules/@angular/material';
 import { DialogBoxComponent } from './dialog-box.component';
+import { Observable } from '../../../../../node_modules/rxjs';
+import { StockAPIService } from '../../features/stock/stock-services/stock-api.service';
+import { Router } from '../../../../../node_modules/@angular/router';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DialogBoxService {
 
-    constructor(public dialog: MatDialog) { }
+    constructor(public dialog: MatDialog, private stockAPI: StockAPIService, private router: Router) { }
 
     dialogRef: MatDialogRef<DialogBoxComponent>;
 
@@ -27,17 +30,21 @@ export class DialogBoxService {
         });
     }
 
-    openStockClearedDialog() {
+    openStockClearedDialog(stocktime) {
         this.dialogRef = this.dialog.open(DialogBoxComponent, {
             panelClass: 'my-centered-dialog',
             disableClose: false
         });
-        this.dialogRef.componentInstance.confirmMessage = 'The stock have been cleared';
+        this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to clear all stock for ' + stocktime;
         this.dialogRef.componentInstance.dialogtype = 'stockCleared';
 
         this.dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                // do confirmation actions
+                this.stockAPI.deleteAllTimeProcessedStock(stocktime)
+                    .subscribe(x => {
+                        console.log(x);
+                        this.router.navigate(['user/user-nav/']);
+                    });
             }
             this.dialogRef = null;
         });

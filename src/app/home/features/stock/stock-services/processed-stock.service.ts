@@ -122,12 +122,15 @@ export class ProcessedStockService {
         });
     }
 
+    confirmClearAllProducts(stocktime) {
+        this.dialogBoxService.openStockClearedDialog(stocktime);
+    }
+
     clearAllProducts(stocktime) {
         this.stockAPI.deleteAllTimeProcessedStock(stocktime)
             .subscribe(x => {
                 console.log(x);
                 this.router.navigate(['user/user-nav/']);
-                this.dialogBoxService.openStockClearedDialog();
             });
     }
 

@@ -9,7 +9,7 @@ export class ProcessedStockFormService {
 
     constructor(private fb: FormBuilder) { }
 
-    turnIntoProductUnit(productName, containerAmounts) {
+    turnIntoProductUnit(productName, containerAmounts, stocktime) {
         // console.log('I am hit');
         const productUnit: IProcessedStockProducts = { product: productName, mainContainer: [] };
         for (let a = 0; a < containerAmounts.mainContainer.length; ++a) {
@@ -24,16 +24,17 @@ export class ProcessedStockFormService {
             // console.log('-------- ', containerAmounts.mainContainer[a]);
         }
         // console.log('-------- ', containerAmounts.mainContainer);
-        this.checkToSeeIfProductThere(productUnit);
+        this.checkToSeeIfProductThere(productUnit, stocktime);
     }
 
-    checkToSeeIfProductThere(productName: IProcessedStockProducts) {
+    checkToSeeIfProductThere(productName: IProcessedStockProducts, stocktime) {
         const stock: IProcessedStockProducts[] = JSON.parse(localStorage.getItem('stock'));
         for (let prodnum = 0; prodnum < stock.length; ++prodnum) {
             if (stock[prodnum].product === productName.product) {
                 stock[prodnum].mainContainer = productName.mainContainer;
                 localStorage.removeItem('stock');
                 localStorage.setItem('stock', JSON.stringify(stock));
+                localStorage.setItem(stocktime, JSON.stringify(stock));
                 return;
             }
         }

@@ -5,8 +5,6 @@ import {IProductDetails,
         IProductContainers,
         IProcessedStockContainer,
         IRawProcessedStock} from './../../stock-services/Stock';
-import { DialogBoxService } from '../../../../core/dialog-box/dialog-box.service';
-import { ProcessedStockService } from '../../stock-services/processed-stock.service';
 import { StockAPIService } from '../../stock-services/stock-api.service';
 import { ActivatedRoute } from '../../../../../../../node_modules/@angular/router';
 
@@ -18,8 +16,6 @@ import { ActivatedRoute } from '../../../../../../../node_modules/@angular/route
 export class GetProductsComponent implements OnInit, OnDestroy {
 
     constructor(
-        private dialogBoxService: DialogBoxService,
-        private processedStockService: ProcessedStockService,
         private stockAPI: StockAPIService,
         private route: ActivatedRoute
     ) {

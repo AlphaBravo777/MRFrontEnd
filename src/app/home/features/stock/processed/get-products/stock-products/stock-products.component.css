@@ -27,6 +27,7 @@ h3 {
 h3.inline{
     display: inline;
     padding-left: 10px;
+    margin-right: 10px;
 }
 
 .buttonMenus {
