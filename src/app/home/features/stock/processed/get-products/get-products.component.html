@@ -1,5 +1,7 @@
-<app-stock-products *ngIf='processedStockMain'
-[productNames]="productNames" 
-[processedStockMain]="processedStockMain"
+<app-stock-products *ngIf='productsWithContainersAndAmounts'
+
+[processedGroup]="processedGroup" 
+[productsWithContainersAndAmounts]="productsWithContainersAndAmounts"
 [stocktime]="stocktime">
+
 </app-stock-products>

@@ -16,7 +16,7 @@ export class StockAPIService {
     // http://192.168.45.2:8000/api/products/containers
     private productsUrl = this.urlService.rootUrl + 'api/products/';
 
-    getProducts(): Observable<IProductDetails[]> {
+    getProducts(): Observable<IProductDetails[]> {     // Gets all the meatrite products that are active
         return this.http.get<IProductDetails[]>(this.productsUrl);
     }
 
@@ -26,7 +26,7 @@ export class StockAPIService {
         return this.http.get<IRawProcessedStock[]>(timeUrl);
     }
 
-    getProductContainers(): Observable<IProductContainers[]> {
+    getProductContainers(): Observable<IProductContainers[]> {  // Gets all the containers that a product can come in
         const timeUrl = this.productsUrl + 'containers/';
         // console.log(timeUrl);
         return this.http.get<IProductContainers[]>(timeUrl);
@@ -35,6 +35,11 @@ export class StockAPIService {
     deleteAllTimeProcessedStock(time: String) {
         const timeUrl = this.productsUrl + 'delete/' + time;
         return this.http.delete<any>(timeUrl);
+    }
+
+    checkConnectionWithDelete() {
+        const timeUrl = this.productsUrl + 'testDelete/';
+        return this.http.delete<any>(timeUrl,  { observe: 'response' });
     }
 
     enterAllProcessedProductsIntoDB(finalArray) {

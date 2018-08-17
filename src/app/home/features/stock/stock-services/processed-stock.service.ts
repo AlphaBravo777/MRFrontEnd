@@ -1,16 +1,9 @@
 import { Injectable } from '@angular/core';
 import { StockAPIService } from './stock-api.service';
 
-import {
-    IProductGroup,
-    IProductDetails,
-    IProcessedStockProducts,
-    IRawProcessedStock,
-    IProductContainers,
-    IProcessedStockContainer
-} from './Stock';
+import { IProductGroup, IProductDetails, IProcessedStockProducts } from './Stock';
 import { Router } from '@angular/router';
-import { ReplaySubject } from '../../../../../../node_modules/rxjs';
+import { ReplaySubject, Observable } from '../../../../../../node_modules/rxjs';
 import { DialogBoxService } from '../../../core/dialog-box/dialog-box.service';
 
 @Injectable({
@@ -24,6 +17,7 @@ export class ProcessedStockService {
         private dialogBoxService: DialogBoxService) { }
 
     personStream: ReplaySubject<any> = new ReplaySubject();
+
 
     insertProcStockIntoDB(stocktime) {
         const databaseArray = this.getStockReadyForDatabase(stocktime);
@@ -73,16 +67,6 @@ export class ProcessedStockService {
                 this.dialogBoxService.openConfirmationDialog();
             }
         });
-    }
-
-    groupByCategory(products: IProductDetails[]): IProductGroup[] {
-        if (!products) { return; } // This helps also to avoid an "undefined" error
-        const categories = new Set(products.map(x => x.batchgroup).sort());
-        const result = Array.from(categories).map(x => ({
-            group: x,
-            stock: products.filter(stocks => stocks.batchgroup === x)
-        }));
-        return result;
     }
 
     submitResult(amount, productName) {

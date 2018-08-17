@@ -10,12 +10,31 @@ import { IndStockTableComponent } from './processed/get-products/ind-stock-table
 import { IndStockProd2Component } from './processed/get-products/ind-stock-prod2/ind-stock-prod2.component';
 import { IndStockContainerComponent } from './processed/get-products/ind-stock-prod2/ind-stock-container/ind-stock-container.component';
 import { MyInputDirective } from './stock-services/my-input.directive';
+import { ProcessedMenuComponent } from './processed/processed-menu/processed-menu.component';
+import { MatMenuModule, MatListModule, MatIconModule } from '../../../../../node_modules/@angular/material';
+
+@NgModule({
+    exports: [
+        MatMenuModule,
+        MatListModule,
+        MatIconModule,
+    ],
+    imports: [
+        MatMenuModule,
+        MatListModule,
+        MatIconModule,
+    ],
+    declarations: [
+    ],
+  })
+  export class MaterialModule {}
 
 @NgModule({
   imports: [
+    MaterialModule,
     CommonModule,
     StocksRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     StocksComponent,
@@ -26,6 +45,7 @@ import { MyInputDirective } from './stock-services/my-input.directive';
     IndStockProd2Component,
     IndStockContainerComponent,
     MyInputDirective,
+    ProcessedMenuComponent,
   ],
   providers: [
   ]

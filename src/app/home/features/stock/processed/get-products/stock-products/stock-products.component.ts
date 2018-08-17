@@ -1,61 +1,70 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Renderer2 } from '@angular/core';
 
 import { IProductDetails, IProductGroup, IProcessedStockProducts, IContainerGroups } from './../../../stock-services/Stock';
 import { BehaviorSubject } from 'rxjs';
 import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
+import { StockAPIService } from '../../../stock-services/stock-api.service';
 
 @Component({
     selector: 'app-stock-products',
     templateUrl: './stock-products.component.html',
     styleUrls: ['./stock-products.component.css']
 })
-export class StockProductsComponent implements OnInit, OnDestroy {
+export class StockProductsComponent implements OnInit {
 
     constructor(
         private processedStockService: ProcessedStockService,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private apiService: StockAPIService
     ) { }
 
     @ViewChild('submitToDBButton') submitToDBButton;
 
-    private _productNames = new BehaviorSubject<IProductDetails[]>([]);
-    processedGroup: IProductGroup[];
     batch: String;
-    productName = 'Select a product';
+    // productName = 'Select a product';
     productNameWithContainer = {};
     productContainerOptions: IContainerGroups;  // This is the containers that are given through to show.
-    processedStock = {};
-    amounts = [];
     productDescription;
+    connection: boolean;
+    testClass = 'meatriteButton';
 
-    @Input() processedStockMain: IProcessedStockProducts[];  // (This is the main data, we will try and change it to localStorage)
+    // (This is the main data, we will try and change it to localStorage)
+    @Input() productsWithContainersAndAmounts: IProcessedStockProducts[];
     @Input() stocktime;
-    @Input()   // This can just load with *ngIF cause it only comes in once (Just normal list of productnames)
-    set productNames(value) {
-        this._productNames.next(value);
-    }
-    get productNames() {
-        return this._productNames.getValue();
-    }
+    @Input() processedGroup: IProductGroup[]; // This is all the product group names
 
     ngOnInit() {
-        // this can probably all be done in parent component and just the group inserted here without any change detection
-        this._productNames.subscribe(x => {
-            this.processedGroup = this.processedStockService.groupByCategory(this.productNames);
-        });
+
+    }
+
+    checkConnection() {
+        this.apiService.checkConnectionWithDelete().subscribe(
+            (response) => {
+                console.log(response.ok);
+                if (response.ok) {
+                    console.log('Things will be send now');
+                    this.renderer.setProperty(this.submitToDBButton.nativeElement, 'disabled', 'true');
+                    this.testClass = 'paleGreenButton';
+                    this.processedStockService.insertProcStockIntoDB(this.stocktime);
+                } else {
+                    this.testClass = 'meatriteButton';
+                }
+            }
+        );
+        this.testClass = 'meatriteButton';
     }
 
     BatchGroup(batch) {
         this.batch = batch;
-        console.log(this.batch);
+        // console.log(this.batch);
         this.productContainerOptions = undefined;
     }
 
     changeProduct(product) {
-        this.processedStockMain = JSON.parse(localStorage.getItem('stock'));
-        for (let i = 0; i < this.processedStockMain.length; ++i) {
-            if (this.processedStockMain[i].product === product.name) {
-                this.productNameWithContainer = this.processedStockMain[i];
+        this.productsWithContainersAndAmounts = JSON.parse(localStorage.getItem('stock'));
+        for (let i = 0; i < this.productsWithContainersAndAmounts.length; ++i) {
+            if (this.productsWithContainersAndAmounts[i].product === product.name) {
+                this.productNameWithContainer = this.productsWithContainersAndAmounts[i];
                 this.productDescription = product.description;
                 this.getContainers(product.name);
                 return;
@@ -67,11 +76,11 @@ export class StockProductsComponent implements OnInit, OnDestroy {
 
     getContainers(productName) {  // This function is giving problems (Go through main data and get container data)
         const holder: IContainerGroups = { name: '', containers: [] };
-        for (let i = 0; i < this.processedStockMain.length; ++i) {
-            if (this.processedStockMain[i].product === productName) {
-                holder.name = this.processedStockMain[i].product;
-                for (let j = 0; j < this.processedStockMain[i].mainContainer.length; ++j) {
-                    holder.containers.push(this.processedStockMain[i].mainContainer[j].container);
+        for (let i = 0; i < this.productsWithContainersAndAmounts.length; ++i) {
+            if (this.productsWithContainersAndAmounts[i].product === productName) {
+                holder.name = this.productsWithContainersAndAmounts[i].product;
+                for (let j = 0; j < this.productsWithContainersAndAmounts[i].mainContainer.length; ++j) {
+                    holder.containers.push(this.productsWithContainersAndAmounts[i].mainContainer[j].container);
                 }
                 this.productContainerOptions = holder;
             }
@@ -79,9 +88,7 @@ export class StockProductsComponent implements OnInit, OnDestroy {
     }
 
     submitToDataBase() {
-        this.renderer.setProperty(this.submitToDBButton.nativeElement, 'disabled', 'true');
-        this.renderer.setStyle(this.submitToDBButton.nativeElement, 'background', 'gray');
-        this.processedStockService.insertProcStockIntoDB(this.stocktime);
+        this.checkConnection();
     }
 
     confirmClearAllProducts() {
@@ -91,10 +98,6 @@ export class StockProductsComponent implements OnInit, OnDestroy {
     loadOldStock() {
         const recoveredStock = JSON.parse(localStorage.getItem(this.stocktime));
         localStorage.setItem('stock', JSON.stringify(recoveredStock));
-    }
-
-    ngOnDestroy(): void {
-        this._productNames.unsubscribe();
     }
 }
 

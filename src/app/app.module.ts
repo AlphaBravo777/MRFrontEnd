@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule, MatMenuModule, MatListModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule} from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { TokenInterceptorService } from './home/core/token-interceptor.service';
 import { UrlsService } from './home/core/urls.service';
 import { AuthService } from './home/features/admin/auth.service';
@@ -20,44 +21,48 @@ import { UnderConstructionComponent } from './home/shared/under-construction/und
 import { AlertComponent } from './home/core/alerts/alert.component';
 import { AlertService } from './home/core/alerts/alert.service';
 import { DialogBoxComponent } from './home/core/dialog-box/dialog-box.component';
-import { MatDialogModule } from '../../node_modules/@angular/material';
+import { MatIconModule } from '@angular/material/icon';
+
+
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    WebsiteComponent,
-    WebsiteNavComponent,
-    UnderConstructionComponent,
-    AlertComponent,
-    DialogBoxComponent,
-  ],
-  imports: [
-    BrowserAnimationsModule,
-    MatDialogModule,
-    WebsiteModule,
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    UserEntryModule,
-    NgxPermissionsModule.forRoot(),
-  ],
-  providers: [
-    AuthGuard,
-    AuthService,
-    UrlsService,
-    AlertService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true
-    }
-  ],
-  entryComponents: [
-    DialogBoxComponent,
-  ],
-  bootstrap: [AppComponent]
+    exports: [
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatDialogModule,
+        WebsiteModule,
+        FormsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        UserEntryModule,
+        NgxPermissionsModule.forRoot(),
+    ],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        WebsiteComponent,
+        WebsiteNavComponent,
+        UnderConstructionComponent,
+        AlertComponent,
+        DialogBoxComponent,
+    ],
+    providers: [
+        AuthGuard,
+        AuthService,
+        UrlsService,
+        AlertService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptorService,
+            multi: true
+        }
+    ],
+    entryComponents: [
+        DialogBoxComponent,
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
