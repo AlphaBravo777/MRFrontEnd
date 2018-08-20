@@ -13,6 +13,9 @@ export class StockAPIService {
 
     constructor(private http: HttpClient, private urlService: UrlsService) { }
 
+    workingProcStock = 'workingProcStock';
+    emptyStockAndContainers = 'emptyStockAndContainers';
+
     // http://192.168.45.2:8000/api/products/containers
     private productsUrl = this.urlService.rootUrl + 'api/products/';
 

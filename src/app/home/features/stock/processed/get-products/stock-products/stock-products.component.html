@@ -1,13 +1,10 @@
-<button [ngClass]='testClass' #submitToDBButton (click)="submitToDataBase()">FINISH AND SAVE</button>
-<button class='goldButton' (click)="confirmClearAllProducts()">Clear All Products</button>
-<h3 class='inline'>{{stocktime}}</h3>
-<button class='goldButton' (click)="loadOldStock()">Recover</button>
+<!-- <button [ngClass]='testClass' #submitToDBButton (click)="submitToDataBase()">FINISH AND SAVE</button> -->
+<!-- <h3 class='inline'>{{stocktime}}</h3> -->
+<!-- <button class='goldButton' (click)="loadOldStock()">Recover</button> -->
 
-<!-- <span>
-    <app-processed-menu [processedStockMain]='productsWithContainersAndAmounts'></app-processed-menu>
-</span> -->
+<app-processed-menu (timeToSave)="submitToDataBase($event)"></app-processed-menu>
 
-<div *ngIf="processedGroup && productsWithContainersAndAmounts">
+<div *ngIf="processedGroup && workingProcessedStock">
     <app-ind-stock-prod2 *ngIf= 'productContainerOptions' [productName]='productNameWithContainer' [containers]='productContainerOptions'
         [prodDescription]='productDescription' [stocktime]='stocktime'>
     </app-ind-stock-prod2>

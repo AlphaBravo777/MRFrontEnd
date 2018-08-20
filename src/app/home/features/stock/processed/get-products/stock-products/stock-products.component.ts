@@ -26,32 +26,15 @@ export class StockProductsComponent implements OnInit {
     productContainerOptions: IContainerGroups;  // This is the containers that are given through to show.
     productDescription;
     connection: boolean;
-    testClass = 'meatriteButton';
+    testClass = 'goldButton';
 
     // (This is the main data, we will try and change it to localStorage)
-    @Input() productsWithContainersAndAmounts: IProcessedStockProducts[];
+    @Input() workingProcessedStock: IProcessedStockProducts[];
     @Input() stocktime;
     @Input() processedGroup: IProductGroup[]; // This is all the product group names
+    productsOfWorkingSession: IProcessedStockProducts[] = JSON.parse(localStorage.getItem(this.apiService.workingProcStock));
 
     ngOnInit() {
-
-    }
-
-    checkConnection() {
-        this.apiService.checkConnectionWithDelete().subscribe(
-            (response) => {
-                console.log(response.ok);
-                if (response.ok) {
-                    console.log('Things will be send now');
-                    this.renderer.setProperty(this.submitToDBButton.nativeElement, 'disabled', 'true');
-                    this.testClass = 'paleGreenButton';
-                    this.processedStockService.insertProcStockIntoDB(this.stocktime);
-                } else {
-                    this.testClass = 'meatriteButton';
-                }
-            }
-        );
-        this.testClass = 'meatriteButton';
     }
 
     BatchGroup(batch) {
@@ -61,10 +44,14 @@ export class StockProductsComponent implements OnInit {
     }
 
     changeProduct(product) {
-        this.productsWithContainersAndAmounts = JSON.parse(localStorage.getItem('stock'));
-        for (let i = 0; i < this.productsWithContainersAndAmounts.length; ++i) {
-            if (this.productsWithContainersAndAmounts[i].product === product.name) {
-                this.productNameWithContainer = this.productsWithContainersAndAmounts[i];
+        if (localStorage[this.apiService.workingProcStock]) {
+            this.workingProcessedStock = JSON.parse(localStorage.getItem(this.apiService.workingProcStock));
+        } else {
+            this.workingProcessedStock = JSON.parse(localStorage.getItem(this.apiService.emptyStockAndContainers));
+        }
+        for (let i = 0; i < this.workingProcessedStock.length; ++i) {
+            if (this.workingProcessedStock[i].product === product.name) {
+                this.productNameWithContainer = this.workingProcessedStock[i];
                 this.productDescription = product.description;
                 this.getContainers(product.name);
                 return;
@@ -76,23 +63,36 @@ export class StockProductsComponent implements OnInit {
 
     getContainers(productName) {  // This function is giving problems (Go through main data and get container data)
         const holder: IContainerGroups = { name: '', containers: [] };
-        for (let i = 0; i < this.productsWithContainersAndAmounts.length; ++i) {
-            if (this.productsWithContainersAndAmounts[i].product === productName) {
-                holder.name = this.productsWithContainersAndAmounts[i].product;
-                for (let j = 0; j < this.productsWithContainersAndAmounts[i].mainContainer.length; ++j) {
-                    holder.containers.push(this.productsWithContainersAndAmounts[i].mainContainer[j].container);
+        for (let i = 0; i < this.workingProcessedStock.length; ++i) {
+            if (this.workingProcessedStock[i].product === productName) {
+                holder.name = this.workingProcessedStock[i].product;
+                for (let j = 0; j < this.workingProcessedStock[i].mainContainer.length; ++j) {
+                    holder.containers.push(this.workingProcessedStock[i].mainContainer[j].container);
                 }
                 this.productContainerOptions = holder;
             }
         }
     }
 
-    submitToDataBase() {
-        this.checkConnection();
+    submitToDataBase(time) {
+             this.apiService.checkConnectionWithDelete().subscribe(
+                (response) => {
+                    console.log(response.ok);
+                    if (response.ok) {
+                        console.log('Things will be send now');
+                        // this.renderer.setProperty(this.submitToDBButton.nativeElement, 'disabled', 'true');
+                        // this.testClass = 'paleGreenButton';
+                        this.processedStockService.insertProcStockIntoDB(time);
+                    } else {
+                        // this.testClass = 'goldButton';
+                    }
+                }
+            );
+            // this.testClass = 'goldButton';
     }
 
     confirmClearAllProducts() {
-        this.processedStockService.confirmClearAllProducts(this.stocktime);
+        this.processedStockService.confirmClearAllProducts();
     }
 
     loadOldStock() {

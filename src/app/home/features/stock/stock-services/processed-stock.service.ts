@@ -28,7 +28,7 @@ export class ProcessedStockService {
 
     getStockReadyForDatabase(stocktime) {
         const finalArray = [];
-        const stockArray: IProcessedStockProducts[] = JSON.parse(localStorage.getItem('stock'));
+        const stockArray: IProcessedStockProducts[] = JSON.parse(localStorage.getItem(this.stockAPI.workingProcStock));
         for (let array = 0; array < stockArray.length; ++array) {
             if (stockArray[array].mainContainer.length > 0) {
                 for (let mainCon = 0; mainCon < stockArray[array].mainContainer.length; ++mainCon) {
@@ -106,8 +106,8 @@ export class ProcessedStockService {
         });
     }
 
-    confirmClearAllProducts(stocktime) {
-        this.dialogBoxService.openStockClearedDialog(stocktime);
+    confirmClearAllProducts() {
+        this.dialogBoxService.openStockClearedDialog();
     }
 
     clearAllProducts(stocktime) {

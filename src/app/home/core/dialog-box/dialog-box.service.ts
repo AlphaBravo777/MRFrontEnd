@@ -30,21 +30,25 @@ export class DialogBoxService {
         });
     }
 
-    openStockClearedDialog(stocktime) {
+    openStockClearedDialog() {
         this.dialogRef = this.dialog.open(DialogBoxComponent, {
             panelClass: 'my-centered-dialog',
             disableClose: false
         });
-        this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to clear all stock for ' + stocktime;
+        this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to clear all stock';
         this.dialogRef.componentInstance.dialogtype = 'stockCleared';
 
         this.dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.stockAPI.deleteAllTimeProcessedStock(stocktime)
-                    .subscribe(x => {
-                        console.log(x);
-                        this.router.navigate(['user/user-nav/']);
-                    });
+                // JSON.parse(localStorage.getItem(this.stockAPI.workingProcStock))
+                localStorage.removeItem(this.stockAPI.workingProcStock);
+                // localStorage.setItem(this.stockAPI.workingProcStock, JSON.stringify(this.stockAPI.emptyStockAndContainers));
+                // this.router.navigate(['user/user-nav/']);
+                // this.stockAPI.deleteAllTimeProcessedStock(stocktime)
+                    // .subscribe(x => {
+                    //     console.log(x);
+                    //     this.router.navigate(['user/user-nav/']);
+                    // });
             }
             this.dialogRef = null;
         });

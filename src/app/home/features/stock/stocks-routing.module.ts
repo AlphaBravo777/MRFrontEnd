@@ -17,7 +17,7 @@ const stockRoutes: Routes = [
                 // canActivate: [AuthGuard],
             },
             {
-                path: 'processed/:time',
+                path: 'processed',
                 component: GetProductsComponent
             },
         ]

@@ -19,14 +19,9 @@ export class GetProductsComponent implements OnInit {
         private stockAPI: StockAPIService,
         private route: ActivatedRoute,
         private productContainerService: ProductContainerService
-    ) {
-        this.route.params.subscribe( params =>
-            this.stocktime = params['time']
-        );
-     }
+    ) {}
 
-    @Input() stocktime: string;
-    productsWithContainersAndAmounts: IProcessedStockProducts[];   // Main data with all the products, containers, and the amounts
+    workingProcessedStock: IProcessedStockProducts[];   // Main data with all the products, containers, and the amounts
     processedGroup: IProductGroup[];
 
     ngOnInit() {
@@ -36,13 +31,22 @@ export class GetProductsComponent implements OnInit {
     getProducts() {
         const products$ = this.stockAPI.getProducts();
         const containers$ = this.stockAPI.getProductContainers();
-        const processedStock$ = this.stockAPI.getTimedStock(this.stocktime);
-        forkJoin([products$, containers$, processedStock$]).subscribe(results => {
+        // const processedStock$ = this.stockAPI.getTimedStock(this.stocktime);
+        forkJoin([products$, containers$]).subscribe(results => {
             const emptyProductContainers: IProcessedStockProducts[] = this.productContainerService.createPlaceForContainers(results[0]);
             // tslint:disable-next-line
             const prodWithContainers: IProcessedStockProducts[] = this.productContainerService.insertContainers(emptyProductContainers, results[1]);
-            this.productsWithContainersAndAmounts = this.productContainerService.insertTotalsIntoContainers(results[2], prodWithContainers);
-            localStorage.setItem('stock', JSON.stringify(this.productsWithContainersAndAmounts)); // This line resets the stock to DB data
+            localStorage.setItem(this.stockAPI.emptyStockAndContainers, JSON.stringify(prodWithContainers));
+            if (localStorage[this.stockAPI.workingProcStock]) {
+                this.workingProcessedStock = JSON.parse(localStorage.getItem(this.stockAPI.workingProcStock));
+            } else {
+                localStorage.setItem(this.stockAPI.workingProcStock, JSON.stringify(prodWithContainers));
+                this.workingProcessedStock = prodWithContainers;
+            }
+            // tslint:disable-next-line
+            // this.productsWithContainersAndAmounts = this.productContainerService.insertTotalsIntoContainers(results[2], prodWithContainers);
+            // tslint:disable-next-line
+            // localStorage.setItem('stock', JSON.stringify(this.productsWithContainersAndAmounts)); // This line resets the stock to DB data
             this.processedGroup = this.productContainerService.groupByCategory(results[0]);
           });
     }

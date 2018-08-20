@@ -12,3 +12,15 @@
 <button class='goldButton' (click)="confirmClearAllProducts()">Clear All Products</button>
 <h3 class='inline'>{{stocktime}}</h3>
 <button class='goldButton' (click)="loadOldStock()">Recover</button> -->
+
+<mat-menu #appMenu="matMenu">
+    <button mat-menu-item (click)='sendTime("06:00")'>06:00</button>
+    <button mat-menu-item (click)='sendTime("12:00")'>12:00</button>
+    <button mat-menu-item (click)='sendTime("18:00")'>18:00</button>
+    <button mat-menu-item (click)='sendTime("06:00")'>End of Week</button>
+</mat-menu>
+
+<a class="valign-center goldButton" [matMenuTriggerFor]="appMenu">
+    <i class="material-icons">list</i>
+    <span> &nbsp; Save As</span>
+</a>

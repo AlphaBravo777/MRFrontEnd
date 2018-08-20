@@ -20,6 +20,7 @@ export class IndStockProd2Component implements OnInit, OnChanges {
     amountForm: FormGroup;
 
     ngOnInit() {
+        console.log(this.productName);
         this.buildForm();
     }
 
@@ -52,7 +53,7 @@ export class IndStockProd2Component implements OnInit, OnChanges {
 
     deleteProject(control, index) {
         control.removeAt(index);
-        this.processedStockFormService.turnIntoProductUnit(this.productName.product, this.amountForm.value, this.stocktime);
+        this.amountFormSubmit();
     }
 
     addNewProject(control) {
@@ -63,8 +64,8 @@ export class IndStockProd2Component implements OnInit, OnChanges {
     }
 
     amountFormSubmit() {
-        // console.log(this.amountForm.value);
-        this.processedStockFormService.turnIntoProductUnit(this.productName.product, this.amountForm.value, this.stocktime);
+        console.log(this.productName.product, this.amountForm.value);
+        this.processedStockFormService.turnIntoProductUnit(this.productName.product, this.amountForm.value);
     }
 
 
