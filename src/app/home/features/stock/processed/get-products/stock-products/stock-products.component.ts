@@ -4,6 +4,8 @@ import { IProductDetails, IProductGroup, IProcessedStockProducts, IContainerGrou
 import { BehaviorSubject } from 'rxjs';
 import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
 import { StockAPIService } from '../../../stock-services/stock-api.service';
+import { AuthService } from '../../../../admin/auth.service';
+import { AuthGuard } from '../../../../admin/auth.guard';
 
 @Component({
     selector: 'app-stock-products',
@@ -15,7 +17,8 @@ export class StockProductsComponent implements OnInit {
     constructor(
         private processedStockService: ProcessedStockService,
         private renderer: Renderer2,
-        private apiService: StockAPIService
+        private apiService: StockAPIService,
+        private authGuard: AuthGuard
     ) { }
 
     @ViewChild('submitToDBButton') submitToDBButton;
@@ -75,20 +78,19 @@ export class StockProductsComponent implements OnInit {
     }
 
     submitToDataBase(time) {
-             this.apiService.checkConnectionWithDelete().subscribe(
-                (response) => {
-                    console.log(response.ok);
-                    if (response.ok) {
-                        console.log('Things will be send now');
-                        // this.renderer.setProperty(this.submitToDBButton.nativeElement, 'disabled', 'true');
-                        // this.testClass = 'paleGreenButton';
-                        this.processedStockService.insertProcStockIntoDB(time);
-                    } else {
-                        // this.testClass = 'goldButton';
-                    }
+        this.authGuard.canActivate().subscribe(x => {
+            console.log(x);
+        });
+        this.apiService.checkConnectionWithDelete().subscribe(
+            (response) => {
+                console.log(response.ok);
+                if (response.ok) {
+                    console.log('Things will be send now');
+                    this.processedStockService.insertProcStockIntoDB(time);
+                } else {
                 }
-            );
-            // this.testClass = 'goldButton';
+            }
+        );
     }
 
     confirmClearAllProducts() {

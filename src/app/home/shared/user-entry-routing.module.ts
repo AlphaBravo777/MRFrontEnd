@@ -13,15 +13,17 @@ const userEntryRoutes: Routes = [
     {
         path: 'user',
         component: UserEntryComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         children: [
             {
                 path: 'user',
                 component: UserNavComponent,
+                canActivate: [AuthGuard],
             },
             {
                 path: 'user-nav',
                 component: UserNavComponent,
+                canActivate: [AuthGuard],
             },
             {
                 path: 'stocks',
@@ -31,6 +33,7 @@ const userEntryRoutes: Routes = [
             {
                 path: 'L-shape',
                 component: UnderConstructionComponent,
+                canActivate: [AuthGuard],
             },
         ],
     },

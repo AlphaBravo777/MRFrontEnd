@@ -12,9 +12,7 @@
     align-self: start;
 }
 
-button {
-    margin-right: 10px;
-}
+
 
 #finishButton {
     background-color: rgb(211, 106, 112);
@@ -24,13 +22,9 @@ button {
 #spanning{
     display: grid;
     white-space: nowrap;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
 }
 
-h3 {
-    font-size: 1.3em;
-    margin-top: 0px;
-}
 
 h3.inline{
     display: inline;
@@ -38,6 +32,3 @@ h3.inline{
     margin-right: 10px;
 }
 
-.buttonMenus {
-    margin: 5px;
-}

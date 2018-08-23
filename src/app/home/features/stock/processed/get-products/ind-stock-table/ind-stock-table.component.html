@@ -1,7 +1,7 @@
-<table>
-    <div *ngFor="let group of processedGroup">
-        <div *ngIf="group.group == batch">
-            <h3>{{group.group}}</h3>
+<div *ngFor="let group of processedGroup">
+    <div *ngIf="group.group == batch">
+        <h3>{{group.group}}</h3>
+        <table>
             <tr>
                 <th>Brand</th>
                 <th>Packaging</th>
@@ -16,6 +16,6 @@
                     <button class='secBlueButton' (click)="changeProduct(stock.productid, stock.description)">{{stock.productid}}</button>
                 </td>
             </tr>
-        </div>
+        </table>
     </div>
-</table>
+</div>

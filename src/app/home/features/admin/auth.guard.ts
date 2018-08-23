@@ -20,6 +20,8 @@ export class AuthGuard implements CanActivate {
             if (e) {
                 console.log(e);
                 return true;
+            } else {
+                console.log('Not authorized');
             }
         }),
         catchError(() => {
