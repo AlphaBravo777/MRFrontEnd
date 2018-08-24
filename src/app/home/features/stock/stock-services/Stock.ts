@@ -20,9 +20,7 @@ export class IProductGroup {
     stock: IProductDetails[];
     group: string;
 }
-
 // -------------------------------------------------------------------
-
 export class IProcessedStockProducts {
     product: string;
     mainContainer: IProcessedStockContainer[];
@@ -32,22 +30,34 @@ export class IProcessedStockContainer {
     container: string;
     amount: string[];
 }
-
 // -------------------------------------------------------------------
-
 export class IRawProcessedStock {
     name: string;
     amount: string;
     container: string;
     time?: string;
 }
-
+// -------------------------------------------------------------------
 export class IProductContainers {
+    id: number;
     productid: string;
     container: string;
+    deleteContainerAmount: boolean;
 }
-
+// -------------------------------------------------------------------
 export class IContainerGroups {
     name: string;
     containers: string[];
 }
+// -------------------------------------------------------------------
+export class IDeleteGroups {
+    container: string;
+    delete: boolean;
+}
+
+export class IProdDeleteGroups {
+    product: string;
+    mainContainer: IDeleteGroups[];
+
+}
+// -------------------------------------------------------------------

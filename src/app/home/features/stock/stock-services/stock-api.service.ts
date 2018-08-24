@@ -40,7 +40,18 @@ export class StockAPIService {
         return this.http.delete<any>(timeUrl);
     }
 
-    checkConnectionWithDelete() {
+    getProcessedStockContainersToDelete(): Observable<IProductContainers[]> {
+        const containers = 'half';
+        const containerUrl = this.productsUrl + 'delete/containers/' + containers;
+        return this.http.get<any>(containerUrl);
+    }
+
+    updateProcessedStockContainerDelete(id, updateValue) {
+        const containerUrl = this.productsUrl + 'delete/containerUpdate/' + id;
+        return this.http.put<any>(containerUrl, updateValue);
+    }
+
+    checkConnectionWithDelete() {   // Does a small delete just to see if the connection is available
         const timeUrl = this.productsUrl + 'testDelete/';
         return this.http.delete<any>(timeUrl,  { observe: 'response' });
     }

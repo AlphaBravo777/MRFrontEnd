@@ -110,6 +110,49 @@ export class ProcessedStockService {
         this.dialogBoxService.openStockClearedDialog();
     }
 
+    confirmClearHalfProducts() {
+        localStorage.setItem('tempStock', localStorage.getItem(this.stockAPI.emptyStockAndContainers));
+        this.dialogBoxService.openStockClearedHalfDialog().subscribe(x => {
+            this.stockAPI.getProcessedStockContainersToDelete().subscribe(value => {
+                const workingStock: IProcessedStockProducts[] = JSON.parse(localStorage.getItem(this.stockAPI.workingProcStock));
+                for (let noDel = 0; noDel < value.length; ++noDel) {
+                    for (let ws = 0; ws < workingStock.length; ++ws) {
+                        if (value[noDel].productid === workingStock[ws].product) {
+                            for (let cont = 0; cont < workingStock[ws].mainContainer.length; ++cont) {
+                                if (value[noDel].container === workingStock[ws].mainContainer[cont].container) {
+                                    const amounts = [];
+                                    for (let amt = 0; amt < workingStock[ws].mainContainer[cont].amount.length; ++amt) {
+                                        amounts.push(workingStock[ws].mainContainer[cont].amount[amt]);
+                                        // console.log(workingStock[ws].mainContainer[cont].amount[amt]);
+                                    }
+                                    this.saveStockDataToEmpty(value[noDel].productid, value[noDel].container, amounts);
+                                }
+                            }
+                        }
+                    }
+                }
+                localStorage.setItem(this.stockAPI.workingProcStock, localStorage.getItem('tempStock'));
+                localStorage.removeItem('tempStock');
+            });
+        });
+    }
+
+    saveStockDataToEmpty(stockName, containerName, amounts) {
+        const emptyStock: IProcessedStockProducts[] = JSON.parse(localStorage.getItem('tempStock'));
+        for (let es = 0; es < emptyStock.length; ++es) {
+            if (emptyStock[es].product === stockName) {
+                for (let cont = 0; cont < emptyStock[es].mainContainer.length; ++cont) {
+                    if (emptyStock[es].mainContainer[cont].container === containerName) {
+                        for (let amt = 0; amt < amounts.length; ++amt) {
+                            emptyStock[es].mainContainer[cont].amount.push(amounts[amt]);
+                        }
+                    }
+                }
+            }
+        }
+        localStorage.setItem('tempStock', JSON.stringify(emptyStock));
+    }
+
     clearAllProducts(stocktime) {
         this.stockAPI.deleteAllTimeProcessedStock(stocktime)
             .subscribe(x => {

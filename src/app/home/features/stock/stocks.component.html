@@ -3,14 +3,19 @@
 <div>
     <div class='leftDiv'>
         <h3>Processed</h3>
-        <a class='meatriteButton' routerLink="../processed" routerLinkActive="active">Stocktake</a>
+        <a  routerLink="../processed" routerLinkActive="active"><button class='niceButton meatriteButton'>Stocktake</button></a>
         <br>
-        <button class='meatriteButton' (click)="confirmClearAllProducts()">Clear All Products</button>
+        <button class='niceButton meatriteButton' (click)="confirmClearAllProducts()">Clear All Products</button>
         <br>    
+        <button class='niceButton meatriteButton' (click)="confirmClearHalfProducts()">Clear half of Products</button>
+        <br>
+        <ng-template [ngxPermissionsOnly]="['shift-supervisor']">
+            <a routerLink="../productMaintenance" routerLinkActive="active"><button class='niceButton meatriteButton'>Choose Stock Delete</button></a>
+        </ng-template>
     </div>
     <div>
         <h3>Raw Material</h3>
-        <a class='meatriteButton' routerLink="../processed" routerLinkActive="active">Daily</a>
+        <a  routerLink="../processed" routerLinkActive="active"><button class='niceButton meatriteButton'>Daily</button></a>
     </div>
 </div>
 <router-outlet></router-outlet> 

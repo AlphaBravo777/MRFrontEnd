@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { StockAPIService } from './stock-services/stock-api.service';
 import { ProcessedStockService } from './stock-services/processed-stock.service';
+import { UserNavService } from '../../shared/user-nav/user-nav.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
     selector: 'app-stocks',
@@ -10,13 +10,27 @@ import { ProcessedStockService } from './stock-services/processed-stock.service'
 })
 export class StocksComponent implements OnInit {
 
-    constructor(private processedStockService: ProcessedStockService) { }
+    constructor(
+        private processedStockService: ProcessedStockService,
+        private userNav: UserNavService,
+        private permissionsService: NgxPermissionsService) { }
+
+    private permissions = [];
 
     ngOnInit() {
+        this.userNav.getPermissions().subscribe(groups => {
+            for (const key of Object.keys(groups.groups)) {
+                this.permissions.push(groups.groups[key].name);
+            }
+            this.permissionsService.loadPermissions(this.permissions);
+            console.log(this.permissions);
+        });
     }
 
     confirmClearAllProducts() {
         this.processedStockService.confirmClearAllProducts();
     }
-
+    confirmClearHalfProducts() {
+        this.processedStockService.confirmClearHalfProducts();
+    }
 }

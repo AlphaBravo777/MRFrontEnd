@@ -124,18 +124,8 @@ h5 {
 	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537', endColorstr='#c62d1f',GradientType=0);
 	background-color:#f24537;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
 	border:1px solid #d02718;
-	display:inline-block;
-	cursor:pointer;
 	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 6px;
-	text-decoration:none;
 	text-shadow:0px 1px 0px #810e05;
 }
 .redButton:hover {
@@ -147,10 +137,6 @@ h5 {
 	background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24537',GradientType=0);
 	background-color:#c62d1f;
-}
-.redButton:active {
-	position:relative;
-	top:1px;
 }
 
 .meatriteButton {
@@ -165,18 +151,8 @@ h5 {
 	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d0451b', endColorstr='#bc3315',GradientType=0);
 	background-color:#d0451b;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
 	border:1px solid #942911;
-	display:inline-block;
-	cursor:pointer;
 	color:#ffffff;
-	font-family:Arial;
-	font-size:13px;
-    padding:6px 24px;
-    margin: 4px;
-	text-decoration:none;
 	text-shadow:0px 1px 0px #854629;
 }
 .meatriteButton:hover {
@@ -189,12 +165,6 @@ h5 {
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bc3315', endColorstr='#d0451b',GradientType=0);
 	background-color:#bc3315;
 }
-.meatriteButton:active {
-	position:relative;
-	top:1px;
-}
-
-
 
 .paleGreenButton {
 	-moz-box-shadow: 0px 1px 0px 0px #9acc85;
@@ -208,18 +178,8 @@ h5 {
 	background:linear-gradient(to bottom, #74ad5a 5%, #68a54b 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#74ad5a', endColorstr='#68a54b',GradientType=0);
 	background-color:#74ad5a;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
 	border:1px solid #3b6e22;
-	display:inline-block;
-	cursor:pointer;
 	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 24px;
-	text-decoration:none;
 	text-shadow:0px 1px 0px #92b879;
 }
 .paleGreenButton:hover {
@@ -231,10 +191,6 @@ h5 {
 	background:linear-gradient(to bottom, #68a54b 5%, #74ad5a 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#68a54b', endColorstr='#74ad5a',GradientType=0);
 	background-color:#68a54b;
-}
-.paleGreenButton:active {
-	position:relative;
-	top:1px;
 }
 
 .primBlueButton {
@@ -249,17 +205,8 @@ h5 {
 	background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#007dc1', endColorstr='#0061a7',GradientType=0);
 	background-color:#007dc1;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
 	border:1px solid #124d77;
-	display:inline-block;
-	cursor:pointer;
 	color:#ffffff;
-	font-family:Arial;
-	font-size:13px;
-	padding:6px 24px;
-	text-decoration:none;
 	text-shadow:0px 1px 0px #154682;
 }
 .primBlueButton:hover {
@@ -271,10 +218,6 @@ h5 {
 	background:linear-gradient(to bottom, #0061a7 5%, #007dc1 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0061a7', endColorstr='#007dc1',GradientType=0);
 	background-color:#0061a7;
-}
-.primBlueButton:active {
-	position:relative;
-	top:1px;
 }
 
 .secBlueButton {
@@ -289,17 +232,8 @@ h5 {
 	background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5',GradientType=0);
 	background-color:#79bbff;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
 	border:1px solid #84bbf3;
-	display:inline-block;
-	cursor:pointer;
 	color:#ffffff;
-	font-family:Arial;
-	font-size:13px;
-	padding:6px 24px;
-	text-decoration:none;
 	text-shadow:0px 1px 0px #528ecc;
 }
 .secBlueButton:hover {
@@ -312,16 +246,21 @@ h5 {
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff',GradientType=0);
 	background-color:#378de5;
 }
-.secBlueButton:active {
-	position:relative;
-	top:1px;
-}
 
 @media only screen and (min-width:425px) and (max-width:800px) {
+
+    .niceButton {
+        margin-bottom: 15px;
+        margin-right: 20px;
+        display: inline-block;
+        height: 40px;
+        white-space: normal;
+    }
+
     .bigButtons {
         margin-bottom: 15px;
         margin-right: 20px;
-        display: inline-block; 
+        display: inline-block;
         height: 50px;
         padding:5px;
         white-space: normal;

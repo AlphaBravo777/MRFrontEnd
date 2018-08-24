@@ -1,39 +1,39 @@
 <div class="center-screen">
     <nav>
         <ng-template [ngxPermissionsOnly]="['factory-supervisor', 'Lshape-leader', 'shift-supervisor']">
-            <a class='meatriteButton' routerLink="../stocks" routerLinkActive="active">Stock</a>
-        </ng-template>
-
-        <ng-template [ngxPermissionsOnly]="['factory-supervisor']">
-            <a class='meatriteButton' routerLink="../factory" routerLinkActive="active">Factory</a>
-        </ng-template>
-
-        <ng-template [ngxPermissionsOnly]="['factory-supervisor']">
-            <a class='meatriteButton' routerLink="../stocks" routerLinkActive="active">Production</a>
+            <a routerLink="../stocks" routerLinkActive="active"><button class='niceButton meatriteButton'>Stock</button></a>
         </ng-template>
 
         <ng-template [ngxPermissionsOnly]="['shift-supervisor','factory-supervisor','Lshape-leader']">
-            <a class='meatriteButton' routerLink="../L-shape" routerLinkActive="active">L-Shape</a>
+            <a routerLink="../L-shape" routerLinkActive="active"><button class='niceButton meatriteButton'>L-Shape</button></a>
+        </ng-template>
+
+        <!-- <ng-template [ngxPermissionsOnly]="['factory-supervisor']">
+            <a routerLink="../factory" routerLinkActive="active"><button class='niceButton meatriteButton'>Factory</button></a>
+        </ng-template>
+
+        <ng-template [ngxPermissionsOnly]="['factory-supervisor']">
+            <a routerLink="../stocks" routerLinkActive="active"><button class='niceButton meatriteButton'>Production</button></a>
         </ng-template>
 
         <ng-template [ngxPermissionsOnly]="['shift-supervisor','factory-supervisor']">
-            <a class='meatriteButton' routerLink="../stocks" routerLinkActive="active">Storage</a>
+            <a routerLink="../stocks" routerLinkActive="active"><button class='niceButton meatriteButton'>Storage</button></a>
         </ng-template>
 
         <ng-template [ngxPermissionsOnly]="['shift-supervisor','factory-supervisor']">
-            <a class='meatriteButton' routerLink="../stocks" routerLinkActive="active">Receiving</a>
+            <a routerLink="../stocks" routerLinkActive="active"><button class='niceButton meatriteButton'>Receiving</button></a>
         </ng-template>
 
         <ng-template [ngxPermissionsOnly]="['factory-supervisor']">
-            <a class='meatriteButton' routerLink="../stocks" routerLinkActive="active">Factory Office</a>
+            <a routerLink="../stocks" routerLinkActive="active"><button class='niceButton meatriteButton'>Factory Office</button></a>
         </ng-template>
 
         <ng-template [ngxPermissionsOnly]="['factory-supervisor']">
-            <a class='meatriteButton' routerLink="../stocks" routerLinkActive="active">Workshop</a>
+            <a routerLink="../stocks" routerLinkActive="active"><button class='niceButton meatriteButton'>Workshop</button></a>
         </ng-template>
 
         <ng-template [ngxPermissionsOnly]="['factory-supervisor']">
-            <a class='meatriteButton' routerLink="../stocks" routerLinkActive="active">Food safety</a>
-        </ng-template>
+            <a routerLink="../stocks" routerLinkActive="active"><button class='niceButton meatriteButton'>Home</button>Food safety</a>
+        </ng-template> -->
     </nav>
 </div>

@@ -12,6 +12,8 @@ import { IndStockContainerComponent } from './processed/get-products/ind-stock-p
 import { MyInputDirective } from './stock-services/my-input.directive';
 import { ProcessedMenuComponent } from './processed/processed-menu/processed-menu.component';
 import { MatMenuModule, MatListModule, MatIconModule } from '../../../../../node_modules/@angular/material';
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { ProductMaintenanceComponent } from './processed/product-maintenance/product-maintenance.component';
 
 @NgModule({
     exports: [
@@ -23,9 +25,7 @@ import { MatMenuModule, MatListModule, MatIconModule } from '../../../../../node
         MatMenuModule,
         MatListModule,
         MatIconModule,
-    ],
-    declarations: [
-    ],
+    ]
   })
   export class MaterialModule {}
 
@@ -35,6 +35,7 @@ import { MatMenuModule, MatListModule, MatIconModule } from '../../../../../node
     CommonModule,
     StocksRoutingModule,
     ReactiveFormsModule,
+    NgxPermissionsModule.forChild(),
   ],
   declarations: [
     StocksComponent,
@@ -46,6 +47,7 @@ import { MatMenuModule, MatListModule, MatIconModule } from '../../../../../node
     IndStockContainerComponent,
     MyInputDirective,
     ProcessedMenuComponent,
+    ProductMaintenanceComponent,
   ],
   providers: [
   ]

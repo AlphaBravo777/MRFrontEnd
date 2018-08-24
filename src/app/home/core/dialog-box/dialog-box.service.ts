@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '../../../../../node_modules/@angular/material';
 import { DialogBoxComponent } from './dialog-box.component';
-import { Observable } from '../../../../../node_modules/rxjs';
 import { StockAPIService } from '../../features/stock/stock-services/stock-api.service';
 import { Router } from '../../../../../node_modules/@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -40,18 +41,31 @@ export class DialogBoxService {
 
         this.dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                // JSON.parse(localStorage.getItem(this.stockAPI.workingProcStock))
                 localStorage.removeItem(this.stockAPI.workingProcStock);
-                // localStorage.setItem(this.stockAPI.workingProcStock, JSON.stringify(this.stockAPI.emptyStockAndContainers));
-                // this.router.navigate(['user/user-nav/']);
-                // this.stockAPI.deleteAllTimeProcessedStock(stocktime)
-                    // .subscribe(x => {
-                    //     console.log(x);
-                    //     this.router.navigate(['user/user-nav/']);
-                    // });
             }
             this.dialogRef = null;
         });
+    }
+
+    openStockClearedHalfDialog(): Observable<any> {
+        this.dialogRef = this.dialog.open(DialogBoxComponent, {
+            panelClass: 'my-centered-dialog',
+            disableClose: false
+        });
+        // tslint:disable-next-line
+        this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to clear only specific products (As chosen by the shift manager)';
+        this.dialogRef.componentInstance.dialogtype = 'stockCleared';
+
+        return this.dialogRef.afterClosed().pipe(
+            map(result => {
+            if (result) {
+                this.dialogRef = null;
+                return true;
+            } else {
+                this.dialogRef = null;
+                return false;
+            }
+        }));
     }
 
     passwordNotCorrect() {

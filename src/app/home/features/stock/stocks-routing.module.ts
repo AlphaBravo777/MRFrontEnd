@@ -5,6 +5,7 @@ import { GetProductsComponent } from './processed/get-products/get-products.comp
 import { UserEntryComponent } from '../../shared/user-entry.component';
 import { UnderConstructionComponent } from '../../shared/under-construction/under-construction.component';
 import { AuthGuard } from '../admin/auth.guard';
+import { ProductMaintenanceComponent } from './processed/product-maintenance/product-maintenance.component';
 
 const stockRoutes: Routes = [
     {
@@ -19,6 +20,11 @@ const stockRoutes: Routes = [
             {
                 path: 'processed',
                 component: GetProductsComponent
+            },
+            {
+                path: 'productMaintenance',
+                component: ProductMaintenanceComponent,
+                canActivate: [AuthGuard],
             },
         ]
     }

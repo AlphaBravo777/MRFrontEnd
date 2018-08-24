@@ -20,7 +20,7 @@ export class IndStockProd2Component implements OnInit, OnChanges {
     amountForm: FormGroup;
 
     ngOnInit() {
-        console.log(this.productName);
+        // console.log(this.productName);
         this.buildForm();
     }
 
@@ -64,7 +64,7 @@ export class IndStockProd2Component implements OnInit, OnChanges {
     }
 
     amountFormSubmit() {
-        console.log(this.productName.product, this.amountForm.value);
+        // console.log(this.productName.product, this.amountForm.value);
         this.processedStockFormService.turnIntoProductUnit(this.productName.product, this.amountForm.value);
     }
 
