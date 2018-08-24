@@ -14,6 +14,7 @@ import { ProcessedMenuComponent } from './processed/processed-menu/processed-men
 import { MatMenuModule, MatListModule, MatIconModule } from '../../../../../node_modules/@angular/material';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ProductMaintenanceComponent } from './processed/product-maintenance/product-maintenance.component';
+import { ButtonColorDirective } from './stock-services/button-color.directive';
 
 @NgModule({
     exports: [
@@ -25,7 +26,7 @@ import { ProductMaintenanceComponent } from './processed/product-maintenance/pro
         MatMenuModule,
         MatListModule,
         MatIconModule,
-    ]
+    ],
   })
   export class MaterialModule {}
 
@@ -48,6 +49,7 @@ import { ProductMaintenanceComponent } from './processed/product-maintenance/pro
     MyInputDirective,
     ProcessedMenuComponent,
     ProductMaintenanceComponent,
+    ButtonColorDirective,
   ],
   providers: [
   ]

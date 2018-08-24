@@ -1,0 +1,21 @@
+
+
+/* .weight2Vac { color: #0080ff }
+.weight2bag { color: #0080ff } */
+
+table {
+    padding-top: 0px;
+    font-family: arial, sans-serif;
+    border-collapse:separate; 
+}
+
+td, th {
+    text-align: center;
+    padding: 10px;
+    height: 30px;
+}
+
+/* tr:nth-child(1) {
+    font-weight: bold;
+    width: 300px;
+} */

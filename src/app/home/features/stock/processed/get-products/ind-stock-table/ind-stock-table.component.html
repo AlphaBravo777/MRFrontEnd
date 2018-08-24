@@ -11,9 +11,9 @@
             <tr *ngFor="let stock of group.stock">
                 <td>{{stock.brand}}</td>
                 <td>{{stock.packaging}}</td>
-                <td>{{stock.unitweight}}kg</td>
+                <td appButtonColor weight={{stock.unitweight}} packaging={{stock.packaging}}>{{stock.unitweight}}kg</td>
                 <td>
-                    <button class='secBlueButton' (click)="changeProduct(stock.productid, stock.description)">{{stock.productid}}</button>
+                    <button class='secBlueButton niceButton' (click)="changeProduct(stock.productid, stock.description)">{{stock.productid}}</button>
                 </td>
             </tr>
         </table>

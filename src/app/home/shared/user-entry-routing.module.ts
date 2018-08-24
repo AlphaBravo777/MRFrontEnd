@@ -7,6 +7,7 @@ import { FactoryComponent } from '../features/factory/factory.component';
 import { GetProductsComponent } from '../features/stock/processed/get-products/get-products.component';
 import { UnderConstructionComponent } from './under-construction/under-construction.component';
 import { AuthGuard } from '../features/admin/auth.guard';
+import { AdminPageComponent } from '../features/admin/admin-page/admin-page.component';
 
 
 const userEntryRoutes: Routes = [
@@ -33,6 +34,11 @@ const userEntryRoutes: Routes = [
             {
                 path: 'L-shape',
                 component: UnderConstructionComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'admin',
+                component: AdminPageComponent,
                 canActivate: [AuthGuard],
             },
         ],

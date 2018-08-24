@@ -18,10 +18,10 @@ export class AuthGuard implements CanActivate {
     canActivate() {
         return this.authService.isTokenValid().pipe(map(e => {
             if (e) {
-                console.log(e);
+                // console.log(e);
                 return true;
             } else {
-                console.log('Not authorized');
+                // console.log('Not authorized');
             }
         }),
         catchError(() => {

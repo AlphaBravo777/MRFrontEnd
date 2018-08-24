@@ -5,7 +5,7 @@ table {
     width: 100%;
     font-size: 1.2em;
     border-collapse:separate; 
-    border-spacing: 0 .8em;
+    /* border-spacing: 0 .8em; */
     /* margin: 10px;
     padding: 5px; */
 }
@@ -20,3 +20,10 @@ td, th {
 tr:nth-child(even) td {
     background-color: #dddddd;
 }
+
+.niceButton {
+    margin-bottom: 0px;
+    margin: 0px;
+    width: 120px;
+}
+

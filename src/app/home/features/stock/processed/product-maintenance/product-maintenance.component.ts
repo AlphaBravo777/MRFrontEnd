@@ -17,7 +17,6 @@ export class ProductMaintenanceComponent implements OnInit {
 
     ngOnInit() {
         this.stockAPI.getProductContainers().subscribe(value => {
-            console.log(value);
             this.deleteForm = this.fb.group({
                 prodDetails: this.fb.array([])
             });

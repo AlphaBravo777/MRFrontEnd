@@ -32,3 +32,6 @@ h3.inline{
     margin-right: 10px;
 }
 
+.bottomButton {
+    border-bottom: 7px solid #cc0066;
+}

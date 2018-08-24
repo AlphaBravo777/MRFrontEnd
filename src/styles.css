@@ -84,6 +84,31 @@ h5 {
 	top:1px;
 }
 
+.weight05 { 
+    background: #0080ff !important;
+    color: #fff !important;
+}
+.weight1 { 
+    background: #00c600 !important;
+    color: #fff !important;
+}
+.weight2Vac { 
+    background: #8000ff !important;
+    color: #fff !important;
+}
+.weight2Bag { 
+    background: #ffff00 !important;
+    color: #000000 !important;
+}
+.weight5Bag {
+    background: #ff8000 !important;
+    color: #fff !important;
+}
+.weightBox {
+    background: #804000 !important;
+    color: #fff !important;
+}
+
 
 .goldButton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #fff6af;
