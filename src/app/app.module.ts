@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 import { MatDialogModule, MatMenuModule, MatListModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -39,6 +40,7 @@ import { AdminPageComponent } from './home/features/admin/admin-page/admin-page.
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
+        NgHttpLoaderModule,
         UserEntryModule,
         NgxPermissionsModule.forRoot(),
     ],

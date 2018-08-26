@@ -24,6 +24,7 @@
     "@angular/router": "^6.0.2",
     "@auth0/angular-jwt": "^2.0.0",
     "core-js": "^2.5.4",
+    "ng-http-loader": "^3.0.0",
     "ngx-permissions": "^5.0.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
