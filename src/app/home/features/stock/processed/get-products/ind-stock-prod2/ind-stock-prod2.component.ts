@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Directive, Renderer2, ElementRef } from '@angular/core';
 import { ProcessedStockFormService } from '../../../stock-services/processed-stock-form.service';
-import { FormGroup, FormBuilder, FormArray } from '../../../../../../../../node_modules/@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { IProcessedStockContainer, IProcessedStockProducts } from '../../../stock-services/Stock';
 
 

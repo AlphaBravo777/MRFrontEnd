@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { UrlsService } from '../../../core/urls.service';
 import { HttpClient } from '@angular/common/http';
 import { IProcessedStockProducts, IRawProcessedStock, IProductContainers, IProductDetails, IContainerGroups } from './Stock';
-import { Observable } from '../../../../../../node_modules/rxjs';
+import { Observable } from 'rxjs';
 
 
 @Injectable({

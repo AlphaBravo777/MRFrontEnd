@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StocksComponent } from './stocks.component';
-import { StocksRoutingModule } from './stocks-routing.module';
-import { GetProductsComponent } from './processed/get-products/get-products.component';
+import { RawMaterialModule } from './raw_material/raw-material.module';
+import { StocksRoutingModule, StocksRoutingComponent } from './stocks-routing.module';
 import { StockProductsComponent } from './processed/get-products/stock-products/stock-products.component';
 import { IndStockProdComponent } from './processed/get-products/ind-stock-prod/ind-stock-prod.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,10 +10,11 @@ import { IndStockProd2Component } from './processed/get-products/ind-stock-prod2
 import { IndStockContainerComponent } from './processed/get-products/ind-stock-prod2/ind-stock-container/ind-stock-container.component';
 import { MyInputDirective } from './stock-services/my-input.directive';
 import { ProcessedMenuComponent } from './processed/processed-menu/processed-menu.component';
-import { MatMenuModule, MatListModule, MatIconModule } from '../../../../../node_modules/@angular/material';
+import { MatMenuModule, MatListModule, MatIconModule } from '@angular/material';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { ProductMaintenanceComponent } from './processed/product-maintenance/product-maintenance.component';
 import { ButtonColorDirective } from './stock-services/button-color.directive';
+import { StocksComponent } from './stocks.component';
+import { MainRawMaterialComponent } from './raw_material/main-raw-material.component';
 
 @NgModule({
     exports: [
@@ -34,22 +34,23 @@ import { ButtonColorDirective } from './stock-services/button-color.directive';
   imports: [
     MaterialModule,
     CommonModule,
+    RawMaterialModule,
     StocksRoutingModule,
     ReactiveFormsModule,
     NgxPermissionsModule.forChild(),
   ],
   declarations: [
-    StocksComponent,
-    GetProductsComponent,
-    StockProductsComponent,
-    IndStockProdComponent,
-    IndStockTableComponent,
-    IndStockProd2Component,
-    IndStockContainerComponent,
-    MyInputDirective,
-    ProcessedMenuComponent,
-    ProductMaintenanceComponent,
-    ButtonColorDirective,
+      StocksRoutingComponent,
+      StockProductsComponent,
+      IndStockProdComponent,
+      IndStockTableComponent,
+      IndStockProd2Component,
+      IndStockContainerComponent,
+      MyInputDirective,
+      ProcessedMenuComponent,
+      ButtonColorDirective,
+      StocksComponent,
+      MainRawMaterialComponent,
   ],
   providers: [
   ]

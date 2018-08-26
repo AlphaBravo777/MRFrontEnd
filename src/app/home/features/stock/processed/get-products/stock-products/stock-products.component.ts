@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Renderer2 } from '@angular/core';
 
-import { IProductDetails, IProductGroup, IProcessedStockProducts, IContainerGroups } from './../../../stock-services/Stock';
+import { IProductDetails, IProductGroup, IProcessedStockProducts, IContainerGroups } from '../../../stock-services/Stock';
 import { BehaviorSubject } from 'rxjs';
 import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
 import { StockAPIService } from '../../../stock-services/stock-api.service';

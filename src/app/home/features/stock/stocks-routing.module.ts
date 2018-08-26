@@ -35,3 +35,4 @@ const stockRoutes: Routes = [
     exports: [RouterModule]
 })
 export class StocksRoutingModule { }
+export const StocksRoutingComponent = [GetProductsComponent, ProductMaintenanceComponent];

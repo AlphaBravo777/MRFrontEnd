@@ -31,6 +31,7 @@ import { AdminPageComponent } from './home/features/admin/admin-page/admin-page.
     exports: [
     ],
     imports: [
+        // Each module has to import it's own dependencies. You can not inherit it from other modules.
         BrowserModule,
         BrowserAnimationsModule,
         MatDialogModule,

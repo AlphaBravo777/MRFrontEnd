@@ -18,18 +18,25 @@ export class ButtonColorDirective implements AfterViewInit {
 
     getClass(weight, packaging) {
         if (weight === '0.5' && packaging === 'Vacuum') {
-            console.log('I am hit');
             return 'weight05';
+        } else if (weight === '0.5' && packaging === 'Box') {
+            return 'weight05Box';
         } else if (weight === '1' && packaging === 'Vacuum') {
             return 'weight1';
+        } else if (weight === '1' && packaging === 'Box') {
+            return 'weight1Box';
         } else if (weight === '2' && packaging === 'Vacuum') {
             return 'weight2Vac';
+        } else if (weight === '2' && packaging === 'Box') {
+            return 'weight2Box';
         } else if (weight === '2' && packaging === 'Bag') {
             return 'weight2Bag';
         } else if (weight === '5' && packaging === 'Bag') {
             return 'weight5Bag';
         } else if (packaging === 'Box') {
             return 'weightBox';
+        } else if (packaging === 'Trolley') {
+            return 'weightTrolley';
         }
     }
 

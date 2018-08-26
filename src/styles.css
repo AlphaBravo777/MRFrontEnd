@@ -88,9 +88,21 @@ h5 {
     background: #0080ff !important;
     color: #fff !important;
 }
+.weight05Box { 
+    background: #0080ff !important;
+    color: #fff !important;
+    border: 4px solid #804000 !important;
+    border-style: ridge !important; /* dashed, double, groove, ridge, inset, outset */
+}
 .weight1 { 
     background: #00c600 !important;
     color: #fff !important;
+}
+.weight1Box { 
+    background: #00c600 !important;
+    color: #fff !important;
+    border: 4px solid #804000 !important;
+    border-style: ridge !important; /* dashed, double, groove, ridge, inset, outset */
 }
 .weight2Vac { 
     background: #8000ff !important;
@@ -100,6 +112,12 @@ h5 {
     background: #ffff00 !important;
     color: #000000 !important;
 }
+.weight2Box { 
+    background: #8000ff !important;
+    color: #fff !important;
+    border: 4px solid #804000 !important;
+    border-style: ridge !important; /* dashed, double, groove, ridge, inset, outset */
+}
 .weight5Bag {
     background: #ff8000 !important;
     color: #fff !important;
@@ -107,6 +125,14 @@ h5 {
 .weightBox {
     background: #804000 !important;
     color: #fff !important;
+}
+.weightTrolley {
+    color: #000000 !important;
+    font-weight: bold !important;
+    background: repeating-linear-gradient(0deg, 
+    #c0c0c0, #c0c0c0 .35em, 
+    #808080, #808080 .75em
+    ) !important;
 }
 
 

@@ -3,7 +3,7 @@ import { StockAPIService } from './stock-api.service';
 
 import { IProductGroup, IProductDetails, IProcessedStockProducts } from './Stock';
 import { Router } from '@angular/router';
-import { ReplaySubject, Observable } from '../../../../../../node_modules/rxjs';
+import { ReplaySubject, Observable } from 'rxjs';
 import { DialogBoxService } from '../../../core/dialog-box/dialog-box.service';
 
 @Injectable({

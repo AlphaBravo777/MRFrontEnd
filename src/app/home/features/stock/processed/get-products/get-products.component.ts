@@ -2,9 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import {IProductDetails,
         IProcessedStockProducts,
-        IProductGroup} from './../../stock-services/Stock';
+        IProductGroup} from '../../stock-services/Stock';
 import { StockAPIService } from '../../stock-services/stock-api.service';
-import { ActivatedRoute } from '../../../../../../../node_modules/@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ProductContainerService } from '../../stock-services/product-container.service';
 import { forkJoin } from 'rxjs';
 
