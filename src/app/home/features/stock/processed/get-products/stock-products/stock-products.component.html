@@ -12,7 +12,7 @@
         <div class='groups' id='spanning'>
             <h3>Batch Groups</h3>
             <br>
-            <button class='buttonMenus niceButton bigButtons bottomButton' *ngFor="let group of processedGroup" (click)="BatchGroup(group.group)">{{group.group}}</button>
+            <button appStockGroup stockGroup={{group.group}} class='buttonMenus niceButton bigButtons bottomButton' *ngFor="let group of processedGroup" (click)="BatchGroup(group.group)">{{group.group}}</button>
         </div>
         <app-ind-stock-table *ngIf="processedGroup" [processedGroup]="processedGroup" [batch]="batch" (changeProductName)="changeProduct($event)">
         </app-ind-stock-table>

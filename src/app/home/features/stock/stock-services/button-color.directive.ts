@@ -13,30 +13,29 @@ export class ButtonColorDirective implements AfterViewInit {
     ngAfterViewInit(): void {
         const classy = this.getClass(this.weight, this.packaging);
         this.elemRef.nativeElement.classList.add(classy);
-
+        const classyPack = this.getPackage(this.packaging);
+        this.elemRef.nativeElement.classList.add(classyPack);
     }
 
     getClass(weight, packaging) {
-        if (weight === '0.5' && packaging === 'Vacuum') {
+        if (weight === '0.5') {
             return 'weight05';
-        } else if (weight === '0.5' && packaging === 'Box') {
-            return 'weight05Box';
-        } else if (weight === '1' && packaging === 'Vacuum') {
+        } else if (weight === '1') {
             return 'weight1';
-        } else if (weight === '1' && packaging === 'Box') {
-            return 'weight1Box';
-        } else if (weight === '2' && packaging === 'Vacuum') {
-            return 'weight2Vac';
-        } else if (weight === '2' && packaging === 'Box') {
-            return 'weight2Box';
         } else if (weight === '2' && packaging === 'Bag') {
             return 'weight2Bag';
-        } else if (weight === '5' && packaging === 'Bag') {
+        } else if (weight === '2') {
+            return 'weight2Vac';
+        } else if (weight === '5') {
             return 'weight5Bag';
-        } else if (packaging === 'Box') {
-            return 'weightBox';
+        }
+    }
+
+    getPackage(packaging) {
+        if (packaging === 'Box') {
+            return 'packagingBox';
         } else if (packaging === 'Trolley') {
-            return 'weightTrolley';
+            return 'packagingTrolley';
         }
     }
 

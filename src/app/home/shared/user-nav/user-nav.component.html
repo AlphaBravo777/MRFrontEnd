@@ -8,6 +8,10 @@
             <a routerLink="../L-shape" routerLinkActive="active"><button class='niceButton meatriteButton'>L-Shape</button></a>
         </ng-template>
 
+        <ng-template [ngxPermissionsOnly]="['shift-supervisor','factory-supervisor','Lshape-leader', 'admin']">
+                <a routerLink="../Hi-Risk" routerLinkActive="active"><button class='niceButton meatriteButton'>Hi-Risk</button></a>
+            </ng-template>
+
         <ng-template [ngxPermissionsOnly]="['admin']">
                 <a routerLink="../admin" routerLinkActive="active"><button class='niceButton meatriteButton'>Admin</button></a>
             </ng-template>

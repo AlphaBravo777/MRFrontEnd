@@ -115,6 +115,7 @@ export class ProcessedStockService {
         this.dialogBoxService.openStockClearedHalfDialog().subscribe(x => {
             if (x) {
                 this.stockAPI.getProcessedStockContainersToDelete().subscribe(value => {
+                    console.log(value);
                     const workingStock: IProcessedStockProducts[] = JSON.parse(localStorage.getItem(this.stockAPI.workingProcStock));
                     for (let noDel = 0; noDel < value.length; ++noDel) {
                         for (let ws = 0; ws < workingStock.length; ++ws) {

@@ -3,7 +3,7 @@
 <div>
     <div class='leftDiv'>
         <h3>Processed</h3>
-        <a  routerLink="../processed" routerLinkActive="active"><button class='niceButton meatriteButton'>Stocktake</button></a>
+        <a  routerLink="../stocks-processed" routerLinkActive="active"><button class='niceButton meatriteButton'>Stocktake</button></a>
         <br>
         <button class='niceButton meatriteButton' (click)="confirmClearAllProducts()">Clear All Products</button>
         <br>    
@@ -15,8 +15,8 @@
     </div>
     <div>
         <h3>Raw Material</h3>
-        <app-main-raw-material></app-main-raw-material>
-        <!-- <a  routerLink="../processed" routerLinkActive="active"><button class='niceButton meatriteButton'>Daily</button></a> -->
+        <!-- <app-main-raw-material></app-main-raw-material> -->
+        <a  routerLink="../stocks-raw" routerLinkActive="active"><button class='niceButton meatriteButton'>Stocktake</button></a>
     </div>
 </div>
 <router-outlet></router-outlet> 

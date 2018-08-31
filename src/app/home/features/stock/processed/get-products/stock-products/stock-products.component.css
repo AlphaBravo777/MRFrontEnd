@@ -32,7 +32,56 @@ h3.inline{
     margin-right: 10px;
 }
 
-.bottomButton {
-    border-left: 7px solid #cc0066;
-    
+:host {
+    --border-px: 5px;
+}
+
+.stockGroupBG {
+    border-left: var(--border-px) solid #804000
+}
+.stockGroupCP {
+    border-left: var(--border-px) dashed #cccc00
+}
+.stockGroupCV {
+    border-left: var(--border-px) solid #ff80c0
+}
+.stockGroupCHG {
+    border-left: var(--border-px) dashed #008000
+}
+.stockGroupCMB {
+    border-left: var(--border-px) dashed #0080ff
+}
+.stockGroupFP {
+    border-left: var(--border-px) solid #cc0066;
+
+}
+.stockGroupHMP {
+    border-left: var(--border-px) dashed #ff0000
+}
+.stockGroupPNPD {
+    border-left: var(--border-px) solid #0000a0
+}
+.stockGroupPNPNN {
+    border-left: var(--border-px) solid #0000a0
+}
+.stockGroupPNPPol {
+    border-left: var(--border-px) solid #0000a0
+}
+.stockGroupPre {
+    border-left: var(--border-px) solid #0000a0
+}
+.stockGroupRV {
+    border-left: var(--border-px) solid #ff0000
+}
+.stockGroupER {
+    border-left: var(--border-px) solid #cccc00
+}
+.stockGroupSV {
+    border-left: var(--border-px) solid #0080ff
+}
+.stockGroupSG {
+    border-left: var(--border-px) solid #ff8040
+}
+.stockGroupSS {
+    border-left: var(--border-px) solid #008000
 }

@@ -23,7 +23,7 @@ export class StockAPIService {
         return this.http.get<IProductDetails[]>(this.productsUrl);
     }
 
-    getTimedStock(time: String): Observable<IRawProcessedStock[]> {
+    getTimedStock(time: String): Observable<IRawProcessedStock[]> { // Gets all the stock values for a specifi time
         const timeUrl = this.productsUrl + time + '/';
         // console.log(timeUrl);
         return this.http.get<IRawProcessedStock[]>(timeUrl);
@@ -58,5 +58,10 @@ export class StockAPIService {
 
     enterAllProcessedProductsIntoDB(finalArray) {
         return this.http.post<any>(this.productsUrl + 'input/', finalArray);
+    }
+
+    getStockTimes() {
+        const stockTimeUrl = this.productsUrl + 'getStockTimes/';
+        return this.http.get<any>(stockTimeUrl);
     }
 }

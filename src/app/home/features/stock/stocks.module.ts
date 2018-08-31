@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RawMaterialModule } from './raw_material/raw-material.module';
 import { StocksRoutingModule, StocksRoutingComponent } from './stocks-routing.module';
 import { StockProductsComponent } from './processed/get-products/stock-products/stock-products.component';
 import { IndStockProdComponent } from './processed/get-products/ind-stock-prod/ind-stock-prod.component';
@@ -14,7 +13,7 @@ import { MatMenuModule, MatListModule, MatIconModule } from '@angular/material';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ButtonColorDirective } from './stock-services/button-color.directive';
 import { StocksComponent } from './stocks.component';
-import { MainRawMaterialComponent } from './raw_material/main-raw-material.component';
+import { StockGroupDirective } from './stock-services/stock-group.directive';
 
 @NgModule({
     exports: [
@@ -34,7 +33,6 @@ import { MainRawMaterialComponent } from './raw_material/main-raw-material.compo
   imports: [
     MaterialModule,
     CommonModule,
-    RawMaterialModule,
     StocksRoutingModule,
     ReactiveFormsModule,
     NgxPermissionsModule.forChild(),
@@ -49,8 +47,8 @@ import { MainRawMaterialComponent } from './raw_material/main-raw-material.compo
       MyInputDirective,
       ProcessedMenuComponent,
       ButtonColorDirective,
+      StockGroupDirective,
       StocksComponent,
-      MainRawMaterialComponent,
   ],
   providers: [
   ]

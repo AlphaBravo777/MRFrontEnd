@@ -13,12 +13,13 @@ const stockRoutes: Routes = [
         component: UserEntryComponent,
         children: [
             {
-                path: 'stock-taking',
-                component: UnderConstructionComponent,
+                path: 'stocks-raw',
+                // loadChildren: () => RawMaterialModule,
+                loadChildren: './raw_material/raw-material.module#RawMaterialModule'
                 // canActivate: [AuthGuard],
             },
             {
-                path: 'processed',
+                path: 'stocks-processed',
                 component: GetProductsComponent
             },
             {
