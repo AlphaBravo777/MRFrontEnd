@@ -1,0 +1,23 @@
+table {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    width: 100%;
+    font-size: 14px;
+    border-spacing: 0px;
+
+}
+
+td, th {
+    text-align: left;
+    padding: 5px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(0,0,0,.12);
+}
+
+th {
+    vertical-align: top;
+    height: 40px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0,0,0,.54);
+}

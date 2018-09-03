@@ -1,0 +1,20 @@
+<div class='wrapper'>
+    <table>
+        <tr>
+            <th>Batch</th>
+        </tr>
+        <tbody *ngFor="let group of loadingListStock">
+            <tr>
+                <td class="valign-center niceButton groupName"><i class="material-icons">unfold_more</i>&nbsp; {{group.key}}
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <app-high-risk-items2></app-high-risk-items2>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
