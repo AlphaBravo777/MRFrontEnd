@@ -1,0 +1,3 @@
+<div *ngFor='let group of loadingListStock'>
+    <app-high-risk-items [individualGroupStocks]='group.values' [individualGroupName]='group.key'></app-high-risk-items>
+</div>

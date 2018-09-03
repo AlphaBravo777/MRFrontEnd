@@ -3,12 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { StocksComponent } from '../features/stock/stocks.component';
 import { UserEntryComponent } from './user-entry.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
-import { FactoryComponent } from '../features/factory/factory.component';
-import { GetProductsComponent } from '../features/stock/processed/get-products/get-products.component';
 import { UnderConstructionComponent } from './under-construction/under-construction.component';
 import { AuthGuard } from '../features/admin/auth.guard';
 import { AdminPageComponent } from '../features/admin/admin-page/admin-page.component';
-
 
 const userEntryRoutes: Routes = [
     {
@@ -39,6 +36,11 @@ const userEntryRoutes: Routes = [
             {
                 path: 'admin',
                 component: AdminPageComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'high-risk',
+                loadChildren: '../features/factory/high-risk/high-risk.module#HighRiskModule',
                 canActivate: [AuthGuard],
             },
         ],

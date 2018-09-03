@@ -1,0 +1,11 @@
+.wrapper {
+    padding: 10px;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-table tbody, .mat-table tfoot, .mat-table thead, .mat-table-sticky, [mat-footer-row], [mat-header-row], [mat-row], mat-footer-row, mat-header-row, mat-row {
+    background: #ffebd7;
+}

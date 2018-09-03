@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StocksRoutingModule, StocksRoutingComponent } from './stocks-routing.module';
+import {
+    StocksRoutingModule,
+    StocksRoutingComponent
+} from './stocks-routing.module';
 import { StockProductsComponent } from './processed/get-products/stock-products/stock-products.component';
 import { IndStockProdComponent } from './processed/get-products/ind-stock-prod/ind-stock-prod.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,48 +12,33 @@ import { IndStockProd2Component } from './processed/get-products/ind-stock-prod2
 import { IndStockContainerComponent } from './processed/get-products/ind-stock-prod2/ind-stock-container/ind-stock-container.component';
 import { MyInputDirective } from './stock-services/my-input.directive';
 import { ProcessedMenuComponent } from './processed/processed-menu/processed-menu.component';
-import { MatMenuModule, MatListModule, MatIconModule } from '@angular/material';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ButtonColorDirective } from './stock-services/button-color.directive';
 import { StocksComponent } from './stocks.component';
 import { StockGroupDirective } from './stock-services/stock-group.directive';
+import { MaterialConfigModule } from '../../../material-config/material-config.module';
 
 @NgModule({
-    exports: [
-        MatMenuModule,
-        MatListModule,
-        MatIconModule,
-    ],
     imports: [
-        MatMenuModule,
-        MatListModule,
-        MatIconModule,
+        MaterialConfigModule,
+        CommonModule,
+        StocksRoutingModule,
+        ReactiveFormsModule,
+        NgxPermissionsModule.forChild()
     ],
-  })
-  export class MaterialModule {}
-
-@NgModule({
-  imports: [
-    MaterialModule,
-    CommonModule,
-    StocksRoutingModule,
-    ReactiveFormsModule,
-    NgxPermissionsModule.forChild(),
-  ],
-  declarations: [
-      StocksRoutingComponent,
-      StockProductsComponent,
-      IndStockProdComponent,
-      IndStockTableComponent,
-      IndStockProd2Component,
-      IndStockContainerComponent,
-      MyInputDirective,
-      ProcessedMenuComponent,
-      ButtonColorDirective,
-      StockGroupDirective,
-      StocksComponent,
-  ],
-  providers: [
-  ]
+    declarations: [
+        StocksRoutingComponent,
+        StockProductsComponent,
+        IndStockProdComponent,
+        IndStockTableComponent,
+        IndStockProd2Component,
+        IndStockContainerComponent,
+        MyInputDirective,
+        ProcessedMenuComponent,
+        ButtonColorDirective,
+        StockGroupDirective,
+        StocksComponent
+    ],
+    providers: []
 })
-export class StocksModule { }
+export class StocksModule {}

@@ -9,7 +9,7 @@ import { FactoryComponent } from './factory.component';
   imports: [
     CommonModule,
     FactoryRoutingModule,
-    NgxPermissionsModule.forChild()
+    NgxPermissionsModule.forChild(),
   ],
   declarations: [FactoryComponent]
 })

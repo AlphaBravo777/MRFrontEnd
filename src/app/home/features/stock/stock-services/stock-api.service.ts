@@ -64,4 +64,6 @@ export class StockAPIService {
         const stockTimeUrl = this.productsUrl + 'getStockTimes/';
         return this.http.get<any>(stockTimeUrl);
     }
+
+    // An Api returns an array of objects - [{id:1, name:name1}, {id:2, name:name2}, {id:3, name:name3}]
 }
