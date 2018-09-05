@@ -1,0 +1,18 @@
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title class='groupName'>
+                <table>
+                    <tr>
+                        <th width='50px'>{{productData.productCode}}</th>
+                        <th>{{productData.description}}</th>
+                        <th>{{productData.currentStock}}</th>
+                        <th>{{productData.stockNeeded}}</th>
+                        <th>{{productData.currentStock - productData.stockNeeded}}</th>
+                    </tr>
+                </table>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        Some small data here
+    </mat-expansion-panel>
+</mat-accordion>

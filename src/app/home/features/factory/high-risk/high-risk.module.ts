@@ -8,6 +8,7 @@ import { HighRiskGroupsComponent } from './high-risk-data/high-risk-groups/high-
 import { HighRiskItemsComponent } from './high-risk-data/high-risk-groups/high-risk-items/high-risk-items.component';
 import { HighRiskGroups2Component } from './high-risk-data/high-risk-groups2/high-risk-groups2.component';
 import { HighRiskItems2Component } from './high-risk-data/high-risk-groups2/high-risk-items2/high-risk-items2.component';
+import { HighRiskItemsExtraDataComponent } from './high-risk-data/high-risk-groups/high-risk-items/high-risk-items-extra-data/high-risk-items-extra-data.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { HighRiskItems2Component } from './high-risk-data/high-risk-groups2/high
     MaterialConfigModule,
     HighRiskRoutingModule
   ],
-  declarations: [HighRiskDataComponent, HighRiskGroupsComponent, HighRiskItemsComponent, HighRiskGroups2Component, HighRiskItems2Component]
+  declarations: [HighRiskDataComponent, HighRiskGroupsComponent, HighRiskItemsComponent, HighRiskGroups2Component, HighRiskItems2Component, HighRiskItemsExtraDataComponent]
 })
 export class HighRiskModule { }

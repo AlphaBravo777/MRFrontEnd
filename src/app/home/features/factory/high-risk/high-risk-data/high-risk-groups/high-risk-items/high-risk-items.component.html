@@ -15,6 +15,10 @@
                 <td>{{product.stockNeeded}}</td>
                 <td [ngClass]="{'positive' : product.currentStock - product.stockNeeded > 0, 'negative' : product.currentStock - product.stockNeeded < 0}">{{product.currentStock
                     - product.stockNeeded}}</td>
+                <!-- <td><button class='primBlueButton niceButton' disable>Finished</button></td> -->
+            </tr>
+            <tr *ngIf='isShowing'>
+                <td colspan="5"><app-high-risk-items-extra-data [productData]='product'></app-high-risk-items-extra-data></td>
             </tr>
         </tbody>
     </table>
