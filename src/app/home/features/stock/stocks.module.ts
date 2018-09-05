@@ -17,6 +17,7 @@ import { ButtonColorDirective } from './stock-services/button-color.directive';
 import { StocksComponent } from './stocks.component';
 import { StockGroupDirective } from './stock-services/stock-group.directive';
 import { MaterialConfigModule } from '../../../material-config/material-config.module';
+import { FilterTimesPipe } from './processed/processed-menu/filter-times.pipe';
 
 @NgModule({
     imports: [
@@ -37,7 +38,8 @@ import { MaterialConfigModule } from '../../../material-config/material-config.m
         ProcessedMenuComponent,
         ButtonColorDirective,
         StockGroupDirective,
-        StocksComponent
+        StocksComponent,
+        FilterTimesPipe
     ],
     providers: []
 })

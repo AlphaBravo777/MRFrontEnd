@@ -1,11 +1,36 @@
-.wrapper {
-    padding: 10px;
-}
-
 table {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
     width: 100%;
+    font-size: 14px;
+    border-spacing: 0px;
+
 }
 
-.mat-table tbody, .mat-table tfoot, .mat-table thead, .mat-table-sticky, [mat-footer-row], [mat-header-row], [mat-row], mat-footer-row, mat-header-row, mat-row {
-    background: #ffebd7;
+td, th {
+    text-align: left;
+    padding: 5px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(0,0,0,.12);
+}
+
+td:last-of-type {
+    text-align: right;
+}
+
+th {
+    vertical-align: top;
+    height: 40px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0,0,0,.54);
+}
+
+.positive {
+    color: green;
+}
+
+.negative {
+    color: red;
+    font-weight: bold;
 }

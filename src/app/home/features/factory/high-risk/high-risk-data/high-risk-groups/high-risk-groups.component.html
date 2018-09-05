@@ -1,3 +1,27 @@
-<div *ngFor='let group of loadingListStock'>
-    <app-high-risk-items [individualGroupStocks]='group.values' [individualGroupName]='group.key'></app-high-risk-items>
+<div class='wrapper'>
+    <table>
+        <tr>
+            <th>
+                <button class='niceButton meatriteButton' (click)="allExpandState = true">Expand All </button>
+                <h3>Batches</h3>
+                <button class='niceButton meatriteButton' (click)="allExpandState = false">Collapse All </button>
+            </th>
+        </tr>
+        <tbody >
+            <tr>
+                <td>
+                    <mat-accordion multi="false" *ngFor="let group of loadingListStock">
+                        <mat-expansion-panel [expanded]="allExpandState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title class='groupName'>
+                                    {{group.key}}
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <app-high-risk-items [singleGroupData]='group'></app-high-risk-items>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

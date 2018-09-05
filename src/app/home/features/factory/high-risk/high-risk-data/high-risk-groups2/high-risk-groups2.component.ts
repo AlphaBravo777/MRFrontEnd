@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class HighRiskGroups2Component implements OnInit {
 
     @Input() loadingListStock;
+    panelOpenState = false;
 
     constructor() { }
 

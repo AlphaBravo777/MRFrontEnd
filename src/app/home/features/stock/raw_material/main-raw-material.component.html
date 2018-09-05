@@ -25,3 +25,9 @@
 <div class="meter">
   <span  class="barInner" >45 / 50</span>
 </div>
+
+<button (click)=getData()>Get data</button>
+<button (click)=showStock()>Show Stock</button>
+<section *ngFor='let stocks of processedStockService.currentProcessedStock$ | async'>
+    {{stocks.name}}
+</section>

@@ -12,6 +12,7 @@ export class HighRiskItemsComponent implements OnInit {
 
     @Input() individualGroupStocks;
     @Input() individualGroupName;
+    @Input() singleGroupData;
 
   constructor() { }
 
