@@ -10,6 +10,7 @@ import {
     MatTableModule,
     MatFormFieldModule,
     MatExpansionModule,
+    MatDialogModule,
 } from '@angular/material';
 
 const matModules = [
@@ -22,6 +23,7 @@ const matModules = [
     MatTableModule,
     MatFormFieldModule,
     MatExpansionModule,
+    MatDialogModule,
 ];
 
 @NgModule({

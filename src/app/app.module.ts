@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgHttpLoaderModule } from 'ng-http-loader';
-import { MatDialogModule, MatMenuModule, MatListModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,11 +21,9 @@ import { UnderConstructionComponent } from './home/shared/under-construction/und
 import { AlertComponent } from './home/core/alerts/alert.component';
 import { AlertService } from './home/core/alerts/alert.service';
 import { DialogBoxComponent } from './home/core/dialog-box/dialog-box.component';
-import { MatIconModule } from '@angular/material/icon';
 import { AdminPageComponent } from './home/features/admin/admin-page/admin-page.component';
-
-
-
+import { GraphQLModule } from './graphql.module';
+import { MaterialConfigModule } from './material-config/material-config.module';
 
 @NgModule({
     exports: [
@@ -35,7 +32,7 @@ import { AdminPageComponent } from './home/features/admin/admin-page/admin-page.
         // Each module has to import it's own dependencies. You can not inherit it from other modules.
         BrowserModule,
         BrowserAnimationsModule,
-        MatDialogModule,
+        MaterialConfigModule,
         WebsiteModule,
         FormsModule,
         AppRoutingModule,
@@ -43,6 +40,7 @@ import { AdminPageComponent } from './home/features/admin/admin-page/admin-page.
         NgHttpLoaderModule,
         UserEntryModule,
         NgxPermissionsModule.forRoot(),
+        GraphQLModule,
     ],
     declarations: [
         AppComponent,
@@ -70,4 +68,4 @@ import { AdminPageComponent } from './home/features/admin/admin-page/admin-page.
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
