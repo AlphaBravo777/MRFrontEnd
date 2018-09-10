@@ -9,7 +9,7 @@ export class HighRiskItemsComponent implements OnInit {
 
     // If you exclude names in the below array, even if you have colmns for them in the template, they will not be rendered
     displayedColumns: string[] = ['productCode', 'description', 'currentStock', 'stockNeeded' ];
-    isShowing = false;
+    isShowing = true;
 
     @Input() individualGroupStocks;
     @Input() individualGroupName;

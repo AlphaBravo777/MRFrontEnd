@@ -1,14 +1,15 @@
-<mat-accordion>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
+<div class='wrapperExpand'>
+<mat-accordion class='miniExpansion'>
+    <mat-expansion-panel class='miniExpansion' (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header class='miniExpansion'>
             <mat-panel-title class='groupName'>
-                <table>
+                <table class='miniExpansion'>
                     <tr>
                         <th width='50px'>{{productData.productCode}}</th>
-                        <th>{{productData.description}}</th>
-                        <th>{{productData.currentStock}}</th>
-                        <th>{{productData.stockNeeded}}</th>
-                        <th>{{productData.currentStock - productData.stockNeeded}}</th>
+                        <th width='180px'>{{productData.description}}</th>
+                        <th width='30px'>{{productData.currentStock}}</th>
+                        <th width='30px'>{{productData.stockNeeded}}</th>
+                        <th width='30px'>{{productData.currentStock - productData.stockNeeded}}</th>
                     </tr>
                 </table>
             </mat-panel-title>
@@ -16,3 +17,4 @@
         Some small data here
     </mat-expansion-panel>
 </mat-accordion>
+</div>

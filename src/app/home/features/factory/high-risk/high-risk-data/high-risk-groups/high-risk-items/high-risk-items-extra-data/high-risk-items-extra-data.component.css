@@ -1,17 +1,17 @@
 table {
-    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
     width: 100%;
     font-size: 14px;
     border-spacing: 0px;
-
 }
 
-td, th {
+td,
+th {
     text-align: left;
     padding: 5px;
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-bottom-color: rgba(0,0,0,.12);
+    border-bottom-color: rgba(0, 0, 0, 0.12);
 }
 
 td:last-of-type {
@@ -23,7 +23,7 @@ th {
     height: 40px;
     font-size: 12px;
     font-weight: 500;
-    color: rgba(0,0,0,.54);
+    color: rgba(0, 0, 0, 0.54);
 }
 
 .positive {
@@ -34,3 +34,19 @@ th {
     color: red;
     font-weight: bold;
 }
+
+.mat-expansion-panel {
+    background: #ffebd7;
+    padding: 0px;
+    margin: 0px;
+}
+
+.miniExpansion {
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    box-shadow: none;
+    width: 100%;
+    background-color: #ffebd7;
+}
+
