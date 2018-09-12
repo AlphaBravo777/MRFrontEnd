@@ -9,8 +9,9 @@
         </tr>
         <tbody >
             <tr>
-                <td>
-                    <mat-accordion multi="false" *ngFor="let group of loadingListStock">
+                <td *ngIf='loadingListStock'>
+                    <div *ngFor="let group of loadingListStock | orderBy : ['number']">
+                    <mat-accordion multi="false" >
                         <mat-expansion-panel [expanded]="allExpandState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title class='groupName'>
@@ -20,6 +21,7 @@
                             <app-high-risk-items [singleGroupData]='group'></app-high-risk-items>
                         </mat-expansion-panel>
                     </mat-accordion>
+                </div>
                 </td>
             </tr>
         </tbody>

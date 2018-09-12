@@ -7,7 +7,7 @@
             <th width='30px'>Total needed</th>
             <th width='30px'>Difference</th>
         </tr>
-        <tbody *ngFor='let product of singleGroupData.values'>
+        <tbody *ngFor="let product of singleGroupData.values | orderBy : ['productCode'] ">
             <!-- <tr>
                 <td>{{product.productCode}}</td>
                 <td>{{product.description}}</td>
@@ -17,7 +17,7 @@
                     - product.stockNeeded}}</td>
                 <td><button class='primBlueButton niceButton' disable>Finished</button></td>
             </tr> -->
-            <tr *ngIf='isShowing'>
+            <tr *ngIf='product.stockNeeded > 0 && isShowing'>
                 <td class='mini' colspan="5"><app-high-risk-items-extra-data [productData]='product'></app-high-risk-items-extra-data></td>
             </tr>
         </tbody>

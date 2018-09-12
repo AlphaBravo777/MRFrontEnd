@@ -9,9 +9,9 @@ td,
 th {
     text-align: left;
     padding: 5px;
-    border-bottom-width: 1px;
+    /* border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-bottom-color: rgba(0, 0, 0, 0.12);
+    border-bottom-color: rgba(0, 0, 0, 0.12); */
 }
 
 td:last-of-type {
@@ -39,6 +39,10 @@ th {
     background: #ffebd7;
     padding: 0px;
     margin: 0px;
+}
+
+.mat-expansion-panel:active {
+    background: #ffebd7;
 }
 
 .miniExpansion {

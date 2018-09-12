@@ -14,29 +14,5 @@ export class HighRiskGroupsComponent implements OnInit {
 
     constructor(private apollo: Apollo) { }
 
-    ngOnInit() {
-        this.apollo
-            .watchQuery({
-                query: gql`
-                {
-                    allProducts {
-                      edges {
-                        node {
-                          productid
-                          proddescription
-                          packageweight
-                          batchgroup{
-                            batchname
-                          }
-                        }
-                      }
-                    }
-                  }
-            `,
-            })
-            .valueChanges.subscribe(result => {
-                this.data = result.data['allProducts'].edges;
-                console.log(this.data);
-            });
-    }
+    ngOnInit() { }
 }
