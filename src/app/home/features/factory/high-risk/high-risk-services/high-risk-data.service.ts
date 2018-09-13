@@ -9,9 +9,9 @@ import { Apollo, gql } from 'apollo-angular-boost';
     providedIn: 'root'
 })
 
-
 export class HighRiskDataService {
-    constructor(private highRiskApiService: HighRiskApiService, private apollo: Apollo) { }
+
+    constructor(private apollo: Apollo) { }
 
     groupByArray(xs, key) {
         return xs.reduce(function (rv, x) {
@@ -51,7 +51,6 @@ export class HighRiskDataService {
 
     flattenHighRiskpackingList(data): IPackingListStock[] {
         const flattendData: IPackingListStock[] = [];
-        console.log(data);
 
         for (let array = 0; array < data.length; ++array) {
             const singleData = <IPackingListStock>{};

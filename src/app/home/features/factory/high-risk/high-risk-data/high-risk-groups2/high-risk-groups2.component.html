@@ -1,20 +1,24 @@
-<div class='wrapper'>
-    <table>
-        <tr>
-            <th>Batch</th>
-        </tr>
-        <tbody *ngFor="let group of loadingListStock">
-            <tr>
-                <td class="valign-center niceButton groupName">
-                    <i class="material-icons">unfold_more</i>
-                    &nbsp; {{group.key}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <app-high-risk-items2></app-high-risk-items2>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class='groupWrapper'>
+    <div *ngFor="let group of loadingListStock  | orderBy : ['number']; let $index=index">
+        <table>
+            <thead (click)="Collaps($index)">
+                <tr>
+                    <div class="topnav">
+                        <th id='name'>{{group.key}}</th>
+                        <div class="topnav-right">
+                            <th *ngIf="$index !== expandedIndex" class='headingIcon'> <i class="material-icons">expand_more</i>
+                                </th>
+                            <th *ngIf="$index === expandedIndex" class='headingIcon'> <i class="material-icons">expand_less</i>
+                                </th>
+                        </div>
+                    </div>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="$index === expandedIndex">
+                    <app-high-risk-items1 [singleGroupData]='group'></app-high-risk-items1>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

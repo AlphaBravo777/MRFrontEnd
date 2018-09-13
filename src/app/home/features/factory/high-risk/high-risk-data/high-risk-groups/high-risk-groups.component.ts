@@ -14,5 +14,7 @@ export class HighRiskGroupsComponent implements OnInit {
 
     constructor(private apollo: Apollo) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        console.log(this.loadingListStock);
+     }
 }

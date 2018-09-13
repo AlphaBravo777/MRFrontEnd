@@ -11,8 +11,6 @@ export class HighRiskItemsComponent implements OnInit {
     displayedColumns: string[] = ['productCode', 'description', 'currentStock', 'stockNeeded' ];
     isShowing = true;
 
-    @Input() individualGroupStocks;
-    @Input() individualGroupName;
     @Input() singleGroupData;
 
   constructor() { }

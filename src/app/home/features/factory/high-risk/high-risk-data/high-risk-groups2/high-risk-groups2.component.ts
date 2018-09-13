@@ -7,12 +7,19 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HighRiskGroups2Component implements OnInit {
 
+
     @Input() loadingListStock;
-    panelOpenState = false;
+    expandedIndex: number;
 
     constructor() { }
 
+
     ngOnInit() {
+        this.expandedIndex = -1;
     }
+
+    Collaps(index: number) {
+        this.expandedIndex = index === this.expandedIndex ? -1 : index;
+        }
 
 }

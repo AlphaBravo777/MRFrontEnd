@@ -12,17 +12,17 @@ export class HighRiskDataComponent implements OnInit {
     loadingListStock: IPackingListStock[];
     data2;
 
+
     constructor(private highRiskDataService: HighRiskDataService) { }
 
     ngOnInit() {
+
         this.highRiskDataService.getGraphQLdata().subscribe(result => {
             this.loadingListStock = result;
-            console.log(this.loadingListStock);
         });
         // this.highRiskDataService.groupProducts().subscribe(data => {
         // this.loadingListStock = data;
         // console.log('--- ', this.loadingListStock);
         // });
     }
-
 }

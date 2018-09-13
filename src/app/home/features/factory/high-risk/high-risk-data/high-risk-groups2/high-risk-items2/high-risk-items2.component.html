@@ -1,21 +1,15 @@
-<div class='wrapper'>
-    <table>
-        <tr>
-            <th>Product Name</th>
-            <th>Description</th>
-            <th>Weight</th>
+<div class='wrapperExpand'>
+    <table class='miniExpansion'>
+        <tr class='expand' (click)="collaps()">
+            <th id='th1'>{{productData.productCode}}</th>
+            <th id='th2'>{{productData.description}}</th>
+            <th id='thNumbers'>{{productData.currentStock}}</th>
+            <th id='thNumbers'>{{productData.stockNeeded}}</th>
+            <th id='thNumbers' [ngClass]="{'positive' : productData.currentStock - productData.stockNeeded > 0, 'negative' : productData.currentStock - productData.stockNeeded < 0}"
+                >{{productData.currentStock - productData.stockNeeded}}</th>
         </tr>
-        <tbody>
-            <tr>
-                <td>SV500</td>
-                <td>Smoke Vienna 500g Vacuum</td>
-                <td>500g</td>
-            </tr>
-            <tr>
-                <td>RG2</td>
-                <td>Reg Griller 2kg Vacuum</td>
-                <td>2kg</td>
-            </tr>
-        </tbody>
+        <tr *ngIf="expandedIndex">
+            <th class='trollies' colspan="5"><app-high-risk-items3></app-high-risk-items3></th>
+        </tr>
     </table>
 </div>

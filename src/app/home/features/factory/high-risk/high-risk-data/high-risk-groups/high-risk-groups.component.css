@@ -32,15 +32,14 @@ td, th {
     margin: 4px;
 }
 
-.mat-expansion-panel {
-    /* box-shadow: none; */
+
+.mat-expansion-panel:after {
     background: #ffebd7;
-    margin: 4px;
 }
 
-.mat-expansion-panel:active {
-    background: #ffebd7;
-}
+::ng-deep .specific-class > .mat-expansion-panel {
+    background: #915921;
+  }
 
 .mat-accordion>.mat-expansion-panel-spacing:last-child, .mat-accordion>:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing {
     margin-bottom: 4px;

@@ -1,0 +1,16 @@
+<table>
+        <tr>
+            <th id='th1'>Product Name</th>
+            <th id='th2'>Description</th>
+            <th id='thNumbers'>Current Stock</th>
+            <th id='thNumbers'>Total needed</th>
+            <th id='thNumbers'>Difference</th>
+        </tr>
+        <tbody *ngFor="let product of singleGroupData.values | orderBy : ['productCode'] ">
+            <tr *ngIf='product.stockNeeded > 0'>
+                <td class='mini' colspan="5">
+                    <app-high-risk-items2 [productData]='product'></app-high-risk-items2>
+                </td>
+            </tr>
+        </tbody>
+    </table>

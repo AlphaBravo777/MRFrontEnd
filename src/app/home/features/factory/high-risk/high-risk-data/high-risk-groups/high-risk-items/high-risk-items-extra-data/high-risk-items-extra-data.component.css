@@ -54,3 +54,11 @@ th {
     background-color: #ffebd7;
 }
 
+.positive {
+    color: green;
+}
+
+.negative {
+    color: red;
+    font-weight: bold;
+}

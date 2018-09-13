@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RawMaterialDataComponent implements OnInit {
 
+    rawMaterialProductData;
+
   constructor() { }
 
   ngOnInit() {
+      this.rawMaterialProductData = {};
   }
 
 }

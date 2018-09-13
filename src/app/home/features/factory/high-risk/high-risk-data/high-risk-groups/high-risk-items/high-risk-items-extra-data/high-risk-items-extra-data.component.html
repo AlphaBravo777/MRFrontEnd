@@ -1,6 +1,6 @@
 <div class='wrapperExpand'>
 <mat-accordion class='miniExpansion'>
-    <mat-expansion-panel class='miniExpansion' (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel class='miniExpansion'>
         <mat-expansion-panel-header class='miniExpansion'>
             <mat-panel-title class='groupName'>
                 <table class='miniExpansion'>
@@ -9,7 +9,7 @@
                         <th width='180px'>{{productData.description}}</th>
                         <th width='30px'>{{productData.currentStock}}</th>
                         <th width='30px'>{{productData.stockNeeded}}</th>
-                        <th width='30px'>{{productData.currentStock - productData.stockNeeded}}</th>
+                        <th [ngClass]="{'positive' : productData.currentStock - productData.stockNeeded > 0, 'negative' : productData.currentStock - productData.stockNeeded < 0}" width='30px'>{{productData.currentStock - productData.stockNeeded}}</th>
                     </tr>
                 </table>
             </mat-panel-title>

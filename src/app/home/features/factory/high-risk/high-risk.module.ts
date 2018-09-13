@@ -11,6 +11,8 @@ import { HighRiskGroups2Component } from './high-risk-data/high-risk-groups2/hig
 import { HighRiskItems2Component } from './high-risk-data/high-risk-groups2/high-risk-items2/high-risk-items2.component';
 import { HighRiskItemsExtraDataComponent } from './high-risk-data/high-risk-groups/high-risk-items/high-risk-items-extra-data/high-risk-items-extra-data.component';
 import { OrderByPipe } from '../../../core/services/order-by.pipe';
+import { HighRiskItems1Component } from './high-risk-data/high-risk-groups2/high-risk-items1/high-risk-items1.component';
+import { HighRiskItems3Component } from './high-risk-data/high-risk-groups2/high-risk-items3/high-risk-items3.component';
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import { OrderByPipe } from '../../../core/services/order-by.pipe';
       HighRiskItems2Component,
       HighRiskItemsExtraDataComponent,
       OrderByPipe,
+      HighRiskItems1Component,
+      HighRiskItems3Component,
     ]
 })
 export class HighRiskModule { }
