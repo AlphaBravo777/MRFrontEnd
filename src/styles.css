@@ -2,9 +2,10 @@
 /* @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"; */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-body{
+/* body{
   background-color: #ffdbb7;
-}
+} */
+
 
 .buttonMenus {
     cursor: pointer;

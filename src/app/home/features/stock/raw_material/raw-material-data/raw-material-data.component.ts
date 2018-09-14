@@ -16,23 +16,23 @@ export class RawMaterialDataComponent implements OnInit, OnDestroy {
     constructor(public rawMaterialDataService: RawMaterialDataService) { }
 
     ngOnInit() {
-        // interval(3000)
-        // .pipe(
-        //     startWith(0),
-        //     switchMap(() => this.rawMaterialDataService.returnData())
-        // )
-        // .subscribe(data => {
-        //     this.rawMaterialProductData = data;
-        // });
-
         this.subscription = interval(3000)
         .pipe(
             startWith(0),
-            switchMap(() => this.rawMaterialDataService.getGraphQLdata())
+            switchMap(() => this.rawMaterialDataService.returnData())
         )
         .subscribe(data => {
             this.rawMaterialProductData = data;
         });
+
+        // this.subscription = interval(3000)
+        // .pipe(
+        //     startWith(0),
+        //     switchMap(() => this.rawMaterialDataService.getGraphQLdata())
+        // )
+        // .subscribe(data => {
+        //     this.rawMaterialProductData = data;
+        // });
     }
 
     ngOnDestroy() {
