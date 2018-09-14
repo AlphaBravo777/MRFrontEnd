@@ -58,6 +58,5 @@ export class IDeleteGroups {
 export class IProdDeleteGroups {
     product: string;
     mainContainer: IDeleteGroups[];
-
 }
 // -------------------------------------------------------------------

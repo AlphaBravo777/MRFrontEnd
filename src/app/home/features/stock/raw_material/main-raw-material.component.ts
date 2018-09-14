@@ -28,7 +28,4 @@ export class MainRawMaterialComponent implements OnInit {
         this.processedStockService.changeStock();
     }
 
-    showStock() {
-    }
-
 }

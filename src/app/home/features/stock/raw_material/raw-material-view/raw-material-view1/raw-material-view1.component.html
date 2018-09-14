@@ -1,0 +1,18 @@
+<table (click)=collaps()>
+    <thead>
+        <tr>
+            <th id='th1'>{{stockGroupData.key}}</th>
+            <div class="topnav-right">
+                <th *ngIf="!expandedIndex" class='headingIcon'> <i class="material-icons">expand_more</i></th>
+                <th *ngIf="expandedIndex" class='headingIcon'> <i class="material-icons">expand_less</i></th>
+            </div>
+        </tr>
+    </thead>
+    <tbody >
+        <tr *ngIf="expandedIndex">
+            <div *ngFor='let value of stockGroupData.values; trackBy: trackByamounts'>
+                <td><app-raw-material-view2 [individualStockData]='value'></app-raw-material-view2></td>
+            </div>
+        </tr>
+    </tbody>
+</table>

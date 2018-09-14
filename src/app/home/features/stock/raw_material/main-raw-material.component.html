@@ -1,8 +1,6 @@
-<!-- <a  routerLink="../stock-taking-raw" routerLinkActive="active"><button class='niceButton meatriteButton'>Raw Material</button></a> -->
-
 <router-outlet></router-outlet> 
 
-<p>
+<!-- <p>
   Start editing to see some magic happen :)
 </p>
 
@@ -13,8 +11,6 @@
 <div id="container">
     <p id="title">Here are the results:</p>
     <p>Option 1</p>
-    <!-- .barOuter is the box containing the bar,
-         .barInner is the bar itself -->
     <div class="meter"><div class="barInner" style="width: 53%;"></div><div class="barLabel">53%</div></div>
     <p>Option 2</p>
     <div class="meter"><div class="barInner" style="width: 24%;"></div><div class="barLabel">24%</div></div>
@@ -26,8 +22,6 @@
   <span  class="barInner" >45 / 50</span>
 </div>
 
-<button (click)=getData()>Get data</button>
-<button (click)=showStock()>Show Stock</button>
-<section *ngFor='let stocks of processedStockService.currentProcessedStock$ | async'>
-    {{stocks.name}}
-</section>
+<button (click)=getData()>Get data</button> -->
+
+<app-raw-material-data></app-raw-material-data>
