@@ -1,0 +1,49 @@
+.meterZero { 
+    height: 15px;  /* Can be anything */
+    width: 95%;
+    position: relative;
+    background: #eebc11;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    padding: 5px;
+    box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+
+.barLabel {
+      color: #888;
+      font-size: 12px;
+      position: absolute;
+      right: -32px;
+      top: 0;
+  }
+   
+.barInner {
+      background-color: #A444B1;
+      border-right: 1px solid #090909;
+      border-radius:10px;
+      height: 100%;
+      width: 50%;
+      background-size: 100% 100%, 20px 20px, 400px 100%;
+      background-image:
+          linear-gradient(to bottom,
+                          rgba(255, 255, 255, 0.33) 0,
+                          rgba(255, 255, 255, 0.08) 50%,
+                          rgba(0, 0, 0, 0.25) 50%,
+                          rgba(0, 0, 0, 0.1) 100%),
+          linear-gradient(45deg,
+                          rgba(255, 255, 255, 0.16) 25%,
+                          rgba(0, 0, 0, 0) 25%,
+                          rgba(0, 0, 0, 0) 50%,
+                          rgba(255, 255, 255, 0.16) 50%,
+                          rgba(255, 255, 255, 0.16) 75%,
+                          rgba(0, 0, 0, 0) 75%,
+                          rgba(0, 0, 0, 0)),
+          linear-gradient(to right, #903, #ffff00, #085f00);
+      box-shadow: inset 0 1px 1px 0px rgba(255, 215, 215, 0.5),
+                  inset 0 -1px 1px 0px rgba(255, 255, 255, 0.25),
+                  1px 1px 3px 0 rgba(0,0,0,0.33);
+  }
+  
+
+  

@@ -1,10 +1,11 @@
 <table (click)=collaps()>
     <thead>
         <tr>
-            <th id='th1'>{{stockGroupData.key}}</th>
+            <th id='th1' >{{stockGroupData.key}}</th>
+            <th id='th2'><app-rainbow-progress-bar [amount]='stockGroupData.number'></app-rainbow-progress-bar></th>
             <div class="topnav-right">
-                <th *ngIf="!expandedIndex" class='headingIcon'> <i class="material-icons">expand_more</i></th>
-                <th *ngIf="expandedIndex" class='headingIcon'> <i class="material-icons">expand_less</i></th>
+                <th id='th3' *ngIf="!expandedIndex" class='headingIcon'> <i class="material-icons">expand_more</i></th>
+                <th id='th3' *ngIf="expandedIndex" class='headingIcon'> <i class="material-icons">expand_less</i></th>
             </div>
         </tr>
     </thead>

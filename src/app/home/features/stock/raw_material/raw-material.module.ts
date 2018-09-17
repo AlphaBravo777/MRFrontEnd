@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CoreMeatriteModule } from '../../../core/core-meatrite.module';
 
 import { RawMaterialRoutingModule } from './raw-material-routing.module';
 import { RawMaterialDataComponent } from './raw-material-data/raw-material-data.component';
@@ -8,11 +9,11 @@ import { RawMaterialViewComponent } from './raw-material-view/raw-material-view.
 import { RawMaterialView1Component } from './raw-material-view/raw-material-view1/raw-material-view1.component';
 import { RawMaterialView2Component } from './raw-material-view/raw-material-view2/raw-material-view2.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
-    RawMaterialRoutingModule
+    RawMaterialRoutingModule,
+    CoreMeatriteModule,
   ],
   declarations: [
     MainRawMaterialComponent,

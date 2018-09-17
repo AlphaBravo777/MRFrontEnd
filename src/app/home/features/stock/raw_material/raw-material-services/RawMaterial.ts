@@ -8,6 +8,7 @@ export class IRawMaterialStockItem {
     price: number;
     active: boolean;
     amount: number;
+    modelPersLeft: number;
 }
 
 // --------------------------------------------------------------------------
