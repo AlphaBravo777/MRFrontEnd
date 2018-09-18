@@ -24,7 +24,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/stylesMR.scss"
+              "src/stylesMR.scss",
+              "src/variables.scss"
             ],
             "scripts": []
           },

@@ -5,10 +5,12 @@ export class IRawMaterialStockItem {
     baseUnitSize: number;
     measureUnit: string;
     modelGroup: string;
+    modelStock: number;
     price: number;
     active: boolean;
     amount: number;
     modelPersLeft: number;
+    dailyUse: number;
 }
 
 // --------------------------------------------------------------------------

@@ -1,19 +1,62 @@
-<table (click)=collaps()>
+<div class='container' (click)=collaps()>
+    <span class='topLevel'>
+        <div>{{stockGroupData.key}}</div>
+        <div >
+            <app-rainbow-progress-bar *ngIf="!expandedIndex" [amount]='stockGroupData.number'></app-rainbow-progress-bar>
+        </div>
+        <div></div>
+        <div>
+            <div id='th3' *ngIf="!expandedIndex" class='headingIcon'> <i class="material-icons">expand_more</i></div>
+            <div id='th3' *ngIf="expandedIndex" class='headingIcon'> <i class="material-icons">expand_less</i></div>
+        </div>
+    </span>
+    <div *ngIf="expandedIndex">
+        <span class='headings'>
+            <div>Name</div>
+            <div>Model Stock</div>
+            <div>Supplier</div>
+            <div>Amt</div>
+        </span>
+    </div>
+    <div *ngIf="expandedIndex">
+            <section class='section' *ngFor='let value of stockGroupData.values; trackBy: trackByamounts'>
+                <app-raw-material-view2 [individualStockData]='value'></app-raw-material-view2>
+            </section>
+    </div>
+</div>
+
+
+<!-- <table (click)=collaps()>
     <thead>
-        <tr>
-            <th id='th1' >{{stockGroupData.key}}</th>
-            <th id='th2'><app-rainbow-progress-bar [amount]='stockGroupData.number'></app-rainbow-progress-bar></th>
-            <div class="topnav-right">
-                <th id='th3' *ngIf="!expandedIndex" class='headingIcon'> <i class="material-icons">expand_more</i></th>
-                <th id='th3' *ngIf="expandedIndex" class='headingIcon'> <i class="material-icons">expand_less</i></th>
-            </div>
+        <tr >
+            <td>
+                <span class='topLevel'>
+                    <div>{{stockGroupData.key}}</div>
+                    <div><app-rainbow-progress-bar [amount]='stockGroupData.number'></app-rainbow-progress-bar></div>
+                    <div>
+                        <div id='th3' *ngIf="!expandedIndex" class='headingIcon'> <i class="material-icons">expand_more</i></div>
+                        <div id='th3' *ngIf="expandedIndex" class='headingIcon'> <i class="material-icons">expand_less</i></div>
+                    </div>
+                </span>
+            </td>
         </tr>
     </thead>
-    <tbody >
+    <tbody>
         <tr *ngIf="expandedIndex">
-            <div *ngFor='let value of stockGroupData.values; trackBy: trackByamounts'>
-                <td><app-raw-material-view2 [individualStockData]='value'></app-raw-material-view2></td>
-            </div>
+            <td>
+                <span class='headings'>
+                    <div>Name</div>
+                    <div>Supplier</div>
+                    <div>Amount</div>
+                </span>
+            </td>
+        </tr>
+        <tr *ngIf="expandedIndex">
+            <td>
+                <span *ngFor='let value of stockGroupData.values; trackBy: trackByamounts'>
+                    <app-raw-material-view2 [individualStockData]='value'></app-raw-material-view2>
+                </span>
+            </td>
         </tr>
     </tbody>
-</table>
+</table> -->

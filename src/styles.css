@@ -1,11 +1,13 @@
+.mainTheme {
+color: #fff7ef;
+color: #ffebd7;
+color: #dbbda0; /* main  */
+color: #b9936f;
+color: #997049;
 
-/* @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"; */
+}
+
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-
-/* body{
-  background-color: #ffdbb7;
-} */
-
 
 .buttonMenus {
     cursor: pointer;
