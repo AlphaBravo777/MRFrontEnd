@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { GetProductsComponent } from './processed/get-products/get-products.component';
 import { UserEntryComponent } from '../../shared/user-entry.component';
-import { UnderConstructionComponent } from '../../shared/under-construction/under-construction.component';
 import { AuthGuard } from '../admin/auth.guard';
 import { ProductMaintenanceComponent } from './processed/product-maintenance/product-maintenance.component';
 
@@ -13,7 +12,7 @@ const stockRoutes: Routes = [
         component: UserEntryComponent,
         children: [
             {
-                path: 'stocks-raw',
+                path: 'stock-raw',
                 // loadChildren: () => RawMaterialModule,
                 loadChildren: './raw_material/raw-material.module#RawMaterialModule'
                 // canActivate: [AuthGuard],

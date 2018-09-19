@@ -1,6 +1,9 @@
+<div>
+    <h3>Dry Store Stock</h3>
+    <button class='niceButton meatriteButton' (click)='expandContract()'>{{text}}</button>
+</div>
+
 <section *ngFor='let stock of rawMaterialProductData; trackBy: trackByamounts'>
-    <app-raw-material-view1 
-        [stockGroupData]='stock'
-    >
+    <app-raw-material-view1 [stockGroupData]='stock' [expandedIndex]='expandedIndex'>
     </app-raw-material-view1>
 </section>

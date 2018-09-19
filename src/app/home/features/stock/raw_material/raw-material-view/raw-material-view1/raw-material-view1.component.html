@@ -1,8 +1,11 @@
-<div class='container' (click)=collaps()>
-    <span class='topLevel'>
+<div class='container'>
+    <span class='topLevel' (click)=collaps()>
         <div>{{stockGroupData.key}}</div>
-        <div >
-            <app-rainbow-progress-bar *ngIf="!expandedIndex" [amount]='stockGroupData.number'></app-rainbow-progress-bar>
+        <div>
+            <app-rainbow-progress-bar *ngIf="!expandedIndex" 
+                [amount]='stockGroupData.number'
+                [sizeStyle]="'meterLarge'"
+            ></app-rainbow-progress-bar>
         </div>
         <div></div>
         <div>
@@ -14,49 +17,19 @@
         <span class='headings'>
             <div>Name</div>
             <div>Model Stock</div>
+            <div>Days</div>
             <div>Supplier</div>
             <div>Amt</div>
         </span>
     </div>
     <div *ngIf="expandedIndex">
-            <section class='section' *ngFor='let value of stockGroupData.values; trackBy: trackByamounts'>
-                <app-raw-material-view2 [individualStockData]='value'></app-raw-material-view2>
-            </section>
+        <div class='dropdownOuter'>
+            <div class='dropdown'>
+                <section class='section' *ngFor='let value of stockGroupData.values; trackBy: trackByamounts'>
+                    <app-raw-material-view2 [individualStockData]='value'></app-raw-material-view2>
+                </section>
+            </div>
+        </div>
     </div>
 </div>
 
-
-<!-- <table (click)=collaps()>
-    <thead>
-        <tr >
-            <td>
-                <span class='topLevel'>
-                    <div>{{stockGroupData.key}}</div>
-                    <div><app-rainbow-progress-bar [amount]='stockGroupData.number'></app-rainbow-progress-bar></div>
-                    <div>
-                        <div id='th3' *ngIf="!expandedIndex" class='headingIcon'> <i class="material-icons">expand_more</i></div>
-                        <div id='th3' *ngIf="expandedIndex" class='headingIcon'> <i class="material-icons">expand_less</i></div>
-                    </div>
-                </span>
-            </td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngIf="expandedIndex">
-            <td>
-                <span class='headings'>
-                    <div>Name</div>
-                    <div>Supplier</div>
-                    <div>Amount</div>
-                </span>
-            </td>
-        </tr>
-        <tr *ngIf="expandedIndex">
-            <td>
-                <span *ngFor='let value of stockGroupData.values; trackBy: trackByamounts'>
-                    <app-raw-material-view2 [individualStockData]='value'></app-raw-material-view2>
-                </span>
-            </td>
-        </tr>
-    </tbody>
-</table> -->

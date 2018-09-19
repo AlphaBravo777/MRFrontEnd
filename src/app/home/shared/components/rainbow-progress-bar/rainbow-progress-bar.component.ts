@@ -3,11 +3,12 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
     selector: 'app-rainbow-progress-bar',
     templateUrl: './rainbow-progress-bar.component.html',
-    styleUrls: ['./rainbow-progress-bar.component.css']
+    styleUrls: ['./rainbow-progress-bar.component.scss']
 })
 export class RainbowProgressBarComponent implements OnInit {
 
     @Input() amount;
+    @Input() sizeStyle;
 
     constructor() { }
 

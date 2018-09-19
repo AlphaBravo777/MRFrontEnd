@@ -1,6 +1,10 @@
 <div class='container'>
     <div class='stockName'> {{individualStockData.stockName}} </div>
-    <app-rainbow-progress-bar [amount]='individualStockData.modelPersLeft'></app-rainbow-progress-bar>
+    <app-rainbow-progress-bar 
+        [amount]='individualStockData.modelPersLeft'
+        [sizeStyle]="'meterSmall'"    
+    ></app-rainbow-progress-bar>
+    <div class='days'> {{individualStockData.daysLeft}} </div>
     <div class='supplier'> {{individualStockData.supplier}} </div>
     <div class='amount'> {{individualStockData.amount}} </div>
 </div>

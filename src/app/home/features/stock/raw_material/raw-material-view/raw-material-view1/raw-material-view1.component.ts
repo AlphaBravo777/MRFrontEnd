@@ -4,15 +4,14 @@ import { IRawMaterialGroup, IRawMaterialStockItem } from '../../raw-material-ser
 @Component({
   selector: 'app-raw-material-view1',
   templateUrl: './raw-material-view1.component.html',
-  styleUrls: ['./raw-material-view1.component.css']
+  styleUrls: ['./raw-material-view1.component.scss']
 })
 export class RawMaterialView1Component implements OnInit {
 
   @Input() stockGroupData: IRawMaterialGroup;
-  expandedIndex;
+  @Input() expandedIndex;
 
   constructor() { }
-
 
   ngOnInit() {
   }

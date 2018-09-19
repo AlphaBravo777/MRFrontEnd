@@ -55,7 +55,7 @@ export class RawMaterialDataService {
             // tslint:disable
             { stockName: 'MDM Batch 105', category: 'MDM', supplier: 'Federated', baseUnitSize: 15, measureUnit: 'kg', modelGroup: 'MDM', price: '12.50', active: true, amount: this.hardAmount, modelPersLeft: 40, modelStock: 20000, dailyUse: 7000 },
             { stockName: 'Erythrozine', category: 'Ingredients', supplier: 'ABC', baseUnitSize: 50, measureUnit: 'lt', modelGroup: 'Erythrozine', price: '77.50', active: true, amount: 25, modelPersLeft: 77, modelStock: 20, dailyUse: 0.3 },
-            { stockName: 'Isolate', category: 'Ingredients', supplier: 'Crown National', baseUnitSize: 20, measureUnit: 'kg', modelGroup: 'Isolate', price: '21.50', active: true, amount: 8000, modelPersLeft: 77, modelStock: 10000, dailyUse: 7000 },
+            { stockName: 'Isolate', category: 'Ingredients', supplier: 'Crown National', baseUnitSize: 20, measureUnit: 'kg', modelGroup: 'Isolate', price: '21.50', active: true, amount: 8000, modelPersLeft: 77, modelStock: 10000, dailyUse: 2000 },
             { stockName: 'MDM Batch 98', category: 'MDM', supplier: 'Federated', baseUnitSize: 20, measureUnit: 'kg', modelGroup: 'MDM', price: '9.75', active: true, amount: 10000, modelPersLeft: 40, modelStock: 20000, dailyUse: 1000 },
             { stockName: 'Russian Brown', category: 'Ingredients', supplier: 'DFG', baseUnitSize: 40, measureUnit: 'lt', modelGroup: 'Russian Brown', price: '45.30', active: true, amount: 8, modelPersLeft: 77, modelStock: 20, dailyUse: 1.1 },
             { stockName: 'Vencor Russian Spice', category: 'Spices', supplier: 'Freddy Hirch', baseUnitSize: 15, measureUnit: 'kg', modelGroup: 'Vencor Russian Spice', price: '45.00', active: true, amount: 710, modelPersLeft: 60, modelStock: 900, dailyUse: 70 },
@@ -113,6 +113,7 @@ export class RawMaterialDataService {
                 singleData.modelPersLeft = 100;
             }
             singleData.dailyUse = data[array].dailyUse;
+            singleData.daysLeft = Math.floor(singleData.amount / singleData.dailyUse);
             flattendDatas.push(singleData);
         }
         // console.log(flattendDatas);

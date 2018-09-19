@@ -1,12 +1,7 @@
-
 <div id="container">
-    <!-- <div class="meter"><div class="barInner" style="width: 53%;"></div><div class="barLabel">53%</div></div>
-    <div class="meter"><div class="barInner" style="width: 24%;"></div><div class="barLabel">24%</div></div> -->
-    <div class="meterZero" [ngStyle]="setStyleBack()"><div class="barInner" [ngStyle]="setStyles()"></div></div>
+    <div [ngClass]="sizeStyle" [ngStyle]="setStyleBack()">
+        <div class="barInner" [ngStyle]="setStyles()">
+           
+        </div>
+    </div>
 </div>
-
-<!-- <div class="meter">
-  <span  class="barInner" >45 / 50</span>
-</div> -->
-
-<!-- <button (click)=getData()>Get data</button> -->

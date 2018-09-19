@@ -11,6 +11,7 @@ export class IRawMaterialStockItem {
     amount: number;
     modelPersLeft: number;
     dailyUse: number;
+    daysLeft: number;
 }
 
 // --------------------------------------------------------------------------

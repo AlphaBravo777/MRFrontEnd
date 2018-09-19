@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RainbowProgressBarComponent } from './components/rainbow-progress-bar/rainbow-progress-bar.component';
+import { UnderConstructionComponent } from './components/under-construction/under-construction.component';
 
 
 @NgModule({
@@ -9,9 +10,11 @@ import { RainbowProgressBarComponent } from './components/rainbow-progress-bar/r
   ],
   declarations: [
     RainbowProgressBarComponent,
+    UnderConstructionComponent,
   ],
   exports: [
       RainbowProgressBarComponent,
+      UnderConstructionComponent,
   ]
 })
 export class SharedModule { }
