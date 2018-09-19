@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IRawMaterialGroup, IRawMaterialStockItem } from '../raw-material-services/RawMaterial';
+import { IRawMaterialGroup } from '../../raw-material-services/RawMaterial';
 
 @Component({
   selector: 'app-raw-material-view',

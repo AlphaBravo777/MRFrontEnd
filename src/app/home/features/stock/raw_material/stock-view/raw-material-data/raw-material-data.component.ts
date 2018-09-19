@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RawMaterialDataService } from '../raw-material-services/raw-material-data.service';
 import { interval } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
+import { RawMaterialDataService } from '../../raw-material-services/raw-material-data.service';
 
 @Component({
     selector: 'app-raw-material-data',

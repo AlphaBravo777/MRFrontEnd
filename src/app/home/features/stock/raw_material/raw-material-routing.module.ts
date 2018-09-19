@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainRawMaterialComponent } from './main-raw-material.component';
-import { RawMaterialDataComponent } from './raw-material-data/raw-material-data.component';
 import { UnderConstructionComponent } from '../../../shared/components/under-construction/under-construction.component';
+import { RawMaterialDataComponent } from './stock-view/raw-material-data/raw-material-data.component';
 
 // stock-raw/stocks-raw-view'
 const rawProdRoutes: Routes = [
