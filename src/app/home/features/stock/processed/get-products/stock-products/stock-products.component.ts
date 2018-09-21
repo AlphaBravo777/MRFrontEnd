@@ -103,4 +103,3 @@ export class StockProductsComponent implements OnInit {
     }
 }
 
-// TODO: Make Colored LED's that shows if there is a connection, and also if there is data that needs to be saved.

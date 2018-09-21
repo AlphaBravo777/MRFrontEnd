@@ -1,0 +1,14 @@
+@import 'src/stylesColors.scss';
+
+.topLevel {
+    color: $secondColorPlusTwo;
+    font-weight: bold;
+    font-size: 15px;
+    display: grid;
+    padding: 10px;
+    grid-template-columns: 1.5fr 400px 1fr 5%
+}
+
+.topLevel div {
+    align-self: center;
+}

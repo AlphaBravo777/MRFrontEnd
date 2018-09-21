@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RawMaterialDataComponent } from './raw-material-data.component';
+import { RawStockViewDataComponent } from './raw-stock-view-data.component';
 
-describe('RawMaterialDataComponent', () => {
-  let component: RawMaterialDataComponent;
-  let fixture: ComponentFixture<RawMaterialDataComponent>;
+describe('RawStockViewDataComponent', () => {
+  let component: RawStockViewDataComponent;
+  let fixture: ComponentFixture<RawStockViewDataComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RawMaterialDataComponent ]
+      declarations: [ RawStockViewDataComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RawMaterialDataComponent);
+    fixture = TestBed.createComponent(RawStockViewDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

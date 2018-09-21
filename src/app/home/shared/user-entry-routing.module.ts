@@ -3,9 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { StocksComponent } from '../features/stock/stocks.component';
 import { UserEntryComponent } from './user-entry.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
-import { UnderConstructionComponent } from './under-construction/under-construction.component';
 import { AuthGuard } from '../features/admin/auth.guard';
 import { AdminPageComponent } from '../features/admin/admin-page/admin-page.component';
+import { UnderConstructionComponent } from './components/under-construction/under-construction.component';
 
 const userEntryRoutes: Routes = [
     {

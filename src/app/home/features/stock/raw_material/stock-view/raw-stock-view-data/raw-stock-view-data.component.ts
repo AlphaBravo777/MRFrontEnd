@@ -4,11 +4,11 @@ import { startWith, switchMap } from 'rxjs/operators';
 import { RawMaterialDataService } from '../../raw-material-services/raw-material-data.service';
 
 @Component({
-    selector: 'app-raw-material-data',
-    templateUrl: './raw-material-data.component.html',
-    styleUrls: ['./raw-material-data.component.css']
+    selector: 'app-raw-stock-view-data',
+    templateUrl: './raw-stock-view-data.component.html',
+    styleUrls: ['./raw-stock-view-data.component.css']
 })
-export class RawMaterialDataComponent implements OnInit, OnDestroy {
+export class RawStockViewDataComponent implements OnInit, OnDestroy {
 
     rawMaterialProductData;
     subscription;
@@ -19,7 +19,7 @@ export class RawMaterialDataComponent implements OnInit, OnDestroy {
         this.subscription = interval(30000)
         .pipe(
             startWith(0),
-            switchMap(() => this.rawMaterialDataService.returnData())
+            switchMap(() => this.rawMaterialDataService.returnData())       // (2*85)+80+75+115+110
         )
         .subscribe(data => {
             console.log(data);

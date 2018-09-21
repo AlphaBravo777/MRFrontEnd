@@ -43,5 +43,3 @@ export class AuthService {
   }
 
 }
-
-// TODO: See if you must not change this server adress, or add a variable for it, to make the app in phone work

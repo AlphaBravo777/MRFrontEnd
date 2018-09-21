@@ -26,3 +26,4 @@ export class HighRiskDataComponent implements OnInit {
         // });
     }
 }
+    // TODO: Show which products can be packed on what machine, and give option to just show machines and what can be packed

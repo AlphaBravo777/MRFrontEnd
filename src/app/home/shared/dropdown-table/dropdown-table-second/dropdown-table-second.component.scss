@@ -1,0 +1,43 @@
+@import 'src/stylesColors.scss';
+
+@mixin heading {   
+        display: grid;
+        color: $secondColorPlusTwo;
+        background: $mainColorMinusOne;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 0px 15px 0px 15px;
+}
+
+.grid5 {
+    grid-template-columns: 15% 400px .3fr .7fr 8%;
+}
+
+.grid4 {
+    grid-template-columns: 15% .3fr .7fr 8%;
+}
+
+.grid3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.headings {
+    @include heading;
+}
+
+.section {
+    display: grid;
+}
+
+.dropdownOuter {
+    padding: 5px;
+}
+
+.dropdown {
+    color: $secondColorPlusTwo;
+    font-size: 12px;
+    padding: 10px;
+    background: $secondColorMinusTwo;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+}

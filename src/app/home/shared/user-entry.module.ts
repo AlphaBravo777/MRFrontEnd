@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from './shared.module';
 
 import { UserEntryRoutingModule } from './user-entry-routing.module';
 import { StocksModule } from '../features/stock/stocks.module';
@@ -16,7 +17,8 @@ import { RegisterComponent } from '../features/admin/register-user/register.comp
     UserEntryRoutingModule,
     NgxPermissionsModule.forChild(),
     StocksModule,
-    FactoryModule
+    FactoryModule,
+    SharedModule
   ],
   declarations: [
       UserEntryComponent,

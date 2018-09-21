@@ -17,7 +17,6 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { HomeComponent } from './home/home.component';
 import { WebsiteComponent } from './home/website/website.component';
 import { WebsiteNavComponent } from './home/website/website-nav/website-nav.component';
-import { UnderConstructionComponent } from './home/shared/under-construction/under-construction.component';
 import { AlertComponent } from './home/core/alerts/alert.component';
 import { AlertService } from './home/core/alerts/alert.service';
 import { DialogBoxComponent } from './home/core/dialog-box/dialog-box.component';
@@ -49,7 +48,6 @@ import { CoreMeatriteModule } from './home/core/core-meatrite.module';
         HomeComponent,
         WebsiteComponent,
         WebsiteNavComponent,
-        UnderConstructionComponent,
         AlertComponent,
         DialogBoxComponent,
         AdminPageComponent,

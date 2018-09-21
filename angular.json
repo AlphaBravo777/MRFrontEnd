@@ -24,8 +24,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/stylesMR.scss",
-              "src/variables.scss"
+              "src/stylesBackground.scss",
+              "src/stylesColors.scss"
             ],
             "stylePreprocessorOptions": {
                 "includePaths": [

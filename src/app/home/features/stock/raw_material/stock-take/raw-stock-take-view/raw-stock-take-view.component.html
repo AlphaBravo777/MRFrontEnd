@@ -1,0 +1,20 @@
+<div class='heading'>
+    <h3>{{viewHeading}}</h3>
+    <button class='niceButton meatriteButton' (click)='expandAllTables()'>{{text}}</button>
+</div>
+
+<div>
+    <section *ngFor='let data of topLevelData; trackBy: trackByamounts; index as i'>
+        <div class='container'>
+            <app-dropdown-table-main [indvTopDataPoints]='data' [expandedIndex]='expandedIndexArrow' (click)=collaps(i)>
+            </app-dropdown-table-main>
+            <div *ngIf="i === expandedIndex">
+                <app-dropdown-table-second 
+                    [indvTopDataPoints]='data'
+                    [headings]='headings'
+                    [dataPoints]='dataPoints'>
+                </app-dropdown-table-second>
+            </div>
+        </div>
+    </section>
+</div>
