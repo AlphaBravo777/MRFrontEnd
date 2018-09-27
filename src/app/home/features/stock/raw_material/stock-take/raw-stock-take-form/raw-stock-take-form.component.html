@@ -1,0 +1,21 @@
+<div *ngIf='!showKeyboard'>
+    <form [formGroup]='amountForm' (ngSubmit)='amountFormSubmit()'>
+        <input type="text" formControlName="amount" />
+    </form>
+</div>
+
+
+<div class='keyboard' *ngIf='showKeyboard'>
+    <div class='one'>
+        <form [formGroup]='amountForm' (ngSubmit)='amountFormSubmit()'>
+            <input type="text" formControlName="amount" />
+        </form>
+    </div>
+    <div class='two'></div>
+    <br>
+    <br>
+    <br>
+    <div>
+        <app-custom-keyboard (keyPressed)="keyPressed($event)"></app-custom-keyboard>
+    </div>
+</div>

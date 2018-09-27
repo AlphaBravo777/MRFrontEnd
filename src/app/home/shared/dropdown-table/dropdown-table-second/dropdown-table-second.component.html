@@ -1,14 +1,7 @@
-<span [ngClass]='gridColmSizes' class='headings'>
-        <div *ngFor='let heading of headings'>
-                <div>{{heading}}</div>
+<div class='mainContent'>
+    <section [ngClass]='gridColmSizes' class='rows' >
+        <div *ngFor='let field of dataPoints'>
+            <div class='rows'>{{individualStockData[field]}}</div>
         </div>
-</span>
-<div class='dropdownOuter'>
-    <div class='dropdown'>
-        <section [ngClass]='gridColmSizes' class='section' *ngFor='let individualStockData of indvTopDataPoints.values; trackBy: trackByamounts'>
-            <div *ngFor='let field of dataPoints'>
-                <div>{{individualStockData[field]}}</div>
-            </div>
-        </section>
-    </div>
+    </section>
 </div>

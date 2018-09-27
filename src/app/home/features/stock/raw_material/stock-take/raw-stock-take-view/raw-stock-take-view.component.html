@@ -1,19 +1,34 @@
 <div class='heading'>
     <h3>{{viewHeading}}</h3>
-    <button class='niceButton meatriteButton' (click)='expandAllTables()'>{{text}}</button>
+    <button class='niceButton meatriteButton'>{{text}}</button>
 </div>
 
 <div>
     <section *ngFor='let data of topLevelData; trackBy: trackByamounts; index as i'>
         <div class='container'>
-            <app-dropdown-table-main [indvTopDataPoints]='data' [expandedIndex]='expandedIndexArrow' (click)=collaps(i)>
+            <app-dropdown-table-main 
+                [indvTopDataPoints]='data' 
+                [expandedIndex]='expandedIndexArrow' 
+                (click)=collaps(i)>
             </app-dropdown-table-main>
-            <div *ngIf="i === expandedIndex">
-                <app-dropdown-table-second 
-                    [indvTopDataPoints]='data'
-                    [headings]='headings'
-                    [dataPoints]='dataPoints'>
-                </app-dropdown-table-second>
+            <div class='containerData' *ngIf="i === expandedIndex">
+                <app-dropdown-table-headings 
+                    [headings]='headings' 
+                    [gridColmSizes]='gridColmSizes'>
+                </app-dropdown-table-headings>
+                <div  *ngFor='let individualStockData of data.values; trackBy: trackByamounts; index as j'>
+                    <div class='data'>
+                        <app-dropdown-table-second 
+                            [individualStockData]='individualStockData' 
+                            [dataPoints]='dataPoints' 
+                            [gridColmSizes]='gridColmSizes'
+                            (click)=collapsInput(j)>
+                        </app-dropdown-table-second>
+                        <div *ngIf="j === expandedInput">
+                            <div><app-raw-stock-take-form [amount]='individualStockData.amount'></app-raw-stock-take-form></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

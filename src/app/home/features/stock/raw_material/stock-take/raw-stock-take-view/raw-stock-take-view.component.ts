@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { IRawMaterialGroup } from '../../raw-material-services/RawMaterial';
+
 
 @Component({
     selector: 'app-raw-stock-take-view',
@@ -7,13 +9,16 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class RawStockTakeViewComponent implements OnInit {
 
-    @Input() topLevelData;
+    @Input() topLevelData: IRawMaterialGroup[];
     @Input() viewHeading: string;
+    @Input() headings;
+    @Input() dataPoints;
+    @Input() gridColmSizes;
     expandedIndex = -1;
+    expandedInput = -1;
     text = 'Expand';
     expandedIndexArrow = [];
-    @Input() headings = ['Name', 'Model Stock', 'Days', 'Supplier', 'Amt'];
-    @Input() dataPoints = ['stockName', 'supplier', 'baseUnitSize', 'measureUnit'];
+    clicked: string;
 
     constructor() { }
 
@@ -25,13 +30,9 @@ export class RawStockTakeViewComponent implements OnInit {
         this.expandedIndexArrow[index] = !this.expandedIndexArrow[index];
     }
 
-    expandAllTables() {
-        // this.expandedIndex = !this.expandedIndex;
-        // if (this.text === 'Expand') {
-        //     this.text = 'Contract';
-        // } else {
-        //     this.text = 'Expand';
-        // }
+    collapsInput(index: number) {
+        this.expandedInput = index === this.expandedInput ? -1 : index;
+        // this.expandedIndexArrow[index] = !this.expandedIndexArrow[index];
     }
 
     trackByamounts(index: number, stock ): string {

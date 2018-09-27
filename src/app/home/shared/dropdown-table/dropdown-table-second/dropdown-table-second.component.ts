@@ -7,19 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DropdownTableSecondComponent implements OnInit {
 
-    @Input() indvTopDataPoints;
-    @Input() expandedIndex;
-    @Input() headings = ['Name', 'Model Stock', 'Days', 'Supplier', 'Amt'];
-    @Input() dataPoints = ['stockName', 'supplier', 'baseUnitSize', 'measureUnit'];
-    gridColmSizes = 'grid4';
+    @Input() individualStockData;
+    @Input() dataPoints;
+    @Input() gridColmSizes;
 
     constructor() { }
 
     ngOnInit() {
-    }
-
-    collaps() {
-        this.expandedIndex = !this.expandedIndex;
     }
 
     trackByamounts(index: number, values): number {

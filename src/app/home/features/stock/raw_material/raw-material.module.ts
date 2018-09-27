@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../shared/shared.module';
 import { CustomMaterialModule } from '../../../shared/dropdown-table/custom-material.module';
 import { RawMaterialRoutingModule } from './raw-material-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MainRawMaterialComponent } from './main-raw-material.component';
 import { RawMaterialViewComponent } from './stock-view/raw-material-view/raw-material-view.component';
@@ -11,11 +12,13 @@ import { RawMaterialView2Component } from './stock-view/raw-material-view2/raw-m
 import { RawStockViewDataComponent } from './stock-view/raw-stock-view-data/raw-stock-view-data.component';
 import { RawStockTakeDataComponent } from './stock-take/raw-stock-take-data/raw-stock-take-data.component';
 import { RawStockTakeViewComponent } from './stock-take/raw-stock-take-view/raw-stock-take-view.component';
+import { RawStockTakeFormComponent } from './stock-take/raw-stock-take-form/raw-stock-take-form.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RawMaterialRoutingModule,
+    ReactiveFormsModule,
     SharedModule,
     CustomMaterialModule,
   ],
@@ -26,7 +29,8 @@ import { RawStockTakeViewComponent } from './stock-take/raw-stock-take-view/raw-
     RawMaterialView2Component,
     RawStockViewDataComponent,
     RawStockTakeDataComponent,
-    RawStockTakeViewComponent
+    RawStockTakeViewComponent,
+    RawStockTakeFormComponent
 ]
 })
 export class RawMaterialModule { }

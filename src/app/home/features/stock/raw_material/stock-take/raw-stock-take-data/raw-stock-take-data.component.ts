@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RawMaterialDataService } from '../../raw-material-services/raw-material-data.service';
+import { IRawMaterialGroup } from '../../raw-material-services/RawMaterial';
 
 @Component({
     selector: 'app-raw-stock-take-data',
@@ -8,13 +9,14 @@ import { RawMaterialDataService } from '../../raw-material-services/raw-material
 })
 export class RawStockTakeDataComponent implements OnInit {
 
-    stockTakeData;
+    stockTakeData: IRawMaterialGroup[];
     isMobile;
     clicked: string;
     showKeyboard;
     viewHeading = 'Dry Store Stocktake';
-    headings = ['Name', 'Model Stock', 'Days', 'Supplier', 'Amt'];
+    headings = ['Name', 'Supplier', 'Base Size', 'Units'];
     dataPoints = ['stockName', 'supplier', 'baseUnitSize', 'measureUnit'];
+    gridColmSizes = 'grid4';
 
     constructor(public rawMaterialDataService: RawMaterialDataService) {
         this.showKeyboard = this.isTouchDevice();

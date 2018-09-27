@@ -1,15 +1,16 @@
 @import 'src/stylesColors.scss';
 
-.mainContent {
+@mixin heading {   
+    display: grid;
     color: $secondColorPlusTwo;
-    font-size: 14px;
-    margin: 5px 0px 5px 0px;
-
+    background: $mainColorMinusOne;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0px 15px 0px 15px;
 }
 
-.rows {
-    display: grid;
-    align-self: center;
+.headings {
+@include heading;
 }
 
 .grid5 {
@@ -17,10 +18,11 @@
 }
 
 .grid4 {
-    
+    margin: 5px;
     grid-template-columns: 2fr 1.5fr .5fr 8%;
 }
 
 .grid3 {
     grid-template-columns: repeat(3, 1fr);
 }
+

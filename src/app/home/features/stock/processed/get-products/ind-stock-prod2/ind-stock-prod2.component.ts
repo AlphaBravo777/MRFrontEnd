@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Directive, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ProcessedStockFormService } from '../../../stock-services/processed-stock-form.service';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { IProcessedStockContainer, IProcessedStockProducts } from '../../../stock-services/Stock';
@@ -25,6 +25,7 @@ export class IndStockProd2Component implements OnInit, OnChanges {
     }
 
     buildForm() {
+        console.log(this.productName);
         this.amountForm = this.fb.group({
             mainContainer: this.fb.array([])
         });
@@ -41,7 +42,7 @@ export class IndStockProd2Component implements OnInit, OnChanges {
         });
     }
 
-    setProjects(x: IProcessedStockContainer) {
+    setProjects(x: IProcessedStockContainer): FormArray {
         const arr = new FormArray([]);
         x.amount.forEach(y => {
             arr.push(this.fb.group({
