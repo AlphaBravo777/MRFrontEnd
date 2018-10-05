@@ -18,15 +18,9 @@ export class DropdownTableMainComponent implements OnInit {
     ngOnInit() {
     }
 
-    collaps(index: number) {
-        this.expandedIndex = index === this.expandedIndex ? -1 : index;
-    // collaps() {
-    //     this.expandedIndex = !this.expandedIndex;
-    }
-
     trackByamounts(index: number, values): number {
       return values.amount;
-  }
+    }
     // expandAllTables() {
     //     this.expandedIndex = !this.expandedIndex;
     //     if (this.text === 'Expand') {

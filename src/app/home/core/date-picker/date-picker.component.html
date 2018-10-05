@@ -1,0 +1,7 @@
+<div class='compContainer'>
+    <form [formGroup]="dateForm" (ngSubmit)='dateFormSubmit()'>
+        <input type="text" formControlName="year" style="width: 45px;" />
+        <input type="text" formControlName="week" style="width: 45px;" />
+        <input type="text" formControlName="weekDay" style="width: 45px;" />
+    </form>
+</div>

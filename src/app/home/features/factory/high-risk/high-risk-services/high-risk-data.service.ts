@@ -1,67 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { HighRiskApiService } from './high-risk-api.service';
+import { BehaviorSubject } from 'rxjs';
+import { HighRiskPackinglistApiService } from './high-risk-packinglist-api.service';
 import { IPackingListStock } from './high-risk-interfaces';
-import { Apollo, gql } from 'apollo-angular-boost';
+import { map } from 'rxjs/operators';
+import { interval } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
+
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class HighRiskDataService {
+export class HighRiskData$Service {
 
-    constructor(private apollo: Apollo) { }
+    private processedStock = new BehaviorSubject<IPackingListStock[]>([]);
+    currentProcessedStock$ = this.processedStock.asObservable();
+    subscription;
 
-    groupByArray(xs, key) {
-        return xs.reduce(function (rv, x) {
-            const v = key instanceof Function ? key(x) : x[key];
-            const el = rv.find(r => r && r.key === v);
-            if (el) {
-                el.values.push(x);
-            } else {
-                rv.push({ key: v, values: [x], number: x.groupRanking  });
-            }
-            return rv;
-        }, []);
+    constructor(private processedStockApi: HighRiskPackinglistApiService) {
+        this.getDBProcessedStock();
+
+     }
+
+    getDBProcessedStock(): void {
+        this.processedStockApi.getGraphQLdata().subscribe(data => {
+            this.processedStock.next(data);
+        });
     }
 
-    getGraphQLdata(): Observable<any> {
-        return this.apollo
-            .watchQuery({
-                query: gql`
-                {
-                    allHighriskpackinglist {
-                      productCode {
-                        productid
-                        proddescription
-                              packlistgroup{
-                          batchname
-                          packingListRanking
-                        }
-                      }
-                      currentStock
-                      stockNeeded
-                    }
-                  }
-            `,
-            })
-            .valueChanges.pipe(map(result => this.flattenHighRiskpackingList(result.data['allHighriskpackinglist'])));
-    }
+    // changeStock() {
+    //     this.processedStock.next([{name: 'Lets try this again'}, {name: 'And Again'}]);
+    // }
 
-    flattenHighRiskpackingList(data): IPackingListStock[] {
-        const flattendData: IPackingListStock[] = [];
-
-        for (let array = 0; array < data.length; ++array) {
-            const singleData = <IPackingListStock>{};
-            singleData.productCode = data[array].productCode.productid;
-            singleData.description = data[array].productCode.proddescription;
-            singleData.productGroup = data[array].productCode.packlistgroup.batchname;
-            singleData.groupRanking = data[array].productCode.packlistgroup.packingListRanking;
-            singleData.currentStock = data[array].currentStock;
-            singleData.stockNeeded = data[array].stockNeeded;
-            flattendData.push(singleData);
-        }
-        return this.groupByArray(flattendData, 'productGroup');
-    }
 }

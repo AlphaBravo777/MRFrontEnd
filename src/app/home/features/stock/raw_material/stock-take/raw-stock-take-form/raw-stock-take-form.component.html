@@ -1,21 +1,18 @@
-<div *ngIf='!showKeyboard'>
+<div class='extraContainer' *ngIf='!showKeyboard'>
     <form [formGroup]='amountForm' (ngSubmit)='amountFormSubmit()'>
-        <input type="text" formControlName="amount" />
+        <input class='postClick' type="text" formControlName="amount" />
     </form>
 </div>
 
 
-<div class='keyboard' *ngIf='showKeyboard'>
+<div class='extraContainer' *ngIf='showKeyboard'>
     <div class='one'>
         <form [formGroup]='amountForm' (ngSubmit)='amountFormSubmit()'>
-            <input type="text" formControlName="amount" />
+            <input [ngClass]="inputBoxColor" type="text" formControlName="amount" />
         </form>
     </div>
-    <div class='two'></div>
-    <br>
-    <br>
-    <br>
-    <div>
+    <div class='two' (click)='changeInputColor()' onfocusout="changeInputColor()"></div>
+    <div class='keyboard'>
         <app-custom-keyboard (keyPressed)="keyPressed($event)"></app-custom-keyboard>
     </div>
 </div>

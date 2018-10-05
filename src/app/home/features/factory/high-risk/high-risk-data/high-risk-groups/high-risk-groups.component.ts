@@ -10,6 +10,7 @@ export class HighRiskGroupsComponent implements OnInit {
 
     @Input() loadingListStock;
     allExpandState = false;
+    // TODO: You can also use [hidden]='allExpandState' instead of *ngIf in you template
     data = <any>{};
 
     constructor(private apollo: Apollo) { }

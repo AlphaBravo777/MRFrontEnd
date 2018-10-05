@@ -13,11 +13,14 @@ export class HighRiskItems2Component implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        this.expandedIndex = false;
     }
 
     collaps() {
         this.expandedIndex = !this.expandedIndex;
+    }
+
+    blurred() {
+        console.log('I am gone now');
     }
 
 }

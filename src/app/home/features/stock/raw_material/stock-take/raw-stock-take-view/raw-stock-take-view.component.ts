@@ -16,9 +16,8 @@ export class RawStockTakeViewComponent implements OnInit {
     @Input() gridColmSizes;
     expandedIndex = -1;
     expandedInput = -1;
-    text = 'Expand';
+    buttonText = 'Expand';
     expandedIndexArrow = [];
-    clicked: string;
 
     constructor() { }
 

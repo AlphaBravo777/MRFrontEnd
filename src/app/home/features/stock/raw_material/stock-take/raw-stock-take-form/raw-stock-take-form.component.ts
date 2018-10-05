@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
     selector: 'app-raw-stock-take-form',
     templateUrl: './raw-stock-take-form.component.html',
-    styleUrls: ['./raw-stock-take-form.component.css']
+    styleUrls: ['./raw-stock-take-form.component.scss']
 })
 export class RawStockTakeFormComponent implements OnInit {
 
@@ -20,6 +20,7 @@ export class RawStockTakeFormComponent implements OnInit {
     }
     amountForm: FormGroup;
     showKeyboard: boolean;
+    inputBoxColor = 'preClick';
 
     constructor(private fb: FormBuilder) { }
 
@@ -55,6 +56,10 @@ export class RawStockTakeFormComponent implements OnInit {
         } else {
             return false;
         }
+    }
+
+    changeInputColor() {
+        this.inputBoxColor = 'postClick';
     }
 
 }

@@ -10,69 +10,22 @@ import { IRawMaterialGroup } from '../../raw-material-services/RawMaterial';
 export class RawStockTakeDataComponent implements OnInit {
 
     stockTakeData: IRawMaterialGroup[];
-    isMobile;
-    clicked: string;
-    showKeyboard;
     viewHeading = 'Dry Store Stocktake';
     headings = ['Name', 'Supplier', 'Base Size', 'Units'];
     dataPoints = ['stockName', 'supplier', 'baseUnitSize', 'measureUnit'];
     gridColmSizes = 'grid4';
 
-    constructor(public rawMaterialDataService: RawMaterialDataService) {
-        this.showKeyboard = this.isTouchDevice();
-        console.log(this.showKeyboard);
-     }
+    constructor(public rawMaterialDataService: RawMaterialDataService) { }
 
     ngOnInit() {
         this.rawMaterialDataService.returnStockTakeData().subscribe(data => {
             this.stockTakeData = data;
             console.log(this.stockTakeData);
         });
-        this.isMobile = this.isTouchDevice();
-        const val = '(5 + 5) * 3';
-        const number = Function('"use strict"; return (' + val + ')')();
-        console.log(number, this.isTouchDevice());
+        // const val = '(5 + 5) * 3';
+        // const number = Function('"use strict"; return (' + val + ')')();
+        // console.log(number, this.isTouchDevice());
     }
 
-    isTouchDevice() {
-        if ('ontouchstart' in document.documentElement) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    one() {
-        console.log('One was clicked');
-    }
-
-    two() {
-        // if (this.clicked) {
-        // this.clicked = this.clicked + 1;
-        // } else {
-        //     this.clicked = 1;
-        // }
-        // console.log('Two was clicked');
-    }
-
-    keyPress(key) {
-        console.log(key);
-        if (this.clicked) {
-            this.clicked = this.clicked + key;
-        } else {
-            this.clicked = key;
-        }
-        console.log('Two was clicked');
-    }
-
-    keyPressed(key) {
-        console.log(key);
-        if (this.clicked) {
-            this.clicked = this.clicked + key;
-        } else {
-            this.clicked = key;
-        }
-        console.log('Two was clicked');
-    }
 
 }

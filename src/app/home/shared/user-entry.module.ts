@@ -9,6 +9,8 @@ import { UserNavComponent } from './user-nav/user-nav.component';
 import { FactoryModule } from '../features/factory/factory.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { RegisterComponent } from '../features/admin/register-user/register.component';
+import { CoreMeatriteModule } from '../core/core-meatrite.module';
+
 
 
 @NgModule({
@@ -18,7 +20,8 @@ import { RegisterComponent } from '../features/admin/register-user/register.comp
     NgxPermissionsModule.forChild(),
     StocksModule,
     FactoryModule,
-    SharedModule
+    SharedModule,
+    CoreMeatriteModule
   ],
   declarations: [
       UserEntryComponent,

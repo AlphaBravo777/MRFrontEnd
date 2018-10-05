@@ -21,9 +21,9 @@ import { AlertComponent } from './home/core/alerts/alert.component';
 import { AlertService } from './home/core/alerts/alert.service';
 import { DialogBoxComponent } from './home/core/dialog-box/dialog-box.component';
 import { AdminPageComponent } from './home/features/admin/admin-page/admin-page.component';
+import { CoreMeatriteModule } from './home/core/core-meatrite.module';
 import { GraphQLModule } from './graphql.module';
 import { MaterialConfigModule } from './material-config/material-config.module';
-import { CoreMeatriteModule } from './home/core/core-meatrite.module';
 
 @NgModule({
     exports: [
@@ -34,6 +34,7 @@ import { CoreMeatriteModule } from './home/core/core-meatrite.module';
         BrowserAnimationsModule,
         MaterialConfigModule,
         WebsiteModule,
+        CoreMeatriteModule,
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
@@ -41,7 +42,6 @@ import { CoreMeatriteModule } from './home/core/core-meatrite.module';
         UserEntryModule,
         NgxPermissionsModule.forRoot(),
         GraphQLModule,
-        CoreMeatriteModule,
     ],
     declarations: [
         AppComponent,

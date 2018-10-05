@@ -1,10 +1,22 @@
 :host {
     padding-left: 15px;
+    /* display: inline-block; */
+}
+
+a {
+    display: inline-block;
+}
+
+button {
+    display: inline-block;
 }
 
 .meatriteButton {
+    display: inline-block;
     margin-right: 10px;
-    justify-content: right;
-    align-items: right;
-    text-align: right;
   }
+
+.compContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}

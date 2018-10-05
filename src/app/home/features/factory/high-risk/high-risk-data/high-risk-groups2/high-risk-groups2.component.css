@@ -1,5 +1,5 @@
 .groupWrapper {
-    margin: 20px 30px 20px 20px;
+    margin: 20px 20px 20px 20px;
 }
 
 table {
@@ -45,3 +45,8 @@ th{
 .topnav-right {
     float: right;
   }
+  
+  h3 {
+    display: inline;
+    margin-right: 10px;
+}

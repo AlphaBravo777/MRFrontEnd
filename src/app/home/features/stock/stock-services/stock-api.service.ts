@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { UrlsService } from '../../../core/urls.service';
 import { HttpClient } from '@angular/common/http';
-import { IProcessedStockProducts, IRawProcessedStock, IProductContainers, IProductDetails, IContainerGroups } from './Stock';
+import { IRawProcessedStock, IProductContainers, IProductDetails } from './Stock';
 import { Observable } from 'rxjs';
 
 

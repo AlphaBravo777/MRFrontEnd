@@ -84,4 +84,20 @@ export class DialogBoxService {
         });
     }
 
+    popUpMessage(message) {
+        this.dialogRef = this.dialog.open(DialogBoxComponent, {
+            panelClass: 'my-centered-dialog',
+            disableClose: false
+        });
+        this.dialogRef.componentInstance.confirmMessage = message;
+        this.dialogRef.componentInstance.dialogtype = 'popUpMessage';
+
+        this.dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                // do confirmation actions
+            }
+            this.dialogRef = null;
+        });
+    }
+
 }

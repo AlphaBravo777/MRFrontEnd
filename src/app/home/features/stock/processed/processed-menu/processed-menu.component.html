@@ -1,26 +1,7 @@
-<!-- <mat-menu #appMenu="matMenu"  >
-    <span *ngFor="let stock of processedStockMain" >
-        <button mat-menu-item>{{stock.product}}</button>
-    </span>
-</mat-menu>
-
-<button mat-icon-button class='goldButton' [matMenuTriggerFor]="appMenu" >
-    <mat-icon>reorder</mat-icon>
-</button> -->
-
-<!-- <button [ngClass]='testClass' #submitToDBButton (click)="submitToDataBase()">FINISH AND SAVE</button>
-<button class='goldButton' (click)="confirmClearAllProducts()">Clear All Products</button>
-<h3 class='inline'>{{stocktime}}</h3>
-<button class='goldButton' (click)="loadOldStock()">Recover</button> -->
-
 <mat-menu #appMenu="matMenu">
     <span *ngFor="let times of stockTimes | filterTimes">
     <button mat-menu-item (click)='sendTime(times.times)'>{{times.times}}</button>
     </span>
-    <!-- <button mat-menu-item (click)='sendTime("06:00")'>06:00</button>
-    <button mat-menu-item (click)='sendTime("12:00")'>12:00</button>
-    <button mat-menu-item (click)='sendTime("18:00")'>18:00</button>
-    <button mat-menu-item (click)='sendTime("06:01")'>End of Week</button> -->
 </mat-menu>
 
 <a *ngIf='stockTimes'  class="valign-center niceButton goldButton" [matMenuTriggerFor]="appMenu">
