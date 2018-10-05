@@ -4,15 +4,14 @@
     </form>
 </div>
 
-
 <div class='extraContainer' *ngIf='showKeyboard'>
     <div class='one'>
         <form [formGroup]='amountForm' (ngSubmit)='amountFormSubmit()'>
-            <input [ngClass]="inputBoxColor" type="text" formControlName="amount" />
+            <input class='postClick' type="text" formControlName="amount" />
         </form>
     </div>
-    <div class='two' (click)='changeInputColor()' onfocusout="changeInputColor()"></div>
+    <div class='two'></div>
     <div class='keyboard'>
-        <app-custom-keyboard (keyPressed)="keyPressed($event)"></app-custom-keyboard>
+        <app-custom-keyboard [inputValue]='amount' (keyPressed)="keyPressed($event)"></app-custom-keyboard>
     </div>
 </div>

@@ -9,9 +9,7 @@ export class DropdownTableMainComponent implements OnInit {
 
     // @Input() topLevelData;
     @Input() indvTopDataPoints;
-    @Input() heading: string;
-    @Input() expandedIndex = -1;
-    text = 'Expand';
+    @Input() expandedIndex;
 
     constructor() { }
 

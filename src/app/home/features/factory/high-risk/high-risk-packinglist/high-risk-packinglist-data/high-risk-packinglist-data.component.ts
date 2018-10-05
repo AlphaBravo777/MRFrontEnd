@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { interval } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { IPackingListStock } from '../../high-risk-services/high-risk-interfaces';
 import { HighRiskData$Service } from '../../high-risk-services/high-risk-data.service';
 
@@ -11,8 +11,11 @@ import { HighRiskData$Service } from '../../high-risk-services/high-risk-data.se
 export class HighRiskPackinglistDataComponent implements OnInit, OnDestroy {
 
     loadingListStock: IPackingListStock[];
-    subscription;
-    data2;
+    subscription: Subscription;
+    viewHeading = 'High-Risk Packinglist';
+    headings = ['Product Name', 'Description', 'Current Stock', 'Total Needed', 'Difference'];
+    dataPoints = ['stockName', 'supplier', 'baseUnitSize', 'measureUnit'];
+    gridColmSizes = 'grid5';
 
 
     constructor(private highRiskDataService: HighRiskData$Service) { }
@@ -22,7 +25,7 @@ export class HighRiskPackinglistDataComponent implements OnInit, OnDestroy {
         this.highRiskDataService.currentProcessedStock$.subscribe(data => {
             this.loadingListStock = data;
         });
-        this.subscription = interval(3000).subscribe(x => {
+        this.subscription = interval(30000).subscribe(x => {
             console.log('highRiskDataService reloaded');
             this.highRiskDataService.getDBProcessedStock();
         });

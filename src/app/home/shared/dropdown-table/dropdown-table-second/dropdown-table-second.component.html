@@ -1,7 +1,7 @@
-<div class='mainContent'>
-    <section [ngClass]='gridColmSizes' class='rows' >
+<div class='outerBox'>
+    <section [ngClass]='gridColmSizes' class='rows'>
         <div *ngFor='let field of dataPoints'>
-            <div class='rows'>{{individualStockData[field]}}</div>
+            <div>{{individualStockData[field]}}</div>
         </div>
     </section>
 </div>

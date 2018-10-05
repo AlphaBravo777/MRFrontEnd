@@ -1,6 +1,5 @@
 <app-dropdown-table-top-heading [viewHeading]=viewHeading [buttonText]=buttonText></app-dropdown-table-top-heading>
 
-
 <div *ngFor='let data of topLevelData; trackBy: trackByamounts; index as i'>
     <app-dropdown-table-main 
         [indvTopDataPoints]='data' 
@@ -19,9 +18,6 @@
                 [gridColmSizes]='gridColmSizes'
                 (click)=collapsInput(j)>
             </app-dropdown-table-second>
-            <div *ngIf="j === expandedInput">
-                <app-raw-stock-take-form [amount]='individualStockData.amount'></app-raw-stock-take-form>
-            </div>
         </div>
     </div>
 </div>

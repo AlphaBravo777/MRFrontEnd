@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { HighRiskRoutingModule } from './high-risk-routing.module';
-import { HighRiskDataComponent } from './high-risk-data/high-risk-data.component';
 import { MaterialConfigModule } from '../../../../material-config/material-config.module';
 import { CoreMeatriteModule } from '../../../core/core-meatrite.module';
 import { HighRiskGroupsComponent } from './high-risk-data/high-risk-groups/high-risk-groups.component';
@@ -16,6 +15,8 @@ import { OrderByPipe } from '../../../core/services/order-by.pipe';
 import { HighRiskItems1Component } from './high-risk-data/high-risk-groups2/high-risk-items1/high-risk-items1.component';
 import { HighRiskItems3Component } from './high-risk-data/high-risk-groups2/high-risk-items3/high-risk-items3.component';
 import { HighRiskPackinglistDataComponent } from './high-risk-packinglist/high-risk-packinglist-data/high-risk-packinglist-data.component';
+import { HighRiskPackinglistViewComponent } from './high-risk-packinglist/high-risk-packinglist-view/high-risk-packinglist-view.component';
+import { CustomMaterialModule } from '../../../shared/dropdown-table/custom-material.module';
 
 
 @NgModule({
@@ -25,9 +26,9 @@ import { HighRiskPackinglistDataComponent } from './high-risk-packinglist/high-r
     HighRiskRoutingModule,
     CoreMeatriteModule,
     ReactiveFormsModule,
+    CustomMaterialModule,
   ],
   declarations: [
-      HighRiskDataComponent,
       HighRiskGroupsComponent,
       HighRiskItemsComponent,
       HighRiskGroups2Component,
@@ -37,6 +38,7 @@ import { HighRiskPackinglistDataComponent } from './high-risk-packinglist/high-r
       HighRiskItems1Component,
       HighRiskItems3Component,
       HighRiskPackinglistDataComponent,
+      HighRiskPackinglistViewComponent,
     ]
 })
 export class HighRiskModule { }

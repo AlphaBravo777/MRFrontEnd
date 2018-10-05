@@ -20,7 +20,6 @@ export class RawStockTakeFormComponent implements OnInit {
     }
     amountForm: FormGroup;
     showKeyboard: boolean;
-    inputBoxColor = 'preClick';
 
     constructor(private fb: FormBuilder) { }
 
@@ -42,12 +41,14 @@ export class RawStockTakeFormComponent implements OnInit {
     }
 
     keyPressed(key) {
-        if (this.amount) {
-            this.amount = this.amount + key;
-        } else {
-            this.amount = key;
-        }
-        console.log(this.amount);
+        // if (this.amount) {
+        //     this.amount = this.amount + key;
+        // } else {
+        //     this.amount = key;
+        // }
+        // console.log(this.amount);
+        this.amount = key;
+        console.log(key);
     }
 
     isTouchDevice() {
@@ -56,10 +57,6 @@ export class RawStockTakeFormComponent implements OnInit {
         } else {
             return false;
         }
-    }
-
-    changeInputColor() {
-        this.inputBoxColor = 'postClick';
     }
 
 }
