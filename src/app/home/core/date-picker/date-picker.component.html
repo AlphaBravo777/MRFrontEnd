@@ -1,7 +1,30 @@
 <div class='compContainer'>
-    <form [formGroup]="dateForm" (ngSubmit)='dateFormSubmit()'>
-        <input type="text" formControlName="year" style="width: 45px;" />
-        <input type="text" formControlName="week" style="width: 45px;" />
-        <input type="text" formControlName="weekDay" style="width: 45px;" />
+    <form [formGroup]="dateForm">
+        <table>
+            <tr class='topRow'>
+                <td><span>{{dateForm.get('year').value }}</span></td>
+                <td><span>{{dateForm.get('week').value }}</span></td>
+                <td><span>{{dateForm.get('weekDay').value }}</span></td>
+                <td><span>{{dateForm.get('shift').value }}</span></td>
+                <td><span>{{dateForm.get('time').value }}</span></td>
+                <td><span>{{dateForm.get('date').value }}</span></td>
+                <td rowspan=2>
+                    <mat-datepicker touchUi #picker></mat-datepicker>
+                    <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+                    <input type="hidden" [matDatepicker]="picker" (dateChange)="chosenDateFunc($event.value)">
+                </td>
+            </tr>
+            <tr class='bottomRow'>
+                <td>year</td>
+                <td>week</td>
+                <td>weekday</td>
+                <td>shift</td>
+                <td>time</td>
+                <td>date</td>
+            </tr>
+        </table>
     </form>
+
 </div>
+<!-- <td><input type="text" formControlName="shift" /></td> -->
+<!-- <img class='valign-center' height="20" width="20" src="assets/images/factory.png"> -->

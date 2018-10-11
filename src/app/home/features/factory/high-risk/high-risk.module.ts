@@ -17,28 +17,30 @@ import { HighRiskItems3Component } from './high-risk-data/high-risk-groups2/high
 import { HighRiskPackinglistDataComponent } from './high-risk-packinglist/high-risk-packinglist-data/high-risk-packinglist-data.component';
 import { HighRiskPackinglistViewComponent } from './high-risk-packinglist/high-risk-packinglist-view/high-risk-packinglist-view.component';
 import { CustomMaterialModule } from '../../../shared/dropdown-table/custom-material.module';
+import { HighRiskDataComponent } from './high-risk-data/high-risk-data.component';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MaterialConfigModule,
-    HighRiskRoutingModule,
-    CoreMeatriteModule,
-    ReactiveFormsModule,
-    CustomMaterialModule,
-  ],
-  declarations: [
-      HighRiskGroupsComponent,
-      HighRiskItemsComponent,
-      HighRiskGroups2Component,
-      HighRiskItems2Component,
-      HighRiskItemsExtraDataComponent,
-      OrderByPipe,
-      HighRiskItems1Component,
-      HighRiskItems3Component,
-      HighRiskPackinglistDataComponent,
-      HighRiskPackinglistViewComponent,
+    imports: [
+        CommonModule,
+        MaterialConfigModule,
+        HighRiskRoutingModule,
+        CoreMeatriteModule,
+        ReactiveFormsModule,
+        CustomMaterialModule,
+    ],
+    declarations: [
+        HighRiskDataComponent,
+        HighRiskGroupsComponent,
+        HighRiskItemsComponent,
+        HighRiskGroups2Component,
+        HighRiskItems2Component,
+        HighRiskItemsExtraDataComponent,
+        HighRiskItems1Component,
+        HighRiskItems3Component,
+        HighRiskPackinglistDataComponent,
+        HighRiskPackinglistViewComponent,
+        OrderByPipe,
     ]
 })
 export class HighRiskModule { }

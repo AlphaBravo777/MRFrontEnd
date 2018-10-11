@@ -1,26 +1,17 @@
 @import 'src/stylesColors.scss';
 
 .outerBox{
-    margin: 0px 20px 0px 20px;
-    padding: 5px 15px 5px 15px;
-    background: $mainColorMinusOne;
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),
-                0 3px 2px 0 rgba(0,0,0,.14),
-                0 3px 5px 0 rgba(0,0,0,.12);
+    background: $secondColorMinusTwo;
+    border-radius: 15px;
+    margin: 5px 0px 5px 0px;
+    padding: 10px 15px 10px 15px;
 }
-
-// section div:last-child {
-//     padding-bottom: 15px;
-// }
 
 .rows {
     font-size: 14px;    
     color: $secondColorPlusTwo;
-    border-radius: 15px;
     display: grid;
     align-self: center;
-    background: $secondColorMinusTwo;
-    padding: 10px 15px 10px 15px;
 }
 
 .grid5 {

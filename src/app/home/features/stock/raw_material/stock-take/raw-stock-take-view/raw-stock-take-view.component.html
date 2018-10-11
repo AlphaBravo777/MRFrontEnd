@@ -1,6 +1,5 @@
 <app-dropdown-table-top-heading [viewHeading]=viewHeading [buttonText]=buttonText></app-dropdown-table-top-heading>
 
-
 <div *ngFor='let data of topLevelData; trackBy: trackByamounts; index as i'>
     <app-dropdown-table-main 
         [indvTopDataPoints]='data' 
@@ -12,16 +11,17 @@
             [headings]='headings' 
             [gridColmSizes]='gridColmSizes'>
         </app-dropdown-table-headings>
-        <div *ngFor='let individualStockData of data.values; trackBy: trackByamounts; index as j'>
-            <app-dropdown-table-second 
-                [individualStockData]='individualStockData' 
-                [dataPoints]='dataPoints' 
-                [gridColmSizes]='gridColmSizes'
-                (click)=collapsInput(j)>
-            </app-dropdown-table-second>
-            <div *ngIf="j === expandedInput">
-                <app-raw-stock-take-form [amount]='individualStockData.amount'></app-raw-stock-take-form>
+        <app-box-shadow-container>
+            <div *ngFor='let individualStockData of data.values; trackBy: trackByamounts; index as j'>
+                <app-dropdown-table-second
+                    [individualStockData]='individualStockData' 
+                    [dataPoints]='dataPoints' 
+                    [gridColmSizes]='gridColmSizes'
+                    (click)=collapsInput(j)>
+                    <!-- <app-raw-stock-take-form *ngIf="j === expandedInput" [amount]='individualStockData.amount'></app-raw-stock-take-form> -->
+                </app-dropdown-table-second>
+                <app-raw-stock-take-form *ngIf="j === expandedInput" [amount]='individualStockData.amount'></app-raw-stock-take-form>
             </div>
-        </div>
+        </app-box-shadow-container>
     </div>
 </div>

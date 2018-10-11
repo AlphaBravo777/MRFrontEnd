@@ -1,0 +1,55 @@
+@import 'src/stylesColors.scss';
+
+.compContainer {
+    min-width: 100px;
+    min-height: 80px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-items: center;
+    justify-content: center;
+    grid-row-gap: 4px;
+}
+
+img {
+    height: 40px;
+    width: auto;  
+    color: d9ecff
+}
+
+.item {
+    align-self: center;
+    justify-self: center;
+}
+
+// .brand {
+//     align-items: center;
+//     justify-content: center;
+//     align-self: center;
+//     justify-self:center;
+//     grid-column: col ;
+//     grid-row: row 2 ;
+// }
+// .details {
+//     font-size: .7em;
+//     margin-left: 10px;
+//     align-self: center;
+//     justify-self:center;
+//     grid-column: col 2;
+//     grid-row: row 2 ;
+// }
+
+// .packaging {
+//     align-self: center;
+//     justify-self:center;
+//     grid-column: col / span 2;
+//     grid-row: row 3;
+// }
+
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: #0080ff;
+    border-radius: 50%;
+    display: inline-block;
+  }

@@ -13,8 +13,12 @@ const stockRoutes: Routes = [
         children: [
             {
                 path: 'stock-raw',
-                // loadChildren: () => RawMaterialModule,
                 loadChildren: './raw_material/raw-material.module#RawMaterialModule'
+                // canActivate: [AuthGuard],
+            },
+            {
+                path: 'stock-processed',
+                loadChildren: './processed/processed.module#ProcessedModule'
                 // canActivate: [AuthGuard],
             },
             {

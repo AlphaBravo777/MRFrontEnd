@@ -9,6 +9,7 @@
         <br>    
         <button class='niceButton meatriteButton' (click)="confirmClearHalfProducts()">Clear half of Products</button>
         <br>
+        <a routerLink="../stock-processed/stocktake-processed" routerLinkActive="active"><button class='niceButton meatriteButton'>Stocktake New</button></a>
         <ng-template [ngxPermissionsOnly]="['shift-supervisor', 'admin']">
             <a routerLink="../productMaintenance" routerLinkActive="active"><button class='niceButton meatriteButton'>Choose Stock Delete</button></a>
         </ng-template>

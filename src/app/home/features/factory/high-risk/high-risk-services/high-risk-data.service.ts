@@ -15,7 +15,6 @@ export class HighRiskData$Service {
 
     private processedStock = new BehaviorSubject<IPackingListStock[]>([]);
     currentProcessedStock$ = this.processedStock.asObservable();
-    subscription;
 
     constructor(private processedStockApi: HighRiskPackinglistApiService) {
         this.getDBProcessedStock();

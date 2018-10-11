@@ -10,6 +10,7 @@ import { FactoryModule } from '../features/factory/factory.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { RegisterComponent } from '../features/admin/register-user/register.component';
 import { CoreMeatriteModule } from '../core/core-meatrite.module';
+import { UserNavMenuBarComponent } from './user-nav/user-nav-menu-bar/user-nav-menu-bar.component';
 
 
 
@@ -21,12 +22,13 @@ import { CoreMeatriteModule } from '../core/core-meatrite.module';
     StocksModule,
     FactoryModule,
     SharedModule,
-    CoreMeatriteModule
+    CoreMeatriteModule,
   ],
   declarations: [
       UserEntryComponent,
       UserNavComponent,
       RegisterComponent,
+      UserNavMenuBarComponent,
   ]
 })
 export class UserEntryModule { }

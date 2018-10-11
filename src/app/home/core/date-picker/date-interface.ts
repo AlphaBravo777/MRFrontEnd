@@ -1,10 +1,12 @@
 export class IDate {
-    year: number;
-    week: number;
-    month?: number;
+    year?: number;
+    week?: number;
     weekDay?: number;
+    month?: number;
     monthDay?: number;
     stringDay?: string;
     shift?: string;
-    time?: number;
+    time?: string;
+    shortDate?: string;
+    longDate?: Date;
 }

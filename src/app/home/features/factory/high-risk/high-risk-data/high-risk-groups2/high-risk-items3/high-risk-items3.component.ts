@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HighRiskDataService } from '../../../high-risk-services/high-risk-data.service';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { HighRiskApiService } from '../../../high-risk-services/high-risk-api.service';
 import { DialogBoxService } from '../../../../../../core/dialog-box/dialog-box.service';
