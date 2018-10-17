@@ -1,9 +1,2 @@
-<app-proc-stock-ticket [ngStyle]="{'background': singleProduct.batchColor}">
-    <div class='compContainer' (click)='clicked()'>
-        <img class='brand item' src="assets/images/{{singleProduct.brand}}.png">
-        <span class='dot item'></span>
-        <div class='prodCode item'>{{singleProduct.batchName}}</div>
-        <div class='prodCode item'>{{singleProduct.unitWeight}}kg </div>
-        <!-- <img class='packaging item' src="assets/images/{{packagingLine}}"> -->
-    </div>
+<app-proc-stock-ticket [ngStyle]="{'background': singleProduct.batchColor}" [singleProduct]='singleProduct'>
 </app-proc-stock-ticket>

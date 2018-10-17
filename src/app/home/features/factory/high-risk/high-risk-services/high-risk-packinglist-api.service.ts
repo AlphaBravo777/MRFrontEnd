@@ -33,11 +33,11 @@ export class HighRiskPackinglistApiService {
                       productCode {
                         productid
                         proddescription
-                              packlistgroup{
-                          batchname
-                          packingListRanking
+                        packlistgroup{
+                            batchname
+                            packingListRanking
+                            }
                         }
-                      }
                       currentStock
                       stockNeeded
                     }

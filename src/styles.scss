@@ -2,6 +2,27 @@
 @import '~material-design-icons/iconfont/material-icons.css';
 
 
+// grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+// what does the above mean
+// the "repeat" means, do this as many times as I say with the first value in the brackets.
+// auto-fill is the first value in the brackets, which means, do this as many times as you can, you can change it
+// to the value of 5, and it will do it 5 times, or you can say auto-fill and it will do it as many times as it can.
+// "minmax" is the second value, which is the value that must be repeated by the first values amount. 
+// minmax gives a min and max value that must be used. the min value is 200px, and the max value is 1 available frame. 
+// so after the browser have worked out how many 200px boxes it can fit, it will take the remaining space, and share it out
+// over the columns. So if this grid has 8 children, there will be at least 8 200px boxes, even if they go into 2 rows. And
+// when the 8 200px boxes are added, and the second row still has 450px left, the that 450px will be devided by the 8 boxes
+// and each one will be (450/8 + 200)px
+
+// grid-auto-rows: minmax(200px,auto);
+// this means that we create as many rows as are need
+// and then the min pixels are 200px, and the max is auto, which means that it will expand until what ever is inside of the cell
+// fits, this means that the cell may expand even past the edge if the space, if you have a 2000px picture, it will expand that much.
+
+// grid-template-columns: min-content 1fr 1fr;
+// "min-content" will make a colm as small as it can be, meaning if you have a sentence in a cell, it will wrap all the words until the 
+// cell is the size of the largest word. 
+
 html {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;

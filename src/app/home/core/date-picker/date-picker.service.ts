@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { IDate } from './date-interface';
+import { IDate, ITimeIDs } from './date-interface';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SingleApiService } from '../../shared/services/single-api-service';
 
 
 @Injectable({
@@ -10,14 +13,12 @@ export class DatePickerService {
 
     datePackage: IDate = {};
 
-    constructor() { }
+    constructor(private singleApiService: SingleApiService) { }
 
-    inputLongDate(dateData: Date): IDate {
-        this.datePackage = {};
-        this.getBlockDate(dateData);
-        this.getShortDate(dateData);
-        this.getTime();
-        this.getShift();
+    inputLongDate(datePack: IDate): IDate {
+        this.datePackage = datePack;
+        this.getBlockDate(datePack.longDate);
+        this.getShortDate(datePack.longDate);
         return this.datePackage;
     }
 
@@ -41,7 +42,7 @@ export class DatePickerService {
 
         longDate = new Date(Date.UTC(longDate.getFullYear(), longDate.getMonth(), longDate.getDate()));
         this.datePackage.weekDay = longDate.getUTCDay();
-        console.log('+++ ', this.datePackage.weekDay, longDate);
+        // console.log('+++ ', this.datePackage.weekDay, longDate);
         longDate.setUTCDate(longDate.getUTCDate() + 4 - (longDate.getUTCDay() || 7));
         const yearStart = new Date(Date.UTC(longDate.getUTCFullYear(), 0, 1));
         // console.log(longDate.getUTCDay());
@@ -82,7 +83,7 @@ export class DatePickerService {
     }
 
     getShortDate(longDate: Date) {
-        console.log('--- ', longDate, longDate.getDate());
+        // console.log('--- ', longDate, longDate.getDate());
         const dd = longDate.getDate();  // Gets the day number of the date, meaning "12"
         const mm = longDate.getMonth() + 1; // Gets the month number of the date, meaning "9" and adds +1 because January = 0!
         const yyyy = longDate.getFullYear(); // Gets the year number of the date, meaning "2017"
@@ -150,10 +151,24 @@ export class DatePickerService {
     getShift() {
         this.datePackage.shift = 'A';
     }
+
+    addTimeStamp(datePack): Observable<any> {
+        return this.singleApiService.getTimeStampID(datePack).pipe(
+            // map(data => data[0].id)
+            // console.log(data[0].id);
+            map(data => data)
+        );
+    }
+
+    getTimeStampID(datePack: IDate): Observable<ITimeIDs> {
+        return this.singleApiService.getGraphQLdata(datePack).pipe(
+            map(result => result)
+        );
+    }
 }
 
 /*
-Run a main funstion that decides where to send the incoming date,
+Run a main function that decides where to send the incoming date,
 if long format send to getweeknumber and get the returning result and send back, if short date then make it long date first,
 then send to getweeknumber, and get returning result and send through.
 

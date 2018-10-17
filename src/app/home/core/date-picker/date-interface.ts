@@ -9,4 +9,10 @@ export class IDate {
     time?: string;
     shortDate?: string;
     longDate?: Date;
+    timeStampID?: number;
+}
+
+export class ITimeIDs {
+    nodeID: string;
+    id: number;
 }
