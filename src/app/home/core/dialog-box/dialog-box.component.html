@@ -1,0 +1,40 @@
+<div *ngIf='dialogtype === "confirmMessage"'>
+    <div class="wrapper">
+        <h1 mat-dialog-title>Confirm</h1>
+        <div mat-dialog-content>{{confirmMessage}}</div>
+        <div mat-dialog-actions>
+            <button md-button (click)="dialogRef.close(false)">I will try again</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf='dialogtype === "stockCleared"'>
+    <div class="wrapper">
+        <h1 mat-dialog-title>Clear Stock</h1>
+        <div mat-dialog-content>{{confirmMessage}}</div>
+        <div mat-dialog-actions>
+            <button md-button class='goldButton' (click)="dialogRef.close(true)">Confirm</button>
+            <button md-button class='goldButton' (click)="dialogRef.close(false)">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf='dialogtype === "noPassword"'>
+    <div class="wrapper">
+        <h1 mat-dialog-title>Incorrect or expired Password</h1>
+        <div mat-dialog-content>{{confirmMessage}}</div>
+        <div mat-dialog-actions>
+            <button md-button (click)="dialogRef.close(false)">OK</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf='dialogtype === "popUpMessage"'>
+    <div class="wrapper">
+        <h1 mat-dialog-title>Attention...</h1>
+        <div mat-dialog-content>{{confirmMessage}}</div>
+        <div mat-dialog-actions>
+            <button md-button (click)="dialogRef.close(false)">OK</button>
+        </div>
+    </div>
+</div>
