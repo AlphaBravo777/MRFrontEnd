@@ -1,0 +1,70 @@
+.messageLevels {
+    margin: 5px 0px;
+    padding: 10px 5px;
+    border-radius: 6px;
+}
+
+
+// .userName {
+//     // padding: 0px 5px;
+// }
+
+.rowid {
+    font-weight: bold;
+}
+
+img {
+    height: 20px;
+    padding: 3px;
+}
+
+.singleMessage {  // This is the new design
+    display: grid;
+    grid-template-columns: auto 40px 1fr auto;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    padding: 2px 10px;
+}
+
+.singleMessage {  // This is the old design
+    display: grid;
+    grid-template-columns: 100px 40px 1fr auto;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    padding: 2px 10px;
+}
+
+.icons {
+    align-self: end;
+}
+
+@media only screen and (max-width:425px) {
+    .singleMessage {
+        grid-template-columns: auto 40px 1fr auto;
+        font-size: .7rem;
+        padding: 3px 3px;
+    }
+
+    .noMessages{
+        font-size: .7rem;
+    }
+
+    img {
+        height: 15px;
+        padding: 0px;
+    }
+}
+
+// .LED label { /* LED */
+//     content: "";
+//     position: absolute;
+//     width: 20px;
+//     height: 20px; 
+//     border-radius: 50%;
+//     background: #25d025; /* Fallback */
+//     background: radial-gradient(40% 35%, #5aef5a, #25d025 60%);
+//     box-shadow:
+//         inset 0 3px 5px 1px rgba(0,0,0,0.1),
+//         0 1px 0 rgba(255,255,255,0.4),
+//         0 0 10px 2px rgba(0, 210, 0, 0.5);
+// }

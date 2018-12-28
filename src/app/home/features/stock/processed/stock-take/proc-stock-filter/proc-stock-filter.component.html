@@ -1,0 +1,5 @@
+<mat-radio-group class="example-radio-group" >
+    <mat-radio-button class="example-radio-button" color="warn" *ngFor="let filter of filters" [value]="filter" (click)=pickDate(filter)>
+        {{filter}}
+    </mat-radio-button>
+</mat-radio-group>

@@ -1,0 +1,24 @@
+<div class='messageContainer' [ngStyle]="styleObjectMessageContainer()">
+    <div class='gridContainer'>
+        <div class='ranking' [ngStyle]="styleObjectRanking()">
+        </div>
+        <div class='header'>
+            <span>User: {{message.userName}}</span>
+            <span>Message ID: {{message.rowid}}</span>
+        </div>
+        <div class='body'>
+            <span>{{message.message}}</span>
+        </div>
+        <div class='replies' *ngIf='testMessage'>
+            <app-report-read-message [message]='testMessage' [userid]=15></app-report-read-message>
+        </div>
+        <div class='footer'>
+            <span class='icons' *ngIf='message.userid === userid'>
+                <img src="assets/images/delete.png" (click)='deleteReport(message.rowid)'>
+                <img src="assets/images/edit.png" (click)='deleteReport(message.rowid)'>
+            </span>
+            <img src="assets/images/reply.png" (click)='deleteReport(message.rowid)'>
+            <img src="assets/images/repair.png" (click)='deleteReport(message.rowid)'>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class='compContainer'>
+    <form [formGroup]="dateForm">
+        <table>
+            <tr class='topRow'>
+                <td (click)='showHideDateForm()'><span>{{dateForm.get('year').value }}</span></td>
+                <td (click)='showHideDateForm()'><span>{{dateForm.get('week').value }}</span></td>
+                <td (click)='showHideDateForm()'><span>{{dateForm.get('weekDay').value }}</span></td>
+                <td (click)='showHideDateForm()'><span>{{dateForm.get('shift').value }}</span></td>
+                <td (click)='showHideDateForm()'><span>{{dateForm.get('time').value }}</span></td>
+                <td (click)='showHideDateForm()'><span>{{dateForm.get('shortDate').value }}</span></td>
+                <td (click)='showHideDateForm()'><span>{{dateForm.get('timeStampID').value }}</span></td>
+                <td (click)='showHideDateForm()' rowspan=2>
+                    <mat-datepicker touchUi #picker></mat-datepicker>
+                    <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+                    <input type="hidden" [matDatepicker]="picker" (dateChange)="getLongDate($event.value)">
+                </td>
+            </tr>
+            <tr class='bottomRow'>
+                <td (click)='showHideDateForm()'>year</td>
+                <td (click)='showHideDateForm()'>week</td>
+                <td (click)='showHideDateForm()'>weekday</td>
+                <td (click)='showHideDateForm()'>shift</td>
+                <td (click)='showHideDateForm()'>time</td>
+                <td (click)='showHideDateForm()'>date</td>
+                <td (click)='showHideDateForm()'>id</td>
+            </tr>
+            <tr class='dateForm'>
+                <td colspan=8>
+                    <div *ngIf='showDateForm'>
+                        <app-date-form [currentWorkingDate]='currentWorkingDate' (dateChange)="getBlockDate($event)"></app-date-form>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>

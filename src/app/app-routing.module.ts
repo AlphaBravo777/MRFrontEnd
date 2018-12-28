@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 
 import { WebsiteComponent } from './home/website/website.component';
-import { UserEntryComponent } from './home/shared/user-entry.component';
-
 
 const appRoutes: Routes = [
   {
@@ -16,8 +14,8 @@ const appRoutes: Routes = [
     component: WebsiteComponent
   },
   {
-    path: 'user',
-    component: UserEntryComponent
+    path: 'main',
+    loadChildren: './home/shared/main-portal/main-portal.module#MainPortalModule'
   },
 ];
 
@@ -25,9 +23,8 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      {
-        enableTracing: false, // <-- debugging purposes only
-      }
+    //   { preloadingStrategy: PreloadAllModules }
+    //   { enableTracing: false, // <-- debugging purposes only }
     )
   ],
   exports: [

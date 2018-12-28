@@ -1,0 +1,29 @@
+<app-box-shadow-container>
+    <div class='headingGrid'>
+        <h3>{{filterName}}</h3>
+        <button class='niceButton meatriteButton' (click)='sendPositionAndList()'>Save changes</button>
+        <a routerLink="../stocktake-processed" routerLinkActive="active"><button class='niceButton meatriteButton'>Back</button></a>
+    </div>
+    <div class='row' cdkDropList cdkDropListOrientation="horizontal" #filtered="cdkDropList" [cdkDropListData]="filteredList"
+        [cdkDropListConnectedTo]="[change]" (cdkDropListDropped)="drop($event)">
+        <div class='box' *ngFor="let item of filteredList" cdkDrag>
+            <app-proc-stock-ticket [singleProduct]='item' [ngStyle]="{'background': item.batchcolor}">
+            </app-proc-stock-ticket>
+        </div>
+        <div class='spacer'></div>
+    </div>
+
+
+</app-box-shadow-container>
+<app-box-shadow-container>
+    <h3>Placeholder</h3>
+
+    <div class='row' cdkDropList cdkDropListOrientation="horizontal" #change="cdkDropList" [cdkDropListData]="changeList"
+        [cdkDropListConnectedTo]="[filtered]" (cdkDropListDropped)="drop($event)">
+        <div class='box' *ngFor="let item of changeList" cdkDrag>
+            <app-proc-stock-ticket [singleProduct]='item' [ngStyle]="{'background': item.batchcolor}">
+            </app-proc-stock-ticket>
+        </div>
+        <div class='spacer'></div>
+    </div>
+</app-box-shadow-container>

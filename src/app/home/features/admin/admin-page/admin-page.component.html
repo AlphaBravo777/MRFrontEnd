@@ -1,0 +1,12 @@
+<h3>Batchgroup colors</h3>
+
+<div class='gridContainer'>
+    <div *ngFor = 'let group of batchGroups'>
+        <div class='cell' [ngStyle]="{'background': group.batchColor}">
+            {{group.batchGroup}}
+        </div>
+    </div>
+    <div class='testCell'>
+        Test
+    </div>
+</div>

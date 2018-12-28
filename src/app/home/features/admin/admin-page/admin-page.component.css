@@ -1,0 +1,28 @@
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); 
+    grid-gap: 5px;
+    align-self: center;
+    justify-self:end;
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    height: 100px;
+}
+
+.testCell {
+    /* background: url(../../../../../assets/images/MRLogo.jpg); */
+    /* background: linear-gradient(45deg, rgba(110,124,250,1) 0%, rgba(255,255,255,1) 23%, rgba(255,255,255,1) 27%, rgba(110,124,250,1) 50%, rgba(255,255,255,1) 73%, rgba(255,255,255,1) 77%, rgba(110,124,250,1) 100%); */
+    
+    background: dbdbdb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100px;
+}
+

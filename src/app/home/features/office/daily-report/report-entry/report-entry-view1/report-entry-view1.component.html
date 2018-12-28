@@ -1,0 +1,14 @@
+<app-box-shadow-container>
+    <div *ngIf='!showEntryBox'>
+        <button class='meatriteButton niceButton' (click)='showEntry()'>Enter new Report</button>
+    </div>
+    <div *ngIf='showEntryBox'>
+        <button class='meatriteButton niceButton' (click)='showEntry()'>Hide entry</button>
+    </div>
+    <div *ngIf='showEntryBox'>
+        <app-custom-radio-group [buttons]='messageFlags' (buttonPicked)='buttonPicked($event)'></app-custom-radio-group>
+        <div class='formContainer'>
+            <app-report-entry-form [messageLevel]='messageLevel'></app-report-entry-form>
+        </div>
+    </div>
+</app-box-shadow-container>

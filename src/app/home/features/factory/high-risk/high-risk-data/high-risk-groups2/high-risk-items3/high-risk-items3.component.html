@@ -1,0 +1,38 @@
+<div class='compContainer'>
+    <div class='trollies'>Trollies needed: </div>
+    <div class='bags'>Bulk bags needed: </div>
+    <div class='update'>
+        <mat-menu #containerMenu="matMenu">
+            <button mat-menu-item (click)='changeContainer("Box")'>Box</button>
+            <button mat-menu-item (click)='changeContainer("Crate")'>Crate</button>
+            <button mat-menu-item (click)='changeContainer("Day 1 Lug")'>Day 1 Lug</button>
+            <button mat-menu-item (click)='changeContainer("Day 2 Lug")'>Day 2 Lug</button>
+            <button mat-menu-item (click)='changeContainer("Day 3 Lug")'>Day 3 Lug</button>
+            <button mat-menu-item (click)='changeContainer("Day 4 Lug")'>Day 4 Lug</button>
+            <button mat-menu-item (click)='changeContainer("Day 5 Lug")'>Day 5 Lug</button>
+            <button mat-menu-item (click)='changeContainer("Day 6 Lug")'>Day 6 Lug</button>
+            <button mat-menu-item (click)='changeContainer("Day 7 Lug")'>Day 7 Lug</button>
+        </mat-menu>
+
+        <a class="valign-center niceButton secBlueButton" [matMenuTriggerFor]="containerMenu">
+            <i class="material-icons">list</i>
+            <span> &nbsp; {{container}}</span>
+        </a>
+        <mat-menu #appMenu="matMenu">
+            <button mat-menu-item (click)='updateProdAmount(prod, "06:00 (Paper)")'>06:00 (Paper)</button>
+            <button mat-menu-item (click)='updateProdAmount(prod, "06:00 (Tablet)")'>06:00 (Tablet)</button>
+            <button mat-menu-item (click)='updateProdAmount(prod, "12:00 (Paper)")'>12:00 (Paper)</button>
+            <button mat-menu-item (click)='updateProdAmount(prod, "12:00 (Tablet)")'>12:00 (Tablet)</button>
+            <button mat-menu-item (click)='updateProdAmount(prod, "18:00 (Paper)")'>18:00 (Paper)</button>
+            <button mat-menu-item (click)='updateProdAmount(prod, "18:00 (Tablet)")'>18:00 (Tablet)</button>
+        </mat-menu>
+
+        <a class="valign-center niceButton secBlueButton" [matMenuTriggerFor]="appMenu">
+            <i class="material-icons">list</i>
+            <span> &nbsp; Update</span>
+        </a>
+        <form [formGroup]='prodForm'>
+            <input type='number' formControlName='amount'>
+        </form>
+    </div>
+</div>

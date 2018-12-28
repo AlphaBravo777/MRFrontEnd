@@ -1,0 +1,25 @@
+<div class='wrapper'>
+    <table>
+        <tr>
+            <th width='50px'>Product Name</th>
+            <th width='200px'>Description</th>
+            <th width='30px'>Current Stock</th>
+            <th width='30px'>Total needed</th>
+            <th width='30px'>Difference</th>
+        </tr>
+        <tbody *ngFor="let product of singleGroupData.values | orderBy : ['productCode'] ">
+            <!-- <tr>
+                <td>{{product.productCode}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.currentStock}}</td>
+                <td>{{product.stockNeeded}}</td>
+                <td [ngClass]="{'positive' : product.currentStock - product.stockNeeded > 0, 'negative' : product.currentStock - product.stockNeeded < 0}">{{product.currentStock
+                    - product.stockNeeded}}</td>
+                <td><button class='primBlueButton niceButton' disable>Finished</button></td>
+            </tr> -->
+            <tr *ngIf='product.stockNeeded > 0 && isShowing'>
+                <td class='mini' colspan="5"><app-high-risk-items-extra-data [productData]='product'></app-high-risk-items-extra-data></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

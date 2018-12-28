@@ -1,0 +1,19 @@
+<app-box-shadow-container class='mainComponent'>
+    <div #noMessages class='noMessages' *ngIf='!messagePackage.reports || messagePackage.reports.length === 0'>
+        <i>There are no messages to display yet</i>
+    </div>
+
+    <div *ngFor='let message of messagePackage.reports'>
+        <app-report-read-message [message]='message' [userid]='messagePackage.userid' [testMessage]='testMessage'></app-report-read-message>
+        <!-- <div class='singleMessage'>
+            <span #userName class='userName'>{{message.userName}}:</span>
+            <span class='userName rowid'>{{message.rowid}}</span>
+            <span [ngStyle]="{'color': message.color}">{{message.message}}</span>
+            <span class='icons' *ngIf='message.userid === messagePackage.userid'>
+                    <img  src="assets/images/delete.png" (click)='deleteReport(message.rowid)'>
+                    <img  src="assets/images/edit.png" (click)='deleteReport(message.rowid)'>
+            </span>
+        </div> -->
+    </div>
+
+</app-box-shadow-container>

@@ -1,0 +1,27 @@
+@import 'src/stylesColors.scss';
+
+.outerBox{
+    background: $secondColorMinusTwo;
+    border-radius: 15px;
+    margin: 5px 0px 5px 0px;
+    padding: 10px 15px 10px 15px;
+}
+
+.rows {
+    font-size: 14px;    
+    color: $secondColorPlusTwo;
+    display: grid;
+    align-self: center;
+}
+
+.grid5 {
+    grid-template-columns: 15% 400px .3fr .7fr 8%;
+}
+
+.grid4 {
+    grid-template-columns: 2fr 1.5fr .5fr 8%;
+}
+
+.grid3 {
+    grid-template-columns: repeat(3, 1fr);
+}

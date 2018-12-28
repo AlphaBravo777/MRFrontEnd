@@ -1,0 +1,11 @@
+<section class="card">
+    <div *ngFor='let product of productGroup; let key = index'>
+        <div *ngIf='product.filter === filterGroup || product.factoryFilter === filterGroup || filterGroup === undefined'>
+            <app-proc-stock-ticket class='ticket' [singleProduct]='product' [ngStyle]="{'background': product.batchcolor}" 
+                (click)='productPick({productId: product.containerID, databaseID: product.databaseID, 
+                amount: product.amount, index: key, description: product.description})'
+                [ngClass]="{'active': selectedIndex === key}">
+            </app-proc-stock-ticket>
+        </div>
+    </div>
+</section>

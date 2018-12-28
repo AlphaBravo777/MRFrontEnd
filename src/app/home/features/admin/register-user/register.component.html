@@ -5,8 +5,12 @@
       <input [(ngModel)]="registerUserData.password1" name="password1" type="password" placeholder="password"/>
       <input [(ngModel)]="registerUserData.password2" name="password2" type="password" placeholder="confirm password"/>
       <input [(ngModel)]="registerUserData.email" name="email" type="text" placeholder="email address"/>
-      <button (click)="registerUser()">create</button>
+      <button [ngClass]="{ 'created'        : registered===true,
+                           'notCreated'     : registered===false
+                        }"
+      (click)="registerUser()">{{buttonTitle}}</button>
       <p class="message">Already registered? <a href="login">Login</a></p>
     </form>
   </div>
 </div>
+{{errorMessage | json}}

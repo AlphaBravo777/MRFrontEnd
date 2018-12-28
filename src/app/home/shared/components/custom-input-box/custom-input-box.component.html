@@ -1,0 +1,17 @@
+<div class='extraContainer' *ngIf='!showKeyboard'>
+    <form [formGroup]='amountForm'>
+        <input class='redInputBox' type="text" formControlName="amount" (keyup)='sendValue()'/>
+    </form>
+</div>
+
+<div class='extraContainer' *ngIf='showKeyboard'>
+    <div class='one'>
+        <form [formGroup]='amountForm'> 
+            <input class='redInputBox' type="text" formControlName="amount" />
+        </form>
+    </div>
+    <div class='two'></div>
+    <div class='keyboard'>
+        <app-custom-keyboard (keyPressed)='keyPressed($event)'></app-custom-keyboard>
+    </div>
+</div>

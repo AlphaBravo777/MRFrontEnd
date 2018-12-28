@@ -1,0 +1,23 @@
+<app-dropdown-table-top-heading [viewHeading]=viewHeading [buttonText]=buttonText></app-dropdown-table-top-heading>
+
+<div *ngFor='let data of topLevelData; trackBy: trackByamounts; index as i'>
+    <app-dropdown-table-main 
+        [indvTopDataPoints]='data' 
+        [expandedIndex]='expandedIndexArrow[i]' 
+        (click)=collaps(i)>
+    </app-dropdown-table-main>
+    <div class='containerData' *ngIf="i === expandedIndex">
+        <app-dropdown-table-headings 
+            [headings]='headings' 
+            [gridColmSizes]='gridColmSizes'>
+        </app-dropdown-table-headings>
+        <div *ngFor='let individualStockData of data.values; trackBy: trackByamounts; index as j'>
+            <app-dropdown-table-second 
+                [individualStockData]='individualStockData' 
+                [dataPoints]='dataPoints' 
+                [gridColmSizes]='gridColmSizes'
+                (click)=collapsInput(j)>
+            </app-dropdown-table-second>
+        </div>
+    </div>
+</div>

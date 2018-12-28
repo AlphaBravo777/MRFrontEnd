@@ -1,8 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Renderer2 } from '@angular/core';
 
-import { ProcessedStock, ProcessedGroup } from './../../../stock-services/Stock';
+import { IProductDetails, IProductGroup, IProcessedStockProducts, IContainerGroups } from '../../../stock-services/Stock';
 import { BehaviorSubject } from 'rxjs';
-import { StockTakingService } from '../../../stock-services/stock-taking.service';
+import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
+import { StockAPIService } from '../../../stock-services/stock-api.service';
+import { AuthService } from '../../../../admin/admin-services/auth.service';
+import { AuthGuard } from '../../../../admin/admin-services/auth.guard';
 
 @Component({
     selector: 'app-stock-products',
@@ -11,66 +14,92 @@ import { StockTakingService } from '../../../stock-services/stock-taking.service
 })
 export class StockProductsComponent implements OnInit {
 
-    private _productNames = new BehaviorSubject<ProcessedStock[]>([]);
-    processedGroup: ProcessedGroup[];
+    constructor(
+        private processedStockService: ProcessedStockService,
+        private renderer: Renderer2,
+        private apiService: StockAPIService,
+        private authGuard: AuthGuard
+    ) { }
+
+    @ViewChild('submitToDBButton') submitToDBButton;
+
     batch: String;
-    productName = 'Select a product';
-    processedStock = {};
-    amounts = [];
+    // productName = 'Select a product';
+    productNameWithContainer = {};
+    productContainerOptions: IContainerGroups;  // This is the containers that are given through to show.
+    productDescription;
+    connection: boolean;
+    testClass = 'goldButton';
 
-    @Input()
-    set productNames(value) {
-        this._productNames.next(value);
-    }
-    get productNames() {
-        return this._productNames.getValue();
-    }
-
-    constructor(private _stockTakingService: StockTakingService) { }
+    // (This is the main data, we will try and change it to localStorage)
+    @Input() workingProcessedStock: IProcessedStockProducts[];
+    @Input() stocktime;
+    @Input() processedGroup: IProductGroup[]; // This is all the product group names
+    productsOfWorkingSession: IProcessedStockProducts[] = JSON.parse(localStorage.getItem(this.apiService.workingProcStock));
 
     ngOnInit() {
-        this._productNames.subscribe(x => {
-            this.processedGroup = this.groupByCategory(this.productNames);
-        });
-    }
-
-    groupByCategory(products: ProcessedStock[]): ProcessedGroup[] {
-        if (!products) {return; } // This helps also to avoid an "undefined" error
-        const categories = new Set(products.map(x => x.batchgroup).sort());
-        const result = Array.from(categories).map(x => ({
-            group: x,
-            stock: products.filter(stocks => stocks.batchgroup === x)
-        }));
-        return result;
     }
 
     BatchGroup(batch) {
         this.batch = batch;
-        console.log(this.batch);
+        // console.log(this.batch);
+        this.productContainerOptions = undefined;
     }
 
-    changeProduct(productName) {
-        const stock =  localStorage.getItem('stock');
-        this.processedStock = JSON.parse(stock);
-            if (this.processedStock.hasOwnProperty(productName)) {
-                this.amounts = this.processedStock[productName].split(',');
-            } else {this.amounts = []; }
-        this.productName = productName;
+    changeProduct(product) {
+        if (localStorage[this.apiService.workingProcStock]) {
+            this.workingProcessedStock = JSON.parse(localStorage.getItem(this.apiService.workingProcStock));
+        } else {
+            this.workingProcessedStock = JSON.parse(localStorage.getItem(this.apiService.emptyStockAndContainers));
+        }
+        for (let i = 0; i < this.workingProcessedStock.length; ++i) {
+            if (this.workingProcessedStock[i].product === product.name) {
+                this.productNameWithContainer = this.workingProcessedStock[i];
+                this.productDescription = product.description;
+                this.getContainers(product.name);
+                return;
+            }
+        }
+        console.log('There was no stock');
+        this.productNameWithContainer = {};
     }
 
-    stockFinished() {
-        this._stockTakingService.sendProcessedProducts().subscribe();
+    getContainers(productName) {  // This function is giving problems (Go through main data and get container data)
+        const holder: IContainerGroups = { name: '', containers: [] };
+        for (let i = 0; i < this.workingProcessedStock.length; ++i) {
+            if (this.workingProcessedStock[i].product === productName) {
+                holder.name = this.workingProcessedStock[i].product;
+                for (let j = 0; j < this.workingProcessedStock[i].mainContainer.length; ++j) {
+                    holder.containers.push(this.workingProcessedStock[i].mainContainer[j].container);
+                }
+                this.productContainerOptions = holder;
+            }
+        }
     }
 
-    startStocktaking() {
-        const item = {};
-        localStorage.setItem('stock', JSON.stringify(item));
-        // const time = JSON.parse(localStorage.getItem('stocktime'));
-        // this._stockTakingService.deleteAllTimeProcessedStock(time).subscribe(x => console.log(x));
+    submitToDataBase(time) {
+        this.authGuard.canActivate().subscribe(x => {
+            console.log(x);
+        });
+        this.apiService.checkConnectionWithDelete().subscribe(
+            (response) => {
+                console.log(response.ok);
+                if (response.ok) {
+                    console.log('Things will be send now');
+                    this.processedStockService.insertProcStockIntoDB(time);
+                } else {
+                }
+            }
+        );
+    }
+
+    confirmClearAllProducts() {
+        this.processedStockService.confirmClearAllProducts();
+    }
+
+    loadOldStock() {
+        const recoveredStock = JSON.parse(localStorage.getItem(this.stocktime));
+        localStorage.setItem('stock', JSON.stringify(recoveredStock));
     }
 }
 
-// ++++++++ [10,20,30,8*10] {SV1: "[10,20,30,8*10]", RV1: "[3*4,5,20,10*7,10]"}
-// ++++++++ (4) [40, 50, 60, "8*10"] {time: "16:00", RV1: [10, 20, 30], SV1: [40, 50, 60, "8*10"]}
-
-// TODO: Make Colored LED's that shows if there is a connection, and also if there is data that needs to be saved.

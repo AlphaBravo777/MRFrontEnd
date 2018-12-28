@@ -1,0 +1,396 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~material-design-icons/iconfont/material-icons.css';
+
+// grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+// what does the above mean
+// the "repeat" means, do this as many times as I say with the first value in the brackets.
+// auto-fill is the first value in the brackets, which means, do this as many times as you can, you can change it
+// to the value of 5, and it will do it 5 times, or you can say auto-fill and it will do it as many times as it can.
+// "minmax" is the second value, which is the value that must be repeated by the first values amount. 
+// minmax gives a min and max value that must be used. the min value is 200px, and the max value is 1 available frame. 
+// so after the browser have worked out how many 200px boxes it can fit, it will take the remaining space, and share it out
+// over the columns. So if this grid has 8 children, there will be at least 8 200px boxes, even if they go into 2 rows. And
+// when the 8 200px boxes are added, and the second row still has 450px left, the that 450px will be devided by the 8 boxes
+// and each one will be (450/8 + 200)px
+
+// grid-auto-rows: minmax(200px,auto);
+// this means that we create as many rows as are need
+// and then the min pixels are 200px, and the max is auto, which means that it will expand until what ever is inside of the cell
+// fits, this means that the cell may expand even past the edge if the space, if you have a 2000px picture, it will expand that much.
+
+// grid-template-columns: min-content 1fr 1fr;
+// "min-content" will make a colm as small as it can be, meaning if you have a sentence in a cell, it will wrap all the words until the 
+// cell is the size of the largest word. 
+
+// grid-template-columns: max-content 1fr 1fr;
+// this will not take any wrapping oppertunities into consideration, and will make the cell overflow in almost every case
+// this might be an excellent idea for my product cards who have to be in a straight line without breaking to a new line. 
+
+// grid-template-columns: fit-content(200px) fit-content(200px) 1fr;
+// this will act like max-content and spread everything out, until it hits 200px and then it will wrap
+// if everything is spread out and it have not yet hit 200px, then it will stop there. THis is if you do not know how wide to content will 
+// be, but even if it is very wide you do not want it to be over 200px.
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+.mainTheme {
+color: #fff7ef;
+color: #ffebd7;
+color: #dbbda0; /* main  */
+color: #b9936f;
+color: #997049;
+
+}
+
+.buttonMenus {
+    cursor: pointer;
+    cursor: hand;
+    padding: 5px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    margin-right: 5px;
+    margin-top: 5px;
+    display: inline-block;
+    background-color: #eee;
+    border-radius: 4px;
+  }
+
+  .buttonMenus:visited, a:link {
+    color: #607D8B;
+  }
+  .buttonMenus:hover {
+    color: rgb(172, 22, 47);
+    background-color: #CFD8DC;
+  }
+  .buttonMenus.active {
+    color: rgb(172, 22, 47);
+  }
+  
+h1 {
+    color: rgb(172, 22, 47);
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-size: 200%; */
+  }
+
+h2 {
+    color: rgb(172, 22, 47);
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-size: 200%; */
+  }
+
+h3 {
+    color: rgb(172, 22, 47);
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-size: 200%; */
+  }
+
+h5 {
+    color: rgb(172, 22, 47);
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-size: 200%; */
+  }
+
+.my-centered-dialog {
+    max-width: auto;
+    margin: 20px;
+  
+}
+
+.my-centered-dialog .wrapper {
+    padding-left: 100px;
+    max-width: none;
+}
+
+
+.niceButton {
+    -moz-border-radius:6px;
+	-webkit-border-radius:6px;
+    border-radius:6px;
+    display:inline-block;
+    cursor:pointer;
+    font-family:Arial;
+	font-weight:bold;
+    text-decoration:none;
+    padding: 5px 15px 5px 15px;
+    margin: 5px;
+}
+
+.niceButton:active {
+	position:relative;
+	top:1px;
+}
+
+.weight05 { 
+    background: #0080ff !important;
+    color: #fff !important;
+}
+.weight05Box { 
+    background: #0080ff !important;
+    color: #fff !important;
+    border: 4px solid #804000 !important;
+    border-style: ridge !important; /* dashed, double, groove, ridge, inset, outset */
+}
+.weight1 { 
+    background: #00c600 !important;
+    color: #fff !important;
+}
+.weight1Box { 
+    background: #00c600 !important;
+    color: #fff !important;
+    border: 4px solid #804000 !important;
+    border-style: ridge !important; /* dashed, double, groove, ridge, inset, outset */
+}
+.weight2Vac { 
+    background: #8000ff !important;
+    color: #fff !important;
+}
+.weight2Bag { 
+    background: #ffff00 !important;
+    color: #000000 !important;
+}
+.weight2Box { 
+    background: #8000ff !important;
+    color: #fff !important;
+    border: 4px solid #804000 !important;
+    border-style: ridge !important; /* dashed, double, groove, ridge, inset, outset */
+}
+.weight5Bag {
+    background: #ff8000 !important;
+    color: #fff !important;
+}
+.weightBox {
+    background: #804000 !important;
+    color: #fff !important;
+}
+.weightTrolley {
+    color: #000000 !important;
+    font-weight: bold !important;
+    background: repeating-linear-gradient(0deg, 
+    #c0c0c0, #c0c0c0 .35em, 
+    #808080, #808080 .75em
+    ) !important;
+}
+
+.packagingBox {
+    border: 4px solid #804000 !important;
+    border-style: ridge !important; /* dashed, double, groove, ridge, inset, outset */
+}
+.packagingTrolley {
+    color: #000000 !important;
+    font-weight: bold !important;
+    background: repeating-linear-gradient(0deg, 
+    #c0c0c0, #c0c0c0 .35em, 
+    #808080, #808080 .75em
+    ) !important;
+}
+
+
+.goldButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #fff6af;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #fff6af;
+	box-shadow:inset 0px 1px 0px 0px #fff6af;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
+	background:-moz-linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	background:-webkit-linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	background:-o-linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	background:-ms-linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
+	background-color:#ffec64;
+	border:1px solid #ffaa22;
+	color:#333333;
+    text-shadow:0px 1px 0px #ffee66;
+}
+.goldButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
+	background:-moz-linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	background:-webkit-linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	background:-o-linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	background:-ms-linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
+	background-color:#ffab23;
+}
+
+.redButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #f5978e;
+	box-shadow:inset 0px 1px 0px 0px #f5978e;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24537), color-stop(1, #c62d1f));
+	background:-moz-linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	background:-webkit-linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	background:-o-linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	background:-ms-linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537', endColorstr='#c62d1f',GradientType=0);
+	background-color:#f24537;
+	border:1px solid #d02718;
+	color:#ffffff;
+	text-shadow:0px 1px 0px #810e05;
+}
+.redButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24537));
+	background:-moz-linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	background:-webkit-linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	background:-o-linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	background:-ms-linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24537',GradientType=0);
+	background-color:#c62d1f;
+}
+
+.meatriteButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #cf866c;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #cf866c;
+	box-shadow:inset 0px 1px 0px 0px #cf866c;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d0451b), color-stop(1, #bc3315));
+	background:-moz-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-webkit-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-o-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-ms-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d0451b', endColorstr='#bc3315',GradientType=0);
+	background-color:#d0451b;
+	border:1px solid #942911;
+	color:#ffffff;
+	text-shadow:0px 1px 0px #854629;
+}
+.meatriteButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #bc3315), color-stop(1, #d0451b));
+	background:-moz-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+	background:-webkit-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+	background:-o-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+	background:-ms-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+	background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bc3315', endColorstr='#d0451b',GradientType=0);
+	background-color:#bc3315;
+}
+
+.meatriteButton:disabled {
+    background:#a3a3a3;
+    border:1px solid #2c2928;
+    box-shadow: none;
+}
+
+.paleGreenButton {
+	-moz-box-shadow: 0px 1px 0px 0px #9acc85;
+	-webkit-box-shadow: 0px 1px 0px 0px #9acc85;
+	box-shadow: 0px 1px 0px 0px #9acc85;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #74ad5a), color-stop(1, #68a54b));
+	background:-moz-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
+	background:-webkit-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
+	background:-o-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
+	background:-ms-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
+	background:linear-gradient(to bottom, #74ad5a 5%, #68a54b 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#74ad5a', endColorstr='#68a54b',GradientType=0);
+	background-color:#74ad5a;
+	border:1px solid #3b6e22;
+	color:#ffffff;
+	text-shadow:0px 1px 0px #92b879;
+}
+.paleGreenButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #68a54b), color-stop(1, #74ad5a));
+	background:-moz-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
+	background:-webkit-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
+	background:-o-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
+	background:-ms-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
+	background:linear-gradient(to bottom, #68a54b 5%, #74ad5a 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#68a54b', endColorstr='#74ad5a',GradientType=0);
+	background-color:#68a54b;
+}
+
+.primBlueButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #54a3f7;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #54a3f7;
+	box-shadow:inset 0px 1px 0px 0px #54a3f7;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #007dc1), color-stop(1, #0061a7));
+	background:-moz-linear-gradient(top, #007dc1 5%, #0061a7 100%);
+	background:-webkit-linear-gradient(top, #007dc1 5%, #0061a7 100%);
+	background:-o-linear-gradient(top, #007dc1 5%, #0061a7 100%);
+	background:-ms-linear-gradient(top, #007dc1 5%, #0061a7 100%);
+	background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#007dc1', endColorstr='#0061a7',GradientType=0);
+	background-color:#007dc1;
+	border:1px solid #124d77;
+	color:#ffffff;
+	text-shadow:0px 1px 0px #154682;
+}
+.primBlueButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0061a7), color-stop(1, #007dc1));
+	background:-moz-linear-gradient(top, #0061a7 5%, #007dc1 100%);
+	background:-webkit-linear-gradient(top, #0061a7 5%, #007dc1 100%);
+	background:-o-linear-gradient(top, #0061a7 5%, #007dc1 100%);
+	background:-ms-linear-gradient(top, #0061a7 5%, #007dc1 100%);
+	background:linear-gradient(to bottom, #0061a7 5%, #007dc1 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0061a7', endColorstr='#007dc1',GradientType=0);
+	background-color:#0061a7;
+}
+
+.secBlueButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5));
+	background:-moz-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:-webkit-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:-o-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:-ms-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5',GradientType=0);
+	background-color:#79bbff;
+	border:1px solid #84bbf3;
+	color:#ffffff;
+	text-shadow:0px 1px 0px #528ecc;
+}
+.secBlueButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff));
+	background:-moz-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:-webkit-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:-o-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:-ms-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff',GradientType=0);
+	background-color:#378de5;
+}
+
+@media only screen and (min-width:425px) and (max-width:800px) {
+    .normalButton{
+        /* margin-bottom: 15px; */
+        margin-right: 20px;
+        display: inline-block;
+        height: 30px;
+        white-space: normal;     
+    }
+
+    .niceButton {
+        margin-bottom: 15px;
+        margin-right: 20px;
+        display: inline-block;
+        height: 40px;
+        white-space: normal;
+    }
+
+    .bigButtons {
+        margin-bottom: 15px;
+        margin-right: 20px;
+        display: inline-block;
+        height: 50px;
+        padding:5px;
+        white-space: normal;
+     }
+}
+
+@media only screen and (max-width:425px) {
+    .niceButton {
+        margin-bottom: 5px;
+        margin-right: 10px;
+        display: inline-block;
+        // height: 30px;
+        white-space: normal;
+    }
+}
+

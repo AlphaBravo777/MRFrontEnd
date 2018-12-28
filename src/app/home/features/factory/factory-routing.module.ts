@@ -1,42 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '../admin/admin-services/auth.guard';
 
-import { NgxPermissionsGuard } from 'ngx-permissions';
-import { FactoryComponent } from './factory.component';
-
-const appRoutes: Routes = [];
-//     {
-//         path: 'roles', component: FactoryComponent
-//     },
-//     {
-//         path: 'permissions', component: FactoryComponent
-//
-//     },
-//     {
-//         path: 'no-roles',
-//         component: FactoryComponent,
-//         canActivate: [NgxPermissionsGuard],
-//         data: {
-//             permissions: {
-//                 only: 'Nice'
-//             }
-//         }
-//     },
-//     {
-//         path: 'no-permissions',
-//         component: FactoryComponent,
-//         canActivate: [NgxPermissionsGuard],
-//         data: {
-//             permissions: {
-//                 only: 'Nice'
-//             }
-//         }
-//     },
-// ];
+const factoryRoutes: Routes = [
+    {
+        path: 'user',
+        children: [
+            {
+                path: 'high-risk',
+                loadChildren: './high-risk/high-risk.module#HighRiskModule',
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'production-floor',
+                loadChildren: './production-floor/production-floor.module#ProductionFloorModule',
+                canActivate: [AuthGuard],
+            },
+        ]
+    }
+];
 
 @NgModule({
     imports: [
-        RouterModule.forChild(appRoutes)
+        RouterModule.forChild(factoryRoutes)
     ],
     exports: [RouterModule]
 })

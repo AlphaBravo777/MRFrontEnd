@@ -1,3 +1,8 @@
 .wrapper {
     width: auto;
+    padding-left: 0px;
+}
+
+.goldButton {
+    margin-right: 30px;
 }

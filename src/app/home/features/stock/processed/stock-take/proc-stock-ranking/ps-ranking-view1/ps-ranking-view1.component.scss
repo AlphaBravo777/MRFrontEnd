@@ -1,0 +1,72 @@
+@import 'src/stylesColors.scss';
+
+.row {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+    // border: solid 1px #ccc;
+    min-height: 60px;
+    // display: flex;
+    flex-direction: row;
+    background: $mainColorMinusOne;
+    border-radius: 4px;
+    // overflow: hidden;
+  }
+  
+  .box {
+    display: inline-block;
+    padding: 5px 5px 0px 5px;
+    color: rgba(0, 0, 0, 0.87);
+    // display: flex;
+    // flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: move;
+    background: $mainColorMinusOne;
+    font-size: 14px;
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  .spacer {
+      height: 80px;
+  }
+  
+  .cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .example-box:last-child {
+    border: none;   
+  }
+  
+  .row.cdk-drop-list-dragging .box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  h3 {
+      margin: 0px;
+      display: inline;
+  }
+
+  .headingGrid {
+    display: grid; 
+    grid-template-columns: 1fr auto auto;
+    a {
+        justify-self:right; 
+    }
+  }

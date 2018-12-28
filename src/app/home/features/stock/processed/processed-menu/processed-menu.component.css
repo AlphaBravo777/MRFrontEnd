@@ -1,0 +1,9 @@
+.valign-center {
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+  }
+
+/* .mat-menu-panel {
+    background: blue;
+} */

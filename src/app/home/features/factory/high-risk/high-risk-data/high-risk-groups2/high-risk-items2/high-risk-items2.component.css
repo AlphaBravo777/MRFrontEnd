@@ -1,0 +1,42 @@
+table {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    width: 100%;
+    font-size: 14px;
+    border-spacing: 0px;
+    text-align: left;
+}
+
+#th1 {
+    width: 15%;
+}
+
+#th2 {
+    width: 55%;
+}
+
+#thNumbers {
+    text-align: right;
+    width: 10%;
+}
+
+.expand{
+    cursor: pointer;
+}
+
+th {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.positive {
+    color: green;
+}
+
+.negative {
+    color: red;
+    font-weight: bold;
+}
+
+.trollies {
+    padding-left: 15px;
+}

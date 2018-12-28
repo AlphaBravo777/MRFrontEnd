@@ -1,0 +1,42 @@
+<app-box-shadow-container>
+    <form [formGroup]="dateForm" (ngSubmit)=onSubmit()>
+        <table>
+            <tr>
+                <td class='title'>Week: </td>
+                <td><input class='textBox' formControlName='week'></td>
+            </tr>
+            <tr>
+                <td class='title'>Day #: </td>
+                <td><input class='textBox' formControlName='weekDay'></td>
+            </tr>
+            <tr>
+                <td class='title'>Shift: </td>
+                <td class='radio'>
+                    <label>
+                        <input type="radio" formControlName="shift" value="A">
+                        <span class="input_text">A &nbsp;</span>
+                    </label>
+                    <label>
+                        <input type="radio" formControlName="shift" value="B">
+                        <span class="input_text">B</span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td class='title'>Time: </td>
+                <td class='selectBox'>
+                    <select dir="rtl" formControlName="time">
+                        <option *ngFor="let time of stockTimes" [ngValue]="time.times">{{time.times}}</option>
+                        <option selected="selected">{{dateForm.get('time').value}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type='submit' class='niceButton meatriteButton'>Change</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <!-- {{ dateForm.value | json }} -->
+</app-box-shadow-container>

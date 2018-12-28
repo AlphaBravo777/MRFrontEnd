@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../admin-services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -9,24 +9,31 @@ import { AuthService } from '../auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private _auth: AuthService,
-    private _router: Router
-  ) { }
+  constructor(private auth: AuthService, private router: Router ) { }
 
-  registerUserData = {};
+  registerUserData = {username: '', password1: '', password2: '', email: ''};
+  registered = false;
+  buttonTitle = 'Create User';
+  errorMessage;
 
   ngOnInit() {
   }
 
   registerUser() {
-    this._auth.registerUser(this.registerUserData)
+    this.auth.registerUser(this.registerUserData)
       .subscribe(
         res =>  {
           console.log(res);
-          localStorage.setItem('token', res.token);
-          this._router.navigate(['contact/']);
+          this.registered = true;
+          this.buttonTitle = 'User Created';
+        //   localStorage.setItem('token', res.token);
+        //   this.router.navigate(['contact/']);
         },
-        err => console.log(err)
+        err => {
+            console.log(err);
+            this.buttonTitle = 'User not created';
+            this.errorMessage = err.error;
+        }
       );
     console.log(this.registerUserData);
   }

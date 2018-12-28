@@ -1,0 +1,35 @@
+<div class='container'>
+    <span class='topLevel' (click)=collaps()>
+        <div>{{stockGroupData.key}}</div>
+        <div>
+            <app-rainbow-progress-bar *ngIf="!expandedIndex" 
+                [amount]='stockGroupData.number'
+                [sizeStyle]="'meterLarge'"
+            ></app-rainbow-progress-bar>
+        </div>
+        <div></div>
+        <div>
+            <div id='th3' *ngIf="!expandedIndex" class='headingIcon'> <i class="material-icons">expand_more</i></div>
+            <div id='th3' *ngIf="expandedIndex" class='headingIcon'> <i class="material-icons">expand_less</i></div>
+        </div>
+    </span>
+    <div *ngIf="expandedIndex">
+        <span class='headings'>
+            <div>Name</div>
+            <div>Model Stock</div>
+            <div>Days</div>
+            <div>Supplier</div>
+            <div>Amt</div>
+        </span>
+    </div>
+    <div *ngIf="expandedIndex">
+        <div class='dropdownOuter'>
+            <div class='dropdown'>
+                <section class='section' *ngFor='let value of stockGroupData.values; trackBy: trackByamounts'>
+                    <app-raw-material-view2 [individualStockData]='value'></app-raw-material-view2>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+

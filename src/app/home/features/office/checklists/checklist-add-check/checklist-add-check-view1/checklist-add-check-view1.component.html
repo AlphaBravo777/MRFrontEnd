@@ -1,0 +1,12 @@
+<app-box-shadow-container>
+        <h3>Create new check for {{areaData.name}}</h3>
+    <div class='selectionGrid'>
+        <div class='checkLevels'>
+            <!-- <h3>Create new check for {{areaData.name}}</h3> -->
+            <app-custom-radio-group [buttons]='checklistLevels' (buttonPicked)='checklistLevelPicked($event)'></app-custom-radio-group>
+        </div>
+        <div class='formContainer'>
+            <app-checklist-add-check-form [messageLevel]='messageLevel' [areaData]='areaData'></app-checklist-add-check-form>
+        </div>
+    </div>
+</app-box-shadow-container>

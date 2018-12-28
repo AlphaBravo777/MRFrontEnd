@@ -1,0 +1,27 @@
+<div class='groupWrapper'>
+    <button class='niceButton meatriteButton' (click)="allExpandState = true">Expand All </button>
+    <h3>Batches</h3>
+    <button class='niceButton meatriteButton' (click)="allExpandState = false">Collapse All </button>
+    <div *ngFor="let group of loadingListStock  | orderBy : ['number']; let $index=index">
+        <table>
+            <thead (click)="Collaps($index)">
+                <tr>
+                    <div class="topnav">
+                        <th id='name'>{{group.key}}</th>
+                        <div class="topnav-right">
+                            <th *ngIf="$index !== expandedIndex || allExpandState" class='headingIcon'> <i class="material-icons">expand_more</i>
+                            </th>
+                            <th *ngIf="$index === expandedIndex || allExpandState" class='headingIcon'> <i class="material-icons">expand_less</i>
+                            </th>
+                        </div>
+                    </div>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="$index === expandedIndex || allExpandState">
+                    <app-high-risk-items1 [singleGroupData]='group'></app-high-risk-items1>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

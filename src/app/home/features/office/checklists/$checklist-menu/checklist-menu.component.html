@@ -1,0 +1,16 @@
+<h2>Checklists</h2>
+<div class='grid'>
+    <div class='raw-material'>
+        <h3>Areas</h3>
+        <div class='areasGrid'>
+            <div *ngFor='let area of checklistAreas'>
+                <button (click)='areaSelected(area)' class='niceButton meatriteButton'>{{area.name}}</button>
+            </div>
+        </div>
+    </div>
+    <!-- <div class='raw-material'>
+        <h3>Enter new check</h3>
+        <a routerLink="../../checklists/new-check" routerLinkActive="active"><button class='niceButton meatriteButton'>New
+                Check</button></a>
+    </div> -->
+</div>

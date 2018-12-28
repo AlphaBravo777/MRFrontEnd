@@ -1,0 +1,18 @@
+<app-box-shadow-container *ngIf='singleAreaChecks'>
+    <div class='headingGrid'>
+        <h3>{{singleAreaChecks.name}} checks</h3>
+        <a routerLink="../../../admin-office/checklists/menu" routerLinkActive="active"><button class='niceButton meatriteButton'>Back
+                to Areas</button></a>
+    </div>
+    <div *ngIf='singleAreaChecks'>
+        <div class='checkGrid' *ngFor='let check of singleAreaChecks.areaChecks'>
+            <!-- <div></div> -->
+            <div class='light' [ngStyle]="{'color': check.levelColor}">*</div>
+            <div class='message' [ngStyle]="{'color': check.levelColor}">{{check.message}}</div>
+        </div>
+    </div>
+    <div *ngIf='singleAreaChecks.areaChecks.length === 0'>
+        There is no data to display
+    </div>
+</app-box-shadow-container>
+<app-checklist-add-check-data></app-checklist-add-check-data>

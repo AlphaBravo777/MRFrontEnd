@@ -1,0 +1,8 @@
+<form [formGroup]='checklistEntryForm' (ngSubmit)='submitEntry()'>
+        <div class='textarea'>
+            <app-custom-textarea [inputFormGroup]='checklistEntryForm' [controlName]='"message"' ngDefaultControl [caption]='"Message/Boodskap"'
+                [placeHolderText]='"Type your message here"' [colorInput]='messageLevel.levelColor'>
+            </app-custom-textarea>
+        </div>
+        <button class='meatriteButton niceButton' type="submit" [disabled]='checklistEntryForm.invalid'>Submit</button>
+</form>

@@ -1,0 +1,57 @@
+form {
+    font-size: 1.5rem
+}
+
+.title {
+    text-align: left;
+    width: 120px;
+}
+
+.textBox {
+    text-align: right;
+    -webkit-appearance: none;
+    border: 0;
+    font-family: inherit;
+    padding: 12px 0;
+    height: 30px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    border-bottom: 2px solid #C8CCD4;
+    background: none;
+    border-radius: 0;
+    color: #223254;
+    transition: all .15s ease;
+}
+
+.radio {
+    color: #223254;
+    text-align: right;
+    padding: 12px 0;
+    border-bottom: 2px solid #C8CCD4;
+}
+
+select {
+    color: #223254;
+    background: none;
+    border: 0;
+    font-size: 1.5rem;
+}
+
+.selectBox {
+    text-align: right;
+    -webkit-appearance: none;
+    border: 0;
+    font-family: inherit;
+    padding: 12px 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    border-bottom: 2px solid #C8CCD4;
+    background: none;
+    border-radius: 0;
+    color: #223254;
+    transition: all .15s ease;
+}
+
+.textBox {
+    width: 250px;
+}

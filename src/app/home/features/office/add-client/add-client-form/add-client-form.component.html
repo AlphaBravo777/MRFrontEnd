@@ -1,0 +1,12 @@
+<form [formGroup]='newClientForm'>
+    <app-float-label-input-box class='inputBox' [formControl]="newClientForm.get('companyName')" ngDefaultControl [caption]='"Shop name"'
+        [placeHolderText]='"Enter new client name"'>
+    </app-float-label-input-box>
+    <app-float-label-input-box class='inputBox' [formControl]="newClientForm.get('accountNumber')" ngDefaultControl [caption]='"Account number"'
+        [placeHolderText]='"Enter account number"'>
+    </app-float-label-input-box>
+    <app-float-label-input-box class='inputBox' [formControl]="newClientForm.get('route')" ngDefaultControl [caption]='"Route"'
+        [placeHolderText]='"Enter route"'>
+    </app-float-label-input-box>
+    <button class='meatriteButton niceButton' type="submit" [disabled]='newClientForm.invalid'>Submit</button>
+</form>

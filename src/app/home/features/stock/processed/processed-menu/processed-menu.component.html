@@ -1,0 +1,10 @@
+<mat-menu #appMenu="matMenu">
+    <span *ngFor="let times of stockTimes | filterTimes">
+    <button mat-menu-item (click)='sendTime(times.times)'>{{times.times}}</button>
+    </span>
+</mat-menu>
+
+<a *ngIf='stockTimes'  class="valign-center niceButton goldButton" [matMenuTriggerFor]="appMenu">
+    <i class="material-icons">list</i>
+    <span> &nbsp; Save As</span>
+</a>

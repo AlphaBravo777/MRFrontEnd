@@ -1,0 +1,23 @@
+<app-box-shadow-container>
+    <a routerLink="../proc-stock-ranking" routerLinkActive="active"><button class='niceButton meatriteButton'>Change Ticket Ranking</button></a>
+    <div *ngFor='let productGroup of productGroups; let key = index'>
+        <app-dropdown-table-main [indvTopDataPoints]='productGroup.key' (dropDownTableState)='dropDownTableState($event, key)'>
+            <div class='filter'>
+                <app-proc-stock-filter [filters]='productGroup.filters' (filterPicked)='changeFilter($event, key)'></app-proc-stock-filter>
+            </div>
+            <app-proc-stock-view2 [productGroup]='productGroup.values' [filterGroup]='selectedFilter[key]'
+                (productPicked)="productPicked($event)">
+            </app-proc-stock-view2>
+            <div class='containerSelected' *ngIf='containerSelected && menuDroppedDown[key]'> 
+                <h3>{{productDescription}}</h3>
+                <app-custom-input-box [value]='amount' (newAmount)=inputString($event)>
+                    <app-custom-keyboard></app-custom-keyboard>
+                </app-custom-input-box>
+                <button class='meatriteButton niceButton' (click)='submitStock()'>Submit</button>
+                <button class='meatriteButton niceButton' (click)='updateStock()'>Update</button>
+                <button class='meatriteButton niceButton' (click)='recoverStock()'>Recover</button>
+                <!-- <a routerLink="../proc-stock-ranking" routerLinkActive="active"><button class='niceButton meatriteButton'>Change Order</button></a> -->
+            </div>
+        </app-dropdown-table-main>
+    </div>
+</app-box-shadow-container>

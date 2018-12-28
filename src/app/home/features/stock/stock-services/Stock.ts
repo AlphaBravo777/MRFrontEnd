@@ -1,20 +1,62 @@
-export class ProcessedStock {
-    brand: String;
-    packaging: String;
+export class IProductDetails {
+    brand: string;
+    packaging: string;
     unitweight: Number;
-    productid: String;
-    batchgroup: String;
+    productid: string;
+    batchgroup: string;
+    description: string;
 
-    constructor (brand: String, packaging: String, weight: Number, code: String, batchGroup: String) {
+    constructor (brand: string, packaging: string, weight: Number, code: string, batchGroup: string, description: string) {
         this.brand = brand;
         this.packaging = packaging;
         this.unitweight = weight;
         this.productid = code;
         this.batchgroup = batchGroup;
+        this.description = description;
     }
 }
 
-export class ProcessedGroup {
-    stock: ProcessedStock[];
-    group: String;
+export class IProductGroup {
+    stock: IProductDetails[];
+    group: string;
 }
+// -------------------------------------------------------------------
+export class IProcessedStockProducts {
+    product: string;
+    mainContainer: IProcessedStockContainer[];
+}
+
+export class IProcessedStockContainer {
+    container: string;
+    amount: string[];
+}
+// -------------------------------------------------------------------
+export class IRawProcessedStock {
+    name: string;
+    amount: string;
+    container: string;
+    time?: string;
+}
+// -------------------------------------------------------------------
+export class IProductContainers {
+    id: number;
+    productid: string;
+    container: string;
+    deleteContainerAmount: boolean;
+}
+// -------------------------------------------------------------------
+export class IContainerGroups {
+    name: string;
+    containers: string[];
+}
+// -------------------------------------------------------------------
+export class IDeleteGroups {
+    container: string;
+    delete: boolean;
+}
+
+export class IProdDeleteGroups {
+    product: string;
+    mainContainer: IDeleteGroups[];
+}
+// -------------------------------------------------------------------

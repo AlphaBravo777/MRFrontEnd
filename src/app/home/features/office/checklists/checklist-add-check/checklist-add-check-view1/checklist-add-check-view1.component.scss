@@ -1,0 +1,24 @@
+@import 'src/stylesColors.scss';
+
+.selectionGrid {
+    margin-top: 5px;
+    display: grid;
+    grid-gap: 15px;
+}
+
+// .checkAreas {
+//     background: $mainColor;
+//     padding: 6px;
+//     border-radius: 5px;
+// }
+
+.checkLevels {
+    background: $mainColor;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+h3 {
+    padding: 6px;
+    margin: 0px;
+}

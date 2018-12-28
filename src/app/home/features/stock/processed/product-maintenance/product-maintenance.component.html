@@ -1,0 +1,29 @@
+<h3>Select products to delete with "half-delete"</h3>
+<div *ngIf='deleteForm'>
+    <form [formGroup]="deleteForm" (ngSubmit)='deleteFormSubmit()'>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Container</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody formArrayName="prodDetails" *ngFor="let items of deleteForm.get('prodDetails')['controls']; let i=index">
+                <tr class='tracks' [formGroupName]="i">
+                    <td>{{items.value.productid}}</td>
+                    <td>{{items.value.container}}</td>
+                    <!-- <td><input type='text' formControlName="delete" placeholder='{{items.value.delete}}'></td> -->
+                    <td>
+                        <select formControlName="delete" (change)='deleteFormSubmit(i)'>
+                            <option selected="selected">{{items.value.delete}}</option>
+                            <option value='false'>false</option>
+                            <option value='true'>true</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <pre>{{deleteForm.value | json}}</pre> -->
+    </form>
+</div>
