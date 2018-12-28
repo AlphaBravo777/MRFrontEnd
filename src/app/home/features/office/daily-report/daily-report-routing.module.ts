@@ -7,7 +7,7 @@ import { ReportMainComponent } from './$report-main/report-main.component';
 
 const dailyReportRoutes: Routes = [
     {
-        path: '',
+        path: '', // daily-report
         // component: ReportMainComponent,
         children: [
             {

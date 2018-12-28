@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminOfficeRoutingModule } from './admin-office-routing.module';
-import { OfficeEntryComponent } from './office-entry/office-entry.component';
-import { AdminOfficeMenuComponent } from './admin-office menu/admin-office-menu.component';
+import { OfficeEntryComponent } from './$office-entry/office-entry.component';
+import { AdminOfficeMenuComponent } from './$office-menu/admin-office-menu.component';
 
 @NgModule({
   declarations: [

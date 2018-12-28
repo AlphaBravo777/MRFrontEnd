@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { map } from 'rxjs/operators';
+import { IReadReportLevels } from '../../report-read/report-read-services/read-report-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +19,7 @@ export class ReportEntryApiService {
         return this.http.post<any>(this.stockUrl + 'report/enterNew/', newReport);
     }
 
-    getMessageLevels(): Observable<any> {
+    getMessageLevels(): Observable<IReadReportLevels[]> {
         return this.apollo
             .watchQuery({
                 variables: { report: true },
@@ -29,6 +30,7 @@ export class ReportEntryApiService {
                           node{
                             levelName
                             levelColor
+                            levelRank
                           }
                         }
                     }
@@ -38,14 +40,15 @@ export class ReportEntryApiService {
             .valueChanges.pipe(map(result => this.consolidateMessageLevels(result.data['nodeMessagelevels'].edges)));
     }
 
-    private consolidateMessageLevels(data) {
+    private consolidateMessageLevels(data): IReadReportLevels[] {
         console.log('consolidateMessageLevels = ', data);
-        const flattendData = [];
+        const flattendData: IReadReportLevels[] = [];
 
         for (let array = 0; array < data.length; ++array) {
-            const singleData = {name: '', color: ''};
-                singleData.name = data[array].node.levelName;
-                singleData.color = data[array].node.levelColor;
+            const singleData = {levelName: '', levelColor: '', levelRank: null};
+                singleData.levelName = data[array].node.levelName;
+                singleData.levelColor = data[array].node.levelColor;
+                singleData.levelRank = data[array].node.levelRank;
                 flattendData.push(singleData);
         }
         return flattendData;

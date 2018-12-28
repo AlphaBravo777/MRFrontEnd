@@ -1,7 +1,7 @@
 <form [formGroup]='dailyReportEntryForm' (ngSubmit)='submitEntry()'>
     <div class='textarea'>
         <app-custom-textarea [inputFormGroup]='dailyReportEntryForm' [controlName]='"message"' ngDefaultControl [caption]='"Message/Boodskap"'
-            [placeHolderText]='"Type your message here"' [colorInput]='messageLevel.color'>
+            [placeHolderText]='textboxPlaceHolder' [colorInput]='messageLevel.levelColor'>
         </app-custom-textarea>
     </div>
     <button class='meatriteButton niceButton' type="submit" [disabled]='dailyReportEntryForm.invalid'>Submit</button>

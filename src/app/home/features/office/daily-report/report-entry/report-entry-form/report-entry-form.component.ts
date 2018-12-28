@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReportEntryService } from '../report-entry-services/report-entry.service';
 import { Subscription } from 'rxjs';
 
@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 export class ReportEntryFormComponent implements OnInit, OnDestroy {
 
     @Input() messageLevel;
+    @Input() textboxPlaceHolder;
     dailyReportEntryForm: FormGroup;
     subscription: Subscription;
 

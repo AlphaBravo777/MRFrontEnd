@@ -6,6 +6,7 @@ export class IReadReport {
     userid: number;
     userName: string;
     color: string;
+    reply: number;
 }
 
 export class IReadReportLevels {
@@ -22,6 +23,18 @@ export class IReadReportPackage {
     constructor(userid: number, reportLevels: IReadReportLevels[], reports: IReadReport[]) {
         this.userid = userid;
         this.reportLevels = reportLevels;
-        reports = reports;
+        this.reports = reports;
+    }
+}
+
+export class INewMessagePackage {
+    showTextBox?: boolean;
+    placeHolderMessage?: string;
+    messageFlags?: IReadReportLevels[];
+
+    constructor(showTextBox: boolean, placeHolderMessage: string, messageFlags: IReadReportLevels[]) {
+        this.showTextBox = showTextBox;
+        this.placeHolderMessage = placeHolderMessage;
+        this.messageFlags = messageFlags;
     }
 }

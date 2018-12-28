@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { OfficeEntryComponent } from './office-entry/office-entry.component';
-import { AdminOfficeMenuComponent } from './admin-office menu/admin-office-menu.component';
+import { OfficeEntryComponent } from './$office-entry/office-entry.component';
+import { AdminOfficeMenuComponent } from './$office-menu/admin-office-menu.component';
 
 
 const officeRoutes: Routes = [

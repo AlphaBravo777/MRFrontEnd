@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ReportEntryApiService } from '../report-entry-services/report-entry-api.service';
+import { IReadReportLevels, INewMessagePackage } from '../../report-read/report-read-services/read-report-interface';
+import { map, concatMap, tap } from 'rxjs/operators';
+import { ReportEntryService } from '../report-entry-services/report-entry.service';
 
 @Component({
     selector: 'app-report-entry-data',
@@ -8,16 +10,19 @@ import { ReportEntryApiService } from '../report-entry-services/report-entry-api
 })
 export class ReportEntryDataComponent implements OnInit {
 
-    constructor(private reportEntryApiService: ReportEntryApiService) { }
+    constructor(private reportEntryService: ReportEntryService) { }
 
-    // tslint:disable-next-line
-    // messageFlags = [{name: 'Standard', color: '#c0c0c0'}, {name: 'Alert', color: '#ff0000'}, {name: 'Go Ahead', color: '#008000'}, {name: 'Caution', color: '#dddd00'}, {name: 'Maintanance', color: '#804000'}, {name: 'Stock', color: '#ff8040'}];
-    messageFlags;
+    newMessagePackage: INewMessagePackage = {};
 
     ngOnInit() {
-        this.reportEntryApiService.getMessageLevels().subscribe(data => {
-            this.messageFlags = data;
-        });
+        this.reportEntryService.getMessageLevels().pipe(
+            tap(data => this.newMessagePackage.messageFlags = data),
+            concatMap(() => this.reportEntryService.currentShowTextBoxState$),
+            tap(data => this.newMessagePackage.showTextBox = data),
+            concatMap(() => this.reportEntryService.currentTextboxPlaceHolder$),
+            tap(data => this.newMessagePackage.placeHolderMessage = data),
+            tap(() => console.log('The newMessagePackage = ', this.newMessagePackage))
+        ).subscribe();
     }
 
 }
