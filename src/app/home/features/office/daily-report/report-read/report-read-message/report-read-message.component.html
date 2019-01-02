@@ -1,5 +1,7 @@
 <div class='messageContainer' [ngStyle]="styleObjectMessageContainer()">
-    <div class='gridContainer'>
+    <div [ngClass]="{'gridContainer':       message.reply=== null, 
+                     'childGridContainer':  message.reply!== null}">
+    <!-- <div class='gridContainer'> -->
         <div class='ranking' [ngStyle]="styleObjectRanking()">
         </div>
         <div class='header'>
@@ -9,8 +11,10 @@
         <div class='body'>
             <span>{{message.message}}</span>
         </div>
-        <div class='replies' *ngIf='testMessage'>
-            <app-report-read-message [message]='testMessage' [userid]=15></app-report-read-message>
+        <div class='replies' *ngIf='message.replies'>
+            <div *ngFor='let reply of message.replies'>
+                <app-report-read-message [message]='reply' [userid]='userid'></app-report-read-message>
+            </div>
         </div>
         <div class='footer'>
             <span class='icons' *ngIf='message.userid === userid'>
@@ -19,7 +23,9 @@
             </span>
             <img src="assets/images/reply.png" (click)='replyToReport(message.rowid)'>
             <img src="assets/images/save.png" (click)='deleteReport(message.rowid)'>
-            <img src="assets/images/repair.png" (click)='deleteReport(message.rowid)'>
+            <span class='icons' *ngIf='message.color === "#997049"'>
+                <img src="assets/images/repair.png" (click)='deleteReport(message.rowid)'>
+            </span>
         </div>
     </div>
 </div>

@@ -4,7 +4,7 @@
     </div>
 
     <div *ngFor='let message of messagePackage.reports'>
-        <app-report-read-message [message]='message' [userid]='messagePackage.userid' [testMessage]='testMessage'></app-report-read-message>
+        <app-report-read-message [message]='message' [userid]='messagePackage.userid'></app-report-read-message>
         <!-- <div class='singleMessage'>
             <span #userName class='userName'>{{message.userName}}:</span>
             <span class='userName rowid'>{{message.rowid}}</span>

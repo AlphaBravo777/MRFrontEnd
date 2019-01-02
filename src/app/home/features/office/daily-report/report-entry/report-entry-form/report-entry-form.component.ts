@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReportEntryService } from '../report-entry-services/report-entry.service';
 import { Subscription } from 'rxjs';
+import { IReadReportLevels } from '../../report-read/report-read-services/read-report-interface';
 
 @Component({
     selector: 'app-report-entry-form',
@@ -11,7 +12,7 @@ import { Subscription } from 'rxjs';
 export class ReportEntryFormComponent implements OnInit, OnDestroy {
 
     @Input() messageLevel;
-    @Input() textboxPlaceHolder;
+    @Input() textboxPlaceHolder: string;
     dailyReportEntryForm: FormGroup;
     subscription: Subscription;
 

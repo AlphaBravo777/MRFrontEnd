@@ -25,7 +25,7 @@ export class ReportReadApiService {
         return this.http.delete<any>(timeUrl);
     }
 
-    getDailyReportMessages(timeStampIDs): Observable<any> {
+    getDailyReportMessages(timeStampIDs): Observable<IReadReport[]> {
         return this.apollo
             .watchQuery({
                 variables: { timeStampID: timeStampIDs.nodeID },
@@ -37,6 +37,9 @@ export class ReportReadApiService {
                             id
                             rowid
                             message
+                            reply{
+                                rowid
+                              }
                             user{
                               rowid
                               id
@@ -56,7 +59,7 @@ export class ReportReadApiService {
                 map(result => this.consolidateDailyReportMessages(result.data['nodeDailyreport'].edges)));
     }
 
-    private consolidateDailyReportMessages(data) {
+    private consolidateDailyReportMessages(data): IReadReport[] {
         // console.log('consolidateDailyReportMessages = ', data.length, data);
         const flattendData: IReadReport[] = [];
 
@@ -65,13 +68,18 @@ export class ReportReadApiService {
             singleData.rowid = data[array].node.rowid;
             singleData.messageID = data[array].node.id;
             singleData.message = data[array].node.message;
+            if (!data[array].node.reply) {
+                singleData.reply = null;
+            } else {
+                singleData.reply = data[array].node.reply.rowid;
+            }
             singleData.color = data[array].node.messageLevel.levelColor;
             singleData.userID = data[array].node.user.id;
             singleData.userid = data[array].node.user.rowid;
             singleData.userName = data[array].node.user.firstName;
             flattendData.push(singleData);
         }
-        console.log(flattendData);
+        console.log('consolidateDailyReportMessages = ', flattendData);
         return this.toolBox.sorting(flattendData, 'rowid');
     }
 

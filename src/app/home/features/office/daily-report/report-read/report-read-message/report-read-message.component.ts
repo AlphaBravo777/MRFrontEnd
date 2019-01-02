@@ -12,9 +12,6 @@ export class ReportReadMessageComponent implements OnInit {
 
     @Input() message: IReadReport;
     @Input() userid: number;
-    @Input() testMessage: IReadReport;
-
-
 
     constructor(private reportEntryService: ReportEntryService, private router: Router) { }
 
@@ -38,7 +35,7 @@ export class ReportReadMessageComponent implements OnInit {
     }
 
     replyToReport() {
-        // The reply is working great, after we are replying we must divert back to readMessages (no the opening page one)
+        // The reply is working great, after we are replying we must divert back to readMessages (not the opening page one)
         // But first we want to set "showTextbox to false"
         // and reset the placeHolderMessage
         console.log('You are about to reply to a message', this.message);

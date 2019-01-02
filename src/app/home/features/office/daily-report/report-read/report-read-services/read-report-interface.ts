@@ -7,6 +7,7 @@ export class IReadReport {
     userName: string;
     color: string;
     reply: number;
+    replies?: IReadReport[];
 }
 
 export class IReadReportLevels {

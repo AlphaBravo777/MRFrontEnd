@@ -19,6 +19,7 @@ export class ReportReadDataComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.subscribeToReadReport();
+        // TODO: Add time that message was posted to header element
     }
 
     subscribeToReadReport() {
@@ -30,7 +31,7 @@ export class ReportReadDataComponent implements OnInit, OnDestroy {
             ).subscribe();
     }
 
-    deleteReport(id) {
+    deleteReport(id: number) {
         this.reportReadApiService.deleteReportEntry(id).pipe(
             take(1),
             switchMap(() => this.reportReadService.getReportMessages())
