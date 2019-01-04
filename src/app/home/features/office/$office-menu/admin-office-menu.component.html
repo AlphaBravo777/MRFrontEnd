@@ -11,5 +11,8 @@
     </div>
     <div class='hpp'>
         <h3>Routes</h3>
+        <ng-template [ngxPermissionsOnly]="['admin']">
+                <a routerLink="../../admin-office/clients/add-client" routerLinkActive="active"><button class='niceButton meatriteButton'>Add Client</button></a>
+        </ng-template>
     </div>
 </div>

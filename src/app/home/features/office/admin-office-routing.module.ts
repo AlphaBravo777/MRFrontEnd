@@ -15,7 +15,7 @@ const officeRoutes: Routes = [
                 // canActivate: [AuthGuard],
             },
             {
-                path: 'add-client',
+                path: 'clients',
                 loadChildren: './add-client/add-client.module#AddClientModule',
             },
             {

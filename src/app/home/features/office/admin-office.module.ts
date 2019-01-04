@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AdminOfficeRoutingModule } from './admin-office-routing.module';
 import { OfficeEntryComponent } from './$office-entry/office-entry.component';
 import { AdminOfficeMenuComponent } from './$office-menu/admin-office-menu.component';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { AdminOfficeMenuComponent } from './$office-menu/admin-office-menu.compo
     ],
   imports: [
     CommonModule,
-    AdminOfficeRoutingModule
+    AdminOfficeRoutingModule,
+    NgxPermissionsModule.forChild(),
   ]
 })
 export class AdminOfficeModule { }

@@ -4,14 +4,9 @@ import { AddClientDataComponent } from './add-client-data/add-client-data.compon
 
 const addClientRoutes: Routes = [
     {
-        path: '',  // add-client
+        path: '',  // clients
         component: AddClientDataComponent,
         children: [
-            // {
-            //     path: 'office',
-            //     component: AddClientDataComponent,
-            //     // canActivate: [AuthGuard],
-            // },
             {
                 path: 'add-client',
                 component: AddClientDataComponent,
@@ -19,6 +14,7 @@ const addClientRoutes: Routes = [
             // {
             //     path: 'proc-stock-ranking',
             //     component: PsRankingDataComponent,
+            //     // canActivate: [AuthGuard],
             // },
         ]
     }
