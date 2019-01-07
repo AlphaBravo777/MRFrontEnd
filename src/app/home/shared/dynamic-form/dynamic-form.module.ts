@@ -5,7 +5,7 @@ import { DynamicFormComponent } from './containers/dynamic-form/dynamic-form.com
 import { FormInputComponent } from './controls/form-input/form-input.component';
 import { FormSelectComponent } from './controls/form-select/form-select.component';
 import { FormButtonComponent } from './controls/form-button/form-button.component';
-import { DynamicFieldDirective } from './containers/dynamic-field.directive';
+import { DynamicFieldDirective } from './dynamic-form-services/dynamic-field.directive';
 
 @NgModule({
     declarations: [

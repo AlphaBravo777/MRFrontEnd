@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IFormControl } from '../../containers/form-control-interface';
+import { IFormControl } from '../../dynamic-form-services/form-control-interface';
 
 @Component({
     selector: 'app-form-button',

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { IFormControl } from '../form-control-interface';
+import { IFormControl } from '../../dynamic-form-services/form-control-interface';
 
 @Component({
     selector: 'app-dynamic-form',

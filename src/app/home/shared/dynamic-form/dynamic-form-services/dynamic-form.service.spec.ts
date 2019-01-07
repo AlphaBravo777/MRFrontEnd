@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AddClientApiService } from './add-client-api.service';
+import { DynamicFormService } from './dynamic-form.service';
 
-describe('AddClientApiService', () => {
+describe('DynamicFormService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AddClientApiService = TestBed.get(AddClientApiService);
+    const service: DynamicFormService = TestBed.get(DynamicFormService);
     expect(service).toBeTruthy();
   });
 });

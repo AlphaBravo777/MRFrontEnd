@@ -1,18 +1,5 @@
-<!-- <div class="dynamic-field form-input" [formGroup]="group">
-    <label>{{ config.label }}</label>
-    <input type="text" [attr.placeholder]="config.placeholder" [formControlName]="config.name" />
-</div> -->
-<br>
 <div class="field" [formGroup]="group">
-        <input type="text" id="config.name" [ngClass]="group.get(config.name).valid ? 'green' : 'red'"
-        placeholder={{config.placeholder}} [formControlName]="config.name" spellcheck="false" />
-        <label for="config.name">{{config.label}}</label> 
-    </div>
-<br>
-<!-- <div class="field">
-        <input [ngClass]="formControl.valid ? 'green' : 'red'"
-            type="text" id="fullname" placeholder={{placeHolderText}} spellcheck="false">
-        <label for="fullname">{{caption}}</label> 
-    </div> -->
-    
-    
+    <input type="text" id="config.name" [ngClass]="group.get(config.name).valid ? 'green' : 'red'" placeholder={{config.placeholder}}
+        [formControlName]="config.name" spellcheck="false" />
+    <label for="config.name">{{config.label}}</label>
+</div>

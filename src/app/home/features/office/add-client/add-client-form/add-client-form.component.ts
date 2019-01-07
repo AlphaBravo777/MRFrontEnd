@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { IFormControl } from 'src/app/home/shared/dynamic-form/containers/form-control-interface';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { IFormControl } from 'src/app/home/shared/dynamic-form/dynamic-form-services/form-control-interface';
 
 @Component({
     selector: 'app-add-client-form',
@@ -29,22 +29,5 @@ export class AddClientFormComponent implements OnInit {
         const { disabled, validation, value } = config;
         return this.fb.control({ disabled, value }, validation);
     }
-
-    // newClientForm: FormGroup;
-
-    // constructor(private fb: FormBuilder) { }
-
-    // ngOnInit() {
-    //     this.buildform();
-    // }
-
-    // buildform() {
-    //     this.newClientForm = this.fb.group({
-    //         accountName: ['', [Validators.required, Validators.minLength(4)]],
-    //         shopName: ['', [Validators.required, Validators.minLength(4)]],
-    //         accountNumber: ['', Validators.required],
-    //         route: ['', Validators.required]
-    //     });
-    // }
 
 }
