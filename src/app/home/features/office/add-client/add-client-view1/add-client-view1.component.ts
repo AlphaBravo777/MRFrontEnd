@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IFormControl } from 'src/app/home/shared/dynamic-form/dynamic-form-services/form-control-interface';
 
 @Component({
@@ -10,6 +9,7 @@ import { IFormControl } from 'src/app/home/shared/dynamic-form/dynamic-form-serv
 export class AddClientView1Component implements OnInit {
 
     @Input() formControls: IFormControl[] = [];
+    @Output() submittedForm: EventEmitter<any> = new EventEmitter<any>();
 
     constructor() { }
 
@@ -17,7 +17,7 @@ export class AddClientView1Component implements OnInit {
     }
 
     formSubmitted(value) {
-        console.log(value);
+        this.submittedForm.emit(value);
     }
 
 }

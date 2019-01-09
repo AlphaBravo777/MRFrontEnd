@@ -3,11 +3,13 @@ import { FormGroup } from '@angular/forms';
 import { FormButtonComponent } from '../controls/form-button/form-button.component';
 import { FormInputComponent } from '../controls/form-input/form-input.component';
 import { FormSelectComponent } from '../controls/form-select/form-select.component';
+import { FormFilterInputComponent } from '../controls/form-filter-input/form-filter-input.component';
 
 const components = {
     button: FormButtonComponent,
     input: FormInputComponent,
-    select: FormSelectComponent
+    select: FormSelectComponent,
+    filterInput: FormFilterInputComponent
 };
 
 @Directive({

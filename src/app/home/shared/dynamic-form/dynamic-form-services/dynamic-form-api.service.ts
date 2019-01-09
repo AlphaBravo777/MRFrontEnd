@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Apollo, gql } from 'apollo-angular-boost';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { IFormControl } from 'src/app/home/shared/dynamic-form/dynamic-form-services/form-control-interface';
 import { Validators } from '@angular/forms';
 import { DynamicFormSelectApiService } from './dynamic-form-select-api.service';
-import { select } from 'async';
+import { ToolboxGroupService } from '../../services/toolbox/toolbox-group.service';
+import { HttpClient } from '@angular/common/http';
+import { UrlsService } from 'src/app/home/core/urls.service';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +15,17 @@ import { select } from 'async';
 export class DynamicFormApiService {
 
 
-    constructor(private apollo: Apollo, private dynamicFormSelectApiService: DynamicFormSelectApiService) { }
+    constructor(private apollo: Apollo,
+        private dynamicFormSelectApiService: DynamicFormSelectApiService,
+        private toolbox: ToolboxGroupService,
+        private urlService: UrlsService,
+        private http: HttpClient) { }
+
+    private stockUrl = this.urlService.rootUrl + 'office/';
+
+    submitFormData(formData): Observable<any> {
+        return this.http.post<any>(this.stockUrl + 'accounts/enterNew/', formData);
+    }
 
     getFormControls(formName): Observable<IFormControl[]> {
         return this.apollo
@@ -34,6 +46,7 @@ export class DynamicFormApiService {
                                     value
                                     disabled
                                     placeholder
+                                    ranking
                                     validation{
                                       edges{
                                         node{
@@ -55,15 +68,17 @@ export class DynamicFormApiService {
             .valueChanges.pipe(
                 map(result => this.consolidateFormControls(result.data['nodeForms'].edges[0].node.formbuilderSet.edges)),
                 map(data => {
-                    console.log('data = ', data);
+                    // console.log('data = ', data);
                     data.map(item => {
-                        if (item.type === 'select') {
-                            return this.dynamicFormSelectApiService.getSelection(item.value).subscribe(data2 => item.options = data2);
+                        if (item.type === 'select' || item.type === 'filterInput') {
+                            const value = item.value;
+                            item.value = null;
+                            return this.dynamicFormSelectApiService.getSelection(value).subscribe(data2 => item.options = data2);
                         }
                     });
                     return data;
-                })
-                // switchMap(results => this.consolidateFormControls(results.data['nodeForms'].edges[0].node.formbuilderSet.edges))
+                }),
+                tap(data => this.toolbox.sorting(data, 'ranking'))
                 );
     }
 
@@ -77,16 +92,13 @@ export class DynamicFormApiService {
 
         for (let array = 0; array < data.length; ++array) {
             const singleData = <IFormControl>{};
-            // if (data[array].node.type === 'select') {
-            //     singleData.options = this.dynamicFormSelectApiService.getSelection(data[array].node.value);
-            //     console.log('SelectionData = ', singleData.options);
-            // }
             singleData.type = data[array].node.type;
             singleData.name = data[array].node.name;
             singleData.label = data[array].node.label;
             singleData.value = data[array].node.value;
             singleData.disabled = data[array].node.disabled;
             singleData.placeholder = data[array].node.placeholder;
+            singleData.ranking = data[array].node.ranking;
             singleData.validation = this.combineValidatorsIntoArray(data[array].node.validation.edges);
             flattendData.push(singleData);
         }
@@ -113,4 +125,5 @@ export class DynamicFormApiService {
         console.log('The options value is', value);
         return;
     }
+
 }

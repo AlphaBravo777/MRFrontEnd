@@ -7,14 +7,14 @@ import { AdminOfficeMenuComponent } from './$office-menu/admin-office-menu.compo
 import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
-  declarations: [
-      OfficeEntryComponent,
-      AdminOfficeMenuComponent
+    declarations: [
+        OfficeEntryComponent,
+        AdminOfficeMenuComponent,
     ],
-  imports: [
-    CommonModule,
-    AdminOfficeRoutingModule,
-    NgxPermissionsModule.forChild(),
-  ]
+    imports: [
+        CommonModule,
+        AdminOfficeRoutingModule,
+        NgxPermissionsModule.forChild(),
+    ]
 })
 export class AdminOfficeModule { }

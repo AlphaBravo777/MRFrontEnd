@@ -18,6 +18,7 @@ export class IFormControl {
     placeholder?: string;
     validation?: any[];
     options?: IFormSelectControl[];
+    ranking: number;
 
     // constructor(name: string, areaid: number) {
     //     this.name = name;

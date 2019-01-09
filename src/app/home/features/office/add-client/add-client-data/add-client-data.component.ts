@@ -14,14 +14,25 @@ export class AddClientDataComponent implements OnInit {
     constructor(private dynamicFormService: DynamicFormService) { }
 
     ngOnInit() {
-        this.dynamicFormService.getFormControls().subscribe(data => {
+        this.getFormData();
+    }
+
+    getFormData() {
+        this.dynamicFormService.getFormControls('Add new client').subscribe(data => {
             this.formControls = data;
+            console.log('formcontrols raw data = ', data);
         });
     }
 
+    submittedForm(value) {
+        this.dynamicFormService.submitFormData(value);
+    }
+
+
+
 }
+
 // id accountID accountName commonName parentAccountID(fk) route(fk) details(fk) productGroup(fk)
-// If there is an option box, then it looks like the best course of action would be to get an number from the db,
-// (put number in value field?)
-// and according to that number, to then go get a service than needs to be run, and run that service that
-// retrieves the db that that is needed and returns it to the options box as an array
+// Add parent account selection box with a search input box, as a person types, start searching and narrowing dows results
+// It may not have to be a selection box, but rather an input box that you can not change, or maybe an input box
+// Make front and back end to submit a client once form is populated

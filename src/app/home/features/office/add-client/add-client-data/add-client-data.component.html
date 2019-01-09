@@ -1,1 +1,5 @@
-<app-add-client-view1 *ngIf='formControls' [formControls]='formControls'></app-add-client-view1>
+<app-add-client-view1 
+    *ngIf='formControls' 
+    [formControls]='formControls' 
+    (submittedForm)="submittedForm($event)">
+</app-add-client-view1>

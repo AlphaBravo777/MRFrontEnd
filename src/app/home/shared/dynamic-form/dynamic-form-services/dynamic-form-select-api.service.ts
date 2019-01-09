@@ -16,7 +16,9 @@ export class DynamicFormSelectApiService {
             case '1':
                 return this.getRoutes().pipe();
             case '2':
-                // return this.getAccounts();
+                return this.getProductGroupNames().pipe();
+            case '3':
+                return this.getAccountNameAndIDs().pipe();
             default:
                 console.log('Select value was not found');
                 return of([{name: 'No value was found', optionID: null, optionid: null}]);
@@ -52,6 +54,80 @@ export class DynamicFormSelectApiService {
         for (let array = 0; array < data.length; ++array) {
             const singleData = <IFormSelectControl>{};
             singleData.name = data[array].node.routeName;
+            singleData.optionid = data[array].node.rowid;
+            singleData.optionID = data[array].node.id;
+            flattendData.push(singleData);
+        }
+        return flattendData;
+    }
+
+    private getProductGroupNames(): Observable<IFormSelectControl[]> {
+        return this.apollo
+            .watchQuery({
+                // variables: { name: formName },
+                query: gql`
+                query ProductGroup {
+                    nodeProductgroupnames{
+                    edges{
+                      node{
+                        groupname
+                        id
+                        rowid
+                      }
+                    }
+                  }
+                }
+                `,
+            })
+            .valueChanges.pipe(
+                map(result => this.consolidateProductGroupNames(result.data['nodeProductgroupnames'].edges))
+                );
+    }
+
+    private consolidateProductGroupNames(data): IFormSelectControl[] {
+        const flattendData: IFormSelectControl[] = [];
+
+        for (let array = 0; array < data.length; ++array) {
+            const singleData = <IFormSelectControl>{};
+            singleData.name = data[array].node.groupname;
+            singleData.optionid = data[array].node.rowid;
+            singleData.optionID = data[array].node.id;
+            flattendData.push(singleData);
+        }
+        return flattendData;
+    }
+
+
+    private getAccountNameAndIDs(): Observable<IFormSelectControl[]> {
+        return this.apollo
+            .watchQuery({
+                // variables: { name: formName },
+                query: gql`
+                query getAccountName {
+                    nodeAccountnames{
+                      edges{
+                        node{
+                          id
+                          rowid
+                          commonName
+                          accountID
+                        }
+                      }
+                    }
+                  }
+                `,
+            })
+            .valueChanges.pipe(
+                map(result => this.consolidateAccountNameAndIDs(result.data['nodeAccountnames'].edges))
+                );
+    }
+
+    private consolidateAccountNameAndIDs(data): IFormSelectControl[] {
+        const flattendData: IFormSelectControl[] = [];
+
+        for (let array = 0; array < data.length; ++array) {
+            const singleData = <IFormSelectControl>{};
+            singleData.name = data[array].node.accountID + '  ' + data[array].node.commonName;
             singleData.optionid = data[array].node.rowid;
             singleData.optionID = data[array].node.id;
             flattendData.push(singleData);
