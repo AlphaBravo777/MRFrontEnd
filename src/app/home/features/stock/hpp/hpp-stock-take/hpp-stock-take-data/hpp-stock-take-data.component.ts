@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HppStockTakeService } from '../hpp-stock-take-services/hpp-stock-take.service';
+import { take, switchMap, tap, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { IHppStockDataMain } from '../hpp-stock-take-services/hpp-stock-interface';
 
 @Component({
     selector: 'app-hpp-stock-take-data',
     templateUrl: './hpp-stock-take-data.component.html',
     styleUrls: ['./hpp-stock-take-data.component.scss']
 })
-export class HppStockTakeDataComponent implements OnInit {
+export class HppStockTakeDataComponent implements OnInit, OnDestroy {
 
-    allHppStock;
+    hppStockDataMain: IHppStockDataMain = {};
+    subscription: Subscription;
 
     constructor(private hppStockTakeService: HppStockTakeService) { }
 
@@ -24,10 +28,31 @@ export class HppStockTakeDataComponent implements OnInit {
 
 
     ngOnInit() {
-        this.hppStockTakeService.currentHppStock$.subscribe(data => {
-            this.allHppStock = data;
-            console.log(this.allHppStock);
-        })
+        this.getDailyHppStockData();
     }
+
+    getDailyHppStockData() {
+        this.subscription = this.hppStockTakeService.getHppOrders().pipe(
+            tap(data => this.hppStockDataMain = data),
+        ).subscribe(() => console.log('Total hpp data', this.hppStockDataMain));
+    }
+
+    // getDailyHppStockData() {
+    //     this.subscription = this.hppStockTakeService.currentTestDate$.pipe(
+    //         switchMap(date => this.hppStockTakeService.getHppOrders(date)),
+    //         tap(data => this.hppStockDataMain.pnpOrder = data),
+    //     ).subscribe(() => console.log(this.hppStockDataMain));
+    // }
+
+    changeDate(newDate: number) {
+        this.hppStockTakeService.changeTestDate(newDate);
+    }
+
+    ngOnDestroy(): void {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
 
 }

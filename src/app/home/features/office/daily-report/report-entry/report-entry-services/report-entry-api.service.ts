@@ -41,7 +41,7 @@ export class ReportEntryApiService {
     }
 
     private consolidateMessageLevels(data): IReadReportLevels[] {
-        console.log('consolidateMessageLevels = ', data);
+        // console.log('consolidateMessageLevels = ', data);
         const flattendData: IReadReportLevels[] = [];
 
         for (let array = 0; array < data.length; ++array) {

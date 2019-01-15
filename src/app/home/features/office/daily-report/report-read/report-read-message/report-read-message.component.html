@@ -9,7 +9,7 @@
             <span>Message ID: {{message.rowid}}</span>
         </div>
         <div class='body'>
-            <span>{{message.message}}</span>
+            <span class='body2'>{{message.message}}</span>
         </div>
         <div class='replies' *ngIf='message.replies'>
             <div *ngFor='let reply of message.replies'>

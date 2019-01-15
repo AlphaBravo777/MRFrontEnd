@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IDate } from './date-interface';
 import { DatePickerService } from './date-picker.service';
 import { take, tap } from 'rxjs/operators';
@@ -16,12 +16,19 @@ export class GetDate$Service {
         // this.inputLongDate(new Date());
     }
 
-    inputLongDate(longDate: Date) {
-        this.datePickerService.inputLongDate(longDate).pipe(
+    inputLongDate(longDate: Date): Observable<any> {
+        return this.datePickerService.inputLongDate(longDate).pipe(
             take(1),
             tap(data => this.datePackage.next(data))
-            ).subscribe();
+            );
     }
+
+    // inputLongDate(longDate: Date) {
+    //     this.datePickerService.inputLongDate(longDate).pipe(
+    //         take(1),
+    //         tap(data => this.datePackage.next(data))
+    //         ).subscribe();
+    // }
 
     inputBlockDate(datePackage) {
         this.datePickerService.inputBlockDate(datePackage).pipe(

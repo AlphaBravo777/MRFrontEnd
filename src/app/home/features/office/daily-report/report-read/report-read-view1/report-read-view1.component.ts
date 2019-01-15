@@ -15,16 +15,6 @@ export class ReportReadView1Component implements OnInit, AfterContentChecked {
     @Input() messagePackage: IReadReportPackage;
     @Output() reportid: EventEmitter<any> = new EventEmitter<any>();
 
-    // testMessage = {
-    //     color: '#000000',
-    //     message: 'This is a test message, and should read like a normal message, except this is a test message',
-    //     messageID: 'RGFpbHlSZXBvcnRUeXBlOjExNQ==',
-    //     rowid: 115,
-    //     userID: 'VXNlclR5cGU6MTU=',
-    //     userName: 'Admin',
-    //     userid: 15,
-    // };
-
     constructor() { }
 
     ngOnInit() {

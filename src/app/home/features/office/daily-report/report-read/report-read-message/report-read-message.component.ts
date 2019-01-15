@@ -30,11 +30,11 @@ export class ReportReadMessageComponent implements OnInit {
         };
     }
 
-    deleteReport() {
+    deleteReport(messageid) {
 
     }
 
-    replyToReport() {
+    replyToReport(messageid) {
         // The reply is working great, after we are replying we must divert back to readMessages (not the opening page one)
         // But first we want to set "showTextbox to false"
         // and reset the placeHolderMessage

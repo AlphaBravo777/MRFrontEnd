@@ -163,11 +163,11 @@ export class DatePickerService {
     }
 
     getTime() {
-        this.datePackage.time = '06:00 (Paper)';
+        this.datePackage.time = 'Day';
     }
 
     getShift() {
-        this.datePackage.shift = 'A';
+        this.datePackage.shift = 'Day';
     }
 
     addIDsToDatePackage(data): IDate {

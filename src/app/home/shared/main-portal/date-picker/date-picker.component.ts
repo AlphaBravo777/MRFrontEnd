@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { IDate } from './date-picker-service/date-interface';
 import { GetDate$Service } from './date-picker-service/get-date$.service';
 import { Subscription } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 
 @Component({
@@ -19,14 +20,23 @@ export class DatePickerComponent implements OnInit, OnDestroy {
     showDateForm;
 
     constructor(private fb: FormBuilder, private getDate$Service: GetDate$Service) {
-        this.getDate$Service.inputLongDate(new Date()); }
+        this.getDate$Service.inputLongDate(new Date());
+    }
 
     ngOnInit() {
-        this.subscription = this.getDate$Service.currentDatePackage$.subscribe(data => {
-            this.currentWorkingDate = data;
-            this.populateDate();
-        });
+        this.subscription = this.getDate$Service.inputLongDate(new Date()).pipe(
+            switchMap(() => this.getDate$Service.currentDatePackage$),
+            tap(data => this.currentWorkingDate = data),
+            tap(() => this.populateDate())
+        ).subscribe();
     }
+
+    // ngOnInit() {
+    //     this.subscription = this.getDate$Service.currentDatePackage$.subscribe(data => {
+    //         this.currentWorkingDate = data;
+    //         this.populateDate();
+    //     });
+    // }
 
     populateDate() {
         this.dateForm = this.fb.group({
@@ -61,8 +71,10 @@ export class DatePickerComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.subscription.unsubscribe();
-        console.log('The datepicker got un-subscribed!!');
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+            console.log('The datepicker got un-subscribed!!');
+        }
     }
 
 }

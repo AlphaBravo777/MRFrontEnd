@@ -19,8 +19,8 @@ export class ReportEntryView1Component implements OnInit {
             ({name: data.levelName, levelColor: data.levelColor, levelRank: data.levelRank}));
     }
 
-    buttonPicked(button: IReadReportLevels) {
-        this.messageLevel = button;
+    buttonPicked(button) {
+        this.messageLevel = {levelName: button.name, levelColor: button.levelColor, levelRank: button.levelRank};
     }
 
     showEntry() {

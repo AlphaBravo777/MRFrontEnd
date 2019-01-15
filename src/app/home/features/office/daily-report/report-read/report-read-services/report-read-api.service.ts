@@ -79,7 +79,7 @@ export class ReportReadApiService {
             singleData.userName = data[array].node.user.firstName;
             flattendData.push(singleData);
         }
-        console.log('consolidateDailyReportMessages = ', flattendData);
+        // console.log('consolidateDailyReportMessages = ', flattendData);
         return this.toolBox.sorting(flattendData, 'rowid');
     }
 

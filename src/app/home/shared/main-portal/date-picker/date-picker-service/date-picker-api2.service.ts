@@ -27,18 +27,18 @@ export class DatePickerApi2Service {
     getWholeDayTimeStampID(): Observable<any> {
         let date: IDate;
         return this.getDateService.currentDatePackage$.pipe(
-            // tap(data => console.log('Alpha - The currentDataPackage = ', data)),
+            tap(data => console.log('Zulu1 - The currentDataPackage = ', data)),
             tap(data => date = data),
-            switchMap ((data) => this.getOrCreateWholeDayTimeStampID(data)),
-            // tap(data2 => console.log('Alpha - Newly gotten or created timestamp id = ', data2, date)),
+            switchMap (data => this.getOrCreateWholeDayTimeStampID(data)),
+            tap(data2 => console.log('Zulu2 - Newly gotten or created timestamp id = ', data2, date)),
             tap(data => data['weekDayID'] = date.weekDayID),
             switchMap(data2 => this.getWholeDayGraphQLTimeStampID(data2)),
-            // tap(data2 => console.log('Alpha - getWholeDayTimeStampID = ', data2))
+            tap(data2 => console.log('Zulu3 - getWholeDayTimeStampID = ', data2))
         );
     }
 
     getWholeDayGraphQLTimeStampID(data: IDate): Observable<any> {
-        console.log('Bravo - getWholeDayGraphQLTimeStampID :', data);
+        // console.log('Bravo - getWholeDayGraphQLTimeStampID :', data);
         return this.apollo
             .watchQuery({
                 variables: { year: data.year, week: data.week, weekDayID: data.weekDayID, timeID: 'U3RvY2tUYWtpbmdUaW1lc1R5cGU6MTA=' },
@@ -66,7 +66,7 @@ export class DatePickerApi2Service {
             return timeIDs;
         } else {
             const timeIDs: IDate = { nodeID: data.node.id, id: data.node.rowid };
-            console.log('Bravo refineTimeStampIDs: ', timeIDs);
+            // console.log('Bravo refineTimeStampIDs: ', timeIDs);
             return timeIDs;  // .nodeTimestamp.edges.node.id result.data['allHighriskpackinglist']
         }
     }

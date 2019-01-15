@@ -17,12 +17,16 @@ export class DateFormComponent implements OnInit {
     @Output() dateChange: EventEmitter<any> = new EventEmitter<any>();
     dateForm: FormGroup;
     stockTimes: string;
+    shifts;
     subscription: Subscription;
 
     ngOnInit() {
         this.populateDate();
         this.datePickerApiService.getStockTimes().subscribe(dates => {
             this.stockTimes = dates;
+        });
+        this.datePickerApiService.getShifts().subscribe(dates => {
+            this.shifts = dates;
         });
 
     }

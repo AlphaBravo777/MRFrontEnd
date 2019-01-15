@@ -6,6 +6,7 @@ import { switchMap, tap, take, concatMap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { IReadReport, IReadReportLevels } from '../../report-read/report-read-services/read-report-interface';
 import { Router } from '@angular/router';
+import { ReportReadService } from '../../report-read/report-read-services/report-read.service';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,7 @@ export class ReportEntryService {
 
     constructor(private reportEntryApiService: ReportEntryApiService,
         private datepicker: GetDate$Service,
-        // private reportReadService: ReportReadService,
+        private reportReadService: ReportReadService,
         private router: Router
         ) { }
 
@@ -40,7 +41,7 @@ export class ReportEntryService {
             tap(() => this.setCurrentTextboxPlaceHolder('Type your message here')),
             tap(() => this.setCurrentShowTextboxState(false)),
             tap(() => this.router.navigate(['/main/admin-office/daily-report/report-main'])),
-            // switchMap(() => this.reportReadService.getReportMessages())  // This was to reload the data
+            switchMap(() => this.reportReadService.getReportMessages())  // This was to reload the data, take off, put back
         );
     }
 

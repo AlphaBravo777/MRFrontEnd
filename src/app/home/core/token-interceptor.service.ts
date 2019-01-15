@@ -1,58 +1,58 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../features/admin/admin-services/auth.service';
 import { DialogBoxService } from './dialog-box/dialog-box.service';
-import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor {
 
-  constructor(private _auth: AuthService, private dialogBoxService: DialogBoxService) { }
+    constructor(private auth: AuthService, private dialogBoxService: DialogBoxService) { }
 
-  // Here we intercept ANY HTTP request, and we return an observable that I think the next handler can intercept if neccesary
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-  // Here we get the token in browser storage, and in the next line check if there is a token or not.
-    const hasToken = this._auth.getToken();
-    if (hasToken) {
-  // Initial request in imutable, so we have to clone it first
-      request = request.clone({
-  // Now we are setting the actual header
-        setHeaders: {
-          Authorization: `JWT ${this._auth.getToken()}`
-        }
-      });
-    } else {
-        console.log('There is no token');
-        // this.dialogBoxService.passwordNotCorrect();
-    }
-  // We now return the request, and if there is another interceptor it will pick it up, or it will be send through
-    return next.handle(request);
-  }
-}
-
-/*
-
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-@Injectable()
-export class JwtInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // add authorization header with jwt token if available
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            request = request.clone({
-                setHeaders: {
-                    Authorization: `Bearer ${currentUser.token}`
-                }
+
+        let headers = new HttpHeaders({});
+        const hasToken = this.auth.getToken();
+
+        if (hasToken) {
+            headers = new HttpHeaders({
+                'Authorization': `JWT ${this.auth.getToken()}`,
+                'Cache-Control': 'must-revalidate'
             });
+        } else {
+            console.log('There is no token');
+            // this.dialogBoxService.passwordNotCorrect();
         }
 
-        return next.handle(request);
+        const cloneReq = request.clone({ headers });
+
+        return next.handle(cloneReq);
     }
 }
-*/
+
+// export class TokenInterceptorService implements HttpInterceptor {
+
+//     constructor(private auth: AuthService, private dialogBoxService: DialogBoxService) { }
+
+//     // Here we intercept ANY HTTP request, and we return an observable that I think the next handler can intercept if neccesary
+//     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+//     // Here we get the token in browser storage, and in the next line check if there is a token or not.
+//       const hasToken = this.auth.getToken();
+//       if (hasToken) {
+//     // Initial request in imutable, so we have to clone it first
+//         request = request.clone({
+//     // Now we are setting the actual header
+//           setHeaders: {
+//             Authorization: `JWT ${this.auth.getToken()}`
+//           }
+//         });
+//       } else {
+//           console.log('There is no token');
+//           // this.dialogBoxService.passwordNotCorrect();
+//       }
+//     // We now return the request, and if there is another interceptor it will pick it up, or it will be send through
+//       return next.handle(request);
+//     }
+// }

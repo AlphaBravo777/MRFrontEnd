@@ -21,7 +21,7 @@ export class ReportEntryDataComponent implements OnInit {
             tap(data => this.newMessagePackage.showTextBox = data),
             concatMap(() => this.reportEntryService.currentTextboxPlaceHolder$),
             tap(data => this.newMessagePackage.placeHolderMessage = data),
-            tap(() => console.log('The newMessagePackage = ', this.newMessagePackage))
+            // tap(() => console.log('The newMessagePackage = ', this.newMessagePackage))
         ).subscribe();
     }
 

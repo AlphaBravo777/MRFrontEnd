@@ -11,7 +11,7 @@ import { IReadReportLevels } from '../../report-read/report-read-services/read-r
 })
 export class ReportEntryFormComponent implements OnInit, OnDestroy {
 
-    @Input() messageLevel;
+    @Input() messageLevel: IReadReportLevels;
     @Input() textboxPlaceHolder: string;
     dailyReportEntryForm: FormGroup;
     subscription: Subscription;
@@ -31,7 +31,7 @@ export class ReportEntryFormComponent implements OnInit, OnDestroy {
     }
 
     submitEntry() {
-        const newReport = { message: this.dailyReportEntryForm.controls.message.value, messageLevel: this.messageLevel.name };
+        const newReport = { message: this.dailyReportEntryForm.controls.message.value, messageLevel: this.messageLevel.levelName };
         console.log('The form submit entry function is running now');
         this.subscription = this.reportEntryService.enterNewReport(newReport).subscribe();
         this.createForm();

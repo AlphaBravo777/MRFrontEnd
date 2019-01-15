@@ -22,12 +22,15 @@ export class ReportReadService {
     }
 
     getReportMessages(): Observable<any> {
+        console.log('Alfa');
         return this.datePickerApi2Service.getWholeDayTimeStampID().pipe(  // This does not seem to be running twice
+            tap(data => console.log('Bravo', data)),
             switchMap((data) => this.reportReadApiService.getDailyReportMessages(data)),
             map(data => data),
             tap(data => this.toolbox.sorting(data, 'rowid')),
             tap(data => data.reverse()),
             tap(data => this.groupAllRepliesToMessages(data)),
+
         );
     }
 
@@ -60,7 +63,7 @@ export class ReportReadService {
 
     filterOutAllReplies(allMessages: IReadReport[]): IReadReport[] {
         const replies: IReadReport[] = allMessages.filter(item => item.reply !== null);
-        console.log('Here are all the replies = ', replies);
+        // console.log('Here are all the replies = ', replies);
         return replies;
     }
 
@@ -84,7 +87,7 @@ export class ReportReadService {
                 }
             });
         }));
-        console.log('Here are the new messages now', allMessages);
+        // console.log('Here are the new messages now', allMessages);
         return allMessages;
     }
 

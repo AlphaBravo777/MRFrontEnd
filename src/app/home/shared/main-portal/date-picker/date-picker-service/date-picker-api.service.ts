@@ -108,4 +108,39 @@ export class DatePickerApiService {
         return this.http.get<any>(stockTimeUrl);
     }
 
+    getShifts(): Observable<any[]> {
+        return this.apollo
+            .watchQuery({
+                // variables: { name: formName },
+                query: gql`
+                query Shifts {
+                    nodeShifts{
+                      edges{
+                        node{
+                          id
+                          shiftName
+                          rowid
+                        }
+                      }
+                    }
+                  }
+                `,
+            })
+            .valueChanges.pipe(
+                map(result => this.consolidateProductGroupNames(result.data['nodeShifts'].edges))
+                );
+    }
+    private consolidateProductGroupNames(data) {
+        const flattendData = [];
+        for (let array = 0; array < data.length; ++array) {
+            const singleData = {shiftName: null, id: null, rowid: null};
+            singleData.shiftName = data[array].node.shiftName;
+            singleData.id = data[array].node.id;
+            singleData.rowid = data[array].node.rowid;
+            flattendData.push(singleData);
+        }
+        return flattendData;
+    }
+
+
 }
