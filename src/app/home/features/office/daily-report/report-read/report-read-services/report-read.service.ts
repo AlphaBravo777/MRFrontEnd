@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ReportReadApiService } from './report-read-api.service';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-import { switchMap, tap, map, take, concatMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap, tap, map, concatMap } from 'rxjs/operators';
 import { DatePickerApi2Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker-api2.service';
 import { IReadReportPackage, IReadReport } from './read-report-interface';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
+import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,22 +18,45 @@ export class ReportReadService {
 
     constructor(private reportReadApiService: ReportReadApiService,
         private datePickerApi2Service: DatePickerApi2Service,
-        private toolbox: ToolboxGroupService) {
+        private toolbox: ToolboxGroupService,
+        private getDateService: GetDate$Service) {
         // this.getReportMessages();
     }
 
     getReportMessages(): Observable<any> {
         console.log('Alfa');
-        return this.datePickerApi2Service.getWholeDayTimeStampID().pipe(  // This does not seem to be running twice
+        return this.getDateService.currentDatePackage$.pipe(
+            map(data => {
+                if (data.id === null) {
+                    console.log('The data is null and I am running again');
+                    switchMap(() => this.getReportMessages());
+                }
+                // data.shift = 'Day';
+                // data.time = 'Day';
+                console.log('working date = ', data);
+                return data;
+            }),
             tap(data => console.log('Bravo', data)),
             switchMap((data) => this.reportReadApiService.getDailyReportMessages(data)),
             map(data => data),
             tap(data => this.toolbox.sorting(data, 'rowid')),
             tap(data => data.reverse()),
             tap(data => this.groupAllRepliesToMessages(data)),
-
         );
     }
+
+    // getReportMessages(): Observable<any> {
+    //     console.log('Alfa');
+    //     return this.datePickerApi2Service.getWholeDayTimeStampID().pipe(  // This does not seem to be running twice
+    //         tap(data => console.log('Bravo', data)),
+    //         switchMap((data) => this.reportReadApiService.getDailyReportMessages(data)),
+    //         map(data => data),
+    //         tap(data => this.toolbox.sorting(data, 'rowid')),
+    //         tap(data => data.reverse()),
+    //         tap(data => this.groupAllRepliesToMessages(data)),
+
+    //     );
+    // }
 
     getReportDataPackage(): Observable<IReadReportPackage> {
         const reportDataPackage: IReadReportPackage = {};

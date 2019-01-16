@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UrlsService } from '../../../../core/urls.service';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, retryWhen } from 'rxjs/operators';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { GetDate$Service } from './get-date$.service';
 import { IDate } from './date-interface';
@@ -27,13 +27,20 @@ export class DatePickerApi2Service {
     getWholeDayTimeStampID(): Observable<any> {
         let date: IDate;
         return this.getDateService.currentDatePackage$.pipe(
-            tap(data => console.log('Zulu1 - The currentDataPackage = ', data)),
+            // tap(data => console.log('Zulu1 - The currentDataPackage = ', data)),
+            map(data => {
+                if (data.id === null) {
+                    console.log('The data is null and I am running again');
+                    switchMap(() => this.getWholeDayTimeStampID());
+                }
+                return data;
+            }),
             tap(data => date = data),
-            switchMap (data => this.getOrCreateWholeDayTimeStampID(data)),
-            tap(data2 => console.log('Zulu2 - Newly gotten or created timestamp id = ', data2, date)),
+            switchMap(data => this.getOrCreateWholeDayTimeStampID(data)),
+            // tap(data2 => console.log('Zulu2 - Newly gotten or created timestamp id = ', data2, date)),
             tap(data => data['weekDayID'] = date.weekDayID),
             switchMap(data2 => this.getWholeDayGraphQLTimeStampID(data2)),
-            tap(data2 => console.log('Zulu3 - getWholeDayTimeStampID = ', data2))
+            // tap(data2 => console.log('Zulu3 - getWholeDayTimeStampID = ', data2))
         );
     }
 

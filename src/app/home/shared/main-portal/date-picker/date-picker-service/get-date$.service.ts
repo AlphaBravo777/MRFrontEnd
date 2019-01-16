@@ -12,9 +12,7 @@ export class GetDate$Service {
     private datePackage = new BehaviorSubject<IDate>({id: null});
     currentDatePackage$ = this.datePackage.asObservable();
 
-    constructor(private datePickerService: DatePickerService) {
-        // this.inputLongDate(new Date());
-    }
+    constructor(private datePickerService: DatePickerService) {}
 
     inputLongDate(longDate: Date): Observable<any> {
         return this.datePickerService.inputLongDate(longDate).pipe(
@@ -23,18 +21,10 @@ export class GetDate$Service {
             );
     }
 
-    // inputLongDate(longDate: Date) {
-    //     this.datePickerService.inputLongDate(longDate).pipe(
-    //         take(1),
-    //         tap(data => this.datePackage.next(data))
-    //         ).subscribe();
-    // }
-
     inputBlockDate(datePackage) {
         this.datePickerService.inputBlockDate(datePackage).pipe(
             take(1),
             tap(data => this.datePackage.next(data))
             ).subscribe();
     }
-
 }

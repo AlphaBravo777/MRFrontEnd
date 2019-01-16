@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IDate } from './date-interface';
-import { Observable } from 'rxjs';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { Observable, iif, of } from 'rxjs';
+import { map, tap, switchMap, concatMap, take } from 'rxjs/operators';
 import { DatePickerApiService } from './date-picker-api.service';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { DatePickerApiService } from './date-picker-api.service';
 
 export class DatePickerService {
 
-    datePackage: IDate = {id: null};
+    datePackage: IDate = { id: null };
 
     constructor(private datePickerApiService: DatePickerApiService) { }
 
@@ -21,7 +21,7 @@ export class DatePickerService {
         this.getTime();
         return this.getOrCreateTimeStampData().pipe(
             // tap(data => console.log('Bravo value ', data)),
-            map(val => val)
+            // map(val => val)
         );
 
     }
@@ -34,8 +34,8 @@ export class DatePickerService {
         this.datePackage.longDate = this.weekToDate(this.datePackage);
         this.getShortDate(this.datePackage.longDate);
         return this.getOrCreateTimeStampData().pipe(
-            tap(data => console.log('Bravo value ', data)),
-            map(val => val)
+            // tap(data => console.log('Bravo value ', data)),
+            // map(val => val)
         );
     }
 
@@ -170,41 +170,29 @@ export class DatePickerService {
         this.datePackage.shift = 'Day';
     }
 
-    addIDsToDatePackage(data): IDate {
-        this.datePackage.nodeID = data.nodeID;
-        this.datePackage.id = data.id;
-        return this.datePackage;
-    }
-
-    // getDatesOneAfterTheOther(datePack): Observable<any> {
-    //     const source1 = this.singleApiService.getOrCreateTimeStampID(datePack);
-    //     const source2 = this.singleApiService.getGraphQLdata(datePack);
-    //     const getWeekDayID$ = this.singleApiService.getweekDayID(datePack);
-    //     return source1.pipe(
-    //         map(data => {console.log('Here is the data of source1', data); }),  // We just run this, but don't need the data
-    //         switchMap(() => source2));  // This will be the data that we return
-    // }
-
-    // returnDatePackageWithTimeIDs(datePack): Observable<IDate> {
-    //     return this.getDatesOneAfterTheOther(datePack).pipe(
-    //         map(val => this.addIDsToDatePackage(val)));
-    // }
-
     getOrCreateTimeStampData(): Observable<any> {
-        const getWeekDayID$ = this.datePickerApiService.getweekDayID(this.datePackage.weekDay);
-        const source1 = this.datePickerApiService.getStockTakingTimes(this.datePackage.time);
-        return source1.pipe(
+        console.log(' ##################### getOrCreateTimeStampData is running ##############');
+        const getWeekDayData$ = this.datePickerApiService.getWeekDayData(this.datePackage.weekDay);
+        const getTimeData$ = this.datePickerApiService.getTimeData(this.datePackage.time);
+        return getTimeData$.pipe(
+            take(1),
             map(data => {
-                        this.datePackage.timeID = data.id;
-                        this.datePackage.timeHalfStock = data.selectiveDelete;
-                        }),
-            switchMap(() => getWeekDayID$),
-            map(data => this.datePackage.weekDayID = data.id),
-            switchMap(() => this.datePickerApiService.getOrCreateTimeStampID(this.datePackage)),
-            map(() => {
-                return this.datePackage;
+                this.datePackage.timeID = data.id;
+                this.datePackage.timeHalfStock = data.selectiveDelete;
             }),
+            concatMap(() => getWeekDayData$),
+            map(data => this.datePackage.weekDayID = data.id),
+            map(() => this.datePackage),
             switchMap((data) => this.datePickerApiService.getTimeStampIDs(data)),
+            switchMap(data => {
+                if (data.nodeID === undefined) {
+                    this.datePickerApiService.createTimeStampID(this.datePackage).subscribe();
+                    this.getOrCreateTimeStampData().subscribe();
+                    return;
+                }
+                return of(data);
+            }),
+            tap((data) => console.log('There is a timestampID and it is', data)),
             map(data => {
                 this.datePackage.id = data.id;
                 this.datePackage.nodeID = data.nodeID;
@@ -213,4 +201,5 @@ export class DatePickerService {
         );
     }
 }
+// If there is not a timeStampID then: {nodeID: undefined, id: undefined}
 

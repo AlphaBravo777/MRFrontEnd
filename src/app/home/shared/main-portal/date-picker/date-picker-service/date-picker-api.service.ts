@@ -16,9 +16,10 @@ export class DatePickerApiService {
 
     private productsUrl = this.urlService.rootUrl + 'api/products/';
 
-    getOrCreateTimeStampID(timePackage) {
-        const url = this.urlService.rootUrl + 'core/getTimeStampID/';
-        return this.http.get<number>(url, { params: timePackage });
+    createTimeStampID(timePackage): Observable<any> {
+        console.log('--------- createTimeStampID = ', timePackage);
+        const url = this.urlService.rootUrl + 'core/createTimeStampID/';
+        return this.http.post<any>(url, timePackage);
     }
 
     getTimeStampIDs(data: IDate): Observable<any> {
@@ -39,10 +40,10 @@ export class DatePickerApiService {
             `,
             })
             // .valueChanges.pipe(map(result => this.refineData(result)));
-            .valueChanges.pipe(map(result => this.refineTimeStampIDs(result.data['nodeTimestamp'].edges[0], data)));
+            .valueChanges.pipe(map(result => this.refineTimeStampIDs(result.data['nodeTimestamp'].edges[0])));
     }
 
-    refineTimeStampIDs(data, data2): IDate {
+    refineTimeStampIDs(data): IDate {
         if (data === undefined) {
             console.log('Data is undefined');
             const timeIDs: IDate = { nodeID: undefined, id: undefined };
@@ -53,7 +54,7 @@ export class DatePickerApiService {
         }
     }
 
-    getStockTakingTimes(time): Observable<any> {
+    getTimeData(time): Observable<any> {
         return this.apollo
             .watchQuery({
                 variables: {time: time},
@@ -75,11 +76,12 @@ export class DatePickerApiService {
             .valueChanges.pipe(map(result => this.refineStockTakingTimesData(result.data['nodeStocktakingtimes'].edges[0].node)));
     }
 
-    refineStockTakingTimesData(data) {
+    private refineStockTakingTimesData(data) {
+        // console.log('Stocktaking times 2 =', data);
         return data;
     }
 
-    getweekDayID(weekday): Observable<any> {
+    getWeekDayData(weekday): Observable<any> {
         return this.apollo
             .watchQuery({
                 variables: {weekday: weekday},

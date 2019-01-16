@@ -20,7 +20,7 @@ export class DatePickerComponent implements OnInit, OnDestroy {
     showDateForm;
 
     constructor(private fb: FormBuilder, private getDate$Service: GetDate$Service) {
-        this.getDate$Service.inputLongDate(new Date());
+        // this.getDate$Service.inputLongDate(new Date());
     }
 
     ngOnInit() {
@@ -58,7 +58,7 @@ export class DatePickerComponent implements OnInit, OnDestroy {
     getLongDate(date: Date) {
         date = new Date(date.valueOf() + (120 * 60000));
         this.dateForm.value.longDate = date;
-        this.getDate$Service.inputLongDate(this.dateForm.value.longDate);
+        this.getDate$Service.inputLongDate(this.dateForm.value.longDate).subscribe();
     }
 
     getBlockDate(date: IDate) {
