@@ -26,6 +26,7 @@ export class ReportReadApiService {
     }
 
     getDailyReportMessages(timeStampIDs): Observable<IReadReport[]> {
+        console.log('Alpha = I am running daily report here');
         return this.apollo
             .watchQuery({
                 variables: { timeStampID: timeStampIDs.nodeID },
@@ -47,6 +48,8 @@ export class ReportReadApiService {
                             }
                             messageLevel{
                               levelColor
+                              levelName
+                              levelRank
                             }
                           }
                         }
@@ -60,7 +63,6 @@ export class ReportReadApiService {
     }
 
     private consolidateDailyReportMessages(data): IReadReport[] {
-        // console.log('consolidateDailyReportMessages = ', data.length, data);
         const flattendData: IReadReport[] = [];
 
         for (let array = 0; array < data.length; ++array) {
@@ -73,13 +75,17 @@ export class ReportReadApiService {
             } else {
                 singleData.reply = data[array].node.reply.rowid;
             }
-            singleData.color = data[array].node.messageLevel.levelColor;
+            singleData.messageFlag = {
+                levelName: data[array].node.messageLevel.levelName,
+                levelColor: data[array].node.messageLevel.levelColor,
+                levelRank: data[array].node.messageLevel.levelRank
+            };
             singleData.userID = data[array].node.user.id;
             singleData.userid = data[array].node.user.rowid;
             singleData.userName = data[array].node.user.firstName;
             flattendData.push(singleData);
         }
-        // console.log('consolidateDailyReportMessages = ', flattendData);
+        // console.log('Bravo consolidateDailyReportMessages = ', flattendData);
         return this.toolBox.sorting(flattendData, 'rowid');
     }
 

@@ -17,7 +17,7 @@ export class DateFormComponent implements OnInit {
     @Output() dateChange: EventEmitter<any> = new EventEmitter<any>();
     dateForm: FormGroup;
     stockTimes: string;
-    shifts;
+    shifts: string[];
     subscription: Subscription;
 
     ngOnInit() {
@@ -28,7 +28,6 @@ export class DateFormComponent implements OnInit {
         this.datePickerApiService.getShifts().subscribe(dates => {
             this.shifts = dates;
         });
-
     }
 
     populateDate() {
@@ -45,3 +44,4 @@ export class DateFormComponent implements OnInit {
     }
 
 }
+

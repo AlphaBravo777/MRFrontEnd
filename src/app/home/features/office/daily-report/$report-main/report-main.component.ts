@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ReportEntryService } from '../report-entry/report-entry-services/report-entry.service';
 
 @Component({
     selector: 'app-report-main',
@@ -7,15 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportMainComponent implements OnInit {
 
-    showEntryBox = false;
+    // showEntryBox = false;
 
-    constructor() { }
+    constructor(private reportEntryService: ReportEntryService) { }
 
     ngOnInit() {
+        console.log('Fox is running -------------------- Setting message to default');
+        this.reportEntryService.setMessageToDefault();
     }
 
-    showEntry() {
-        this.showEntryBox = !this.showEntryBox;
-    }
+    // showEntry() {
+    //     // this.showEntryBox = !this.showEntryBox;
+    // }
 
 }

@@ -12,31 +12,20 @@ import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/dat
 })
 export class ReportReadService {
 
-    // private dailyReports = new BehaviorSubject<any[]>([]);
-    // currentDayReports$ = this.dailyReports.asObservable();
-    // subscription: Subscription;
-
     constructor(private reportReadApiService: ReportReadApiService,
         private datePickerApi2Service: DatePickerApi2Service,
         private toolbox: ToolboxGroupService,
         private getDateService: GetDate$Service) {
-        // this.getReportMessages();
     }
 
     getReportMessages(): Observable<any> {
-        console.log('Alfa');
         return this.getDateService.currentDatePackage$.pipe(
             map(data => {
                 if (data.id === null) {
-                    console.log('The data is null and I am running again');
                     switchMap(() => this.getReportMessages());
                 }
-                // data.shift = 'Day';
-                // data.time = 'Day';
-                console.log('working date = ', data);
                 return data;
             }),
-            tap(data => console.log('Bravo', data)),
             switchMap((data) => this.reportReadApiService.getDailyReportMessages(data)),
             map(data => data),
             tap(data => this.toolbox.sorting(data, 'rowid')),
@@ -44,19 +33,6 @@ export class ReportReadService {
             tap(data => this.groupAllRepliesToMessages(data)),
         );
     }
-
-    // getReportMessages(): Observable<any> {
-    //     console.log('Alfa');
-    //     return this.datePickerApi2Service.getWholeDayTimeStampID().pipe(  // This does not seem to be running twice
-    //         tap(data => console.log('Bravo', data)),
-    //         switchMap((data) => this.reportReadApiService.getDailyReportMessages(data)),
-    //         map(data => data),
-    //         tap(data => this.toolbox.sorting(data, 'rowid')),
-    //         tap(data => data.reverse()),
-    //         tap(data => this.groupAllRepliesToMessages(data)),
-
-    //     );
-    // }
 
     getReportDataPackage(): Observable<IReadReportPackage> {
         const reportDataPackage: IReadReportPackage = {};

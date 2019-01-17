@@ -15,14 +15,32 @@ export class ReportEntryDataComponent implements OnInit {
     newMessagePackage: INewMessagePackage = {};
 
     ngOnInit() {
-        this.reportEntryService.getMessageLevels().pipe(
+        this.getMessageData();
+    }
+
+    getMessageData() {
+        this.reportEntryService.currentMessagePackage$.pipe(
+            tap(data => this.newMessagePackage = data),
+            concatMap(() => this.reportEntryService.getMessageLevels()),
             tap(data => this.newMessagePackage.messageFlags = data),
-            concatMap(() => this.reportEntryService.currentShowTextBoxState$),
-            tap(data => this.newMessagePackage.showTextBox = data),
-            concatMap(() => this.reportEntryService.currentTextboxPlaceHolder$),
-            tap(data => this.newMessagePackage.placeHolderMessage = data),
             // tap(() => console.log('The newMessagePackage = ', this.newMessagePackage))
         ).subscribe();
     }
 
+    // getMessageData2() {
+    //     this.reportEntryService.getMessageLevels().pipe(
+    //         tap(data => this.newMessagePackage.messageFlags = data),
+    //         // concatMap(() => this.reportEntryService.currentShowTextBoxState$),
+    //         // tap(data => this.newMessagePackage.showTextBox = data),
+    //         // concatMap(() => this.reportEntryService.currentTextboxPlaceHolder$),
+    //         // tap(data => this.newMessagePackage.placeHolderMessage = data),
+    //         // concatMap(() => this.reportEntryService.currentMessageValue$),
+    //         // tap(data => this.newMessagePackage.message = data),
+    //         concatMap(() => this.reportEntryService.currentMessagePackage$),
+    //         tap(data => this.newMessagePackage.message = data.message),
+    //         tap(data => this.newMessagePackage.showTextBox = data.showTextBox),
+    //         tap(data => this.newMessagePackage.placeHolderMessage = data.placeHolderMessage),
+    //         tap(() => console.log('The newMessagePackage = ', this.newMessagePackage))
+    //     ).subscribe();
+    // }
 }

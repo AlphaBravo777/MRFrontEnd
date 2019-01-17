@@ -5,7 +5,7 @@ export class IReadReport {
     userID: string;
     userid: number;
     userName: string;
-    color: string;
+    messageFlag: IReadReportLevels;
     reply: number;
     replies?: IReadReport[];
 }
@@ -32,6 +32,11 @@ export class INewMessagePackage {
     showTextBox?: boolean;
     placeHolderMessage?: string;
     messageFlags?: IReadReportLevels[];
+    message?: string;
+    messageid?: number;
+    messageType?: 'New' | 'Edit';
+    currentFlag?: IReadReportLevels;
+    // replyToMessageid?: number;
 
     constructor(showTextBox: boolean, placeHolderMessage: string, messageFlags: IReadReportLevels[]) {
         this.showTextBox = showTextBox;

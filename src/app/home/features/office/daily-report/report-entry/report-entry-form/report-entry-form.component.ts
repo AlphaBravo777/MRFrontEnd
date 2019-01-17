@@ -1,18 +1,19 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReportEntryService } from '../report-entry-services/report-entry.service';
 import { Subscription } from 'rxjs';
-import { IReadReportLevels } from '../../report-read/report-read-services/read-report-interface';
+import { IReadReportLevels, INewMessagePackage } from '../../report-read/report-read-services/read-report-interface';
+import { IInsertNewReportApiInterface } from '../report-entry-services/report-entry-interface';
 
 @Component({
     selector: 'app-report-entry-form',
     templateUrl: './report-entry-form.component.html',
     styleUrls: ['./report-entry-form.component.scss']
 })
-export class ReportEntryFormComponent implements OnInit, OnDestroy {
+export class ReportEntryFormComponent implements OnInit, OnDestroy, OnChanges {
 
-    @Input() messageLevel: IReadReportLevels;
-    @Input() textboxPlaceHolder: string;
+    @Input() newMessagePackage: INewMessagePackage;
+    @Input() currentMessageLevel: IReadReportLevels;
     dailyReportEntryForm: FormGroup;
     subscription: Subscription;
 
@@ -26,15 +27,30 @@ export class ReportEntryFormComponent implements OnInit, OnDestroy {
 
     createForm() {
         this.dailyReportEntryForm = this.fb.group({
-            message: ['', Validators.required],
+            message: [this.newMessagePackage.message, Validators.required],
+            messageLevel: [this.newMessagePackage.currentFlag],
+            messageid: [this.newMessagePackage.messageid],
         });
     }
 
-    submitEntry() {
-        const newReport = { message: this.dailyReportEntryForm.controls.message.value, messageLevel: this.messageLevel.levelName };
-        console.log('The form submit entry function is running now');
-        this.subscription = this.reportEntryService.enterNewReport(newReport).subscribe();
-        this.createForm();
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log('Delta - I am running with changes', changes);
+        if (this.dailyReportEntryForm) {
+            console.log('Delta - I am running with changes', changes);
+            this.dailyReportEntryForm.get('messageLevel').setValue(changes.currentMessageLevel.currentValue);
+        }
+    }
+
+    submitOrEditEntry(messageType) {
+        if (messageType === 'New') {
+            console.log('Here is the new message form: ', this.dailyReportEntryForm.value);
+            this.reportEntryService.enterNewReport(this.dailyReportEntryForm.value);
+            this.createForm();
+        }
+        if (messageType === 'Edit') {
+            console.log('The message will now be edited', this.dailyReportEntryForm.value);
+            this.reportEntryService.updateReport(this.dailyReportEntryForm.value).subscribe();
+        }
     }
 
     ngOnDestroy(): void {

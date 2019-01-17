@@ -20,8 +20,6 @@ export class DatePickerService {
         this.getShift();
         this.getTime();
         return this.getOrCreateTimeStampData().pipe(
-            // tap(data => console.log('Bravo value ', data)),
-            // map(val => val)
         );
 
     }
@@ -34,8 +32,6 @@ export class DatePickerService {
         this.datePackage.longDate = this.weekToDate(this.datePackage);
         this.getShortDate(this.datePackage.longDate);
         return this.getOrCreateTimeStampData().pipe(
-            // tap(data => console.log('Bravo value ', data)),
-            // map(val => val)
         );
     }
 

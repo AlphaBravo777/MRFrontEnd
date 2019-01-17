@@ -1,8 +1,17 @@
-<form [formGroup]='dailyReportEntryForm' (ngSubmit)='submitEntry()'>
+<form [formGroup]='dailyReportEntryForm'>
     <div class='textarea'>
-        <app-custom-textarea [inputFormGroup]='dailyReportEntryForm' [controlName]='"message"' ngDefaultControl [caption]='"Message/Boodskap"'
-            [placeHolderText]='textboxPlaceHolder' [colorInput]='messageLevel.levelColor'>
+        <app-custom-textarea [inputFormGroup]='dailyReportEntryForm' 
+            [controlName]='"message"' ngDefaultControl
+            [caption]='"Message/Boodskap"' 
+            [placeHolderText]='newMessagePackage.placeHolderMessage' 
+            [colorInput]='newMessagePackage.currentFlag.levelColor'>
         </app-custom-textarea>
     </div>
-    <button class='meatriteButton niceButton' type="submit" [disabled]='dailyReportEntryForm.invalid'>Submit</button>
-</form>
+    <div *ngIf="newMessagePackage.messageType === 'New'; then newEntry; else editEntry"></div>
+    <ng-template #newEntry>
+        <button class='meatriteButton niceButton' (click)="submitOrEditEntry(newMessagePackage.messageType)" [disabled]='dailyReportEntryForm.invalid'>Submit</button>
+    </ng-template>
+    <ng-template #editEntry>
+        <button class='meatriteButton niceButton' (click)="submitOrEditEntry(newMessagePackage.messageType)" [disabled]='dailyReportEntryForm.invalid'>Edit Report</button>
+    </ng-template>
+</form> 

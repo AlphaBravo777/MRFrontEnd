@@ -11,16 +11,12 @@ export class ReportEntryView1Component implements OnInit {
     constructor() { }
 
     @Input() newMessagePackage: INewMessagePackage;
-    messageNames = [];
-    messageLevel: IReadReportLevels = {levelName: 'standard', levelColor: '#c0c0c0', levelRank: null};
 
     ngOnInit() {
-        this.newMessagePackage.messageFlags.map(data => this.messageNames.push
-            ({name: data.levelName, levelColor: data.levelColor, levelRank: data.levelRank}));
     }
 
-    buttonPicked(button) {
-        this.messageLevel = {levelName: button.name, levelColor: button.levelColor, levelRank: button.levelRank};
+    buttonPicked(button: IReadReportLevels) {
+        this.newMessagePackage.currentFlag = button;
     }
 
     showEntry() {

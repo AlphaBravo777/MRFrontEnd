@@ -20,13 +20,14 @@ export class ReportReadMessageComponent implements OnInit {
 
     styleObjectRanking(): Object {
         return {
-            'background': this.message.color === '#000000' ? '#dbbda0' : this.message.color
+            'background': this.message.messageFlag.levelColor === '#000000' ? '#dbbda0' : this.message.messageFlag.levelColor
         };
     }
 
     styleObjectMessageContainer(): Object {
         return {
-            'border': this.message.color === '#000000' ? '3px solid #dbbda0' : '3px solid' + this.message.color,
+            'border': this.message.messageFlag.levelColor === '#000000' ?
+             '3px solid #dbbda0' : '3px solid' + this.message.messageFlag.levelColor,
         };
     }
 
@@ -39,9 +40,12 @@ export class ReportReadMessageComponent implements OnInit {
         // But first we want to set "showTextbox to false"
         // and reset the placeHolderMessage
         console.log('You are about to reply to a message', this.message);
-        this.reportEntryService.setCurrentReplyToMessage(this.message);
-        this.reportEntryService.setCurrentShowTextboxState(true);
-        this.reportEntryService.setCurrentTextboxPlaceHolder('Reply to message: ' + this.message.message);
+        // this.reportEntryService.setCurrentReplyToMessage(this.message);
+        // this.reportEntryService.setCurrentShowTextboxState(true);
+        // this.reportEntryService.setCurrentTextboxPlaceHolder('Reply to message: ' + this.message.message);
+        this.reportEntryService.setCurrentMessageDetails({
+            showTextBox: true, messageid: this.message.rowid, placeHolderMessage: 'Reply to message: ' + this.message.message
+        });
         console.log('router URL:', this.router.url);
         this.router.navigate(['/main/admin-office/daily-report/report-entry']);
     }

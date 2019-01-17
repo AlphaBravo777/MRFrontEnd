@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { map } from 'rxjs/operators';
 import { IReadReportLevels } from '../../report-read/report-read-services/read-report-interface';
+import { IInsertNewReportApiInterface } from './report-entry-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -13,10 +14,16 @@ export class ReportEntryApiService {
 
     constructor(private urlService: UrlsService, private http: HttpClient, private apollo: Apollo) { }
 
-    private stockUrl = this.urlService.rootUrl + 'office/';
+    private url = this.urlService.rootUrl + 'office/';
 
-    enterNewReport(newReport) {
-        return this.http.post<any>(this.stockUrl + 'report/enterNew/', newReport);
+    enterNewReport(newReport: IInsertNewReportApiInterface) {
+        const updateUrl = this.url + 'report/enterNew/';
+        return this.http.post<any>(updateUrl, newReport);
+    }
+
+    updateReport(updateReport: IInsertNewReportApiInterface) {
+        const updateUrl = this.url + 'report/update/' + updateReport.messageid;
+        return this.http.put<any>(updateUrl, updateReport);
     }
 
     getMessageLevels(): Observable<IReadReportLevels[]> {

@@ -1,1 +1,24 @@
-TODO:
+Todo shortcuts:
+    ☐ Put a ":" at the end of a heading to make it a heading
+    ☐ To enter a new point under a heading, use shortcut "ctrl + enter"
+    ☐ To enter a time that that you think it is going to take, add '@1h' at the end
+    ☐ You can press the @ key to make something critical, high, low or today
+    ☐ To mark something as finished, you can
+    ☐ 'Cmd/Ctrl+Enter' // Triggers `Todo: Toggle Box`
+    ☐ 'Alt+D' // Triggers `Todo: Toggle Done`
+    ☐ 'Alt+C' // Triggers `Todo: Toggle Cancelled`
+    ☐ 'Alt+S' // Triggers `Todo: Toggle Start`
+    ☐ 'Cmd/Ctrl+Shift+A' // Triggers  `Todo: Archive`  This will archive finished todos
+    ☐ Ctrl+shift+P and type todo and then "open embedded todos" too see what todos you have in your work
+
+Daily report module:
+    ✔ Make more settings where if you want to post a new message, then post message button is active, and it posts a new message, @done(19-01-16 12:51)
+        ✔ Else if you want to edit then have it show an edit button, and this will update the message @done(19-01-16 12:51)
+    ✔ @high  Make report message reload after a post @1h @done(19-01-16 17:28)
+    ✔ Allow user to edit message @2h @started(19-01-16 08:34) @done(19-01-16 17:28) @lasted(8h54m55s)
+    ☐ Add time that message was posted to header element
+    ✔ Edit message does not keep the messageLevel that it had before editing @30m @started(19-01-17 07:31) @done(19-01-17 12:51) @lasted(5h20m13s)
+    ✔ When you edit, but decide to go back to menu, then all settings must reset, so reset settings must run every time you enter report @30m @done(19-01-17 15:13)
+    ✔ Create an interface that the edit report data has to comply with when sending to Backend @30m @done(19-01-17 14:50)
+
+HPP stock take:

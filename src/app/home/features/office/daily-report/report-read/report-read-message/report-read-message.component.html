@@ -23,8 +23,8 @@
             </span>
             <img src="assets/images/reply.png" (click)='replyToReport(message.rowid)'>
             <img src="assets/images/save.png" (click)='deleteReport(message.rowid)'>
-            <span class='icons' *ngIf='message.color === "#997049"'>
-                <img src="assets/images/repair.png" (click)='deleteReport(message.rowid)'>
+            <span class='icons' *ngIf='message.messageFlag.levelColor === "#997049"'>
+                <img src="assets/images/repair.png" (click)='deleteReport(message.rowid)'> 
             </span>
         </div>
     </div>

@@ -16,8 +16,8 @@ export class DatePickerApiService {
 
     private productsUrl = this.urlService.rootUrl + 'api/products/';
 
-    createTimeStampID(timePackage): Observable<any> {
-        console.log('--------- createTimeStampID = ', timePackage);
+    createTimeStampID(timePackage: IDate): Observable<any> {
+        // console.log('--------- createTimeStampID = ', timePackage);
         const url = this.urlService.rootUrl + 'core/createTimeStampID/';
         return this.http.post<any>(url, timePackage);
     }
