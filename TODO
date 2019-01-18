@@ -1,24 +1,60 @@
 Todo shortcuts:
-    ☐ Put a ":" at the end of a heading to make it a heading
-    ☐ To enter a new point under a heading, use shortcut "ctrl + enter"
-    ☐ To enter a time that that you think it is going to take, add '@1h' at the end
-    ☐ You can press the @ key to make something critical, high, low or today
-    ☐ To mark something as finished, you can
-    ☐ 'Cmd/Ctrl+Enter' // Triggers `Todo: Toggle Box`
-    ☐ 'Alt+D' // Triggers `Todo: Toggle Done`
-    ☐ 'Alt+C' // Triggers `Todo: Toggle Cancelled`
-    ☐ 'Alt+S' // Triggers `Todo: Toggle Start`
-    ☐ 'Cmd/Ctrl+Shift+A' // Triggers  `Todo: Archive`  This will archive finished todos
-    ☐ Ctrl+shift+P and type todo and then "open embedded todos" too see what todos you have in your work
+    // Put a ":" at the end of a heading to make it a heading
+    // To enter a new point under a heading, use shortcut "ctrl + enter"
+    // To enter a time that that you think it is going to take, add '@1h' at the end
+    // You can press the @ key to make something critical, high, low or today
+    // To mark something as finished, you can
+    // 'Cmd/Ctrl+Enter' // Triggers `Todo: Toggle Box`
+    // 'Alt+D' // Triggers `Todo: Toggle Done`
+    // 'Alt+C' // Triggers `Todo: Toggle Cancelled`
+    // 'Alt+S' // Triggers `Todo: Toggle Start`
+    // 'Cmd/Ctrl+Shift+A' // Triggers  `Todo: Archive`  This will archive finished todos
+    // Ctrl+shift+P and type todo and then "open embedded todos" too see what todos you have in your work
 
 Daily report module:
     ✔ Make more settings where if you want to post a new message, then post message button is active, and it posts a new message, @done(19-01-16 12:51)
         ✔ Else if you want to edit then have it show an edit button, and this will update the message @done(19-01-16 12:51)
     ✔ @high  Make report message reload after a post @1h @done(19-01-16 17:28)
     ✔ Allow user to edit message @2h @started(19-01-16 08:34) @done(19-01-16 17:28) @lasted(8h54m55s)
+    ☐ Re-shuffle the reply data. At the moment the last replies are shown first.
     ☐ Add time that message was posted to header element
+    ✔ @critical All delete and edit options is available for every user!! @done(19-01-18 08:12)
+    ✔ @low Add a version number @30min @done(19-01-18 08:12)
     ✔ Edit message does not keep the messageLevel that it had before editing @30m @started(19-01-17 07:31) @done(19-01-17 12:51) @lasted(5h20m13s)
     ✔ When you edit, but decide to go back to menu, then all settings must reset, so reset settings must run every time you enter report @30m @done(19-01-17 15:13)
     ✔ Create an interface that the edit report data has to comply with when sending to Backend @30m @done(19-01-17 14:50)
 
 HPP stock take:
+    // Everything starts at stocktake at meatrite. (So the stock must be taken)
+    // There should always just be one meatrite stock, you can have stock that says different times, but this will be a copy of the stock that is showing as the latest stock.
+    ☐ Create a stocktake table, that takes one of each stock, and also the different batches.
+        ☐ Fields should include:
+            ☐ Product name
+            ☐ Batch number
+            ☐ Amount available
+            ☐ Day packed
+            ☐ Stock taken by
+            ☐ Is product available to pick. (Maybe it is not cleared yet)
+            ☐ Should it be closed for picking by default (Must first be cleared)
+            ☐ At the products table, maybe make a window that gives a value of how much a product count can be out (differ) before throwing a flag
+            ☐ After product count, make a "reconsiliation" window where you have to square all the differeces
+    // Maybe make it so that it will take a batch code for each stock, and if there are two batch codes that are the same or "null" - 
+    // then it will add them together, and if they are different, it will make a new item. 
+    ☐ Create a "Load truck" module @2d
+        ☐ Make a menu where you can pick your order
+        ☐ Make a place where you can pick your truck number (Maybe more than one truck per route)
+        ☐ When you have picked your route, it will load all the orders that needs to be loaded.
+        ☐ You can then click on that order to load start loading it.
+        ☐ After clicking on the order to load, it shows you what is needed, and next to it what is available
+        ☐ You then have an up down arrow, so that when you press the up arrow at the stock side, it increases the truck stock, and decreases the factory stock.
+        ☐ Arrows should have 1, 5, 10, 50 and "total needed" totals that you can choose from
+        ☐ If there are different batches of a product, then those batches should all appear, but you should only be able to take of the
+            ☐ first one, and when it is at zero, then go on to the next one.
+    ☐ It should have borders around the stock showing if there is too little or too much.
+    ☐ When you click on truck fininshed, it should add the items to the truck, along with its batch codes, and also update the
+    ☐ factory stock. It should then put the stock on pre-hpp (but not checked in - maybe gray), when you unload the truck you will
+    ☐ check what is on the truck with what the stock says, click a checkbox if it is alright, and it will turn green at pre-hpp.
+    ☐ Then a stocktake is made at post-hpp, showing what was left the previous day, and everything at pre-hpp that can be picked from (or
+    ☐ brought over from pre to post hpp might be a better way of saying it.)
+    ☐ Then when the truck is loaded again, give the same truck laoding screen, but when you pick the route, it gets all the stock that
+    ☐ is at hpp, you might have to use a new batch code, as this will be a new truck going from hpp with different products on it.

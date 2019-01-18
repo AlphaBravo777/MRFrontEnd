@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
                     console.log(res);
                     localStorage.setItem('token', res.token);
                     localStorage.setItem('userID', res.user.pk);
+                    console.log(' ************** Here is the user ID: ', res.user.pk);
                     this._router.navigate(['main/admin-office/daily-report/report-read']);
                     // this._router.navigate(['user/user-nav/']);
                 },

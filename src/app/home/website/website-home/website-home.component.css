@@ -15,4 +15,10 @@ img {
     height: auto;
     width: auto\9;
   }
+
+.version {
+    justify-self:center;
+    font-size: 0.8rem;
+    color: #808080;
+}
   

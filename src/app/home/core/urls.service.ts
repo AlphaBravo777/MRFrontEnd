@@ -18,4 +18,6 @@ export class UrlsService {
     rootUrl = this.root + ':8080/';
     graphqlAddress = this.root + ':8080/graphql/';
 
+    currentVersion = 1.15;
+
 }

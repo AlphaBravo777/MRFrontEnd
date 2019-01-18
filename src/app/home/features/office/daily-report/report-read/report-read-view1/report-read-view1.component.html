@@ -9,11 +9,12 @@
             <span #userName class='userName'>{{message.userName}}:</span>
             <span class='userName rowid'>{{message.rowid}}</span>
             <span class='body' [ngStyle]="{'color': message.messageFlag.levelColor}">{{message.message}}</span>
-            <span class='icons' *ngIf='message.userid === messagePackage.userid || 15'>
+            <span class='icons' *ngIf='message.userid === messagePackage.userid || messagePackage.userid === 15'>
                     <img  src="assets/images/delete.png" (click)='deleteReport(message.rowid)'>
                     <img  src="assets/images/edit.png" (click)='editReportID.emit(message)'>
             </span>
         </div>
     </div>
+
 
 </app-box-shadow-container>

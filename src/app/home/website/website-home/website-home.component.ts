@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UrlsService } from '../../core/urls.service';
 
 @Component({
   selector: 'app-website-home',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WebsiteHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private urlService: UrlsService) { }
+
+  versionNumber: number;
 
   ngOnInit() {
+      this.versionNumber = this.urlService.currentVersion;
   }
 
 }
