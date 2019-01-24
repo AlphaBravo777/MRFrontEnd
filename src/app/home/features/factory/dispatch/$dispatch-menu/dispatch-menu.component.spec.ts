@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HppStockTakeDataComponent } from './hpp-stock-take-data.component';
+import { DispatchMenuComponent } from './dispatch-menu.component';
 
-describe('HppStockTakeDataComponent', () => {
-  let component: HppStockTakeDataComponent;
-  let fixture: ComponentFixture<HppStockTakeDataComponent>;
+describe('DispatchMenuComponent', () => {
+  let component: DispatchMenuComponent;
+  let fixture: ComponentFixture<DispatchMenuComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HppStockTakeDataComponent ]
+      declarations: [ DispatchMenuComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HppStockTakeDataComponent);
+    fixture = TestBed.createComponent(DispatchMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

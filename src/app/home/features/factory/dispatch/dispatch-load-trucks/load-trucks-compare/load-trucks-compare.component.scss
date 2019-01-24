@@ -1,0 +1,38 @@
+// .mainGridContainer{
+//     display: grid;
+//     grid-template-columns: repeat(3, 1fr);
+// }
+
+// .mrContainer{
+//     display: grid;
+//     grid-template-columns: repeat(2, 1fr);
+// }
+
+.mainGridContainer{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.colms{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.headings{
+    font-weight: bolder;
+}
+
+.description{
+    display: grid;
+    grid-template-columns: 1fr 50px
+}
+
+.amount {
+    justify-self: end;
+    padding: 0 25px;
+}
+
+.finalAmount {
+    justify-self: start;
+    padding: 0 25px;
+}

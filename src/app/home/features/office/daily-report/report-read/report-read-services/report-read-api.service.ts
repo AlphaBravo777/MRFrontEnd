@@ -26,7 +26,7 @@ export class ReportReadApiService {
     }
 
     getDailyReportMessages(timeStampIDs): Observable<IReadReport[]> {
-        console.log('Alpha = I am running daily report here');
+        // console.log('Alpha = I am running daily report here');
         return this.apollo
             .watchQuery({
                 variables: { timeStampID: timeStampIDs.nodeID },

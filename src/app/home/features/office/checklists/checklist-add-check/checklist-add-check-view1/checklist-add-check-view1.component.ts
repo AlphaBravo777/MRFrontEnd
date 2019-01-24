@@ -10,7 +10,7 @@ import { IChecklistArea, IChecklistPackage, IChecklistLevels } from '../../check
 export class ChecklistAddCheckView1Component implements OnInit {
 
     @Input() checklistLevels: IChecklistLevels[];
-    messageLevel: IChecklistLevels = {name: 'standard', levelColor: '#000', levelRank: 1};
+    messageLevel: IChecklistLevels = {levelName: 'standard', levelColor: '#000', levelRank: 1};
     @Input() areaData: IChecklistArea;
     // @Input() areaData;
 

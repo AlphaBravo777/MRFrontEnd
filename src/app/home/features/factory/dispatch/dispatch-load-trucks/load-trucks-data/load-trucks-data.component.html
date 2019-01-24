@@ -1,0 +1,8 @@
+<app-load-trucks-view1
+    [routes]='routes'
+    [templateData]='templateData' 
+    [clientInfo]='clientInfo' 
+    (getDataForRoute)='getDailyHppStockData($event)'
+    (loadTruck)='loadTruck($event)'
+    (loadClient)=loadClient($event)>
+</app-load-trucks-view1>

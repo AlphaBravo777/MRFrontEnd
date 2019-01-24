@@ -98,4 +98,14 @@ export class ToolboxGroupService {
         }
     }
 
+    removeObjectsWithDuplicatePropertiesInArray(arr, key) {
+        const values = {};
+        return arr.filter(function(item) {
+            const val = item[key];
+            const exists = values[val];
+            values[val] = true;
+            return !exists;
+        });
+    }
+
 }

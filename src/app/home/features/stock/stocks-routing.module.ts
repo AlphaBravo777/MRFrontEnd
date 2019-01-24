@@ -23,11 +23,6 @@ const stockRoutes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'stock-hpp',
-                loadChildren: './hpp/hpp-stock.module#HppStockModule',
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'stocks-processed',
                 component: GetProductsComponent
             },

@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { HighRiskDataService } from './high-risk-data.service';
+import { HighRiskData$Service } from './high-risk-data.service';
 
 describe('HighRiskDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HighRiskDataService]
+      providers: [HighRiskData$Service]
     });
   });
 
-  it('should be created', inject([HighRiskDataService], (service: HighRiskDataService) => {
+  it('should be created', inject([HighRiskData$Service], (service: HighRiskData$Service) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -34,21 +34,17 @@ export class ReportEntryFormComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log('Delta - I am running with changes', changes);
         if (this.dailyReportEntryForm) {
-            console.log('Delta - I am running with changes', changes);
             this.dailyReportEntryForm.get('messageLevel').setValue(changes.currentMessageLevel.currentValue);
         }
     }
 
     submitOrEditEntry(messageType) {
         if (messageType === 'New') {
-            console.log('Here is the new message form: ', this.dailyReportEntryForm.value);
             this.reportEntryService.enterNewReport(this.dailyReportEntryForm.value);
             this.createForm();
         }
         if (messageType === 'Edit') {
-            console.log('The message will now be edited', this.dailyReportEntryForm.value);
             this.reportEntryService.updateReport(this.dailyReportEntryForm.value).subscribe();
         }
     }

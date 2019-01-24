@@ -16,6 +16,7 @@ export class ChecklistAddCheckApiService {
     private stockUrl = this.urlService.rootUrl + 'office/';
 
     enterNewChecklist(newCheck) {
+        console.log('THis is a new checklist', newCheck);
         return this.http.post<any>(this.stockUrl + 'checklists/enterNew/', newCheck);
     }
 
@@ -45,7 +46,7 @@ export class ChecklistAddCheckApiService {
 
         for (let array = 0; array < data.length; ++array) {
             const singleData = <IChecklistLevels>{};
-                singleData.name = data[array].node.levelName;
+                singleData.levelName = data[array].node.levelName;
                 singleData.levelColor = data[array].node.levelColor;
                 singleData.levelRank = data[array].node.levelRank;
                 flattendData.push(singleData);

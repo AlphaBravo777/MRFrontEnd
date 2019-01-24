@@ -1,5 +1,5 @@
 export class IChecklistLevels {
-    name: string;
+    levelName: string;
     levelColor: string;
     levelRank: number;
 }

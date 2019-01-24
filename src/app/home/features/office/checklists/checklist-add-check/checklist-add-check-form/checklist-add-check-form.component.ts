@@ -36,7 +36,7 @@ export class ChecklistAddCheckFormComponent implements OnInit, OnDestroy {
             message: this.checklistEntryForm.controls.message.value,
             messageArea: this.checklistEntryForm.controls.areaName.value,
             areaid: this.checklistEntryForm.controls.areaid.value,
-            messageLevel: this.messageLevel.name };
+            messageLevel: this.messageLevel.levelName };
         console.log('The form submit entry function is running now', newChecklist);
         this.subscription = this.checklistAddCheckService.enterNewReport(newChecklist).subscribe();
         this.createForm();

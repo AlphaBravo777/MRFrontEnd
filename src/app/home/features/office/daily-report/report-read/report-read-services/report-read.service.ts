@@ -41,7 +41,7 @@ export class ReportReadService {
             tap(() => reportDataPackage.userid = parseInt(localStorage.getItem('userID'), 10)),
             concatMap(() => this.getReportMessages()),
             tap(data => reportDataPackage.reports = data),
-            tap(() => console.log('report-read-service-getReportDataPackage = ', reportDataPackage)),
+            // tap(() => console.log('report-read-service-getReportDataPackage = ', reportDataPackage)),
             map(() => reportDataPackage)
         );
     }
@@ -72,7 +72,7 @@ export class ReportReadService {
             allMessages.forEach((message, messagesIndex) => {
                 if (reply.reply === message.rowid) {
                     if (allMessages[messagesIndex].replies) {
-                        console.log('Charlie = ', allMessages[messagesIndex]);
+                        // console.log('Charlie = ', allMessages[messagesIndex]);
                         allMessages[messagesIndex].replies.push(replies[replyIndex]);
                     } else {
                         allMessages[messagesIndex].replies = [];

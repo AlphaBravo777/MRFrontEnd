@@ -25,7 +25,7 @@ export class ChecklistAddCheckDataComponent implements OnInit {
             map(data => this.checklistLevels = data),
             switchMap(() => this.checklistAddCheckService.getChecklistArea()),
             map(data => this.areaData = data),
-            // tap(() => console.log(this.addChecklistData)),
+            // tap(() => console.log(this.checklistLevels)),
         ).subscribe();
     }
 

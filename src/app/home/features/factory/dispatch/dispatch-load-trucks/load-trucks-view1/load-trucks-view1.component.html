@@ -1,0 +1,33 @@
+<label>Select Route</label>
+<select #selectedCategory>
+    <option *ngFor='let route of routes' [value]='route.routeid'>
+        {{ route.routeName }}
+    </option>
+</select>
+<button (click)='getDataForRoute.emit(selectedCategory.value)'>Select Route</button>
+
+<span *ngIf='templateData'>
+    <span *ngIf='templateData.totalTrucks > 1'>
+        <button (click)='loadTruck.emit(-1)'>All Trucks</button>
+        <span *ngFor='let i of [].constructor(templateData.totalTrucks); let a = index'>
+            <button (click)='loadTruck.emit(a)'>Truck {{a + 1}}</button>
+        </span>
+    </span>
+    <h3>Current route: {{templateData.routeName}}</h3>
+    <div *ngIf="clientInfo.showLoadTruckTemplate; then loadTruckTemplate; else compareStockTemplate">{{clientInfo.showLoadTruckTemplate}}</div>
+    <ng-template #compareStockTemplate>
+        <app-load-trucks-compare [stockOnHand]='templateData.meatriteStock' [stockRequired]='templateData.prodductTotal'>
+        </app-load-trucks-compare>
+    </ng-template>
+    <ng-template #loadTruckTemplate>
+        <app-load-trucks-loading>
+
+        </app-load-trucks-loading>
+    </ng-template>
+    <div *ngIf='templateData.clients'>
+        <br>
+        <div class='clientButtons' *ngFor='let client of templateData.clients'>
+            <button [ngClass]="client.loadingStatus ? 'green' : 'red'" (click)='loadClient.emit(client)'>{{client.clientName}}</button>
+        </div>
+    </div>
+</span>

@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HppStockTakeService } from './hpp-stock-take.service';
+import { LoadTrucksService } from './load-trucks.service';
 
-describe('HppStockTakeService', () => {
+describe('LoadTrucksServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: HppStockTakeService = TestBed.get(HppStockTakeService);
+    const service: LoadTrucksService = TestBed.get(LoadTrucksService);
     expect(service).toBeTruthy();
   });
 });

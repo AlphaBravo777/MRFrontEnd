@@ -1,0 +1,45 @@
+{
+    "meatriteStock": [
+        { "productid": 1, "productName": "SVDeli500", "amount": 30, "batchAmounts": [
+                {"batchNumber": "45: 4", "amount": 10, "cleared": true
+                },
+                {"batchNumber": "45: 5", "amount": 20, "cleared": true
+                }
+            ]
+        },
+        { "productid": 2, "productName": "SSDeli500", "amount": 70, "batchAmounts": [
+                {"batchNumber": "45: 4", "amount": 30, "cleared": true
+                },
+                {"batchNumber": "45: 5", "amount": 40, "cleared": true
+                }
+            ]
+        },
+        { "productid": 3, "productName": "PPCCV500", "amount": 36, "batchAmounts": [
+                {"batchNumber": "45: 4", "amount": 11, "cleared": true
+                },
+                {"batchNumber": "45: 5", "amount": 12, "cleared": true
+                },
+                {"batchNumber": "45: 6", "amount": 13, "cleared": false
+                }
+            ]
+        },
+        { "productid": 4, "productName": "SG2", "amount": 25, "batchAmounts": [
+                {"batchNumber": "45: 4", "amount": 5, "cleared": true
+                },
+                {"batchNumber": "45: 5", "amount": 7, "cleared": true
+                },
+                {"batchNumber": "45: 6", "amount": 13, "cleared": false
+                }
+        ]
+        },
+        { "productid": 5, "productName": "PPCCV1", "amount": 33, "batchAmounts": [ 
+            {"batchNumber": "45: 4", "amount": 5, "cleared": true
+            },
+            {"batchNumber": "45: 5", "amount": 7, "cleared": true
+            },
+            {"batchNumber": "45: 6", "amount": 13, "cleared": false
+            }
+            ]
+        }
+    ]
+}

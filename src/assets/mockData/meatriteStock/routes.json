@@ -1,0 +1,32 @@
+{
+    "routes": [
+        {
+            "routeid": 10,
+            "routeID": "=shdjdfdhd",
+            "routeName": "PnP",
+            "loadingDayName": "Tuesday",
+            "loadingDayid": 3
+        },
+        {
+            "routeid": 13,
+            "routeID": "=shdjdfdhd",
+            "routeName": "Polokwane",
+            "loadingDayName": "Wednesday",
+            "loadingDayid": 4
+        },
+        {
+            "routeid": 11,
+            "routeID": "=shdjdfdhd",
+            "routeName": "Nelspruit",
+            "loadingDayName": "Tuesday",
+            "loadingDayid": 3
+        },
+        {
+            "routeid": 12,
+            "routeID": "=shdjdfdhd",
+            "routeName": "Thabazimbi",
+            "loadingDayName": "Tuesday",
+            "loadingDayid": 3
+        }
+    ]
+}

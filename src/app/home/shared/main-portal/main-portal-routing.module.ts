@@ -35,13 +35,13 @@ const mainPortalRoutes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'hpp',
-                loadChildren: '../../features/stock/hpp/hpp-stock.module#HppStockModule',
+                path: 'admin-office',
+                loadChildren: '../../features/office/admin-office.module#AdminOfficeModule',
                 canActivate: [AuthGuard],
             },
             {
-                path: 'admin-office',
-                loadChildren: '../../features/office/admin-office.module#AdminOfficeModule',
+                path: 'dispatch',
+                loadChildren: '../../features/factory/dispatch/dispatch.module#DispatchModule',
                 canActivate: [AuthGuard],
             },
             // {

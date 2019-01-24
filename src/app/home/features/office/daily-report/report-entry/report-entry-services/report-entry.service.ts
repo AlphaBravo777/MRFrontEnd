@@ -59,7 +59,7 @@ export class ReportEntryService {
 
     setCurrentMessageDetails(editMessageData: INewMessagePackage) {
         const newMessagePackage = Object.assign(this.messagePackage.value, editMessageData);
-        console.log('Here is the new message', newMessagePackage, editMessageData);
+        // console.log('Here is the new message', newMessagePackage, editMessageData);
         this.messagePackage.next(newMessagePackage);
     }
 

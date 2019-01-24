@@ -31,7 +31,7 @@ export class ReportReadDataComponent implements OnInit, OnDestroy {
             startWith(0),
             switchMap(() => this.reportReadService.getReportDataPackage()),
             tap((data) => this.messagePackage = data),
-            tap(() => console.log('Read report data should be refreshing now', this.messagePackage)),
+            // tap(() => console.log('Read report data should be refreshing now', this.messagePackage)),
             ).subscribe();
     }
 
@@ -40,11 +40,11 @@ export class ReportReadDataComponent implements OnInit, OnDestroy {
             take(1),
             switchMap(() => this.reportReadService.getReportMessages())
         ).subscribe();
-        console.log('Here is the id in data component ', id);
+        // console.log('Here is the id in data component ', id);
     }
 
     editReport(message: IReadReport) {
-        console.log('Here is the current flag', message);
+        // console.log('Here is the current flag', message);
         this.reportEntryService.setCurrentMessageDetails({
             showTextBox: true,
             message: message.message,
