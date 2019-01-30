@@ -25,6 +25,8 @@ export class IStockSingleProduct {
     productName: string;
     amount: number;
     batchAmounts?: IBatchAmounts[];
+    loadingStatus: boolean;
+    amountLoaded: number;
 }
 
 export class IRouteOrder {
@@ -35,6 +37,8 @@ export class IRouteOrder {
     orderID: string;
     truckNr: number;
     truckName: string;
+    // driver: string;
+    // departureTime: string;
     timestampID: string;
     timestampid: number;
     clients: IRouteOrderClient[];
@@ -46,7 +50,6 @@ export class IRouteOrderClient {
     clientid: number;
     deliveryRanking: number;
     loadingStatus: boolean;
-    amountLoaded: number;
     orders: IStockSingleProduct[];
 }
 
@@ -118,20 +121,3 @@ export class ITestRouteOrder {
     loadingStatus: boolean;
     trucks: ITestTruck[];
 }
-
-// routeName
-// routeID
-// routeid
-// timestampid
-// timeStampID
-// allTrucks?: IStockSingleProduct[] // If there is just one truck, this field will be blank
-// trucks [] // if there is just one truck then there will just be one truck here, else more
-    // truckName
-    // truckid
-    // truckID
-    // orderid)
-    // orderID
-    // clients
-    // totalProductOnTruck
-
-// get data for array, if data length = 1 then just put data into truck, else

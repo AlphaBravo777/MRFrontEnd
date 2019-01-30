@@ -19,7 +19,8 @@ export class LoadTrucksDataComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     routes: IDailyRoutes[];
     routeData: IDispatchStockDataMain;
-    clientInfo = {clientInfo : null, showLoadTruckTemplate: false};
+    clientData: IRouteOrderClient;
+    showLoadTruckTemplate: boolean;
 
     constructor(private loadTrucksService: LoadTrucksService, private getDatePackage: GetDate$Service) { }
 
@@ -35,6 +36,7 @@ export class LoadTrucksDataComponent implements OnInit, OnDestroy {
     }
 
     getDailyHppStockData(routeid: string) {
+        this.showLoadTruckTemplate = false;
         const routeObject = this.getRouteObject(parseInt(routeid, 10));
         const getTimePackage$ = this.getDatePackage.currentDatePackage$;
         getTimePackage$.pipe(
@@ -83,12 +85,13 @@ export class LoadTrucksDataComponent implements OnInit, OnDestroy {
     }
 
     loadTruck(truckNumber) {
+        this.showLoadTruckTemplate = false;
         this.templateData = this.reloadTruck(truckNumber);
     }
 
     loadClient(clientInfo: IRouteOrderClient) {
-        console.log('running Delta');
-        this.clientInfo = {clientInfo: clientInfo, showLoadTruckTemplate: true};
+        this.clientData = clientInfo;
+        this.showLoadTruckTemplate = true;
     }
 
     ngOnDestroy(): void {

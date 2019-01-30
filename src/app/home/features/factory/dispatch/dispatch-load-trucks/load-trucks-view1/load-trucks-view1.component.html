@@ -14,20 +14,22 @@
         </span>
     </span>
     <h3>Current route: {{templateData.routeName}}</h3>
-    <div *ngIf="clientInfo.showLoadTruckTemplate; then loadTruckTemplate; else compareStockTemplate">{{clientInfo.showLoadTruckTemplate}}</div>
+    <div *ngIf="showLoadTruckTemplate; then loadTruckTemplate; else compareStockTemplate">{{showLoadTruckTemplate}}</div>
     <ng-template #compareStockTemplate>
         <app-load-trucks-compare [stockOnHand]='templateData.meatriteStock' [stockRequired]='templateData.prodductTotal'>
         </app-load-trucks-compare>
     </ng-template>
     <ng-template #loadTruckTemplate>
-        <app-load-trucks-loading>
+        <h3>Current order: {{clientData.clientName}}</h3> 
+        <app-load-trucks-loading [stockOnHand]='templateData.meatriteStock' [stockRequired]='clientData.orders'>
 
         </app-load-trucks-loading>
     </ng-template>
     <div *ngIf='templateData.clients'>
         <br>
+        <p>Load truck from top to bottom</p>
         <div class='clientButtons' *ngFor='let client of templateData.clients'>
-            <button [ngClass]="client.loadingStatus ? 'green' : 'red'" (click)='loadClient.emit(client)'>{{client.clientName}}</button>
+            <button [ngClass]="client.loadingStatus ? 'green' : 'red'" (click)='loadClient.emit(client)'>{{client.deliveryRanking}} {{client.clientName}}</button>
         </div>
     </div>
 </span>
