@@ -12,7 +12,7 @@ import { IDate } from './date-interface';
 })
 export class DatePickerApi2Service {
 
-    private stockUrl = this.urlService.rootUrl + 'office/';
+    private stockUrl = this.urlService.backendUrl + 'office/';
 
     constructor(private http: HttpClient,
         private urlService: UrlsService,

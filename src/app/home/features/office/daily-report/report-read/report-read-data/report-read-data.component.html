@@ -1,5 +1,11 @@
-<app-report-read-view1 
-    [messagePackage]='messagePackage'
-    (reportid)='deleteReport($event)'
-    (editReportID)='editReport($event)'>
+<!-- <button class='meatriteButton niceButton' (click)="getImages()">Load Image</button> -->
+<!-- <div *ngIf="imageToShow; else noImageFound">
+    <img *ngIf="imageToShow; else noImageFound" [src]="imageToShow[0].image" alt="Place image title">
+    <p>Here is the image = {{imageToShow | json}}</p>
+</div> -->
+<!-- <ng-template #noImageFound>
+    <img src="assets/images/insertImage.png" alt="Fallbackimage">
+</ng-template> -->
+
+<app-report-read-view1 [messagePackage]='messagePackage' (reportid)='deleteReport($event)' (editReport)='editReport($event)'>
 </app-report-read-view1>

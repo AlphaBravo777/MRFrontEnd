@@ -14,11 +14,11 @@ export class DatePickerApiService {
 
     constructor(private http: HttpClient, private urlService: UrlsService, private apollo: Apollo) { }
 
-    private productsUrl = this.urlService.rootUrl + 'api/products/';
+    private productsUrl = this.urlService.backendUrl + 'api/products/';
 
     createTimeStampID(timePackage: IDate): Observable<any> {
         // console.log('--------- createTimeStampID = ', timePackage);
-        const url = this.urlService.rootUrl + 'core/createTimeStampID/';
+        const url = this.urlService.backendUrl + 'core/createTimeStampID/';
         return this.http.post<any>(url, timePackage);
     }
 

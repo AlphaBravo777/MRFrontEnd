@@ -1,6 +1,6 @@
 <div class='messageContainer' [ngStyle]="styleObjectMessageContainer()">
     <div [ngClass]="{'gridContainer':       message.reply=== null, 
-                     'childGridContainer':  message.reply!== null}">
+                     'replyGridContainer':  message.reply!== null}">
     <!-- <div class='gridContainer'> -->
         <div class='ranking' [ngStyle]="styleObjectRanking()">
         </div>
@@ -13,18 +13,30 @@
         </div>
         <div class='replies' *ngIf='message.replies'>
             <div *ngFor='let reply of message.replies'>
-                <app-report-read-message [message]='reply' [userid]='userid'></app-report-read-message>
+                <app-report-read-message 
+                    [message]='reply' 
+                    [userid]='userid'
+                    (deleteReport)='deleteReport.emit($event)'
+                    (editReport)='editReport.emit($event)'>
+                </app-report-read-message>
             </div>
         </div>
+        <div class='images'>
+            <span *ngFor='let image of message.images'>
+                <img src="assets/images/insertImage.png" (click)='newWindow(image.image)'>
+                {{image.name}}
+            </span>
+        </div>
         <div class='footer'>
-            <span class='icons' *ngIf='message.userid === userid'>
-                <img src="assets/images/delete.png" (click)='deleteReport(message.rowid)'>
-                <img src="assets/images/edit.png" (click)='deleteReport(message.rowid)'>
+            <span class='icons' *ngIf='message.userid === userid || userid === 15'>
+                <img src="assets/images/delete.png" (click)='deleteReport.emit(message.rowid)'>
+                <img src="assets/images/edit.png" (click)='editReport.emit(message)'>
             </span>
             <img src="assets/images/reply.png" (click)='replyToReport(message.rowid)'>
-            <img src="assets/images/save.png" (click)='deleteReport(message.rowid)'>
+            <img src="assets/images/save.png">
+            
             <span class='icons' *ngIf='message.messageFlag.levelColor === "#997049"'>
-                <img src="assets/images/repair.png" (click)='deleteReport(message.rowid)'> 
+                <img src="assets/images/repair.png"> 
             </span>
         </div>
     </div>

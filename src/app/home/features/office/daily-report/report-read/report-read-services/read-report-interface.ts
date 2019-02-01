@@ -8,6 +8,7 @@ export class IReadReport {
     messageFlag: IReadReportLevels;
     reply: number;
     replies?: IReadReport[];
+    images?: IReadReportImages[];
 }
 
 export class IReadReportLevels {
@@ -43,4 +44,12 @@ export class INewMessagePackage {
         this.placeHolderMessage = placeHolderMessage;
         this.messageFlags = messageFlags;
     }
+}
+
+export class IReadReportImages {
+    id: number;
+    ID: string;
+    image: string;
+    name: string;
+    report: number;
 }

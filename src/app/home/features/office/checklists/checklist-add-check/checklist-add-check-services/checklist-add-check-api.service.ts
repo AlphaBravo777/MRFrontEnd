@@ -13,7 +13,7 @@ export class ChecklistAddCheckApiService {
 
     constructor(private urlService: UrlsService, private http: HttpClient, private apollo: Apollo) { }
 
-    private stockUrl = this.urlService.rootUrl + 'office/';
+    private stockUrl = this.urlService.backendUrl + 'office/';
 
     enterNewChecklist(newCheck) {
         console.log('THis is a new checklist', newCheck);

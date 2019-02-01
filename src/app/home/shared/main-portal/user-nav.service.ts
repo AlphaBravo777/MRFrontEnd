@@ -9,7 +9,7 @@ export class UserNavService {
 
     constructor(private http: HttpClient, private _urlService: UrlsService) { }
 
-    private permissions = this._urlService.rootUrl + 'api/test/';
+    private permissions = this._urlService.backendUrl + 'api/test/';
 
     getPermissions() {
         return this.http.get<any>(this.permissions);

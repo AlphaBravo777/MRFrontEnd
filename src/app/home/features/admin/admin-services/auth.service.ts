@@ -9,9 +9,9 @@ export class AuthService {
 
   constructor(private http: HttpClient, private _urlService: UrlsService) { }
 
-  private _loginUrl = this._urlService.rootUrl + 'api/rest-auth/login/';
-  private checkToken = this._urlService.rootUrl + 'api/api-token-verify/';
-  private _registerUrl = this._urlService.rootUrl + 'api/rest-auth/registration/';
+  private _loginUrl = this._urlService.backendUrl + 'api/rest-auth/login/';
+  private checkToken = this._urlService.backendUrl + 'api/api-token-verify/';
+  private _registerUrl = this._urlService.backendUrl + 'api/rest-auth/registration/';
 
   registerUser(user) {
     return this.http.post<any>(this._registerUrl, user);

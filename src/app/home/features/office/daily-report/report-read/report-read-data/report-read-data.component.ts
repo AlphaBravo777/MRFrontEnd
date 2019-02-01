@@ -3,7 +3,7 @@ import { ReportReadService } from '../report-read-services/report-read.service';
 import { switchMap, tap, map, startWith, take } from 'rxjs/operators';
 import { ReportReadApiService } from '../report-read-services/report-read-api.service';
 import { interval, Subscription } from 'rxjs';
-import { IReadReportPackage, IReadReport } from '../report-read-services/read-report-interface';
+import { IReadReportPackage, IReadReport, IReadReportImages } from '../report-read-services/read-report-interface';
 import { ReportEntryService } from '../../report-entry/report-entry-services/report-entry.service';
 import { Router } from '@angular/router';
 
@@ -16,6 +16,8 @@ export class ReportReadDataComponent implements OnInit, OnDestroy {
 
     subscription: Subscription;
     messagePackage: IReadReportPackage = {};
+    imageToShow: IReadReportImages[] = [];
+    isImageLoading = false;
 
     constructor(private reportReadService: ReportReadService,
         private reportReadApiService: ReportReadApiService,
@@ -32,7 +34,7 @@ export class ReportReadDataComponent implements OnInit, OnDestroy {
             switchMap(() => this.reportReadService.getReportDataPackage()),
             tap((data) => this.messagePackage = data),
             // tap(() => console.log('Read report data should be refreshing now', this.messagePackage)),
-            ).subscribe();
+        ).subscribe();
     }
 
     deleteReport(id: number) {
@@ -61,6 +63,31 @@ export class ReportReadDataComponent implements OnInit, OnDestroy {
             this.subscription.unsubscribe();
         }
     }
+
+    // // createImageFromBlob(image: Blob) {
+    // //     console.log('Here is the image data', image);
+    // //     const reader = new FileReader();
+    // //     reader.addEventListener('load', () => {
+    // //         this.imageToShow = reader.result;
+    // //         console.log('Here is the image data', this.imageToShow);
+    // //     }, false);
+    // //     if (image) {
+    // //        reader.readAsDataURL(image);
+    // //     }
+    // // }
+
+    // getImages() {
+    //     this.isImageLoading = true;
+    //     this.reportReadService.downloadDailyReportImage().subscribe(data => {
+    //         console.log('Here are the image tag: ', data);
+    //         this.imageToShow = data;
+    //         console.log('Here are the image tag: ', this.imageToShow);
+    //         this.isImageLoading = false;
+    //     }, error => {
+    //         this.isImageLoading = false;
+    //         console.log(error);
+    //     });
+    // }
 
     ngOnDestroy(): void {
         this.removeSubscription();

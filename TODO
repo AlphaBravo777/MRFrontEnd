@@ -33,6 +33,8 @@ Dispatch stock take:
     Bug Fixes:
         ☐ When you change the date, then all the truck subscriptions that you had open also get update.
             ☐ Load a few routes (maybe 4), and then when you change the date it will give you 4 subscriptions (after selectiong a route and getting the data, it should unsubscribe)
+        ☐ Sometimes "report-read-api.service.ts:81" will shop that all daily reports EVER have been collected from the server. This may be because data is
+            ☐ collected without timestamp being available yet. This obviously takes a lot of time, and will become worst as time goes on. 
     // Everything starts at stocktake at meatrite. (So the stock must be taken)
     // There should always just be one meatrite stock, you can have stock that says different times, but this will be a copy of the stock that is showing as the latest stock.
     Features: 
@@ -99,3 +101,7 @@ Dispatch stock take:
         ☐ Then when the truck is loaded again, give the same truck laoding screen, but when you pick the route, it gets all the stock that
         ☐ is at hpp, you might have to use a new batch code, as this will be a new truck going from hpp with different products on it.
 
+    Create image upload function:
+        ☐ Create a model that contains an ImageField class
+            ☐ image = models.ImageField(upload_to="restaurants/images/", null=True, blank=True)
+        ☐ Create serializer for the model

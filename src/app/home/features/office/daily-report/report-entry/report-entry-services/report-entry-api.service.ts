@@ -6,6 +6,7 @@ import { Apollo, gql } from 'apollo-angular-boost';
 import { map } from 'rxjs/operators';
 import { IReadReportLevels } from '../../report-read/report-read-services/read-report-interface';
 import { IInsertNewReportApiInterface } from './report-entry-interface';
+import { fbind } from 'q';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ export class ReportEntryApiService {
 
     constructor(private urlService: UrlsService, private http: HttpClient, private apollo: Apollo) { }
 
-    private url = this.urlService.rootUrl + 'office/';
+    private url = this.urlService.backendUrl + 'office/';
 
     enterNewReport(newReport: IInsertNewReportApiInterface) {
         const updateUrl = this.url + 'report/enterNew/';
@@ -25,6 +26,17 @@ export class ReportEntryApiService {
         const updateUrl = this.url + 'report/update/' + updateReport.messageid;
         return this.http.put<any>(updateUrl, updateReport);
     }
+
+    uploadDailyReportFile(reportId,  file: File) {
+        const uploadReportFileUrl = this.url + 'report/insertImage/';
+        const fd =  new FormData();
+        fd.append('name', file.name);
+        fd.append('image', file, file.name);
+        fd.append('report', reportId.toString());
+        return this.http.post<any>(uploadReportFileUrl, fd);
+    }
+
+
 
     getMessageLevels(): Observable<IReadReportLevels[]> {
         return this.apollo

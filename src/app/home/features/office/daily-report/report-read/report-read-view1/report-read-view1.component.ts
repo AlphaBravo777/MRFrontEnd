@@ -10,7 +10,7 @@ export class ReportReadView1Component implements OnInit {
 
     @Input() messagePackage: IReadReportPackage;
     @Output() reportid: EventEmitter<any> = new EventEmitter<any>();
-    @Output() editReportID: EventEmitter<IReadReport> = new EventEmitter<IReadReport>();
+    @Output() editReport: EventEmitter<IReadReport> = new EventEmitter<IReadReport>();
 
     constructor() { }
 
@@ -18,6 +18,7 @@ export class ReportReadView1Component implements OnInit {
     }
 
     deleteReport(reportid) {
+        console.log('I should be deleteing now');
         this.reportid.emit(reportid);
     }
 }

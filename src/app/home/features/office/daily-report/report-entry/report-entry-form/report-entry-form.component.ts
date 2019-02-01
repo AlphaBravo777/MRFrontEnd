@@ -16,6 +16,7 @@ export class ReportEntryFormComponent implements OnInit, OnDestroy, OnChanges {
     @Input() currentMessageLevel: IReadReportLevels;
     dailyReportEntryForm: FormGroup;
     subscription: Subscription;
+    selectedFile = null;
 
     constructor(private fb: FormBuilder,
         private reportEntryService: ReportEntryService,
@@ -41,13 +42,20 @@ export class ReportEntryFormComponent implements OnInit, OnDestroy, OnChanges {
 
     submitOrEditEntry(messageType) {
         if (messageType === 'New') {
-            this.reportEntryService.enterNewReport(this.dailyReportEntryForm.value);
+            this.reportEntryService.enterNewReport(this.dailyReportEntryForm.value, this.selectedFile);
             this.createForm();
         }
         if (messageType === 'Edit') {
-            this.reportEntryService.updateReport(this.dailyReportEntryForm.value).subscribe();
+            this.reportEntryService.updateReport(this.dailyReportEntryForm.value, this.selectedFile).subscribe();
         }
     }
+
+    onFileSelected(file) {
+        this.selectedFile = file.target.files[0];
+        // this.reportEntryService.uploadFile(file.target.files[0]);
+    }
+
+
 
     ngOnDestroy(): void {
         if (this.subscription) {

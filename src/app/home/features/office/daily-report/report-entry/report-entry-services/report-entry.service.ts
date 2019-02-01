@@ -8,6 +8,7 @@ import { IReadReport, IReadReportLevels, INewMessagePackage } from '../../report
 import { Router } from '@angular/router';
 import { ReportReadService } from '../../report-read/report-read-services/report-read.service';
 import { IInsertNewReportApiInterface } from './report-entry-interface';
+import { of } from 'zen-observable';
 
 @Injectable({
     providedIn: 'root'
@@ -36,22 +37,35 @@ export class ReportEntryService {
         return this.reportEntryApiService.getMessageLevels().pipe();
     }
 
-    enterNewReport(newReportEntry: IInsertNewReportApiInterface) {
+    enterNewReport(newReportEntry: IInsertNewReportApiInterface, file: File) {
         return this.datepicker.currentDatePackage$.pipe(
             take(1),
             tap(data => newReportEntry.timestampID = data.id),
-            // tap(() => console.log('newReportEntry with timeStampID = ', newReportEntry)),
+            // tap(() => console.log('newReportEntry with timeStampID = ', file)),
             switchMap(() => this.reportEntryApiService.enterNewReport(newReportEntry)),
+            // do something here that will return the id of the message, so that you can post the image to that id.
+            switchMap((data) => {
+                if (file) {
+                    return this.reportEntryApiService.uploadDailyReportFile(data.id, file);
+                }
+                return of(data);
+            }),
             tap(() => this.setCurrentMessageDetails(this.defaultMessage)),
             tap(() => this.router.navigate(['/main/admin-office/daily-report/report-main'])),
             switchMap(() => this.reportReadService.getReportMessages())  // This was to reload the data, take off, put back
         ).subscribe();
     }
 
-    updateReport(reportUpdate: IInsertNewReportApiInterface): Observable<any> {
+    updateReport(reportUpdate: IInsertNewReportApiInterface, file: File): Observable<any> {
         return this.reportEntryApiService.updateReport(reportUpdate).pipe(
             take(1),
-            tap(() => console.log('Here is the data of the default object = ', reportUpdate)),
+            switchMap((data) => {
+                if (file) {
+                    return this.reportEntryApiService.uploadDailyReportFile(reportUpdate.messageid, file);
+                }
+                return of(data);
+            }),
+            // tap(() => console.log('Here is the data of the default object = ', reportUpdate)),
             tap(() => this.setCurrentMessageDetails(this.defaultMessage)),
             tap(() => this.router.navigate(['/main/admin-office/daily-report/report-main'])),
         );
@@ -66,4 +80,10 @@ export class ReportEntryService {
     setMessageToDefault() {
         this.setCurrentMessageDetails(this.defaultMessage);
     }
+
+    // uploadFile(file: File) {
+    //     this.reportEntryApiService.uploadDailyReportFile(file);
+    // }
+
+
 }

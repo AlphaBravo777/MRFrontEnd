@@ -3,7 +3,7 @@ import { ReportReadApiService } from './report-read-api.service';
 import { Observable } from 'rxjs';
 import { switchMap, tap, map, concatMap } from 'rxjs/operators';
 import { DatePickerApi2Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker-api2.service';
-import { IReadReportPackage, IReadReport } from './read-report-interface';
+import { IReadReportPackage, IReadReport, IReadReportImages } from './read-report-interface';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 
@@ -90,6 +90,12 @@ export class ReportReadService {
         // console.log('Here are the new messages now', allMessages);
         return allMessages;
     }
+
+    // downloadDailyReportImage(): Observable<IReadReportImages[]> {
+    //     return this.reportReadApiService.downloadDailyReportFile('1').pipe(
+    //         tap((data) => console.log('The service data = ', data))
+    //     );
+    // }
 
     // Take all the data and filter everything that has reply as 'null', give the remaining results to a function
     // Start a function that checks if anything is left

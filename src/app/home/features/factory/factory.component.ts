@@ -17,7 +17,7 @@ export class FactoryComponent implements OnInit {
         private http: HttpClient,
         private _urlService: UrlsService) { }
 
-    private test = this._urlService.rootUrl + 'api/test/';
+    private test = this._urlService.backendUrl + 'api/test/';
     private data = [];
 
     ngOnInit(): void {

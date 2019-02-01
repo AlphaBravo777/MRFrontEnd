@@ -16,7 +16,7 @@ export class StockAPIService {
     workingProcStock = 'workingProcStock';
     emptyStockAndContainers = 'emptyStockAndContainers';
 
-    private productsUrl = this.urlService.rootUrl + 'api/products/';
+    private productsUrl = this.urlService.backendUrl + 'api/products/';
 
     getProducts(): Observable<IProductDetails[]> {     // Gets all the meatrite products that are active
         return this.http.get<IProductDetails[]>(this.productsUrl);

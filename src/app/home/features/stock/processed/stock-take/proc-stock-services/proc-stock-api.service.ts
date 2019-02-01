@@ -17,7 +17,7 @@ export class ProcStockApiService {
         private http: HttpClient,
         private urlService: UrlsService) { }
 
-    private stockUrl = this.urlService.rootUrl + 'stock/';
+    private stockUrl = this.urlService.backendUrl + 'stock/';
 
     getGraphQLProcContainers(): Observable<any> {
         return this.apollo

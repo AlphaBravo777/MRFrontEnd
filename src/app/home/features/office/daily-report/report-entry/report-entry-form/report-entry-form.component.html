@@ -14,4 +14,6 @@
     <ng-template #editEntry>
         <button class='meatriteButton niceButton' (click)="submitOrEditEntry(newMessagePackage.messageType)" [disabled]='dailyReportEntryForm.invalid'>Edit Report</button>
     </ng-template>
+    <input type='file' style='display: none' (change)='onFileSelected($event)' #imageInput>
+    <img src="assets/images/insertImage.png" (click)='imageInput.click()'>
 </form> 

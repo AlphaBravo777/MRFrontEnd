@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IReadReportPackage, IReadReport } from '../report-read-services/read-report-interface';
 import { ReportEntryService } from '../../report-entry/report-entry-services/report-entry.service';
 import { Router } from '@angular/router';
@@ -12,6 +12,8 @@ export class ReportReadMessageComponent implements OnInit {
 
     @Input() message: IReadReport;
     @Input() userid: number;
+    @Output() deleteReport: EventEmitter<any> = new EventEmitter<any>();
+    @Output() editReport: EventEmitter<IReadReport> = new EventEmitter<IReadReport>();
 
     constructor(private reportEntryService: ReportEntryService, private router: Router) { }
 
@@ -31,23 +33,17 @@ export class ReportReadMessageComponent implements OnInit {
         };
     }
 
-    deleteReport(messageid) {
-
-    }
-
     replyToReport(messageid) {
-        // The reply is working great, after we are replying we must divert back to readMessages (not the opening page one)
-        // But first we want to set "showTextbox to false"
-        // and reset the placeHolderMessage
         console.log('You are about to reply to a message', this.message);
-        // this.reportEntryService.setCurrentReplyToMessage(this.message);
-        // this.reportEntryService.setCurrentShowTextboxState(true);
-        // this.reportEntryService.setCurrentTextboxPlaceHolder('Reply to message: ' + this.message.message);
         this.reportEntryService.setCurrentMessageDetails({
             showTextBox: true, messageid: this.message.rowid, placeHolderMessage: 'Reply to message: ' + this.message.message
         });
         console.log('router URL:', this.router.url);
         this.router.navigate(['/main/admin-office/daily-report/report-entry']);
+    }
+
+    newWindow(imageUrl) {
+        window.open(imageUrl, 'Image');
     }
 
 }

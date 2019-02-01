@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { map, take } from 'rxjs/operators';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
-import { IReadReport } from './read-report-interface';
+import { IReadReport, IReadReportImages } from './read-report-interface';
 import { UrlsService } from 'src/app/home/core/urls.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -18,12 +18,17 @@ export class ReportReadApiService {
         private apollo: Apollo,
         private toolBox: ToolboxGroupService) { }
 
-    private stockUrl = this.urlService.rootUrl + 'office/';
+    private stockUrl = this.urlService.backendUrl + 'office/';
 
     deleteReportEntry(id) {
         const timeUrl = this.stockUrl + 'report/deleteReport/' + id;
         return this.http.delete<any>(timeUrl);
     }
+
+    // downloadDailyReportFile(imageUrl: string): Observable<any> {
+    //     const getReportImages = this.stockUrl + 'report/downloadImage/';
+    //     return this.http.get(getReportImages);
+    // }
 
     getDailyReportMessages(timeStampIDs): Observable<IReadReport[]> {
         // console.log('Alpha = I am running daily report here');
@@ -51,6 +56,16 @@ export class ReportReadApiService {
                               levelName
                               levelRank
                             }
+                            reportimagesSet{
+                                edges{
+                                  node{
+                                    rowid
+                                    id
+                                    image
+                                    name
+                                  }
+                                }
+                            }
                           }
                         }
                       }
@@ -63,6 +78,7 @@ export class ReportReadApiService {
     }
 
     private consolidateDailyReportMessages(data): IReadReport[] {
+        // console.log('Bravo consolidateDailyReportMessages = ', data);
         const flattendData: IReadReport[] = [];
 
         for (let array = 0; array < data.length; ++array) {
@@ -83,9 +99,21 @@ export class ReportReadApiService {
             singleData.userID = data[array].node.user.id;
             singleData.userid = data[array].node.user.rowid;
             singleData.userName = data[array].node.user.firstName;
+            if (data[array].node.reportimagesSet.edges.length === 0) {
+                singleData.images = null;
+            } else {
+                singleData.images = [];
+                data[array].node.reportimagesSet.edges.map(image => {
+                    const tempImage = <IReadReportImages>{};
+                    tempImage.id = image.node.rowid;
+                    tempImage.ID = image.node.id;
+                    tempImage.image = this.urlService.backendUrl + 'media/' + image.node.image;
+                    tempImage.name = image.node.name;
+                    singleData.images.push(tempImage);
+                });
+            }
             flattendData.push(singleData);
         }
-        // console.log('Bravo consolidateDailyReportMessages = ', flattendData);
         return this.toolBox.sorting(flattendData, 'rowid');
     }
 

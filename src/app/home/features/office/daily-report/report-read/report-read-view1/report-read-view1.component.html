@@ -4,8 +4,13 @@
     </div>
 
     <div *ngFor='let message of messagePackage.reports'>
-        <!-- <app-report-read-message [message]='message' [userid]='messagePackage.userid'></app-report-read-message> -->
-        <div class='singleMessage'>
+        <app-report-read-message 
+            [message]='message' 
+            [userid]='messagePackage.userid'
+            (deleteReport)='deleteReport($event)'
+            (editReport)='editReport.emit($event)'>
+        </app-report-read-message>
+        <!-- <div class='singleMessage'>
             <span #userName class='userName'>{{message.userName}}:</span>
             <span class='userName rowid'>{{message.rowid}}</span>
             <span class='body' [ngStyle]="{'color': message.messageFlag.levelColor}">{{message.message}}</span>
@@ -13,7 +18,7 @@
                     <img  src="assets/images/delete.png" (click)='deleteReport(message.rowid)'>
                     <img  src="assets/images/edit.png" (click)='editReportID.emit(message)'>
             </span>
-        </div>
+        </div> -->
     </div>
 
 

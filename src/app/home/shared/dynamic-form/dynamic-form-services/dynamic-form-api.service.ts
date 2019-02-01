@@ -21,7 +21,7 @@ export class DynamicFormApiService {
         private urlService: UrlsService,
         private http: HttpClient) { }
 
-    private stockUrl = this.urlService.rootUrl + 'office/';
+    private stockUrl = this.urlService.backendUrl + 'office/';
 
     submitFormData(formData): Observable<any> {
         return this.http.post<any>(this.stockUrl + 'accounts/enterNew/', formData);

@@ -15,7 +15,7 @@ export class UrlsService {
     // rootUrl = this.root + ':8000/';
     // graphqlAddress = this.root + ':8000/graphql/';
 
-    rootUrl = this.root + ':8080/';
+    backendUrl = this.root + ':8080/';
     graphqlAddress = this.root + ':8080/graphql/';
 
     currentVersion = 1.15;

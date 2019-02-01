@@ -10,7 +10,7 @@ export class HighRiskApiService {
 
     constructor(private http: HttpClient, private urlService: UrlsService) { }
 
-    private productsUrl = this.urlService.rootUrl + 'api/products/';
+    private productsUrl = this.urlService.backendUrl + 'api/products/';
 
     updateSingleProductAmount(updateValue) {
         const containerUrl = this.productsUrl + 'product/updateSingleAmount/';
