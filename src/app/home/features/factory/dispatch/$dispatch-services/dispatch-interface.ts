@@ -20,6 +20,8 @@ export class IBatchAmounts {
     cleared: boolean;
 }
 
+// There are a lot of interfaces in the file that are no longer used anymore...
+
 export class IStockSingleProduct {
     productid: number;
     productName: string;

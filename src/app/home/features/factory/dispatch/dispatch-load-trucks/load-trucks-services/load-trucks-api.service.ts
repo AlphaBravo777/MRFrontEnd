@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UrlsService } from 'src/app/home/core/urls.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IStockSingleProduct, IRouteOrder, IDailyRoutes, IRouteIDWithTruckID } from '../../$dispatch-services/dispatch-interface';
+import { IStockSingleProduct, IRouteOrder, IDailyRoutes, IRouteIDWithTruckID, IRouteID } from '../../$dispatch-services/dispatch-interface';
 import { map, tap } from 'rxjs/operators';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 
@@ -22,7 +22,7 @@ export class LoadTrucksApiService {
         );
     }
 
-    getRouteOrders(routeData: IDailyRoutes, datePackage: IDate): Observable<IRouteOrder> {
+    getRouteOrders(routeData: IRouteID, datePackage: IDate): Observable<IRouteOrder> {
         return this.http.get<any>('assets/mockData/meatriteStock/routesOrders.json').pipe(
             map(data => {   // Here we just get all the route data (can't filter JSON),
                             // and then filter to resemble an api call with parameters

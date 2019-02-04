@@ -1,11 +1,11 @@
 <app-box-shadow-container>
     <label>Select Route</label>
-    <select #selectedCategory>
-        <option *ngFor='let route of routes' [value]='route.routeid'>
+    <select #selectedCategory> 
+        <option *ngFor='let route of dailyRoutes' [value]='route.routeid'>
             {{ route.routeName }}
         </option>
     </select>
-    <button (click)='getDataForRoute.emit(selectedCategory.value)'>Select Route</button>
+    <button (click)='getDataForRouteFunc(selectedCategory.value)'>Select Route</button>
 
     <span *ngIf='templateData'>
         <span *ngIf='templateData.totalTrucks > 1'>
@@ -28,9 +28,13 @@
             <br>
             <p>Load truck from top to bottom</p>
             <div class='clientButtons' *ngFor='let client of templateData.clients'>
-                <button [ngClass]="client.loadingStatus ? 'green' : 'red'" (click)='loadClient.emit(client)'>{{client.deliveryRanking}}
+                <button [ngClass]="client.loadingStatus ? 'green' : 'red'" (click)='loadClient(client)'>{{client.deliveryRanking}}
                     {{client.clientName}}</button>
             </div>
+            <!-- <div class='clientButtons' *ngFor='let client of templateData.clients'>
+                <button [ngClass]="client.loadingStatus ? 'green' : 'red'" (click)='loadClient.emit(client)'>{{client.deliveryRanking}}
+                    {{client.clientName}}</button>
+            </div> -->
         </div>
     </span>
 </app-box-shadow-container>

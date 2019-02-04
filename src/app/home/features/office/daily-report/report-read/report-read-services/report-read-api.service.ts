@@ -31,7 +31,12 @@ export class ReportReadApiService {
     // }
 
     getDailyReportMessages(timeStampIDs): Observable<IReadReport[]> {
-        // console.log('Alpha = I am running daily report here');
+        console.log('Alpha = I am running daily report here with timesStampIDs', timeStampIDs);
+        if (timeStampIDs.id === null) {
+            console.log('There is no id');
+            return of(null);
+        } else {
+            console.log('There was an id: ', timeStampIDs);
         return this.apollo
             .watchQuery({
                 variables: { timeStampID: timeStampIDs.nodeID },
@@ -75,6 +80,7 @@ export class ReportReadApiService {
             .valueChanges.pipe(
                 // take(1),
                 map(result => this.consolidateDailyReportMessages(result.data['nodeDailyreport'].edges)));
+        }
     }
 
     private consolidateDailyReportMessages(data): IReadReport[] {

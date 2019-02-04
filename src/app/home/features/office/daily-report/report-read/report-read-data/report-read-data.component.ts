@@ -32,9 +32,8 @@ export class ReportReadDataComponent implements OnInit, OnDestroy {
         this.subscription = interval(300000).pipe(
             startWith(0),
             switchMap(() => this.reportReadService.getReportDataPackage()),
-            tap((data) => this.messagePackage = data),
             // tap(() => console.log('Read report data should be refreshing now', this.messagePackage)),
-        ).subscribe();
+        ).subscribe(data => this.messagePackage = data);
     }
 
     deleteReport(id: number) {
@@ -42,7 +41,6 @@ export class ReportReadDataComponent implements OnInit, OnDestroy {
             take(1),
             switchMap(() => this.reportReadService.getReportMessages())
         ).subscribe();
-        // console.log('Here is the id in data component ', id);
     }
 
     editReport(message: IReadReport) {
@@ -57,40 +55,11 @@ export class ReportReadDataComponent implements OnInit, OnDestroy {
         this.router.navigate(['/main/admin-office/daily-report/report-entry']);
     }
 
-    removeSubscription() {
+    ngOnDestroy(): void {
         if (this.subscription) {
             console.log('report-read-data is now unsubscribing');
             this.subscription.unsubscribe();
         }
-    }
-
-    // // createImageFromBlob(image: Blob) {
-    // //     console.log('Here is the image data', image);
-    // //     const reader = new FileReader();
-    // //     reader.addEventListener('load', () => {
-    // //         this.imageToShow = reader.result;
-    // //         console.log('Here is the image data', this.imageToShow);
-    // //     }, false);
-    // //     if (image) {
-    // //        reader.readAsDataURL(image);
-    // //     }
-    // // }
-
-    // getImages() {
-    //     this.isImageLoading = true;
-    //     this.reportReadService.downloadDailyReportImage().subscribe(data => {
-    //         console.log('Here are the image tag: ', data);
-    //         this.imageToShow = data;
-    //         console.log('Here are the image tag: ', this.imageToShow);
-    //         this.isImageLoading = false;
-    //     }, error => {
-    //         this.isImageLoading = false;
-    //         console.log(error);
-    //     });
-    // }
-
-    ngOnDestroy(): void {
-        this.removeSubscription();
     }
 
 }

@@ -18,16 +18,15 @@ export class ReportReadService {
         private getDateService: GetDate$Service) {
     }
 
-    getReportMessages(): Observable<any> {
+    getReportMessages(): Observable<IReadReport[]> {
         return this.getDateService.currentDatePackage$.pipe(
+            switchMap((data) => this.reportReadApiService.getDailyReportMessages(data)),
             map(data => {
-                if (data.id === null) {
-                    switchMap(() => this.getReportMessages());
+                if (data === null) {
+                    return [];
                 }
                 return data;
             }),
-            switchMap((data) => this.reportReadApiService.getDailyReportMessages(data)),
-            map(data => data),
             tap(data => this.toolbox.sorting(data, 'rowid')),
             tap(data => data.reverse()),
             tap(data => this.groupAllRepliesToMessages(data)),
@@ -39,7 +38,7 @@ export class ReportReadService {
         return this.reportReadApiService.getMessageLevels().pipe(
             tap(data => reportDataPackage.reportLevels = data),
             tap(() => reportDataPackage.userid = parseInt(localStorage.getItem('userID'), 10)),
-            concatMap(() => this.getReportMessages()),
+            switchMap(() => this.getReportMessages()),
             tap(data => reportDataPackage.reports = data),
             // tap(() => console.log('report-read-service-getReportDataPackage = ', reportDataPackage)),
             map(() => reportDataPackage)

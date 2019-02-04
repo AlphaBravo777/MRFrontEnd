@@ -11,9 +11,9 @@ Todo shortcuts:
     // 'Cmd/Ctrl+Shift+A' // Triggers  `Todo: Archive`  This will archive finished todos
     // Ctrl+shift+P and type todo and then "open embedded todos" too see what todos you have in your work
 
-Comon bug reports:
-    ☐ Sometimes "report-read-api.service.ts:81" will shop that all daily reports EVER have been collected from the server. This may be because data is
-        ☐ collected without timestamp being available yet. This obviously takes a lot of time, and will become worst as time goes on. 
+Common bug reports:
+    ✔ Sometimes "report-read-api.service.ts:81" will shop that all daily reports EVER have been collected from the server. This may be because data is @done(19-02-04 14:48)
+        ✔ collected without timestamp being available yet. This obviously takes a lot of time, and will become worst as time goes on. @done(19-02-04 14:48)
 
 Checklist module:
     ☐  When ever adding a check, the subscriptions accumelate, so every time you enter a check the subscriptions become more and more 

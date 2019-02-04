@@ -8,17 +8,26 @@ import { IRouteOrder, IRouteTemplateData, IRouteOrderClient } from '../../$dispa
 })
 export class LoadTrucksView1Component implements OnInit {
 
-    @Input() routes: IRouteOrder[];
+    @Input() dailyRoutes: IRouteOrder[];
     @Input() templateData: IRouteTemplateData;
-    @Input() clientData: IRouteOrderClient;
-    @Input() showLoadTruckTemplate: boolean;
     @Output() getDataForRoute: EventEmitter<any> = new EventEmitter<any>();
     @Output() loadTruck: EventEmitter<any> = new EventEmitter<any>();
-    @Output() loadClient: EventEmitter<any> = new EventEmitter<any>();
+    showLoadTruckTemplate: boolean;
+    clientData: IRouteOrderClient;
 
     constructor() { }
 
     ngOnInit() {
+    }
+
+    getDataForRouteFunc(route) {
+        this.showLoadTruckTemplate = false;
+        this.getDataForRoute.emit(route);
+    }
+
+    loadClient(clientData: IRouteOrderClient) {
+        this.clientData = clientData;
+        this.showLoadTruckTemplate = true;
     }
 
 }

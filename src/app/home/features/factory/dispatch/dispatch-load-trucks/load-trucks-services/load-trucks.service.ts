@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { LoadTrucksApiService } from './load-trucks-api.service';
 import {
@@ -10,7 +10,8 @@ import {
     IDailyRoutes,
     IRouteIDWithTruckID,
     ITestRouteOrder,
-    ITestTruck
+    ITestTruck,
+    IRouteID
 } from '../../$dispatch-services/dispatch-interface';
 import { switchMap, tap, map } from 'rxjs/operators';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
@@ -20,13 +21,27 @@ import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbo
 })
 export class LoadTrucksService {
 
+    private meatriteStock = new BehaviorSubject<IStockSingleProduct[]>(null);
+    currentMeatriteStock$ = this.meatriteStock.asObservable();
+    private routeOrders = new BehaviorSubject<IRouteOrder[]>(null);
+    currentRouteOrders$ = this.routeOrders.asObservable();
 
     constructor(private loadTrucksApiService: LoadTrucksApiService, private toolBox: ToolboxGroupService) {
     }
 
-    getHppOrders(routeData: IDailyRoutes, datePackage: IDate): Observable<IDispatchStockDataMain> {
-        const meatriteStock$ = this.loadTrucksApiService.getMeatriteStock();
-        const routeOrders$ = this.loadTrucksApiService.getRouteOrders(routeData, datePackage);
+
+    // inputLongDate(longDate: Date): Observable<any> {
+    //     return this.datePickerService.inputLongDate(longDate).pipe(
+    //         take(1),
+    //         tap(data => this.datePackage.next(data))
+    //         );
+    // }
+
+    getHppOrders(routeData: IRouteID, datePackage: IDate): Observable<IDispatchStockDataMain> {
+        // const meatriteStock$ = this.loadTrucksApiService.getMeatriteStock();
+        // const routeOrders$ = this.loadTrucksApiService.getRouteOrders(routeData, datePackage);
+        const meatriteStock$ = this.currentMeatriteStock$;
+        const routeOrders$ = this.currentRouteOrders$;
         const mainData$ = combineLatest([meatriteStock$, routeOrders$]);
         return mainData$.pipe(
             map(data => {
