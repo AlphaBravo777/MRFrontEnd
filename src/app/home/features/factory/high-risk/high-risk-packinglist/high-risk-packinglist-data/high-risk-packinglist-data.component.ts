@@ -25,7 +25,7 @@ export class HighRiskPackinglistDataComponent implements OnInit, OnDestroy {
         this.highRiskDataService.currentProcessedStock$.subscribe(data => {
             this.loadingListStock = data;
         });
-        this.subscription = interval(30000).subscribe(x => {
+        this.subscription = interval(300000).subscribe(x => {
             console.log('highRiskDataService reloaded');
             this.highRiskDataService.getDBProcessedStock();
         });

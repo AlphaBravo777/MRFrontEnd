@@ -12,12 +12,14 @@ export class UrlsService {
     root = 'http://192.168.2.25'; // This is meatrite live test server
     // root = 'http://192.168.45.2'; // This is meatrite development server
 
-    // rootUrl = this.root + ':8000/';
+    // backendUrl = this.root + ':8000/';
     // graphqlAddress = this.root + ':8000/graphql/';
 
     backendUrl = this.root + ':8080/';
     graphqlAddress = this.root + ':8080/graphql/';
 
-    currentVersion = 1.15;
+    currentVersion = 1.16;
 
 }
+
+// 1.16 Have change the dailyReport to the new format with reply and image functions

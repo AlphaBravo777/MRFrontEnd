@@ -40,6 +40,11 @@ const mainPortalRoutes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
+                path: 'factory',
+                loadChildren: '../../features/factory/factory.module#FactoryModule',
+                canActivate: [AuthGuard],
+            },
+            {
                 path: 'dispatch',
                 loadChildren: '../../features/factory/dispatch/dispatch.module#DispatchModule',
                 canActivate: [AuthGuard],

@@ -8,8 +8,8 @@
             <th id='thNumbers' [ngClass]="{'positive' : productData.currentStock - productData.stockNeeded > 0, 'negative' : productData.currentStock - productData.stockNeeded < 0}"
                 >{{productData.currentStock - productData.stockNeeded}}</th>
         </tr>
-        <tr *ngIf="expandedIndex">
+        <!-- <tr *ngIf="expandedIndex">
             <th class='trollies'  colspan="5"><app-high-risk-items3 [prod]='productData.productCode'></app-high-risk-items3></th>
-        </tr>
+        </tr> -->
     </table>
 </div>

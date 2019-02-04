@@ -11,7 +11,7 @@
             "orderID": "=wert1",
             "routeID": "=eshsghdgfh",
             "loadingStatus": false,
-            "timestampID": "VGltZVN0YW1wVHlwZTozMzU=",
+            "timestampID": "VGltZVN0YW1wVHlwZTozNjI=",
             "timestampid": 323,
             "productTotals": [
                 {"productName": "SVDeli500", "productid": 1, "amount": 16},
@@ -46,7 +46,7 @@
             "orderID": "=wert2",
             "routeID": "=eshsghdgfh",
             "loadingStatus": false,
-            "timestampID": "VGltZVN0YW1wVHlwZTozMzU=",
+            "timestampID": "VGltZVN0YW1wVHlwZTozNjI=",
             "timestampid": 323,
             "productTotals": [
                 {"productName": "SVDeli500", "productid": 1, "amount": 17},
@@ -84,7 +84,7 @@
             "orderID": "=wert3",
             "routeID": "=eshsdfgdghdgfh",
             "loadingStatus": false,
-            "timestampID": "VGltZVN0YW1wVHlwZTozMzU=",
+            "timestampID": "VGltZVN0YW1wVHlwZTozNjI=",
             "timestampid": 323,
             "productTotals": [
                 {"productName": "SVDeli500", "productid": 1, "amount": 23},
@@ -96,13 +96,13 @@
             ],
             "clients": [
                 {"clientName": "Alma Shop", "clientid": 345, "deliveryRanking": 1, "loadingStatus": true, "orders": [
-                    {"productName": "SVDeli500", "productid": 1, "amount": 3, "loadingStatus": false, "amountLoaded": 0},
-                    {"productName": "SSDeli500", "productid": 2, "amount": 2, "loadingStatus": false, "amountLoaded": 0},
-                    {"productName": "PPCCV500", "productid": 3, "amount": 4, "loadingStatus": false, "amountLoaded": 0}
+                    {"productName": "SVDeli500", "productid": 1, "amount": 0, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "SSDeli500", "productid": 2, "amount": 0, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "PPCCV500", "productid": 3, "amount": 0, "loadingStatus": false, "amountLoaded": 0}
                 ]},
                 {"clientName": "Rankins Pass Shop", "clientid": 346, "deliveryRanking": 2, "loadingStatus": true, "orders": [
                     {"productName": "SVDeli500", "productid": 1, "amount": 10, "loadingStatus": false, "amountLoaded": 0},
-                    {"productName": "SSDeli500", "productid": 2, "amount": 4, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "SSDeli500", "productid": 2, "amount": 0, "loadingStatus": false, "amountLoaded": 0},
                     {"productName": "PPCCV500", "productid": 3, "amount": 2, "loadingStatus": false, "amountLoaded": 0}
                 ]},
                 {"clientName": "Thabazimbi One-Stop", "clientid": 347, "deliveryRanking": 4, "loadingStatus": false, "orders": [
@@ -133,7 +133,7 @@
             "orderID": "=wert4",
             "routeID": "=eshsgsdfewhdgfh",
             "loadingStatus": false,
-            "timestampID": "VGltZVN0YW1wVHlwZTozMzU=",
+            "timestampID": "VGltZVN0YW1wVHlwZTozNjI=",
             "timestampid": 323,
             "productTotals": [
                 {"productName": "SVDeli500", "productid": 1, "amount": 5},

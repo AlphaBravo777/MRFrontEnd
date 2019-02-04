@@ -28,8 +28,8 @@ export class HighRiskPackinglistApiService {
         return this.apollo
             .watchQuery({
                 query: gql`
-                {
-                    allHighriskpackinglist {
+                query HighRiskPackingList {
+                    listHighriskpackinglist{
                       productCode {
                         productid
                         proddescription
@@ -41,14 +41,14 @@ export class HighRiskPackinglistApiService {
                       currentStock
                       stockNeeded
                     }
-                  }
+                }
             `,
             })
-            .valueChanges.pipe(map(result => this.flattenHighRiskpackingList(result.data['allHighriskpackinglist'])));
+            .valueChanges.pipe(map(result => this.flattenHighRiskpackingList(result.data['listHighriskpackinglist'])));
     }
 
     flattenHighRiskpackingList(data): IPackingListStock[] {
-        // console.log(data);
+        console.log('Here is the highisk data', data);
         const flattendData: IPackingListStock[] = [];
 
         for (let array = 0; array < data.length; ++array) {

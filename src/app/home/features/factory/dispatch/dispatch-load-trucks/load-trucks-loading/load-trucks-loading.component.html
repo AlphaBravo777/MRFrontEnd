@@ -1,4 +1,4 @@
-<div class='mainGridContainer'>
+<!-- <div class='mainGridContainer'>
         <div class='colms headings'>
             <div>Meatrite Stock</div>
             <div>Order</div>
@@ -18,4 +18,27 @@
             </div>
             <div class='finalAmount'>{{stock.stockOnHand.amount - stock.stockRequired.amount}}</div>
         </div>
-    </div>
+    </div> -->
+
+<table class='loadingTable'>
+    <caption>Stock to load</caption>
+    <thead>
+        <tr>
+            <th>Product to Load</th>
+            <th>AMT</th>
+            <th>MR</th>
+            <th class='loading'>Load/Unload</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor='let stock of sideBySideStock'>
+            <td>{{stock.stockRequired.productName}}</td>
+            <td class='amount' [ngStyle]="stock.stockRequired.amount !== 0 && {'color':'red'} || stock.stockRequired.amount === 0 && {'color':'green'}" >{{stock.stockRequired.amount}}</td>
+            <td class='mr'>({{stock.stockOnHand.amount}})</td>
+            <td class='loading'>
+                <app-load-widget [amountNeeded]='stock.stockRequired.amount'></app-load-widget>
+            </td>
+        </tr>
+    </tbody>
+</table>

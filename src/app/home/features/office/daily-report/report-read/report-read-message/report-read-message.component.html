@@ -1,7 +1,6 @@
 <div class='messageContainer' [ngStyle]="styleObjectMessageContainer()">
     <div [ngClass]="{'gridContainer':       message.reply=== null, 
                      'replyGridContainer':  message.reply!== null}">
-    <!-- <div class='gridContainer'> -->
         <div class='ranking' [ngStyle]="styleObjectRanking()">
         </div>
         <div class='header'>
@@ -33,7 +32,7 @@
                 <img src="assets/images/edit.png" (click)='editReport.emit(message)'>
             </span>
             <img src="assets/images/reply.png" (click)='replyToReport(message.rowid)'>
-            <img src="assets/images/save.png">
+            <!-- <img src="assets/images/save.png"> -->
             
             <span class='icons' *ngIf='message.messageFlag.levelColor === "#997049"'>
                 <img src="assets/images/repair.png"> 

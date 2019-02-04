@@ -16,4 +16,5 @@
     </ng-template>
     <input type='file' style='display: none' (change)='onFileSelected($event)' #imageInput>
     <img src="assets/images/insertImage.png" (click)='imageInput.click()'>
+    <span> {{ selectedFile?.name}}</span>
 </form> 

@@ -39,6 +39,7 @@ export class IRouteOrder {
     truckName: string;
     // driver: string;
     // departureTime: string;
+    // invoice# : number; Use as number and just ad "In" in front of each number (for sorting purposes)
     timestampID: string;
     timestampid: number;
     clients: IRouteOrderClient[];

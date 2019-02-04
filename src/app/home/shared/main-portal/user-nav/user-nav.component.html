@@ -4,21 +4,21 @@
             <a routerLink="../stocks" routerLinkActive="active"><button class='niceButton meatriteButton'>Stock</button></a>
         </ng-template>
 
-        <ng-template [ngxPermissionsOnly]="['shift-supervisor','factory-supervisor','Lshape-leader', 'admin']">
+        <!-- <ng-template [ngxPermissionsOnly]="['shift-supervisor','factory-supervisor','Lshape-leader', 'admin']">
             <a routerLink="../L-shape" routerLinkActive="active"><button class='niceButton meatriteButton'>L-Shape</button></a>
-        </ng-template>
+        </ng-template> -->
 
         <ng-template [ngxPermissionsOnly]="['shift-supervisor','factory-supervisor','Lshape-leader', 'admin']">
-            <a routerLink="../high-risk" routerLinkActive="active"><button class='niceButton meatriteButton'>High-Risk</button></a>
+            <a routerLink="../factory/menu" routerLinkActive="active"><button class='niceButton meatriteButton'>Factory</button></a>
         </ng-template>
 
         <ng-template [ngxPermissionsOnly]="['admin-office', 'admin']">
             <a routerLink="../admin-office/menu" routerLinkActive="active"><button class='niceButton meatriteButton'>Admin
                     Office</button></a>
         </ng-template>
-        <ng-template [ngxPermissionsOnly]="['admin-office', 'dispatch']">
+        <!-- <ng-template [ngxPermissionsOnly]="['admin-office', 'dispatch']">
             <a routerLink="../dispatch/menu" routerLinkActive="active"><button class='niceButton meatriteButton'>Dispatch</button></a>
-        </ng-template>
+        </ng-template> -->
         <!-- <ng-template [ngxPermissionsOnly]="['admin-office','factory-supervisor', 'admin', 'shift-supervisor']">
                 <a routerLink="../checklists/menu" routerLinkActive="active"><button class='niceButton meatriteButton'>Checklists
                     </button></a>

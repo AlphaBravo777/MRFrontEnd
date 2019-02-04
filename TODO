@@ -11,19 +11,23 @@ Todo shortcuts:
     // 'Cmd/Ctrl+Shift+A' // Triggers  `Todo: Archive`  This will archive finished todos
     // Ctrl+shift+P and type todo and then "open embedded todos" too see what todos you have in your work
 
+Comon bug reports:
+    ☐ Sometimes "report-read-api.service.ts:81" will shop that all daily reports EVER have been collected from the server. This may be because data is
+        ☐ collected without timestamp being available yet. This obviously takes a lot of time, and will become worst as time goes on. 
+
 Checklist module:
     ☐  When ever adding a check, the subscriptions accumelate, so every time you enter a check the subscriptions become more and more 
 
 Daily report module:
     ✔ Make more settings where if you want to post a new message, then post message button is active, and it posts a new message, @done(19-01-16 12:51)
         ✔ Else if you want to edit then have it show an edit button, and this will update the message @done(19-01-16 12:51)
-    ✔ @high  Make report message reload after a post @1h @done(19-01-16 17:28)
+    ✔ Make report message reload after a post @1h @done(19-01-16 17:28) @high 
     ✔ Allow user to edit message @2h @started(19-01-16 08:34) @done(19-01-16 17:28) @lasted(8h54m55s)
     ☐ Re-shuffle the reply data. At the moment the last replies are shown first.
     ☐ Add time that message was posted to header element
     ☐ Square up the outgoing frontend api interface to match with the backend RESTapi modules 
-    ✔ @critical All delete and edit options is available for every user!! @done(19-01-18 08:12)
-    ✔ @low Add a version number @30min @done(19-01-18 08:12)
+    ✔ All delete and edit options is available for every user!! @done(19-01-18 08:12) @critical 
+    ✔ Add a version number @30min @done(19-01-18 08:12) @low 
     ✔ Edit message does not keep the messageLevel that it had before editing @30m @started(19-01-17 07:31) @done(19-01-17 12:51) @lasted(5h20m13s)
     ✔ When you edit, but decide to go back to menu, then all settings must reset, so reset settings must run every time you enter report @30m @done(19-01-17 15:13)
     ✔ Create an interface that the edit report data has to comply with when sending to Backend @30m @done(19-01-17 14:50)
@@ -33,8 +37,8 @@ Dispatch stock take:
     Bug Fixes:
         ☐ When you change the date, then all the truck subscriptions that you had open also get update.
             ☐ Load a few routes (maybe 4), and then when you change the date it will give you 4 subscriptions (after selectiong a route and getting the data, it should unsubscribe)
-        ☐ Sometimes "report-read-api.service.ts:81" will shop that all daily reports EVER have been collected from the server. This may be because data is
-            ☐ collected without timestamp being available yet. This obviously takes a lot of time, and will become worst as time goes on. 
+        ☐ When you change the date, the routes do not get updated based on the new date, they stay with the old date @critical 
+
     // Everything starts at stocktake at meatrite. (So the stock must be taken)
     // There should always just be one meatrite stock, you can have stock that says different times, but this will be a copy of the stock that is showing as the latest stock.
     Features: 
@@ -83,14 +87,15 @@ Dispatch stock take:
                 ✔ Create a service that takes the data, and returns data where the products are matched (Needed product vs On stock product) @done(19-01-23 16:19)
                 ✔ Create a component that shows you what is needed vs what is loaded with any two stockgroups given @done(19-01-23 16:20)
             ✔ Create a row of buttons with all the shops/clients where you can see what must be loaded, and what are loaded (green/red button) @done(19-01-24 08:58)
-                ☐ You can then click on an order (client) to start loading it.
+                ✔ You can then click on an order (client) to start loading it. @done(19-02-04 10:31)
                 ☐ Maybe a full and empty truck picture
                 ☐ The clients must also be ordered according to ranking field, as they will be delivered.
             ☐ After clicking on the order to load, it shows you what is needed, and next to it what is available (Maybe re-use the above component)
-            ☐ You then have an up down arrow, so that when you press the up arrow at the stock side, it increases the truck stock, and decreases the factory stock.
-            ☐ Arrows should have 1, 5, 10, 50 and "total needed" totals that you can choose from
+            ✔ You then have an up down arrow, so that when you press the up arrow at the stock side, it increases the truck stock, and decreases the factory stock. @done(19-02-04 10:30)
+            ✔ Arrows should have 1, 5, 10, 50 and "total needed" totals that you can choose from @done(19-02-04 10:30)
             ☐ If there are different batches of a product, then those batches should all appear, but you should only be able to take of the
                 ☐ first one, and when it is at zero, then go on to the next one.
+            ☐ Make a field where you can show the exact time that an order/product was loaded @high 
 
         ☐ It should have borders around the stock showing if there is too little or too much.
         ☐ When you click on truck fininshed, it should add the items to the truck, along with its batch codes, and also update the
@@ -102,6 +107,7 @@ Dispatch stock take:
         ☐ is at hpp, you might have to use a new batch code, as this will be a new truck going from hpp with different products on it.
 
     Create image upload function:
-        ☐ Create a model that contains an ImageField class
-            ☐ image = models.ImageField(upload_to="restaurants/images/", null=True, blank=True)
-        ☐ Create serializer for the model
+        ✔ Create a model that contains an ImageField class @done(19-02-01 16:26)
+            ✔ image = models.ImageField(upload_to="restaurants/images/", null=True, blank=True) @done(19-02-01 16:26)
+        ✔ Create serializer for the model @done(19-02-01 16:26)
+        ☐ Limit image size. Maybe 640x400

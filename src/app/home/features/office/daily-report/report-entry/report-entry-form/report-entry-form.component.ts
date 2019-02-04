@@ -51,6 +51,7 @@ export class ReportEntryFormComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     onFileSelected(file) {
+        console.log(file);
         this.selectedFile = file.target.files[0];
         // this.reportEntryService.uploadFile(file.target.files[0]);
     }
