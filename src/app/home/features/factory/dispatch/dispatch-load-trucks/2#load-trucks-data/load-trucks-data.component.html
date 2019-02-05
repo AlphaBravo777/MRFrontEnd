@@ -1,7 +1,7 @@
 <app-load-trucks-view1 
     [dailyRoutes]='dailyRoutes'
     [templateData]='templateData' 
-    (getDataForRoute)='getDailyHppStockData($event)' 
+    (getDataForRoute)='refreshRouteSelection($event)'
     (loadTruck)='loadTruck($event)'>
 </app-load-trucks-view1>
 

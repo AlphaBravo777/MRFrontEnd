@@ -10,7 +10,7 @@ export class WebsiteHomeComponent implements OnInit {
 
   constructor(private urlService: UrlsService) { }
 
-  versionNumber: number;
+  versionNumber: string;
 
   ngOnInit() {
       this.versionNumber = this.urlService.currentVersion;

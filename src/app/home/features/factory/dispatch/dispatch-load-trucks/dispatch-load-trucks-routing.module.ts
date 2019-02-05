@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoadTrucksDataComponent } from './load-trucks-data/load-trucks-data.component';
+import { LoadTrucksDataComponent } from './2#load-trucks-data/load-trucks-data.component';
 
 const loadTrucksRoutes: Routes = [
     {

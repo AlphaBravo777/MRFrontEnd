@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { IStockSingleProduct, IDispatchStockSideBySide } from '../../$dispatch-services/dispatch-interface';
-import { LoadTrucksService } from '../load-trucks-services/load-trucks.service';
+import { LoadTrucksService } from '../1#load-trucks-services/load-trucks.service';
 
 @Component({
     selector: 'app-load-trucks-compare',

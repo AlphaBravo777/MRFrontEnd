@@ -1,18 +1,34 @@
 // this interface file may have to be moved higher up later, if more modules are going to use these interfaces
 
-export class IDispatchStockDataMain {
+export class IDispatchStockDataMain {  // Used
     meatriteStock: IStockSingleProduct[];
-    routeData: ITestRouteOrder;
+    route: IBasicRoute;
 }
 
-export class IRouteTemplateData {
-    showLoadTruckTemplate: boolean;
-    meatriteStock: IStockSingleProduct[];
+export class IBasicRoute {  // Used - Simplified routes data (Just to get all daily routes)
+    routeid: number;
+    routeID: string;
     routeName: string;
-    prodductTotal: IStockSingleProduct[];
-    clients?: IRouteOrderClient[];
-    totalTrucks: number;
+    timestampid: number;
+    timestampID: string;
+    trucks?: ISingleTruckOrder[];
 }
+
+// export class IRouteWithTrucks extends IBasicRouteID {
+//     timestampid: number;
+//     timestampID: string;
+//     // totalProductOnAllTrucks?: IStockSingleProduct[];
+//     // loadingStatus: boolean;  // Just show all the trucks that must be loaded and there status
+//     trucks: ISingleTruckOrder[];
+// }
+
+// export class IRouteTemplateData {  // depricate
+//     meatriteStock: IStockSingleProduct[];
+//     routeName: string;
+//     prodductTotal: IStockSingleProduct[];
+//     clients?: IRouteOrderClient[];
+//     totalTrucks: number;
+// }
 
 export class IBatchAmounts {
     batchNumber: string;
@@ -31,24 +47,22 @@ export class IStockSingleProduct {
     amountLoaded: number;
 }
 
-export class IRouteOrder {
-    routeName: string;
-    routeid: number;
-    routeID: string;
-    orderid: number;
-    orderID: string;
+export class ISingleTruckOrder {  // Used
+    // routeid: number;  // Not necesarry for data, but will need to have field in database
+    // routeID: string;  //Not necesarry for data, but will need to have field in database
+    truckid: number;
+    truckID: string;
     truckNr: number;
     truckName: string;
-    // driver: string;
-    // departureTime: string;
-    // invoice# : number; Use as number and just ad "In" in front of each number (for sorting purposes)
-    timestampID: string;
-    timestampid: number;
+    driver: string;
+    departureTime: string;
+    loadingStatus: boolean;
+    totalProductOnTruck: IStockSingleProduct[];
     clients: IRouteOrderClient[];
-    productTotals: IStockSingleProduct[];
 }
 
 export class IRouteOrderClient {
+    invoiceNumber: number; // Use as number and just ad "In" in front of each number (for sorting purposes)
     clientName: string;
     clientid: number;
     deliveryRanking: number;
@@ -86,41 +100,28 @@ export class IDispatchStockSideBySide {
     stockRequired: IStockSingleProduct;
 }
 
-export class IRouteID {
-    routeid: number;
-    routeID: string;
-    routeName: string;
-}
 
-export class IRouteIDWithTruckID extends IRouteID {
-    truckNr: number;
-    orderid: number;
-    orderID: string;
-}
 
-export class IDailyRoutes extends IRouteID {
-    numberOfTrucks: IRouteIDWithTruckID[];
-}
+// export class IRouteIDWithTruckID extends IBasicRouteID {  // Depricate
+//     truckNr: number;
+//     orderid: number;
+//     orderID: string;
+// }
 
-export class ITestTruck {
-    truckName: string;
-    // truckid: number;
-    // truckID: string;
-    truckNumber: number;
-    orderid: number;
-    orderID: string;
-    loadingStatus: boolean;
-    clients: IRouteOrderClient[];
-    totalProductOnTruck: IStockSingleProduct[];
-}
+// export class IDailyRoutes extends IBasicRouteID {  // Depricate
+//     numberOfTrucks: IRouteIDWithTruckID[];
+// }
 
-export class ITestRouteOrder {
-    routeName: string;
-    routeid: number;
-    routeID: string;
-    timestampid: number;
-    timestampID: string;
-    totalProductOnAllTrucks?: IStockSingleProduct[];
-    loadingStatus: boolean;
-    trucks: ITestTruck[];
-}
+// export class ITestTruck { // Repalced by ISingleTruckOrder
+//     truckName: string;
+//     // truckid: number;
+//     // truckID: string;
+//     truckNumber: number;
+//     orderid: number;
+//     orderID: string;
+//     loadingStatus: boolean;
+//     clients: IRouteOrderClient[];
+//     totalProductOnTruck: IStockSingleProduct[];
+// }
+
+

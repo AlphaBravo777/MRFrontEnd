@@ -1,22 +1,15 @@
 {
-    "routeData": [
+    "trucks": [
         {
-            "routeName": "PnP",
+            "routeid": 154,
+            "routeID": "=eshsghdgfh",
+            "truckid": 567,
+            "truckID": "=akljhflaks",
             "truckNr": 1,
             "truckName": "PnP truck 1",
             "driver" : "Driver 1",
             "departureTime" : "04:00",
-            "routeid": 10,
-            "orderid": 1,
-            "orderID": "=wert1",
-            "routeID": "=eshsghdgfh",
             "loadingStatus": false,
-            "timestampID": "VGltZVN0YW1wVHlwZTozNjQ=",
-            "timestampid": 323,
-            "productTotals": [
-                {"productName": "SVDeli500", "productid": 1, "amount": 16},
-                {"productName": "SSDeli500", "productid": 2, "amount": 9},
-                {"productName": "PPCCV500", "productid": 3, "amount": 14}],
             "clients": [
                 {"clientName": "PnP Inland Deli", "clientid": 345, "deliveryRanking": 1, "loadingStatus": false, "orders": [
                     {"productName": "SVDeli500", "productid": 1, "amount": 3, "loadingStatus": false, "amountLoaded": 0},
@@ -36,24 +29,15 @@
             ]
         },
         {
-            "routeName": "PnP",
+            "routeid": 154,
+            "routeID": "=eshsghdgfh",
+            "truckid": 568,
+            "truckID": "=akljhfdfgdflaks",
             "truckNr": 2,
             "truckName": "PnP truck 2",
-            "driver" : "Driver 1",
+            "driver" : "Driver 2",
             "departureTime" : "04:00",
-            "routeid": 10,
-            "orderid": 2,
-            "orderID": "=wert2",
-            "routeID": "=eshsghdgfh",
             "loadingStatus": false,
-            "timestampID": "VGltZVN0YW1wVHlwZTozNjQ=",
-            "timestampid": 323,
-            "productTotals": [
-                {"productName": "SVDeli500", "productid": 1, "amount": 17},
-                {"productName": "PPCCV500", "productid": 3, "amount": 15},
-                {"productName": "SSDeli500", "productid": 2, "amount": 10},
-                {"productName": "PPCCV1", "productid": 5, "amount": 5}
-            ],
             "clients": [
                 {"clientName": "PnP E-Cape Premium", "clientid": 345, "deliveryRanking": 1, "loadingStatus": false, "orders": [
                     {"productName": "SVDeli500", "productid": 1, "amount": 4, "loadingStatus": false, "amountLoaded": 0},
@@ -74,26 +58,15 @@
             ]
         },
         {
-            "routeName": "Thabazimbi",
+            "routeid": 155,
+            "routeID": "=eshsdfgdghdgfh",
+            "truckid": 569,
+            "truckID": "=akljhasflaks",
             "truckNr": 1,
             "truckName": "Thabazimbi truck 1",
-            "driver" : "Driver 1",
-            "departureTime" : "04:00",
-            "routeid": 12,
-            "orderid": 3,
-            "orderID": "=wert3",
-            "routeID": "=eshsdfgdghdgfh",
+            "driver" : "Driver 3",
+            "departureTime" : "05:00",
             "loadingStatus": false,
-            "timestampID": "VGltZVN0YW1wVHlwZTozNjQ=",
-            "timestampid": 323,
-            "productTotals": [
-                {"productName": "SVDeli500", "productid": 1, "amount": 23},
-                {"productName": "SSDeli500", "productid": 2, "amount": 7},
-                {"productName": "PPCCV500", "productid": 3, "amount": 45},
-                {"productName": "SVDeli500", "productid": 1, "amount": 87},
-                {"productName": "SSDeli500", "productid": 2, "amount":23},
-                {"productName": "PPCCV500", "productid": 3, "amount": 11}
-            ],
             "clients": [
                 {"clientName": "Alma Shop", "clientid": 345, "deliveryRanking": 1, "loadingStatus": true, "orders": [
                     {"productName": "SVDeli500", "productid": 1, "amount": 0, "loadingStatus": false, "amountLoaded": 0},
@@ -123,25 +96,15 @@
             ]
         },
         {
-            "routeName": "Nelspruit",
+            "routeid": 156,
+            "routeID": "=eshsgsdfewhdgfh",
+            "truckid": 570,
+            "truckID": "=akljhbvnvbnlaks",
             "truckNr": 1,
             "truckName": "Nelspruit truck 1",
-            "driver" : "Driver 1",
-            "departureTime" : "04:00",
-            "routeid": 11,
-            "orderid": 4,
-            "orderID": "=wert4",
-            "routeID": "=eshsgsdfewhdgfh",
+            "driver" : "Driver 4",
+            "departureTime" : "05:00",
             "loadingStatus": false,
-            "timestampID": "VGltZVN0YW1wVHlwZTozNjQ=",
-            "timestampid": 323,
-            "productTotals": [
-                {"productName": "SVDeli500", "productid": 1, "amount": 5},
-                {"productName": "SSDeli500", "productid": 2, "amount": 99},
-                {"productName": "PPCCV500", "productid": 3, "amount": 120},
-                {"productName": "SSDeli500", "productid": 2, "amount": 45},
-                {"productName": "PPCCV500", "productid": 3, "amount": 43}
-            ],
             "clients": [
                 {"clientName": "Roots Nelspruit", "clientid": 345, "deliveryRanking": 1, "loadingStatus": false, "orders": [
                     {"productName": "SVDeli500", "productid": 1, "amount": 3, "loadingStatus": false, "amountLoaded": 0},
@@ -161,22 +124,15 @@
             ]
         },
         {
-            "routeName": "PnP",
+            "routeid": 170,
+            "routeID": "=eshsghdgfh",
+            "truckid": 587,
+            "truckID": "=akdfgbvnvbnlaks",
             "truckNr": 1,
             "truckName": "PnP truck 1",
             "driver" : "Driver 1",
-            "departureTime" : "04:00",
-            "routeid": 10,
-            "orderid": 5,
-            "orderID": "=wert5",
-            "routeID": "=eshsghdgfh",
+            "departureTime" : "10:00",
             "loadingStatus": false,
-            "timestampID": "abc=",
-            "timestampid": 319,
-            "productTotals": [
-                {"productName": "SVDeli500", "productid": 1, "amount": 16},
-                {"productName": "SSDeli500", "productid": 2, "amount": 9},
-                {"productName": "PPCCV500", "productid": 3, "amount": 14}],
             "clients": [
                 {"clientName": "PnP Inland", "clientid": 345, "deliveryRanking": 1, "loadingStatus": false, "orders": [
                     {"productName": "SVDeli500", "productid": 1, "amount": 3, "loadingStatus": false, "amountLoaded": 0},

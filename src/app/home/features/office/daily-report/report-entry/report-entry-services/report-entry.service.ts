@@ -3,12 +3,11 @@ import { ReportEntryApiService } from './report-entry-api.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { switchMap, tap, take, concatMap, subscribeOn } from 'rxjs/operators';
 // import { ReportReadService } from '../../report-read/report-read-services/report-read.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { IReadReport, IReadReportLevels, INewMessagePackage } from '../../report-read/report-read-services/read-report-interface';
 import { Router } from '@angular/router';
 import { ReportReadService } from '../../report-read/report-read-services/report-read.service';
 import { IInsertNewReportApiInterface } from './report-entry-interface';
-import { of } from 'zen-observable';
 
 @Injectable({
     providedIn: 'root'
@@ -42,12 +41,14 @@ export class ReportEntryService {
             take(1),
             tap(data => newReportEntry.timestampID = data.id),
             // tap(() => console.log('newReportEntry with timeStampID = ', file)),
-            switchMap(() => this.reportEntryApiService.enterNewReport(newReportEntry)),
+            concatMap(() => this.reportEntryApiService.enterNewReport(newReportEntry)),
             // do something here that will return the id of the message, so that you can post the image to that id.
-            switchMap((data) => {
+            concatMap((data) => {
                 if (file) {
+                    console.log('There was a file included', data);
                     return this.reportEntryApiService.uploadDailyReportFile(data.id, file);
                 }
+                console.log('There was NO file included', data);
                 return of(data);
             }),
             tap(() => this.setCurrentMessageDetails(this.defaultMessage)),
