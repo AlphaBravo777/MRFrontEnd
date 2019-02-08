@@ -20,7 +20,7 @@ export class LoadTrucksCompareComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        // console.log('Changes is running', changes);
+        console.log('Changes is running', changes);
         if (changes.stockOnHand) {
             this.sideBySideStock = this.loadTrucksService.putStockSideBySide(
                 changes.stockOnHand.currentValue, changes.stockRequired.currentValue

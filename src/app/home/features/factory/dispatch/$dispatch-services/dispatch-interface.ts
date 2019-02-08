@@ -1,9 +1,9 @@
 // this interface file may have to be moved higher up later, if more modules are going to use these interfaces
 
-export class IDispatchStockDataMain {  // Used
-    meatriteStock: IStockSingleProduct[];
-    route: IBasicRoute;
-}
+// export class IDispatchStockDataMain {  // Used
+//     meatriteStock: IStockSingleProduct[];
+//     route: IBasicRoute;
+// }
 
 export class IBasicRoute {  // Used - Simplified routes data (Just to get all daily routes)
     routeid: number;
@@ -11,24 +11,12 @@ export class IBasicRoute {  // Used - Simplified routes data (Just to get all da
     routeName: string;
     timestampid: number;
     timestampID: string;
-    trucks?: ISingleTruckOrder[];
+    // trucks?: ISingleTruckOrder[];
 }
 
-// export class IRouteWithTrucks extends IBasicRouteID {
-//     timestampid: number;
-//     timestampID: string;
-//     // totalProductOnAllTrucks?: IStockSingleProduct[];
-//     // loadingStatus: boolean;  // Just show all the trucks that must be loaded and there status
-//     trucks: ISingleTruckOrder[];
-// }
-
-// export class IRouteTemplateData {  // depricate
-//     meatriteStock: IStockSingleProduct[];
-//     routeName: string;
-//     prodductTotal: IStockSingleProduct[];
-//     clients?: IRouteOrderClient[];
-//     totalTrucks: number;
-// }
+export class IRouteWithTrucks extends IBasicRoute {
+    trucks: ISingleTruckOrder[];
+}
 
 export class IBatchAmounts {
     batchNumber: string;
@@ -58,10 +46,10 @@ export class ISingleTruckOrder {  // Used
     departureTime: string;
     loadingStatus: boolean;
     totalProductOnTruck: IStockSingleProduct[];
-    clients: IRouteOrderClient[];
+    clients: IRouteClient[];
 }
 
-export class IRouteOrderClient {
+export class IRouteClient {
     invoiceNumber: number; // Use as number and just ad "In" in front of each number (for sorting purposes)
     clientName: string;
     clientid: number;
@@ -70,13 +58,7 @@ export class IRouteOrderClient {
     orders: IStockSingleProduct[];
 }
 
-// export class IClientOrderProducts {
-//     productid: number;
-//     productName: string;
-//     amount: number;
-// }
-
-export class IDBStockSingleProduct {
+export class IDBStockSingleProduct {  // For database only?
     productid: number;  // Showing to products foreign key
     dateChanged: Date;
     amount: number;
@@ -85,7 +67,7 @@ export class IDBStockSingleProduct {
     defaultClearanceValue: boolean;
 }
 
-export class IDBStockBatchCode {
+export class IDBStockBatchCode {  // For database only?
     productid: number; // Foreign key showing to SingleStockProducts
     batchNumber: string;
     amount: number;
@@ -100,28 +82,5 @@ export class IDispatchStockSideBySide {
     stockRequired: IStockSingleProduct;
 }
 
-
-
-// export class IRouteIDWithTruckID extends IBasicRouteID {  // Depricate
-//     truckNr: number;
-//     orderid: number;
-//     orderID: string;
-// }
-
-// export class IDailyRoutes extends IBasicRouteID {  // Depricate
-//     numberOfTrucks: IRouteIDWithTruckID[];
-// }
-
-// export class ITestTruck { // Repalced by ISingleTruckOrder
-//     truckName: string;
-//     // truckid: number;
-//     // truckID: string;
-//     truckNumber: number;
-//     orderid: number;
-//     orderID: string;
-//     loadingStatus: boolean;
-//     clients: IRouteOrderClient[];
-//     totalProductOnTruck: IStockSingleProduct[];
-// }
 
 

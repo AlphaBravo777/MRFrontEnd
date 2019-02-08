@@ -93,8 +93,9 @@ Dispatch stock take:
             ☐ After clicking on the order to load, it shows you what is needed, and next to it what is available (Maybe re-use the above component)
             ✔ You then have an up down arrow, so that when you press the up arrow at the stock side, it increases the truck stock, and decreases the factory stock. @done(19-02-04 10:30)
             ✔ Arrows should have 1, 5, 10, 50 and "total needed" totals that you can choose from @done(19-02-04 10:30)
-            ☐ If there are different batches of a product, then those batches should all appear, but you should only be able to take of the
-                ☐ first one, and when it is at zero, then go on to the next one.
+            ✔ If there are different batches of a product, filter the extra batches, but if more than two you should only be able to take of the @done(19-02-06 15:59)
+                ☐ first one, and when it is at zero, then go on to the next one
+                ☐ Make sure the batches are ordered when they come in
             ☐ Make a field where you can show the exact time that an order/product was loaded @high 
 
         ☐ It should have borders around the stock showing if there is too little or too much.

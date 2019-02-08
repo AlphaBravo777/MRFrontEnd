@@ -6,7 +6,7 @@
             "truckid": 567,
             "truckID": "=akljhflaks",
             "truckNr": 1,
-            "truckName": "PnP truck 1",
+            "truckName": "PnP Truck 1",
             "driver" : "Driver 1",
             "departureTime" : "04:00",
             "loadingStatus": false,
@@ -18,7 +18,7 @@
                 ]},
                 {"clientName": "PnP Inland Premium", "clientid": 346, "deliveryRanking": 2, "loadingStatus": false, "orders": [
                     {"productName": "SVDeli500", "productid": 1, "amount": 6, "loadingStatus": false, "amountLoaded": 0},
-                    {"productName": "SSDeli500", "productid": 2, "amount": 4, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "SSDeli500", "productid": 2, "amount": 34, "loadingStatus": false, "amountLoaded": 0},
                     {"productName": "PPCCV500", "productid": 3, "amount": 2, "loadingStatus": false, "amountLoaded": 0}
                 ]},
                 {"clientName": "PnP E-Cape Deli", "clientid": 347, "deliveryRanking": 3, "loadingStatus": false, "orders": [
@@ -34,7 +34,7 @@
             "truckid": 568,
             "truckID": "=akljhfdfgdflaks",
             "truckNr": 2,
-            "truckName": "PnP truck 2",
+            "truckName": "PnP Truck 2",
             "driver" : "Driver 2",
             "departureTime" : "04:00",
             "loadingStatus": false,
@@ -63,7 +63,7 @@
             "truckid": 569,
             "truckID": "=akljhasflaks",
             "truckNr": 1,
-            "truckName": "Thabazimbi truck 1",
+            "truckName": "Thabazimbi Truck 1",
             "driver" : "Driver 3",
             "departureTime" : "05:00",
             "loadingStatus": false,
@@ -75,7 +75,7 @@
                 ]},
                 {"clientName": "Rankins Pass Shop", "clientid": 346, "deliveryRanking": 2, "loadingStatus": true, "orders": [
                     {"productName": "SVDeli500", "productid": 1, "amount": 10, "loadingStatus": false, "amountLoaded": 0},
-                    {"productName": "SSDeli500", "productid": 2, "amount": 0, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "SSDeli500", "productid": 2, "amount": 8, "loadingStatus": false, "amountLoaded": 8},
                     {"productName": "PPCCV500", "productid": 3, "amount": 2, "loadingStatus": false, "amountLoaded": 0}
                 ]},
                 {"clientName": "Thabazimbi One-Stop", "clientid": 347, "deliveryRanking": 4, "loadingStatus": false, "orders": [
@@ -84,9 +84,10 @@
                     {"productName": "PPCCV500", "productid": 3, "amount": 8, "loadingStatus": false, "amountLoaded": 0}
                 ]},
                 {"clientName": "Rankins Pass Police", "clientid": 346, "deliveryRanking": 3, "loadingStatus": false, "orders": [
-                    {"productName": "SVDeli500", "productid": 1, "amount": 6, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "SVDeli500", "productid": 1, "amount": 15, "loadingStatus": false, "amountLoaded": 0},
                     {"productName": "SSDeli500", "productid": 2, "amount": 4, "loadingStatus": false, "amountLoaded": 0},
-                    {"productName": "PPCCV500", "productid": 3, "amount": 2, "loadingStatus": false, "amountLoaded": 0}
+                    {"productName": "PPCCV500", "productid": 3, "amount": 25, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "SG2", "productid": 4, "amount": 12, "loadingStatus": false, "amountLoaded": 0}
                 ]},
                 {"clientName": "Shoprite Thabazimbi", "clientid": 347, "deliveryRanking": 5, "loadingStatus": false, "orders": [
                     {"productName": "SVDeli500", "productid": 1, "amount": 7, "loadingStatus": false, "amountLoaded": 0},
@@ -101,25 +102,25 @@
             "truckid": 570,
             "truckID": "=akljhbvnvbnlaks",
             "truckNr": 1,
-            "truckName": "Nelspruit truck 1",
+            "truckName": "Nelspruit Truck 1",
             "driver" : "Driver 4",
             "departureTime" : "05:00",
             "loadingStatus": false,
             "clients": [
                 {"clientName": "Roots Nelspruit", "clientid": 345, "deliveryRanking": 1, "loadingStatus": false, "orders": [
-                    {"productName": "SVDeli500", "productid": 1, "amount": 3, "loadingStatus": false, "amountLoaded": 0},
-                    {"productName": "SSDeli500", "productid": 2, "amount": 2, "loadingStatus": false, "amountLoaded": 0},
-                    {"productName": "PPCCV500", "productid": 3, "amount": 4, "loadingStatus": false, "amountLoaded": 0}
+                    {"productName": "SVDeli500", "productid": 1, "amount": 13, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "SSDeli500", "productid": 2, "amount": 12, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "PPCCV500", "productid": 3, "amount": 14, "loadingStatus": false, "amountLoaded": 0}
                 ]},
                 {"clientName": "Shoprite Mahlalane", "clientid": 346, "deliveryRanking": 2, "loadingStatus": false, "orders": [
-                    {"productName": "SVDeli500", "productid": 1, "amount": 6, "loadingStatus": false, "amountLoaded": 0},
-                    {"productName": "SSDeli500", "productid": 2, "amount": 4, "loadingStatus": false, "amountLoaded": 0},
-                    {"productName": "PPCCV500", "productid": 3, "amount": 2, "loadingStatus": false, "amountLoaded": 0}
+                    {"productName": "SVDeli500", "productid": 1, "amount": 26, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "SSDeli500", "productid": 2, "amount": 24, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "PPCCV500", "productid": 3, "amount": 22, "loadingStatus": false, "amountLoaded": 0}
                 ]},
                 {"clientName": "Middelburg Tuck-Shop", "clientid": 347, "deliveryRanking": 3, "loadingStatus": false, "orders": [
-                    {"productName": "SVDeli500", "productid": 1, "amount": 7, "loadingStatus": false, "amountLoaded": 0},
-                    {"productName": "SSDeli500", "productid": 2, "amount": 3, "loadingStatus": false, "amountLoaded": 0},
-                    {"productName": "PPCCV500", "productid": 3, "amount": 8, "loadingStatus": false, "amountLoaded": 0}
+                    {"productName": "SVDeli500", "productid": 1, "amount": 37, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "SSDeli500", "productid": 2, "amount": 33, "loadingStatus": false, "amountLoaded": 0},
+                    {"productName": "PPCCV500", "productid": 3, "amount": 38, "loadingStatus": false, "amountLoaded": 0}
                 ]}
             ]
         },
@@ -129,7 +130,7 @@
             "truckid": 587,
             "truckID": "=akdfgbvnvbnlaks",
             "truckNr": 1,
-            "truckName": "PnP truck 1",
+            "truckName": "PnP Truck 1",
             "driver" : "Driver 1",
             "departureTime" : "10:00",
             "loadingStatus": false,

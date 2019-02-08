@@ -24,11 +24,7 @@
             ]
         },
         { "productid": 4, "productName": "SG2", "amount": 25, "batchAmounts": [
-                {"batchNumber": "45:4", "amount": 5, "cleared": true
-                },
-                {"batchNumber": "45:5", "amount": 7, "cleared": true
-                },
-                {"batchNumber": "45:6", "amount": 13, "cleared": false
+                {"batchNumber": "45:4", "amount": 25, "cleared": true
                 }
         ]
         },

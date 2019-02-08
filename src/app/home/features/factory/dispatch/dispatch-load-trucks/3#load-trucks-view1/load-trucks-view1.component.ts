@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IRouteOrderClient, IBasicRoute, IDispatchStockDataMain } from '../../$dispatch-services/dispatch-interface';
+import { IRouteClient, IBasicRoute, IDispatchStockDataMain } from '../../$dispatch-services/dispatch-interface';
 import { BehaviorSubject } from 'rxjs';
+import { LoadTrucksInfoService } from '../1#load-trucks-services/load-trucks-info.service';
 
 @Component({
     selector: 'app-load-trucks-view1',
@@ -9,45 +10,26 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoadTrucksView1Component implements OnInit {
 
-    private _templateData = new BehaviorSubject<IDispatchStockDataMain>(null);
-
     @Input() dailyRoutes: IBasicRoute[];  // To populate the dropdown list
-    @Input() templateData: IDispatchStockDataMain;
     @Output() getDataForRoute: EventEmitter<any> = new EventEmitter<any>();
-    @Output() loadTruck: EventEmitter<any> = new EventEmitter<any>(); // depricate
-    showLoadTruckTemplate: boolean;
-    clientData: IRouteOrderClient;
-    truckNumber = 0;
+    @Output() truckNumber: EventEmitter<number> = new EventEmitter<number>();
+    @Output() showLoadTruckTemplate: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    constructor() { }
+    constructor(private loadTrucksInfoService: LoadTrucksInfoService) { }
 
     ngOnInit() {
-        console.log('In the template the data = ', this.templateData);
+
     }
 
-    getDataForRouteFunc(route) {
-        this.showLoadTruckTemplate = false;
-        this.truckNumber = 0;
-        this.getDataForRoute.emit(route);
+    getDataForRouteFunc(routeid) {
+        this.showLoadTruckTemplate.emit(false);
+        this.truckNumber.emit(0);
+        const routeObject = this.getRouteObject(parseInt(routeid, 10));
+        this.getDataForRoute.emit(routeObject);
     }
 
-    loadClient(clientData: IRouteOrderClient) {
-        this.clientData = clientData;
-        this.showLoadTruckTemplate = true;
-    }
-
-    changeTruck(truckNumber: number) {
-        this.truckNumber = truckNumber;
+    getRouteObject(routeid: number): IBasicRoute {
+        return this.dailyRoutes.find((route) => route.routeid === routeid);
     }
 
 }
-
-
-    // @Input()
-    //     set templateData(value: IDispatchStockDataMain) {
-    //         console.log('The value of template = ', value);
-    //         this._templateData.next(value);
-    //     }
-    //     get templateData() {
-    //         return this._templateData.getValue();
-    //     }

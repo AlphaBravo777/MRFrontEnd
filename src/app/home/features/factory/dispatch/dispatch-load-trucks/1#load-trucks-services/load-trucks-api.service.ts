@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IStockSingleProduct, ISingleTruckOrder, IBasicRoute, IRouteOrderClient } from '../../$dispatch-services/dispatch-interface';
+import { IStockSingleProduct, ISingleTruckOrder, IBasicRoute, IRouteClient } from '../../$dispatch-services/dispatch-interface';
 import { map, tap } from 'rxjs/operators';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
@@ -21,7 +21,7 @@ export class LoadTrucksApiService {
 
     getRouteTrucks(routeData: IBasicRoute): Observable<ISingleTruckOrder[]> {
         return this.http.get<any>('assets/mockData/meatriteStock/dailyTrucks.json').pipe(
-            tap(data => console.log('Here is all the dailyTrucks: ', data)),
+            // tap(data => console.log('Here is all the dailyTrucks: ', data)),
             map(data => {   // Here we just get all the route data (can't filter JSON),
                 // and then filter to resemble an api call with parameters
                 return data.trucks.filter(route => route.routeid === routeData.routeid);
@@ -37,7 +37,7 @@ export class LoadTrucksApiService {
         return trucks;
     }
 
-    addStockTogether(clients: IRouteOrderClient[]): IStockSingleProduct[] {
+    addStockTogether(clients: IRouteClient[]): IStockSingleProduct[] {
         const totalStock: IStockSingleProduct[] = [];
         for (let client = 0; client < clients.length; client++) {
             for (let product = 0; product < clients[client].orders.length; product++) {
@@ -51,7 +51,6 @@ export class LoadTrucksApiService {
                 }
             }
         }
-        console.log('I do not know what this will be', totalStock);
         return totalStock;
     }
 

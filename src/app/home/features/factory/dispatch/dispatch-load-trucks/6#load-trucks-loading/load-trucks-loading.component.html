@@ -1,0 +1,24 @@
+<table class='loadingTable'>
+    <thead>
+        <tr>
+            <th>Product to Load</th>
+            <th class='amount'>AMT</th>
+            <th class='loading'>Load/Unload</th>
+        </tr>
+    </thead>
+
+    <tbody *ngFor='let stock of sideBySideStock'>
+        <tr>
+            <td>{{stock.stockRequired.productName}}</td>
+            <td class='amount' [ngStyle]="stock.stockRequired.amount !== stock.stockRequired.amountLoaded &&
+                {'color':'red'} || stock.stockRequired.amount === stock.stockRequired.amountLoaded && {'color':'green'}">
+                {{stock.stockRequired.amountLoaded}}/{{stock.stockRequired.amount}}</td>
+            <td class='loading'>
+                <app-load-widget 
+                    [stock]='stock'
+                    (load)='load($event, stock)'>
+                </app-load-widget>
+            </td>
+        </tr>
+    </tbody>
+</table>
