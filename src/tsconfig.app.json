@@ -4,9 +4,14 @@
         "outDir": "../out-tsc/app",
         "module": "es2015",
         "types": [],
+        "plugins": [
+            {
+                "name": "@angular/language-service"
+            }
+        ]
     },
     "exclude": [
         "src/test.ts",
         "**/*.spec.ts"
-    ],
+    ]
 }

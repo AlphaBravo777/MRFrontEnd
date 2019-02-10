@@ -7,15 +7,17 @@
         </tr>
     </thead>
 
-    <tbody *ngFor='let stock of sideBySideStock'>
+    <tbody *ngFor='let stock of sideBySideStock; let a = index'>
         <tr>
             <td>{{stock.stockRequired.productName}}</td>
             <td class='amount' [ngStyle]="stock.stockRequired.amount !== stock.stockRequired.amountLoaded &&
                 {'color':'red'} || stock.stockRequired.amount === stock.stockRequired.amountLoaded && {'color':'green'}">
                 {{stock.stockRequired.amountLoaded}}/{{stock.stockRequired.amount}}</td>
             <td class='loading'>
-                <app-load-widget 
+                <app-load-widget
+                    [productNumber]='a'
                     [stock]='stock'
+                    [workingRouteTree]='workingRouteTree'
                     (load)='load($event, stock)'>
                 </app-load-widget>
             </td>

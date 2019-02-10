@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IRouteClient, IBasicRoute, IDispatchStockDataMain } from '../../$dispatch-services/dispatch-interface';
-import { BehaviorSubject } from 'rxjs';
+import { IBasicRoute } from '../../$dispatch-services/dispatch-interface';
 import { LoadTrucksInfoService } from '../1#load-trucks-services/load-trucks-info.service';
 
 @Component({

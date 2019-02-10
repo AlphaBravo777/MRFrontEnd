@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { IStockSingleProduct, IDispatchStockSideBySide } from '../../$dispatch-services/dispatch-interface';
+import {
+    IStockSingleProduct,
+    IDispatchStockSideBySide,
+    IRouteClient,
+    IRouteWorkingTree } from '../../$dispatch-services/dispatch-interface';
 import { LoadTrucksService } from '../1#load-trucks-services/load-trucks.service';
 
 @Component({
@@ -9,44 +13,34 @@ import { LoadTrucksService } from '../1#load-trucks-services/load-trucks.service
 })
 export class LoadTrucksLoadingComponent implements OnInit, OnChanges {
 
-    @Input() stockOnHand: IStockSingleProduct[];
+    @Input() meatriteStock: IStockSingleProduct[];
     @Input() stockRequired: IStockSingleProduct[];
+    @Input() clientData: IRouteClient;
+    @Input() workingRouteTree: IRouteWorkingTree;
     sideBySideStock: IDispatchStockSideBySide[];
 
     constructor(private loadTrucksService: LoadTrucksService) { }
 
     ngOnInit() {
-        this.sideBySideStock = this.removeExtraBatches(this.loadTrucksService.putStockSideBySide(this.stockOnHand, this.stockRequired));
+        this.sideBySideStock = this.loadTrucksService.removeExtraBatches(
+            this.loadTrucksService.putStockSideBySide(this.meatriteStock, this.stockRequired));
     }
 
-    removeExtraBatches(sideBySideStock: IDispatchStockSideBySide[]): IDispatchStockSideBySide[] {
-        const newSideBySideStock: IDispatchStockSideBySide[] = JSON.parse(JSON.stringify(sideBySideStock));
-        newSideBySideStock.map(product => {
-            let currentAmount = 0;
-            const newStockOnHand = product.stockOnHand;
-            for (let index = 0; index < product.stockOnHand.batchAmounts.length; index++) {
-                currentAmount = currentAmount + product.stockOnHand.batchAmounts[index].amount;
-                if (currentAmount >= product.stockRequired.amount) {
-                    newStockOnHand.batchAmounts.length = index + 1;
-                }
-            }
-        });
-        return newSideBySideStock;
-    }
-
-    load(amount, index) {
-        console.log('Something was loaded', amount, index);
-    }
+    // load(amount, index) {
+    //     console.log('Something was loaded', amount, index);
+    // }
 
     ngOnChanges(changes: SimpleChanges): void {
-        // console.log('Changes is running', changes);
-        if (changes.stockOnHand) {
-            this.sideBySideStock = this.removeExtraBatches(this.loadTrucksService.putStockSideBySide(
-                changes.stockOnHand.currentValue, changes.stockRequired.currentValue
+        // console.log('Changes2 is running', this.stockRequired);
+        console.log('Loading changes is running', changes);
+        if (changes.meatriteStock) {
+            this.sideBySideStock = this.loadTrucksService.removeExtraBatches(this.loadTrucksService.putStockSideBySide(
+                changes.meatriteStock.currentValue, this.stockRequired
             ));
+            // console.log('Changes2 is running', this.sideBySideStock);
         } else {
-            this.sideBySideStock = this.removeExtraBatches(this.loadTrucksService.putStockSideBySide(
-                this.stockOnHand, changes.stockRequired.currentValue));
+            this.sideBySideStock = this.loadTrucksService.removeExtraBatches(this.loadTrucksService.putStockSideBySide(
+                this.meatriteStock, changes.stockRequired.currentValue));
         }
     }
 

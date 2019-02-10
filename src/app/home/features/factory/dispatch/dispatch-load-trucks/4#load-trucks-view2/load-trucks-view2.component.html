@@ -1,24 +1,33 @@
-<span *ngIf='templateData'>
-    <span *ngIf='templateData.meatriteStock && templateData.route'>
-        <span *ngIf='templateData.route.trucks.length > 1'>
-            <span *ngFor='let i of [].constructor(templateData.route.trucks.length); let a = index'>
-                <button (click)='changeTruck(a)'>Truck {{a + 1}}</button>
-            </span>
+<span *ngIf="meatriteStock && routeWithTrucks">
+    <span *ngIf="routeWithTrucks.trucks.length > 1">
+        <span *ngFor="let i of [].constructor(routeWithTrucks.trucks.length); let a = index">
+            <button (click)='changeTruck(a)'>Truck {{a + 1}}</button>
         </span>
-        <h3>Current truck: {{templateData.route.trucks[truckNumber].truckName}}</h3>
-        <div *ngIf="showLoadTruckTemplate; then loadTruckTemplate; else compareStockTemplate">{{showLoadTruckTemplate}}</div>
-        <ng-template #compareStockTemplate>
-            <app-load-trucks-compare [stockOnHand]='templateData.meatriteStock' [stockRequired]='templateData.route.trucks[truckNumber].totalProductOnTruck'>
-            </app-load-trucks-compare>
-        </ng-template>
-        <ng-template #loadTruckTemplate>
-            <h3>Current order: {{clientData.clientName}}</h3>
-            <app-load-trucks-loading [stockOnHand]='templateData.meatriteStock' [stockRequired]='clientData.orders'></app-load-trucks-loading>
-        </ng-template>
-        <p>Load truck from top to bottom</p>
-        <div class='clientButtons' *ngFor='let client of templateData.route.trucks[truckNumber].clients'>
-            <button [ngClass]="client.loadingStatus ? 'green' : 'red'" (click)='loadClient(client)'>{{client.deliveryRanking}}
-                {{client.clientName}}</button>
-        </div>
     </span>
+    <h3>Current truck: {{routeWithTrucks.trucks[workingRouteTree.truckNumber].truckName}}</h3>
+    <div *ngIf="showLoadTruckTemplate; then loadTruckTemplate; else compareStockTemplate">
+        {{showLoadTruckTemplate}}
+    </div>
+    <ng-template #compareStockTemplate>
+        <app-load-trucks-compare [stockOnHand]="meatriteStock"
+            [stockRequired]='routeWithTrucks.trucks[workingRouteTree.truckNumber].totalProductOnTruck'>
+        </app-load-trucks-compare>
+    </ng-template>
+    <ng-template #loadTruckTemplate>
+        <h3>Current order: {{clientData.clientName}}</h3>
+        <app-load-trucks-loading
+            [meatriteStock]='meatriteStock'
+            [stockRequired]='clientData.productOrders'
+            [clientData]='clientData'
+            [workingRouteTree]='workingRouteTree'>
+        </app-load-trucks-loading>
+    </ng-template>
+    <p>Load truck from top to bottom</p>
+    <div class="clientButtons" *ngFor="let client of routeWithTrucks.trucks[workingRouteTree.truckNumber].clients; let a = index">
+        <button [ngClass]="client.loadingStatus ? 'green' : 'red'"
+            (click)="loadClient(client, a)">
+            {{client.deliveryRanking}}
+            {{client.clientName}}
+        </button>
+    </div>
 </span>

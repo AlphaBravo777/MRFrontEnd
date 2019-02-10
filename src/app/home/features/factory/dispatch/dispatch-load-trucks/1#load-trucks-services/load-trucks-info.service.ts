@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IBasicRoute, ISingleTruckOrder, IRouteClient } from '../../$dispatch-services/dispatch-interface';
+import { IBasicRoute, ISingleTruckOrder, IRouteClient, IStockSingleProduct } from '../../$dispatch-services/dispatch-interface';
 import { LoadTrucksService } from './load-trucks.service';
 
 @Injectable({
@@ -17,7 +17,7 @@ currentOrderProduct$ = this.orderProduct.asObservable();
 private meatriteProduct = new BehaviorSubject<any>(null);
 currentmeatriteProduct$ = this.meatriteProduct.asObservable();
 
-    constructor(private loadTrucksService: LoadTrucksService) { }
+    constructor() { }
 
     setTruck(truck: ISingleTruckOrder) {
         this.truck.next(truck);
@@ -28,10 +28,9 @@ currentmeatriteProduct$ = this.meatriteProduct.asObservable();
         this.order.next(order);
     }
 
-    setOrderProduct(orderProduct) {
+    setOrderProduct(orderProduct: IStockSingleProduct, amount: number) {
         console.log('The order product that was changed = ', orderProduct);
         this.orderProduct.next(orderProduct);
-        this.loadTrucksService.changeMeatriteStock();
     }
 
 }

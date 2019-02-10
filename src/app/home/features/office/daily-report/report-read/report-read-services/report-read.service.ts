@@ -13,7 +13,6 @@ import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/dat
 export class ReportReadService {
 
     constructor(private reportReadApiService: ReportReadApiService,
-        private datePickerApi2Service: DatePickerApi2Service,
         private toolbox: ToolboxGroupService,
         private getDateService: GetDate$Service) {
     }

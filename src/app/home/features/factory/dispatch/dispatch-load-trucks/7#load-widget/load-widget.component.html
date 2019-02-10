@@ -8,8 +8,6 @@
     </thead>
     <tbody>
         <tr *ngFor='let batch of stock.stockOnHand.batchAmounts; let a = index'>
-            <ng-container *ngIf="a > 0">
-            </ng-container>
             <th>{{batch.amount}}</th>
             <th>{{batch.batchNumber}}</th>
             <th>

@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IBasicRoute, IStockSingleProduct } from '../../$dispatch-services/dispatch-interface';
+import { IBasicRoute, IStockSingleProduct, IRouteWithTrucks, IRouteWorkingTree } from '../../$dispatch-services/dispatch-interface';
 import { Subscription } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
 import { LoadTrucksService } from '../1#load-trucks-services/load-trucks.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
-import { LoadTrucksInfoService } from '../1#load-trucks-services/load-trucks-info.service';
 
 @Component({
     selector: 'app-load-trucks-data',
@@ -18,12 +17,13 @@ export class LoadTrucksDataComponent implements OnInit, OnDestroy {
     dailyRoutes: IBasicRoute[];
     subscription: Subscription;
     meatriteStock: IStockSingleProduct[];
-    routeTrucks: IBasicRoute;
+    routeWithTrucks: IRouteWithTrucks;
+    workingRouteTree: IRouteWorkingTree = {truckNumber: 0, clientNumber: 0, productNumber: 0};
 
     constructor(
         private loadTrucksService: LoadTrucksService,
         private getDatePackage: GetDate$Service,
-        private loadTruckInfoService: LoadTrucksInfoService
+        // private loadTruckInfoService: LoadTrucksInfoService
         ) { }
 
     ngOnInit() {
@@ -37,20 +37,15 @@ export class LoadTrucksDataComponent implements OnInit, OnDestroy {
             concatMap(() => this.loadTrucksService.getInitialTemplateData()),
         ).subscribe(data => {
             this.meatriteStock = data[0];
-            this.routeTrucks = data[1];
+            this.routeWithTrucks = data[1];
         });
     }
 
     refreshRouteSelection(routeObject: IBasicRoute) {   // Used
-        this.loadTrucksService.refreshRouteSelection(routeObject).pipe(
-            tap(() => {
-                // console.log('The templatedata = ', this.templateData);
-                if (this.meatriteStock === null) {
-                    this.loadTrucksService.refreshMeatriteStock().subscribe(); // no unSubscribe: takes(1)
-                }
-            }),
-            tap(() => this.loadTruckInfoService.setTruck(routeObject.trucks[0]))
-        ).subscribe();  // no unSubscribe: takes(1)
+        this.loadTrucksService.refreshRouteSelection(routeObject);
+        if (this.meatriteStock === null) {
+            this.loadTrucksService.refreshMeatriteStock().subscribe(); // no unSubscribe: takes(1)
+        }
     }
 
     ngOnDestroy(): void {  // Used

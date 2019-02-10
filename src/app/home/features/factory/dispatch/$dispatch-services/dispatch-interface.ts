@@ -1,38 +1,15 @@
 // this interface file may have to be moved higher up later, if more modules are going to use these interfaces
 
-// export class IDispatchStockDataMain {  // Used
-//     meatriteStock: IStockSingleProduct[];
-//     route: IBasicRoute;
-// }
-
 export class IBasicRoute {  // Used - Simplified routes data (Just to get all daily routes)
     routeid: number;
     routeID: string;
     routeName: string;
     timestampid: number;
     timestampID: string;
-    // trucks?: ISingleTruckOrder[];
 }
 
 export class IRouteWithTrucks extends IBasicRoute {
     trucks: ISingleTruckOrder[];
-}
-
-export class IBatchAmounts {
-    batchNumber: string;
-    amount: number;
-    cleared: boolean;
-}
-
-// There are a lot of interfaces in the file that are no longer used anymore...
-
-export class IStockSingleProduct {
-    productid: number;
-    productName: string;
-    amount: number;
-    batchAmounts?: IBatchAmounts[];
-    loadingStatus: boolean;
-    amountLoaded: number;
 }
 
 export class ISingleTruckOrder {  // Used
@@ -55,8 +32,32 @@ export class IRouteClient {
     clientid: number;
     deliveryRanking: number;
     loadingStatus: boolean;
-    orders: IStockSingleProduct[];
+    productOrders: IStockSingleProduct[];
 }
+
+export class IStockSingleProduct {
+    productid: number;
+    productName: string;
+    amount: number;
+    batchAmounts?: IBatchAmounts[];
+    loadingStatus: boolean;
+    amountLoaded: number;
+}
+
+export class IBatchAmounts {
+    batchNumber: string;
+    amount: number;
+    cleared: boolean;
+}
+
+export class IRouteWorkingTree {
+    // routeNumber: number;
+    truckNumber: number;
+    clientNumber: number;
+    productNumber: number;
+}
+
+// There are a lot of interfaces in the file that are no longer used anymore...
 
 export class IDBStockSingleProduct {  // For database only?
     productid: number;  // Showing to products foreign key
@@ -81,6 +82,8 @@ export class IDispatchStockSideBySide {
     stockOnHand: IStockSingleProduct;
     stockRequired: IStockSingleProduct;
 }
+
+
 
 
 

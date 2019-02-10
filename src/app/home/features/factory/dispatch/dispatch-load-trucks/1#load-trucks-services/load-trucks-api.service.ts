@@ -40,14 +40,14 @@ export class LoadTrucksApiService {
     addStockTogether(clients: IRouteClient[]): IStockSingleProduct[] {
         const totalStock: IStockSingleProduct[] = [];
         for (let client = 0; client < clients.length; client++) {
-            for (let product = 0; product < clients[client].orders.length; product++) {
-                const prodid = clients[client].orders[product].productid;
-                const prodAmount = clients[client].orders[product].amount;
+            for (let product = 0; product < clients[client].productOrders.length; product++) {
+                const prodid = clients[client].productOrders[product].productid;
+                const prodAmount = clients[client].productOrders[product].amount;
                 const stockExistsIndex = totalStock.findIndex(prod => prod.productid === prodid);
                 if (stockExistsIndex !== -1) {
                     totalStock[stockExistsIndex].amount = totalStock[stockExistsIndex].amount + prodAmount;
                 } else {
-                    totalStock.push(Object.assign({}, clients[client].orders[product]));
+                    totalStock.push(Object.assign({}, clients[client].productOrders[product]));
                 }
             }
         }

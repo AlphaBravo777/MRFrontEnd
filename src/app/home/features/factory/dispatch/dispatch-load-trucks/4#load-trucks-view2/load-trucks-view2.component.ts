@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { IDispatchStockDataMain, IRouteClient } from '../../$dispatch-services/dispatch-interface';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { IRouteClient, IStockSingleProduct, IRouteWithTrucks, IRouteWorkingTree } from '../../$dispatch-services/dispatch-interface';
 import { LoadTrucksInfoService } from '../1#load-trucks-services/load-trucks-info.service';
-import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-load-trucks-view2',
@@ -10,28 +9,32 @@ import { Subscription } from 'rxjs';
 })
 export class LoadTrucksView2Component implements OnInit, OnChanges {
 
-    @Input() templateData: IDispatchStockDataMain;
-    showLoadTruckTemplate: boolean;
+    @Input() meatriteStock: IStockSingleProduct[];
+    @Input() routeWithTrucks: IRouteWithTrucks;
+    @Input() workingRouteTree: IRouteWorkingTree;
     clientData: IRouteClient;
-    truckNumber = 0;
-    subscription: Subscription;
+    showLoadTruckTemplate: boolean;
+    // truckNumber = 0;
+    // clientNumber = 0;
 
     constructor(private loadTrucksInfoService: LoadTrucksInfoService) { }
 
     ngOnInit() {
     }
 
-    loadClient(clientData: IRouteClient) {
+    loadClient(clientData: IRouteClient, num: number) {
+        this.workingRouteTree.clientNumber = num;
         this.clientData = clientData;
         this.loadTrucksInfoService.setOrder(clientData);
         this.showLoadTruckTemplate = true;
     }
 
     changeTruck(truckNumber: number) {
-        if (this.templateData.route) {
-            this.loadTrucksInfoService.setTruck(this.templateData.route.trucks[truckNumber]);
+        if (this.routeWithTrucks) {
+            this.loadTrucksInfoService.setTruck(this.routeWithTrucks.trucks[truckNumber]);
         }
-        this.truckNumber = truckNumber;
+        // this.truckNumber = truckNumber;
+        this.workingRouteTree.truckNumber = truckNumber;
         this.showLoadTruckTemplate = false;
     }
 
@@ -40,8 +43,12 @@ export class LoadTrucksView2Component implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.templateData) {
-            console.log('Main changes are running');
+        // console.log('View2 changes are: ', changes);
+        if (this.routeWithTrucks) {
+            if (changes.routeWithTrucks) {
+                this.clientData = Object.assign({},
+                    this.routeWithTrucks.trucks[this.workingRouteTree.truckNumber].clients[this.workingRouteTree.clientNumber]);
+            }
         }
     }
 
