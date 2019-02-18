@@ -22,7 +22,7 @@ h1 {
     cursor: pointer;
     cursor: hand;
   }
-  
+
   .center-screen {
     flex-direction: column;
     justify-content: center;
@@ -42,7 +42,7 @@ h1 {
   }
 
 
-  
+
   nav a:visited, a:link {
     color: #607D8B;
   }
@@ -56,5 +56,5 @@ h1 {
 
   .grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);  
+      grid-template-columns: repeat(3, 1fr);
   }

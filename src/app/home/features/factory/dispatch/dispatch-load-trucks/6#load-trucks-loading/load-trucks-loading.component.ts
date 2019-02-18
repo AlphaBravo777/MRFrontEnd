@@ -26,10 +26,6 @@ export class LoadTrucksLoadingComponent implements OnInit, OnChanges {
             this.loadTrucksService.putStockSideBySide(this.meatriteStock, this.stockRequired));
     }
 
-    // load(amount, index) {
-    //     console.log('Something was loaded', amount, index);
-    // }
-
     ngOnChanges(changes: SimpleChanges): void {
         // console.log('Changes2 is running', this.stockRequired);
         console.log('Loading changes is running', changes);

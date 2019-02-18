@@ -1,0 +1,17 @@
+<app-box-shadow-container>
+    <app-hpp-summary-view1
+        *ngIf='meatriteStock && preHppStock'
+        [pnpProducts]='pnpProducts'
+        [meatriteStock]='meatriteStock'
+        [preHppStock]='preHppStock'
+        [pnpOrder]='pnpOrder'
+        [pnpOutstandingOrders]='pnpOutstandingOrders'
+        [postHppStock]='postHppStock'
+        [hppLeakers]='hppLeakers'
+        [outstandingStock]='outstandingStock'
+        [amountOfOrders]='amountOfOrders'>
+    </app-hpp-summary-view1>
+    <div *ngIf='!meatriteStock'>
+        There is no stock to display yet
+    </div>
+</app-box-shadow-container>

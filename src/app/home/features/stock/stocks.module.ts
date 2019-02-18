@@ -11,10 +11,11 @@ import { MyInputDirective } from './stock-services/my-input.directive';
 import { ProcessedMenuComponent } from './processed/processed-menu/processed-menu.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ButtonColorDirective } from './stock-services/button-color.directive';
-import { StocksComponent } from './stocks.component';
 import { StockGroupDirective } from './stock-services/stock-group.directive';
 import { MaterialConfigModule } from '../../../material-config/material-config.module';
 import { FilterTimesPipe } from './processed/processed-menu/filter-times.pipe';
+import { StockMenuComponent } from './$stock-menu/stock-menu.component';
+import { StockEntryComponent } from './$stock-entry/stock-entry.component';
 
 @NgModule({
     imports: [
@@ -35,8 +36,9 @@ import { FilterTimesPipe } from './processed/processed-menu/filter-times.pipe';
         ProcessedMenuComponent,
         ButtonColorDirective,
         StockGroupDirective,
-        StocksComponent,
         FilterTimesPipe,
+        StockMenuComponent,
+        StockEntryComponent,
     ],
     providers: []
 })

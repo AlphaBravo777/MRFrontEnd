@@ -15,6 +15,7 @@ export class DatePickerService {
     constructor(private datePickerApiService: DatePickerApiService) { }
 
     inputLongDate(longDate: Date): Observable<IDate> {
+        this.datePackage.longDate = longDate;
         this.getBlockDate(longDate);
         this.getShortDate(longDate);
         this.getShift();
@@ -35,20 +36,20 @@ export class DatePickerService {
         );
     }
 
-    weekMain(firstDate: any): IDate {  // Takes any day format and turns it into an array with Year, Week number and day number.
+    // weekMain(firstDate: any): IDate {  // Takes any day format and turns it into an array with Year, Week number and day number.
 
-        let workingDate;
-        const new2 = this.dateToString(firstDate);
+    //     let workingDate;
+    //     const new2 = this.dateToString(firstDate);
 
-        if (new2.length < 13) {
-            workingDate = this.shortToLongDate(new2);
-        } else {
-            workingDate = firstDate;
-        }
-        const dateArray: IDate = this.getWeekNumber(workingDate);
-        if (dateArray.weekDay === 0) { dateArray.weekDay = 7; }
-        return dateArray;
-    }
+    //     if (new2.length < 13) {
+    //         workingDate = this.shortToLongDate(new2);
+    //     } else {
+    //         workingDate = firstDate;
+    //     }
+    //     const dateArray: IDate = this.getWeekNumber(workingDate);
+    //     if (dateArray.weekDay === 0) { dateArray.weekDay = 7; }
+    //     return dateArray;
+    // }
 
     getBlockDate(longDate: any) {
 

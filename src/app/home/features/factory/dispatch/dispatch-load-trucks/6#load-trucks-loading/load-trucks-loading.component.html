@@ -16,6 +16,7 @@
             <td class='loading'>
                 <app-load-widget
                     [productNumber]='a'
+                    [amountLoaded]='stock.stockRequired.amountLoaded'
                     [stock]='stock'
                     [workingRouteTree]='workingRouteTree'
                     (load)='load($event, stock)'>

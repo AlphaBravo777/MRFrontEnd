@@ -1,0 +1,35 @@
+{
+    "meatriteStock":
+    [
+        { "productName": "SV Deli 500", "productid": 1, "batches":
+            [
+                {"batchNumber": "45:4", "amount": 9, "cleared": true},
+                {"batchNumber": "45:5", "amount": 30, "cleared": true}
+            ]
+        },
+        { "productName": "SS Deli 500", "productid": 2, "batches":
+            [
+                {"batchNumber": "45:4", "amount": 13, "cleared": true}
+            ]
+        },
+        { "productName": "RV NN 1kg", "productid": 3, "batches":
+            [
+                {"batchNumber": "45:4", "amount": 8, "cleared": true},
+                {"batchNumber": "45:5", "amount": 42, "cleared": true}
+            ]
+        },
+        { "productName": "CCV 1kg", "productid": 4, "batches":
+            [
+                {"batchNumber": "45:4", "amount": 0, "cleared": true},
+                {"batchNumber": "45:5", "amount": 0, "cleared": true}
+            ]
+        },
+        { "productName": "PSV 500", "productid": 5, "batches":
+            [
+                {"batchNumber": "45:4", "amount": 12, "cleared": true},
+                {"batchNumber": "45:5", "amount": 7, "cleared": true},
+                {"batchNumber": "45:6", "amount": 15, "cleared": true}
+            ]
+        }
+    ]
+}

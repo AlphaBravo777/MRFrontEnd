@@ -20,7 +20,7 @@ const mainPortalRoutes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'stocks',
+                path: 'stock',
                 loadChildren: '../../features/stock/stocks.module#StocksModule',
                 canActivate: [AuthGuard],
             },

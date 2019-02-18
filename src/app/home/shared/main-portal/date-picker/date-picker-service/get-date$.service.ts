@@ -27,4 +27,13 @@ export class GetDate$Service {
             tap(data => this.datePackage.next(data))
             ).subscribe();
     }
+
+    getDifferentDay(datePackage, days) {
+        console.log('Different day', datePackage, days);
+        // getLongDate(date: Date) {
+        //     date = new Date(date.valueOf() + (120 * 60000));
+        //     this.dateForm.value.longDate = date;
+        //     this.getDate$Service.inputLongDate(this.dateForm.value.longDate).subscribe();
+        // }
+    }
 }

@@ -13,8 +13,8 @@ export class LoadWidgetComponent implements OnInit, OnChanges {
     @Input() stock: IDispatchStockSideBySide;
     @Input() productNumber: number;
     @Input() workingRouteTree: IRouteWorkingTree;
+    @Input() amountLoaded: number;
     amountNeeded: number;
-    // @Input() batches: IBatchAmounts[];
     differ: any;
 
     constructor(
@@ -40,7 +40,7 @@ export class LoadWidgetComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-
+        // console.log('changes is running ', changes);
         // if (changes.batches) {
         //     console.log('There were changes');
         // }
