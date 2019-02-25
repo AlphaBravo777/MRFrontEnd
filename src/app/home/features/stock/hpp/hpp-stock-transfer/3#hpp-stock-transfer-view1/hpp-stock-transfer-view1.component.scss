@@ -1,0 +1,96 @@
+table.hppSummaryTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid #1C6EA4;
+    background-color: #FFF7EF;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    padding: 2px;
+}
+
+table.hppSummaryTable td,
+table.hppSummaryTable th {
+    border: 1px solid #AAAAAA;
+    padding: 3px 2px;
+}
+
+table.hppSummaryTable tbody td {
+    font-size: 13px;
+
+}
+
+table.hppSummaryTable tr:nth-child(even) {
+    background: #FFEBD7;
+}
+
+table.hppSummaryTable thead {
+    background: #DBBDA0;
+    background: -moz-linear-gradient(top, #e4cdb8 0%, #dec3a9 66%, #DBBDA0 100%);
+    background: -webkit-linear-gradient(top, #e4cdb8 0%, #dec3a9 66%, #DBBDA0 100%);
+    background: linear-gradient(to bottom, #e4cdb8 0%, #dec3a9 66%, #DBBDA0 100%);
+    border-bottom: 2px solid #444444;
+}
+
+table.hppSummaryTable thead th {
+    font-size: 17px;
+    font-weight: bold;
+    color: #000000;
+    // text-align: left;
+}
+
+table.hppSummaryTable tfoot td {
+    font-size: 14px;
+}
+
+table.hppSummaryTable tfoot .links {
+    text-align: right;
+}
+
+table.hppSummaryTable tfoot .links a {
+    // display: inline-block;
+    background: #1C6EA4;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: 5px;
+}
+
+.green {
+    font-family:  "Arial Black", Arial, Helvetica, sans-serif;
+    color: #008000;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.red {
+    font-family:  "Arial Black", Arial, Helvetica, sans-serif;
+    color: #dd0000;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.activeColm {
+    color: #d96c00 !important;
+}
+
+.changeStock {
+    text-align: center;
+}
+
+.green {
+    font-family:  "Arial Black", Arial, Helvetica, sans-serif;
+    color: #008000;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.red {
+    font-family:  "Arial Black", Arial, Helvetica, sans-serif;
+    color: #dd0000;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.stockAmounts {
+    text-align: center;
+    font-weight: bolder;
+}

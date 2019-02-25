@@ -20,9 +20,9 @@
         },
         { "productName": "CCV 1kg", "productid": 4, "batches":
             [
-                {"batchNumber": "45:4", "amount": 5 },
+                {"batchNumber": "45:4", "amount": 22 },
                 {"batchNumber": "45:5", "amount": 10 },
-                {"batchNumber": "45:6", "amount": 17 }
+                {"batchNumber": "45:7", "amount": 17 }
             ]
         },
         { "productName": "PSV 500", "productid": 5, "batches":

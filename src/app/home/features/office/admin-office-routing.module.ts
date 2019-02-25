@@ -19,6 +19,10 @@ const officeRoutes: Routes = [
                 loadChildren: './add-client/add-client.module#AddClientModule',
             },
             {
+                path: 'orders',
+                loadChildren: './insert-order/client-orders.module#ClientOrderModule',
+            },
+            {
                 path: 'daily-report',
                 loadChildren: './daily-report/daily-report.module#DailyReportModule',
             },

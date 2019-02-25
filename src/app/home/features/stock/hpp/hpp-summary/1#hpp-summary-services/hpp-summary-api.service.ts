@@ -3,13 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
-import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class HppSummaryApiService {
-    constructor(private http: HttpClient, private getDate: GetDate$Service) {}
+    constructor(private http: HttpClient) {}
 
     getPnpProducts(): Observable<[]> {
         return this.http.get<any>('assets/mockData/meatriteStock/pnpProducts.json').pipe(
@@ -35,22 +34,6 @@ export class HppSummaryApiService {
                 return stock;
             }))
         );
-    }
-
-    // getPreHppStock(datePackage: IDate): Observable<[]> {
-    //     return this.http.get<any>('assets/mockData/meatriteStock/hppPreHppStock.json').pipe(
-    //         map(data => data.hppPreHppStock),
-    //         map(data => data.find(date => date.timeStamp === datePackage.nodeID)),
-    //         map(data => data.products),
-    //         map(data => data.map(stock => {
-    //             stock.stockTotal = this.getTotals(stock.batches, 'amount');
-    //             return stock;
-    //         })),
-    //     );
-    // }
-
-    test(datePackage) {
-        this.getDate.getDifferentDay(datePackage, 2);
     }
 
     getPostHppStock(datePackage: IDate): Observable<[]> {

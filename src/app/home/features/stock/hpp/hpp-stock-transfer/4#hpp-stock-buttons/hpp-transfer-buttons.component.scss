@@ -1,0 +1,50 @@
+.mainDivContainer {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+button {
+    margin: 4px;
+}
+
+.centre{
+    width: 50px;
+}
+
+// input {
+//     -webkit-appearance: none;
+//     width: 160px;
+//     height: 20px;
+//     margin: 10px 50px;
+//     background: linear-gradient(to right, #16a085 0%, #16a085 100%);
+//     background-size: 150px 10px;
+//     background-position: center;
+//     background-repeat: no-repeat;
+//     overflow: hidden;
+//     outline: none;
+//     zoom: 130%;
+//     display: block;
+//     margin: auto;
+//     margin: 15px;
+// }
+
+// input::-webkit-slider-thumb {
+//     -webkit-appearance: none;
+//     width: 20px;
+//     height: 20px;
+//     background: #27ae60;
+//     position: relative;
+//     z-index: 3;
+
+// }
+
+// input::-webkit-slider-thumb:after {
+// content: " ";
+//     width: 160px;
+//     height: 10px;
+//     position: absolute;
+//     z-index: 1;
+//     right: 20px;
+//     top: 5px;
+//     background: #2ecc71;
+// }

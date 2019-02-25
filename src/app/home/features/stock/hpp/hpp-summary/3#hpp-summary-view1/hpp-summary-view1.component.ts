@@ -23,6 +23,10 @@ export class HppSummaryView1Component implements OnInit {
         console.log(this.outstandingStock);
     }
 
+    switchStock(stock) {
+        console.log('The stock that needs to be switced = ', stock);
+    }
+
 
 
 

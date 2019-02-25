@@ -6,7 +6,6 @@ import { Apollo, gql } from 'apollo-angular-boost';
 import { map } from 'rxjs/operators';
 import { IReadReportLevels } from '../../report-read/report-read-services/read-report-interface';
 import { IInsertNewReportApiInterface } from './report-entry-interface';
-import { fbind } from 'q';
 
 @Injectable({
     providedIn: 'root'

@@ -1,0 +1,14 @@
+<table>
+    <tr>
+        <th><button (click)="changeAmount.emit({value: 50, side:'left', index:index})">50</button></th>
+        <th><button (click)="changeAmount.emit({value: 10, side:'left', index:index})">10</button></th>
+        <th><button (click)="changeAmount.emit({value: 5, side:'left', index:index})">5</button></th>
+        <th><button (click)="changeAmount.emit({value: 1, side:'left', index:index})">1</button></th>
+        <div class='centre'></div>
+        <th><button (click)="changeAmount.emit({value: 1, side:'right', index:index})">1</button></th>
+        <th><button (click)="changeAmount.emit({value: 5, side:'right', index:index})">5</button></th>
+        <th><button (click)="changeAmount.emit({value: 10, side:'right', index:index})">10</button></th>
+        <th><button (click)="changeAmount.emit({value: 50, side:'right', index:index})">50</button></th>
+    </tr>
+</table>
+

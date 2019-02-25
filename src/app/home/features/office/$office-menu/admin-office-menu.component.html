@@ -10,8 +10,11 @@
         <a routerLink="../../admin-office/checklists/menu" routerLinkActive="active"><button class='niceButton meatriteButton'>Checklists</button></a>
     </div>
     <div class='hpp'>
-        <h3>Routes</h3>
-        <ng-template [ngxPermissionsOnly]="['admin']">
+        <h3>Orders</h3>
+        <ng-template [ngxPermissionsOnly]="['admin', 'add-orders']">
+                <a routerLink="../../admin-office/orders/add-order" routerLinkActive="active"><button class='niceButton meatriteButton'>Insert Order</button></a>
+        </ng-template>
+        <ng-template [ngxPermissionsOnly]="['admin', 'add-clients']">
                 <a routerLink="../../admin-office/clients/add-client" routerLinkActive="active"><button class='niceButton meatriteButton'>Add Client</button></a>
         </ng-template>
     </div>

@@ -1,0 +1,10 @@
+<app-box-shadow-container>
+    <button class='niceButton meatriteButton' (click)=deleteOldStock()>New stocktake</button>
+    <a routerLink="../../hpp/menu" routerLinkActive="active"><button class='niceButton meatriteButton'>Hpp menu</button></a><br>
+    <h3>Change stock from Post-Hpp to Leakers</h3>
+    <app-hpp-stock-transfer-view1
+        *ngIf="productArray"
+        [productArray]="productArray"
+        (changeAmount)='changeAmount($event)'
+    ></app-hpp-stock-transfer-view1>
+</app-box-shadow-container>
