@@ -2,17 +2,43 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Apollo, gql } from 'apollo-angular-boost';
 
 @Injectable({
     providedIn: 'root'
 })
 export class HppApiService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private apollo: Apollo) {}
 
-    getPnpProducts(): Observable<[]> {
-        return this.http.get<any>('assets/mockData/meatriteStock/pnpProducts.json').pipe(
-            map(data => data.pnpProducts),
-        );
+    getAllPnPProducts(): Observable<any> {
+        return this.apollo
+            .watchQuery({
+                // variables: { accountID: accountID },
+                query: gql`
+                query getPnPProducts($brandID:ID="UHJvZHVjdEJyYW5kc1R5cGU6NQ=="){
+                    nodeProductlist(brand:$brandID){
+                    edges{
+                        node{
+                            rowid
+                            productid
+                            }
+                        }
+                    }
+                }
+                `,
+            })
+            .valueChanges.pipe(map(result => this.consolidateGetAllPnPProducts(result.data['nodeProductlist'].edges)));
+    }
+
+    private consolidateGetAllPnPProducts(data) {
+        const flattendData = [];
+        for (let array = 0; array < data.length; ++array) {
+            const singleData = {};
+                singleData['productName'] = data[array].node.productid;
+                singleData['productid'] = data[array].node.rowid;
+                flattendData.push(singleData);
+        }
+        return flattendData;
     }
 
     getPreHppStock(): Observable<[]> {

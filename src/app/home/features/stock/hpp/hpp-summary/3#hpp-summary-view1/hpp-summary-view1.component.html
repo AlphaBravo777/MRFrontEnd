@@ -16,9 +16,23 @@
         </tr>
     </thead>
     <tbody>
+        <ng-container *ngFor='let stock of outstandingStock'>
+            <tr>
+                <td>{{stock.productMRid}}</td>
+                <td>{{stock.mrStock}}</td>
+                <td>{{stock.preHpp}}</td>
+                <td>{{stock.postHpp}}</td>
+                <td>{{stock.pnpOrder}}</td>
+                <td *ngIf='stock.outOrders >= 0'>{{stock.outOrders}}</td>
+                <td>{{stock.leakers}}</td>
+                <td [ngClass]="stock.amount === 0 ? 'green' : 'red'">{{stock.amount}}</td>
+            </tr>
+        </ng-container>
+    </tbody>
+    <!-- <tbody>
         <tr *ngFor='let pnpProduct of pnpProducts'>
             <td>{{pnpProduct?.productName}}</td>
-            <ng-container *ngFor='let mrStock of meatriteStock'>
+            <ng-container #test *ngFor='let mrStock of meatriteStock'>
                     <td *ngIf='pnpProduct.productid === mrStock.productid'>{{mrStock?.stockTotal}}</td>
             </ng-container>
             <ng-container *ngFor='let preStock of preHppStock'>
@@ -41,5 +55,5 @@
                         *ngIf='pnpProduct.productid === short.productid'>{{short?.amount}}</td>
             </ng-container>
         </tr>
-    </tbody>
+    </tbody> -->
 </table>

@@ -1,31 +1,31 @@
 {
     "hppPreHppStock":
     [
-        { "productName": "SV Deli 500", "productid": 1, "batches":
+        { "productName": "PDS500", "productid": 54, "batches":
             [
                 {"batchNumber": "45:4", "amount": 20 },
                 {"batchNumber": "45:5", "amount": 2 }
             ]
         },
-        { "productName": "SS Deli 500", "productid": 2, "batches":
+        { "productName": "PDV500", "productid": 55, "batches":
             [
                 {"batchNumber": "45:4", "amount": 23 },
                 {"batchNumber": "45:5", "amount": 15 }
             ]
         },
-        { "productName": "RV NN 1kg", "productid": 3, "batches":
+        { "productName": "RV NN 1kg", "productid": 48, "batches":
             [
                 {"batchNumber": "45:5", "amount": 54 }
             ]
         },
-        { "productName": "CCV 1kg", "productid": 4, "batches":
+        { "productName": "CCV 1kg", "productid": 49, "batches":
             [
                 {"batchNumber": "45:4", "amount": 12 },
                 {"batchNumber": "45:5", "amount": 18 },
                 {"batchNumber": "45:6", "amount": 5 }
             ]
         },
-        { "productName": "PSV 500", "productid": 5, "batches":
+        { "productName": "PSV 500", "productid": 50, "batches":
             [
                 {"batchNumber": "45:4", "amount": 18 },
                 {"batchNumber": "45:5", "amount": 8 }

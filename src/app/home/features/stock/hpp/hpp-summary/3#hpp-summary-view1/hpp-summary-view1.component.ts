@@ -16,18 +16,11 @@ export class HppSummaryView1Component implements OnInit {
     @Input() hppLeakers;
     @Input() outstandingStock;
     @Input() amountOfOrders;
+    flag = false;
 
     constructor() {}
 
     ngOnInit() {
-        console.log(this.outstandingStock);
     }
-
-    switchStock(stock) {
-        console.log('The stock that needs to be switced = ', stock);
-    }
-
-
-
 
 }

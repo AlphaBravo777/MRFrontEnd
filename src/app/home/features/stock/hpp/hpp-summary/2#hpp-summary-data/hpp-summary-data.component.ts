@@ -13,6 +13,11 @@ import { map } from 'async';
 })
 export class HppSummaryDataComponent implements OnInit, OnDestroy {
 
+    // For meatrite stock, have a column where you pick the batchNumber, and a button that says add batch to create another colm
+    // Then just have input boxes where you enter the product under the batch number, and tab to the next batch for the same product
+    // Carry on to the end end then press enter to enter all the products with batch numbers.
+    // You will need productid, productMRid, batchNumber, amount, stockTakeTime, userid
+
     pnpProducts;
     meatriteStock;
     preHppStock;
@@ -66,7 +71,7 @@ export class HppSummaryDataComponent implements OnInit, OnDestroy {
     // 6 hppLeakers
 
     getOutstandingStock() {
-        return this.hppSummaryService.getOutstandingStock(
+        return this.hppSummaryService.calculateStockTable(
             this.pnpProducts,
             this.meatriteStock,
             this.preHppStock,

@@ -20,7 +20,7 @@ export class HppTransferPrePostDataComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.getData();
-        setTimeout(() => console.log(this.productArray), 2000);
+        // setTimeout(() => console.log(this.productArray), 2000);
     }
 
     getData() {

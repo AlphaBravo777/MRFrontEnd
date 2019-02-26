@@ -11,9 +11,8 @@ export class HppService {
     constructor(private hppApiService: HppApiService) {}
 
     getPnpProducts(): Observable<any> {
-        return this.hppApiService.getPnpProducts().pipe(
+        return this.hppApiService.getAllPnPProducts().pipe(
             take(1),
-            delay(500)
         );
     }
 

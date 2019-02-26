@@ -110,65 +110,6 @@ export class HppTransferService {
                 }
             }
         }
-        // this.preHppData.next(source);
-        // this.postHppData.next(destination);
-    }
-
-
-    // changeCurrentStock(source, destination, changeData) {
-    //     combineLatest([this.currentPreHppData$, this.currentPostHppData$]).pipe(
-    //         take(1),
-    //         tap(data => console.log('charlie', data)),
-    //         tap(data => {
-    //             for (let prod = 0; prod < data[0].length; prod++) {
-    //                 if (data[0][prod].productid === changeData.index.productid) {
-    //                     for (let bat = 0; bat < data[0][prod].batches.length; bat++) {
-    //                         if (data[0][prod].batches[bat].batchNumber === changeData.index.batchNumber) {
-    //                             if (changeData.side === 'left') {
-    //                                    data[0][prod].batches[bat].amount = data[0][prod].batches[bat].amount + changeData.value;
-    //                             } else {
-    //                                 data[0][prod].batches[bat].amount = data[0][prod].batches[bat].amount - changeData.value;
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //             for (let prod = 0; prod < data[1].length; prod++) {
-    //                 if (data[1][prod].productid === changeData.index.productid) {
-    //                     for (let bat = 0; bat < data[1][prod].batches.length; bat++) {
-    //                         if (data[1][prod].batches[bat].batchNumber === changeData.index.batchNumber) {
-    //                             if (changeData.side === 'left') {
-    //                                 data[1][prod].batches[bat].amount = data[1][prod].batches[bat].amount - changeData.value;
-    //                             } else {
-    //                                 data[1][prod].batches[bat].amount = data[1][prod].batches[bat].amount + changeData.value;
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //             this.preHppData.next(data[0]);
-    //         })
-    //     ).subscribe();
-    // }
-
-    changeCurrentStock2(changeData) {
-        this.currentPreHppData$.pipe(
-            take(1),
-            map(data => {
-                for (let prod = 0; prod < data.length; prod++) {
-                    if (data[prod].productid === changeData.index.productid) {
-                        for (let bat = 0; bat < data[prod].batches.length; bat++) {
-                            if (data[prod].batches[bat].batchNumber === changeData.index.batchNumber) {
-                                if (changeData.side === 'left') {
-                                    data[prod].batches[bat].amount = data[prod].batches[bat].amount + changeData.value;
-                                }
-                            }
-                        }
-                    }
-                }
-                this.preHppData.next(data);
-            })
-        ).subscribe();
     }
 
 }

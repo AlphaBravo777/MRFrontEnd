@@ -2,13 +2,25 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UrlsService } from 'src/app/home/core/urls.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
 })
 export class InsertOrderApiService {
 
-    constructor(private apollo: Apollo) {}
+    constructor(private urlService: UrlsService, private http: HttpClient, private apollo: Apollo) {}
+
+    private stockUrl = this.urlService.backendUrl + 'office/';
+
+    enterNewOrderDetails(newOrderDetails) {
+        return this.http.post<any>(this.stockUrl + 'orders/enterDetails/', newOrderDetails);
+    }
+
+    enterProductAmounts(productAmounts) {
+        return this.http.post<any>(this.stockUrl + 'orders/enterProductAmounts/', productAmounts);
+    }
 
     searchForAccount(accountNumber): Observable<any> {
         console.log(' * * * * Server call is running * * * *');
@@ -47,7 +59,7 @@ export class InsertOrderApiService {
 
         for (let array = 0; array < data.length; ++array) {
             const singleData = {};
-                singleData['accountid'] = data[array].node.rowid;
+                singleData['accountsid'] = data[array].node.rowid;
                 singleData['accountID'] = data[array].node.id;
                 singleData['accountMRid'] = data[array].node.accountID;
                 singleData['accountName'] = data[array].node.accountName;
@@ -110,8 +122,12 @@ export class InsertOrderApiService {
         return flattendData;
     }
 
-
 }
+
+
+
+
+
 
 // Getting the parent account with all the children, you can even go further and get the grandchildren
 

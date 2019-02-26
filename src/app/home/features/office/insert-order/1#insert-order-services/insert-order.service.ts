@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { InsertOrderApiService } from './insert-order-api.service';
 import { Observable, of, interval } from 'rxjs';
-import { take, debounceTime, concatMap, tap } from 'rxjs/operators';
+import { take, debounceTime, concatMap, tap, map } from 'rxjs/operators';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 
 @Injectable({
@@ -33,11 +33,33 @@ export class InsertOrderService {
             tap(data => {
                 orderForm.timeStampID = data.nodeID;
                 orderForm.timeStampid = data.id;
-                orderForm.shortDate = data.shortDate;
+                orderForm.orderDate = data.shortDate;
+                orderForm.userid =  JSON.parse(localStorage.getItem('userID'));
             }),
-            tap(() => console.log('This is the form that will be inserted: ', orderForm))
+            tap(() => console.log('This is the form that will be inserted: ', orderForm)),
+            concatMap(() => this.insertDetailsAndProductAmounts(orderForm))
         ).subscribe();
     }
 
+    insertDetailsAndProductAmounts(orderForm): Observable<any> {
+        const detailsForm = Object.assign({}, orderForm);
+        delete detailsForm.orders;
+        const productAmounts = [... orderForm.orders];
+        console.log('The order details without orders = ', detailsForm);
+        return this.insertOrderApiService.enterNewOrderDetails(orderForm).pipe(
+            tap(data => console.log('The returning data = ', data)),
+            map(data => this.addDataToProductAmounts(productAmounts, data)),
+            tap(data => console.log('Alpha - The returning data = ', data)),
+            concatMap(data => this.insertOrderApiService.enterProductAmounts(data))
+        );
+    }
+
+    addDataToProductAmounts(productAmounts, data) {
+        for (let prod = 0; prod < productAmounts.length; prod++) {
+            productAmounts[prod].orderDetailsid = data.id;
+            productAmounts[prod].userid =  JSON.parse(localStorage.getItem('userID'));
+        }
+        return productAmounts;
+    }
 
 }

@@ -26,7 +26,7 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
 
     buildform() {
         this.orderForm = this.fb.group({
-            accountid: [''],
+            accountsid: [''],
             accountID: [''],
             parentAccountid: [''],
             accountMRid: [''],
@@ -66,6 +66,7 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
     productSelection(product) {
         for (let prod = 0; prod < this.productsToChooseFrom.length; prod++) {
             const ordersControl = (<FormArray>this.orderForm.get('orders')).at(product.index);
+            ordersControl.get('productMRid').setValue(product.productMRid.toUpperCase());
             if (this.productsToChooseFrom[prod].productMRid === product.productMRid.toUpperCase()) {
                 console.log('There was a match ', ordersControl);
                 ordersControl.get('allowed').setValue(true);
