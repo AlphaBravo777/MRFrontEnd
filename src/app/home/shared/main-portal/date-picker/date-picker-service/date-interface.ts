@@ -7,6 +7,7 @@ export class IDate {
     week?: number;
     weekDay?: number;
     weekDayID?: string;
+    weekDayName?: string;
     month?: number;
     monthDay?: number;
     stringDay?: string;

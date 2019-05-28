@@ -15,6 +15,7 @@
                 {{stock.stockRequired.amountLoaded}}/{{stock.stockRequired.amount}}</td>
             <td class='loading'>
                 <app-load-widget
+                    *ngIf='stock'
                     [productNumber]='a'
                     [amountLoaded]='stock.stockRequired.amountLoaded'
                     [stock]='stock'

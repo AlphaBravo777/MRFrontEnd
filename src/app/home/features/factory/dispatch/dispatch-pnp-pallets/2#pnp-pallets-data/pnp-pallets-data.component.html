@@ -1,0 +1,24 @@
+<app-box-shadow-container>
+    <app-pnp-pallets-regions
+        *ngIf="currentDatePackage && lugsByRegionSummary && pnpOrderTotals"
+        [lugsByRegionSummary]="lugsByRegionSummary"
+        [currentDatePackage]="currentDatePackage"
+        [pnpOrderTotals]="pnpOrderTotals">
+    </app-pnp-pallets-regions>
+    <app-pnp-pallets-order-matrix
+        *ngIf="pnpOrderMatrix && pnpOrderTotals"
+        [currentDatePackage]="currentDatePackage"
+        [pnpOrderMatrix]="pnpOrderMatrix"
+        [pnpOrderTotals]="pnpOrderTotals">
+    </app-pnp-pallets-order-matrix>
+    <app-pnp-pallets-summary
+        *ngIf="calculatedPallets && currentDatePackage"
+        [currentDatePackage]="currentDatePackage"
+        [calculatedPallets]="calculatedPallets">
+    </app-pnp-pallets-summary>
+    <app-pnp-pallets-view2
+        *ngIf="calculatedPallets && currentDatePackage"
+        [calculatedPallets]="calculatedPallets"
+        [currentDatePackage]="currentDatePackage"
+    ></app-pnp-pallets-view2>
+</app-box-shadow-container>

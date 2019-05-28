@@ -1,0 +1,30 @@
+<div class='componentContainer'>
+    <table>
+        <caption><h3>{{currentDatePackage?.weekDayName}} {{currentDatePackage?.shortDate}}</h3></caption>
+        <thead>
+            <tr>
+                <ng-container *ngFor='let title of pnpOrderMatrix?.regions'>
+                    <th>{{title}}</th>
+                </ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor='let product of pnpOrderMatrix?.products'>
+                <tr>
+                    <td>{{product.productName.productMRid}}</td>
+                    <ng-container *ngFor='let amount of product.productAmounts'>
+                        <td style="text-align:right">{{amount}}</td>
+                    </ng-container>
+                </tr>
+            </ng-container>
+            <tr class="weight">
+                    <td  [attr.colspan]="pnpOrderMatrix?.regions.length - 2">Total Lugs</td>
+                    <td colspan="2" style="text-align:right">{{pnpOrderTotals.pnpOrderTotalLugs}}</td>
+                </tr>
+            <tr class="weight">
+                <td  [attr.colspan]="pnpOrderMatrix?.regions.length - 2">Order Weight</td>
+                <td colspan="2" style="text-align:right">{{pnpOrderTotals.pnpOrderTotalWeight}} kg</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -11,12 +11,6 @@ import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-s
 export class HppSummaryApiService {
     constructor(private http: HttpClient, private apollo: Apollo) {}
 
-    // getPnpProducts(): Observable<[]> {
-    //     return this.http.get<any>('assets/mockData/meatriteStock/pnpProducts.json').pipe(
-    //         map(data => data.pnpProducts),
-    //     );
-    // }
-
     getMeatriteStock(): Observable<[]> {
         return this.http.get<any>('assets/mockData/meatriteStock/hppMeatriteStock.json').pipe(
             map(data => data.meatriteStock),
@@ -117,50 +111,11 @@ export class HppSummaryApiService {
             .valueChanges.pipe(map(result => this.consolidatePnPOrder(result.data['nodeOrderdetails'].edges)));
     }
 
-    // getOutstandingPnPOrders(datePackage: IDate): Observable<any> {
-    //     let amountOfOrders = 0;
-    //     return this.http.get<any>('assets/mockData/meatriteStock/hppPnPOrder.json').pipe(
-    //         map(data => data.pnpOrder),
-    //         map(data => data.filter(order => order.delivered === false && order.deliveryDate < datePackage.shortDate)),
-    //         // tap(data => amountOfOrders = data.length),
-    //         // map(data => {
-    //         //     console.log('DELTA = ', data);
-    //         //     return {data: this.getOutstandingOrderTotals(data), amountOfOrders: amountOfOrders};
-    //         // })
-    //     );
-    // }
-
-    // getPnPOrder(datePackage: IDate): Observable<[]> {
-    //     return this.http.get<any>('assets/mockData/meatriteStock/hppPnPOrder.json').pipe(
-    //         map(data => data.pnpOrder),
-    //         map(data => data.find(order => order.timeStamp === datePackage.nodeID)),
-    //         map(data => data.products)
-    //     );
-    // }
-
-    // {"timeStamp": "sdfaafd", "deliveryDate": "2019-02-13", "delivered": true, "products":
-    // [
-    //     { "productName": "SV Deli 500", "productid": 1, "amount": 13 },
-    //     { "productName": "SS Deli 500", "productid": 2, "amount": 13 },
-    //     { "productName": "RV NN 1kg", "productid": 3, "amount": 13 },
-    //     { "productName": "CCV 1kg", "productid": 4, "amount": 13 },
-    //     { "productName": "PSV 500", "productid": 5, "amount": 13 }
-    // ]
-    // },
-
-    // getPnPOrder(datePackage: IDate): Observable<[]> {
-    //     return this.http.get<any>('assets/mockData/meatriteStock/hppPnPOrder.json').pipe(
-    //         map(data => data.pnpOrder),
-    //         map(data => data.find(order => order.timeStamp === datePackage.nodeID)),
-    //         map(data => data.products)
-    //     );
-    // }
-
-
-
-    // 0: {timeStamp: "VGltZVN0YW1wVHlwZTo0MzQ=", deliveryDate: "2019-02-25", delivered: false, products: Array(5)}
-    // 1: {timeStamp: "VGltZVN0YW1wVHlwZTo0MzM=", deliveryDate: "2019-02-26", delivered: false, products: Array(5)}
-
+    getPnPRaaiLys(): Observable<[]> {
+        return this.http.get<any>('assets/mockData/meatriteStock/hppPnPRaailys.json').pipe(
+            map(data => data.pnpRaailys),
+        );
+    }
 
     getTotals(data: [], property: string) {
         if (data) {

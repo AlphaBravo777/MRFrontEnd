@@ -1,0 +1,9 @@
+<app-box-shadow-container>
+    <app-pnp-mr-stock-view1
+        *ngIf='allPnPProducts'
+        [pnpStockForm]='pnpStockForm'
+        [formBatchesNamesValid]='formBatchesNamesValid'
+        (addBatch)=addBatch($event)
+        (pnpStockFormSubmit)=pnpStockFormSubmit($event)>
+    </app-pnp-mr-stock-view1>
+</app-box-shadow-container>

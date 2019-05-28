@@ -11,6 +11,7 @@ import { Subscription, combineLatest } from 'rxjs';
 })
 export class HppTransferPrePostDataComponent implements OnInit, OnDestroy {
 
+    headingNames = {left: 'Pre-HPP', right: 'Post-HPP'};
     productArray;
     source;
     destination;
@@ -20,14 +21,19 @@ export class HppTransferPrePostDataComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.getData();
-        // setTimeout(() => console.log(this.productArray), 2000);
     }
 
     getData() {
         const getPreData$ = this.hppTransferService.currentPreHppData$;
         const getPostData$ = this.hppTransferService.currentPostHppData$;
         this.subscription = combineLatest([getPreData$, getPostData$]).pipe(
-            tap(data => this.productArray = this.hppTransferService.flattenTransferBatches(data[0], data[1])),
+            tap (data => {
+                if (data[0] && data[1]) {
+                    return this.productArray = this.hppTransferService.flattenTransferBatches(data[0], data[1]);
+                }
+            }),
+            // tap(data => this.productArray = this.hppTransferService.flattenTransferBatches(data[0], data[1])),
+            // Better way to do this at leaker component
             tap(data => {
                 this.source = data[0];
                 this.destination = data[1];
@@ -42,9 +48,30 @@ export class HppTransferPrePostDataComponent implements OnInit, OnDestroy {
     }
 
     changeAmount(changeData) {
-        console.log('The change amount = ', changeData);
+        this.reCalculateStock();
         this.hppTransferService.changeCurrentStock(this.source, this.destination, changeData);
+        this.reCalculateStock();
+    }
+
+    reCalculateStock() {
         this.productArray = this.hppTransferService.flattenTransferBatches(this.source, this.destination);
+        const arr = this.hppTransferService.cheaplyCreateNewArray(this.productArray);
+        console.log('Hippo - ', arr);
+        this.hppTransferService.changePreHppStock(arr[0]);
+        this.hppTransferService.changePostHppStock(arr[1]);
+    }
+
+    // changeAmount(changeData) {
+    //     // It does not work the first click
+    //     this.hppTransferService.changeCurrentStock(this.source, this.destination, changeData);
+    //     this.productArray = this.hppTransferService.flattenTransferBatches(this.source, this.destination);
+    //     const arr = this.hppTransferService.cheaplyCreateNewArray(this.productArray);
+    //     this.hppTransferService.changePreHppStock(arr[0]);
+    //     this.hppTransferService.changePostHppStock(arr[1]);
+    // }
+
+    submitForm() {
+        this.hppTransferService.submitPreToPostStock(this.productArray);
     }
 
     ngOnDestroy() {

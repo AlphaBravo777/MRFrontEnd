@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DispatchEntryComponent } from './$dispatch-entry/dispatch-entry.component';
 import { DispatchMenuComponent } from './$dispatch-menu/dispatch-menu.component';
-import { ChangeTestDataComponent } from './changeTest/changeTest-data/change-test-data.component';
+import { PnpPalletsDataComponent } from './dispatch-pnp-pallets/2#pnp-pallets-data/pnp-pallets-data.component';
 
 
 const dispatchRoutes: Routes = [
@@ -20,8 +20,8 @@ const dispatchRoutes: Routes = [
                 loadChildren: './dispatch-load-trucks/dispatch-load-trucks.module#DispatchLoadTrucksModule',
             },
             {
-                path: 'test',
-                component: ChangeTestDataComponent,
+                path: 'pnp-pallets',
+                component: PnpPalletsDataComponent,
             },
         ]
     }

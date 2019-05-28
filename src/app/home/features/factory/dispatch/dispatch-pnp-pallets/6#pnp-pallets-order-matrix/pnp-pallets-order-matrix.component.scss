@@ -1,0 +1,40 @@
+table {
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+
+th, td {
+    border-collapse: collapse;
+    border: 1px solid black;
+    column-fill: balance;
+    height: 25px;
+    text-align: left;
+    column-fill: balance;
+    padding: 2px 10px 2px 7px;
+}
+
+.weight {
+    td {
+        font-weight: bold;
+    }
+}
+
+@media print {
+    @page {
+        size: portrait;
+    }
+    .componentContainer {
+        page-break-before: always;
+        size: portrait;
+    }
+}
+
+// @page {
+//     size: A4 portrait;
+// }
+
+// .componentContainer {
+//     page-break-inside: avoid;
+// }

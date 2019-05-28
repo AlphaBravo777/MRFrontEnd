@@ -178,7 +178,10 @@ export class DatePickerService {
                 this.datePackage.timeHalfStock = data.selectiveDelete;
             }),
             concatMap(() => getWeekDayData$),
-            map(data => this.datePackage.weekDayID = data.id),
+            map(data => {
+                this.datePackage.weekDayID = data.id;
+                this.datePackage.weekDayName = data.weekDayNames;
+            }),
             map(() => this.datePackage),
             switchMap((data) => this.datePickerApiService.getTimeStampIDs(data)),
             switchMap(data => {

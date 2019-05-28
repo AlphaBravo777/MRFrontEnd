@@ -2,11 +2,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { GetProductsComponent } from './processed/get-products/get-products.component';
-import { UserEntryComponent } from '../../shared/user-entry/user-entry.component';
 import { AuthGuard } from '../admin/admin-services/auth.guard';
 import { ProductMaintenanceComponent } from './processed/product-maintenance/product-maintenance.component';
 import { StockMenuComponent } from './$stock-menu/stock-menu.component';
 import { StockEntryComponent } from './$stock-entry/stock-entry.component';
+import { PnpMRStockDataComponent } from './pnp-MR-Stock/2#pnp-MR-Stock-data/pnp-mr-stock-data.component';
+
 
 
 const stockRoutes: Routes = [
@@ -41,6 +42,11 @@ const stockRoutes: Routes = [
             {
                 path: 'productMaintenance',
                 component: ProductMaintenanceComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'pnp-Meatrite-Stock',
+                component: PnpMRStockDataComponent,
                 canActivate: [AuthGuard],
             },
         ]

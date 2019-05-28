@@ -22,7 +22,7 @@ export class ToolboxGroupService {
         }, []);
     }
 
-    sorting(flattenData, sortProperty) {
+    sorting(dataArray: any[], sortProperty: string) {
         function compare(a, b) {
             if (a[sortProperty] < b[sortProperty]) {
                 return -1;
@@ -32,11 +32,11 @@ export class ToolboxGroupService {
             }
             return 0;
         }
-        return flattenData.sort(compare);
+        return dataArray.sort(compare);
     }
 
-    multiFieldSorting(sortArray, fieldsArray) {  // fieldsArray = ['date', 'time']
-        // fieldsArray, first item in array will be primary sort - it will override second item.
+    multiFieldSorting(dataArray: any[], sortPropertyArray: string[]) {  // sortPropertyArray = ['date', 'time']
+        // sortPropertyArray, first item in array will be primary sort - it will override second item.
         'use strict';
         const fieldSorter = (fields) => (a, b) => fields.map(o => {
             let dir = 1;
@@ -44,7 +44,7 @@ export class ToolboxGroupService {
             return a[o] > b[o] ? dir : a[o] < b[o] ? -(dir) : 0;
         }).reduce((p, n) => p ? p : n, 0);
 
-        const sortedHomes = sortArray.sort(fieldSorter(fieldsArray));
+        const sortedHomes = dataArray.sort(fieldSorter(sortPropertyArray));
         return sortedHomes;
     }
 

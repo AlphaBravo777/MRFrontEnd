@@ -105,6 +105,8 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
     orderFormSubmit() {
 
         this.insertOrderService.insertNewOrder(JSON.parse(JSON.stringify(this.orderForm.value)));
+        this.buildform();
+        this.onFormChanges();
         // console.log('The form will now be submitted', this.orderForm.value);
     }
 

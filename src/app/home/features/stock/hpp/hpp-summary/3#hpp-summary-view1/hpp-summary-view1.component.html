@@ -4,10 +4,8 @@
             <th>Product Name</th>
             <th [ngClass]="amountOfOrders >= 2 ? 'activeColm' : ''">MR Stock</th>
             <th [ngClass]="amountOfOrders >= 1 ? 'activeColm' : ''"
-                *ngIf='preHppStock.length > 0'
                 (click)='switchStock(2)'>Pre-Hpp Stock</th>
             <th [ngClass]="amountOfOrders >= 0 ? 'activeColm' : ''"
-                *ngIf='postHppStock.length > 0'
                 (click)='switchStock(1)'>Post-Hpp Stock</th>
             <th>PnP Order</th>
             <th *ngIf='pnpOutstandingOrders.length > 0'>PnP Outstanding Orders</th>

@@ -12,12 +12,21 @@ Todo shortcuts:
     // Ctrl+shift+P and type todo and then "open embedded todos" too see what todos you have in your work
 
 Features todo list:
+    ☐ NEXT WILL BE TO BRING EVERYTHING TOGETHER SO THAT THE EXCEL SHEET CAN WORK MOSTLY ON ITS OWN THROUGH A VPN
     ☐ Create system where I can upload server with new code and test in the factory in such a way that it does not interfere in working
         ☐ production code. Maybe have two different folders for code, and just alter where the server looks at, like port 80 is the new
         ☐ code, and when it does not work, make port 80 look back to the old code again.
+    ☐ Load PnP order again, and allow a way to activate or deactivate orders. Maybe not delete them, just deactivate them. Maybe delete them for just incase
+    ✔ Make so that it shows "pallet #"/"out of how many pallets" @done(19-05-15 09:55)
+    ✔ Make a summary of all the pallets and the products on them for Phillip and Manager @done(19-05-15 15:58)
+    ☐ Show the total amount of tons that the order has, this must be done in a reusable service (Maybe create somethign where if order data is
+        ☐ given through, it uses that data, else it will go and retrieve the data from the server) So if you just want to quickly get
+        ☐ the total of the order of the day you already have, then give it through, that way you do not have to again go and get the data
+        ☐ from the server, else if the array is empty, then go and get the data.
+    ☐ Make a summary of all the products for all the regions together in its own service
 
 Common bug reports:
-    ✔ Sometimes "report-read-api.service.ts:81" will shop that all daily reports EVER have been collected from the server. This may be because data is @done(19-02-04 14:48)
+    ✔ Sometimes "report-read-api.service.ts:81" will show that all daily reports EVER have been collected from the server. This may be because data is @done(19-02-04 14:48)
         ✔ collected without timestamp being available yet. This obviously takes a lot of time, and will become worst as time goes on. @done(19-02-04 14:48)
 
 Checklist module:
@@ -127,3 +136,23 @@ Dispatch stock take:
             ✔ image = models.ImageField(upload_to="restaurants/images/", null=True, blank=True) @done(19-02-01 16:26)
         ✔ Create serializer for the model @done(19-02-01 16:26)
         ☐ Limit image size. Maybe 640x400
+
+Work out amount of pallets per truck:
+    ☐ Ask if pallets should be worked out per region, or all together
+    ☐ Ask if you want to keep products together, or spilt them to create as few pallets as possible
+    ☐ Collect the orders for the day in question
+
+Add new product module:
+    Data needed to add new product:
+        ☐ Product MR id (PSV500)
+        ☐ Product description
+        ☐ Type of pacakging
+        ☐ Single unit weight
+        ☐ Package unit weight (Shipping  weight)
+        ☐ Product on hold
+        ☐ Batchgroup (Meaning what batch must be made at the mixer to produce this product - like SV)
+        ☐ BatchRanking (This is if you sort all the products made from this batch, where should it rank - like getting all the SV products)
+        ☐ ProductGroup (Which group of stores does it belong to - what store group can buy this product)
+        ☐ Brand, what brand does it belong to, not who can buy it, but more specifically what logo is on the packaging
+        ☐ The image that comes with the brand (Actually this is the image of the packaging that it is in)
+        ☐ User id that filled in the product

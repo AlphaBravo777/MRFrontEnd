@@ -10,6 +10,7 @@ import { tap } from 'rxjs/operators';
 })
 export class HppTransferPostLeakerDataComponent implements OnInit, OnDestroy {
 
+    headingNames = {left: 'Post-HPP', right: 'Leakers'};
     productArray;
     source;
     destination;
@@ -19,18 +20,23 @@ export class HppTransferPostLeakerDataComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.getData();
-        setTimeout(() => console.log(this.productArray), 2000);
     }
 
+
+    // If there is a leaker data, then the leakers work, if there are no leaker data, then leakers do not work.
     getData() {
         const getLeakerData$ = this.hppTransferService.currentLeakerData$;
         const getPostData$ = this.hppTransferService.currentPostHppData$;
         this.subscription = combineLatest([getPostData$, getLeakerData$]).pipe(
-            tap(data => this.productArray = this.hppTransferService.flattenTransferBatches(data[0], data[1])),
+            tap (data => {
+                if (data[0] && data[1]) {
+                    return this.productArray = this.hppTransferService.flattenTransferBatches(data[0], data[1]);
+                }
+            }),
             tap(data => {
                 this.source = data[0];
                 this.destination = data[1];
-            })
+            }),
         ).subscribe();
     }
 
@@ -41,9 +47,21 @@ export class HppTransferPostLeakerDataComponent implements OnInit, OnDestroy {
     }
 
     changeAmount(changeData) {
-        console.log('The change amount = ', changeData);
+        this.reCalculateStock();
         this.hppTransferService.changeCurrentStock(this.source, this.destination, changeData);
+        this.reCalculateStock();
+    }
+
+    reCalculateStock() {
         this.productArray = this.hppTransferService.flattenTransferBatches(this.source, this.destination);
+        const arr = this.hppTransferService.cheaplyCreateNewArray(this.productArray);
+        console.log('Hippo - ', arr);
+        this.hppTransferService.changePostHppStock(arr[0]);
+        this.hppTransferService.changeLeakerHppStock(arr[1]);
+    }
+
+    submitForm() {
+        this.hppTransferService.submitPostToLeakerStock(this.productArray);
     }
 
     ngOnDestroy() {

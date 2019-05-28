@@ -4,7 +4,10 @@
     <h3>Change stock from Pre-Hpp to Post-Hpp stock</h3>
     <app-hpp-stock-transfer-view1
         *ngIf="productArray"
+        [headingNames]='headingNames'
         [productArray]="productArray"
         (changeAmount)='changeAmount($event)'
     ></app-hpp-stock-transfer-view1>
+    <button class='niceButton meatriteButton submitButton' (click)=submitForm()>Submit Data</button>
+    <p>Make sure there is an internet connection</p>
 </app-box-shadow-container>

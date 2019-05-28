@@ -9,7 +9,9 @@
         {{showLoadTruckTemplate}}
     </div>
     <ng-template #compareStockTemplate>
-        <app-load-trucks-compare [stockOnHand]="meatriteStock"
+        <app-load-trucks-compare
+            *ngIf='meatriteStock && routeWithTrucks'
+            [stockOnHand]="meatriteStock"
             [stockRequired]='routeWithTrucks.trucks[workingRouteTree.truckNumber].totalProductOnTruck'>
         </app-load-trucks-compare>
     </ng-template>

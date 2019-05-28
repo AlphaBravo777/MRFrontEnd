@@ -1,0 +1,29 @@
+<table>
+    <caption><h3>{{currentDatePackage?.weekDayName}} {{currentDatePackage?.shortDate}}</h3></caption>
+    <thead>
+        <tr>
+            <th>Region</th>
+            <th>Pallets</th>
+            <th>Small Lugs</th>
+            <th>Large Lugs</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor='let region of lugsByRegionSummary; let a = index'>
+        <tr>
+            <td>{{region?.commonName}}</td>
+            <td style="text-align:right">{{region?.totalPallets}}</td>
+            <td style="text-align:right">{{region?.smallLugs}}</td>
+            <td style="text-align:right">{{region?.largeLugs}}</td>
+        </tr>
+        </ng-container>
+        <tr class="weight">
+                <td colspan="2">Total Lugs</td>
+                <td colspan="2" style="text-align:right">{{pnpOrderTotals.pnpOrderTotalLugs}}</td>
+            </tr>
+        <tr class="weight">
+            <td colspan="2">Order Weight</td>
+            <td colspan="2" style="text-align:right">{{pnpOrderTotals.pnpOrderTotalWeight}} kg</td>
+        </tr>
+    </tbody>
+</table>

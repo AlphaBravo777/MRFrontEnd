@@ -1,0 +1,90 @@
+<div class='componentContainer'>
+        <div class='pallet' *ngFor='let pallet of calculatedPallets; let num = index'>
+            <div class='leftColm'>
+                <div class='deliveryDate'>
+                    Delivery Date: <b>{{currentDatePackage?.weekDayName}} {{currentDatePackage?.shortDate}}</b>
+                </div>
+                <div class='regionNameHeading'>
+                    Region Name:
+                </div>
+                <div class='regionName'>
+                    <h4>{{pallet.regionName}}</h4>
+                </div>
+                <div class='palletNumberHeading'>
+                    Pallet #:
+                </div>
+                <div class='palletNumber'>
+                    <div class='number'>
+                        <!-- {{pallet.palletNumber}} -->
+                        {{num + 1}}
+                    </div>
+                    <div class='totalPallets'>
+                        {{num + 1}}/{{calculatedPallets?.length}}
+                    </div>
+                </div>
+            </div>
+            <div class='rightColm'>
+                <div class='productsTable'>
+                    <!-- Total Lugs: {{pallet.amount}} -->
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product Code</th>
+                                <th>Large Lugs</th>
+                                <th>Small Lugs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor='let product of pallet?.products; let a = index'>
+                                <tr>
+                                    <td>{{a+1}}</td>
+                                    <td>{{product?.productMRid}}</td>
+                                    <td style="text-align:right">
+                                        <ng-container *ngIf='product.lugSize === 2'>/ {{product?.amount}}</ng-container>
+                                    </td>
+                                    <td style="text-align:right">
+                                        <ng-container *ngIf='product.lugSize === 1'>/ {{product?.amount}}</ng-container>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            <tr>
+                                <td colspan="2">Lug Totals</td>
+                                <th style="text-align:right">{{pallet?.largeLugs}}</th>
+                                <th style="text-align:right">{{pallet?.smallLugs}}</th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Total:</th>
+                                <th colspan="2" style="text-align:right">/ {{pallet?.amount}} ( {{pallet?.smallLugSpace}} )</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class='checkedByTable'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Checked By:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class='checkedNumber'>1</td>
+                                <td class='checkedBox'></td>
+                            </tr>
+                            <tr>
+                                <td class='checkedNumber'>2</td>
+                                <td class='checkedBox'></td>
+                            </tr>
+                            <tr>
+                                <td class='checkedNumber'>3</td>
+                                <td class='checkedBox'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+</div>

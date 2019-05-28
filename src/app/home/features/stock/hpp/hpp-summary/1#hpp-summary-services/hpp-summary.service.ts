@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HppSummaryApiService } from './hpp-summary-api.service';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, of } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { concatMap, map, tap } from 'rxjs/operators';
 import { select } from 'async';
 import { HppApiService } from '../../$hpp-services/hpp-api.service';
+import { HppService } from '../../$hpp-services/hpp.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,16 +15,18 @@ export class HppSummaryService {
 
     consolidatedOrders = [];
 
-    constructor(private hppSummaryApiService: HppSummaryApiService, private hppApiService: HppApiService) {}
+    constructor(private hppSummaryApiService: HppSummaryApiService,
+        private hppApiService: HppApiService,
+        private hppService: HppService) {}
 
     getHppStartingData(datePackage: IDate): Observable<any> {
         return combineLatest([
             this.getPnpProducts(),
             this.getMeatriteStock(),
-            this.getPreHppStock(datePackage),
+            this.getPreHppStock(),
             this.getPnPOrder(datePackage),
             this.getOutstandingPnPOrders(datePackage),
-            this.getPostHppStock(datePackage),
+            this.getPostHppStock(),
             this.getHppLeakers()
         ]);
     }
@@ -41,21 +44,54 @@ export class HppSummaryService {
     }
 
     getMeatriteStock(): Observable<any> {
-        return this.hppSummaryApiService.getMeatriteStock().pipe();
+        return this.hppApiService.getMeatriteStock().pipe(
+            map(data => this.consolidateMeatriteStock(data)),
+            map(data => data.map(stock => {
+                stock.stockTotal = this.getTotals(stock.batches, 'amount');
+                return stock;
+            })),
+            tap(data => console.log('The meatrite stock looks like: ', data)),
+        );
     }
 
-    getPreHppStock(datePackage: IDate): Observable<any> {
-        return this.hppApiService.getPreHppStock().pipe();
+    getPreHppStock(): Observable<any> {
+        return this.hppService.getPreHppStock().pipe(
+            map(data => data.map(stock => {
+                stock.stockTotal = this.getTotals(stock.batches, 'amount');
+                return stock;
+            }))
+        );
     }
 
-    getPostHppStock(datePackage: IDate): Observable<any> {
-        return this.hppApiService.getPostHppStock().pipe();
+    getPostHppStock(): Observable<any> {
+        return this.hppService.getPostHppStock().pipe(
+            map(data => data.map(stock => {
+                stock.stockTotal = this.getTotals(stock.batches, 'amount');
+                return stock;
+            }))
+        );
+    }
+
+    getHppLeakers(): Observable<any> {
+        return this.hppService.getLeakersStock().pipe(
+            map(data => data.map(stock => {
+                stock.stockTotal = this.getTotals(stock.batches, 'amount');
+                return stock;
+            }))
+        );
     }
 
     getPnPOrder(datePackage: IDate): Observable<any> {
         return this.hppSummaryApiService.getPnPOrder(datePackage).pipe(
             tap(() => this.consolidatedOrders = []),
-            map(data => this.consolidatePnPDailyOrders(data))
+            map(data => this.consolidatePnPDailyOrders(data)),
+            concatMap(data => {
+                if (data.length === 0) {
+                    return this.hppSummaryApiService.getPnPRaaiLys();
+                } else {
+                    return of(data);
+                }
+            })
         );
     }
 
@@ -94,14 +130,18 @@ export class HppSummaryService {
         return array.length;
     }
 
-    getHppLeakers(): Observable<any> {
-        return this.hppApiService.getHppLeakers().pipe();
-    }
-
     calculateStockTable(pnpProducts, meatriteStock, preHppStock, pnpOrder, postHppStock, hppLeakers, amountOfOrders, outstandingOrders) {
         const outstandingStock = [];
         for (let pnp = 0; pnp < pnpProducts.length; pnp++) {
-            outstandingStock.push({productid: pnpProducts[pnp].productid, productMRid: pnpProducts[pnp].productName});
+            outstandingStock.push({
+                productid: pnpProducts[pnp].productid,
+                productMRid: pnpProducts[pnp].productName,
+                postHpp: 0,
+                preHpp: 0,
+                mrStock: 0,
+                pnpOrder: 0,
+                leakers: 0,
+            });
         }
         for (let out = 0; out < outstandingStock.length; out++) {
             outstandingStock[out].postHpp = 0;
@@ -154,7 +194,7 @@ export class HppSummaryService {
                 }
             }
         }
-        // console.log('* * * ', outstandingStock);
+        console.log('* * * ', outstandingStock);
         for (let pnp = 0; pnp < outstandingStock.length; pnp++) {
             switch (amountOfOrders) {
                 case undefined:
@@ -192,7 +232,6 @@ export class HppSummaryService {
         for (let order = 0; order < ordersArray.length; order++) {
             this.individualOrders(ordersArray[order]);
         }
-        // console.log('- - - - - ', this.consolidatedOrders);
         return this.consolidatedOrders;
     }
 
@@ -240,7 +279,6 @@ export class HppSummaryService {
         }
 
         function productFunc(product) {
-            console.log('Here is a product: ', product.productMRid, product.amount);
             let prodFound = false;
             for (let list = 0; list < productList.length; list++) {
                 if (productList[list].productMRid === product.productMRid) {
@@ -256,29 +294,54 @@ export class HppSummaryService {
         return productList;
     }
 
+    consolidateMeatriteStock(primitiveStock) {  // This is almost the same code as hpp.service.groupProductBatchesTogether
+        const consolidatedStock = [];
+        if (consolidatedStock.length === 0 && primitiveStock.length !== 0) {
+            consolidatedStock.push({
+                productName: primitiveStock[0].productName, productid: primitiveStock[0].productid,
+                batches: [{batchNumber: primitiveStock[0].batchNumber, amount: primitiveStock[0].amount, cleared: true}]
+            });
+            primitiveStock.splice(0, 1);
+        }
+        while (primitiveStock.length > 0) {
+            let flag = false;
+            for (let con = 0; con < consolidatedStock.length; con++) {
+                if (primitiveStock[0].productid === consolidatedStock[con].productid) {
+                    consolidatedStock[con].batches.push(
+                        {batchNumber: primitiveStock[0].batchNumber, amount: primitiveStock[0].amount, cleared: true}
+                    );
+                    flag = true;
+                }
+            }
+            if (!flag) {
+                consolidatedStock.push({
+                    productName: primitiveStock[0].productName, productid: primitiveStock[0].productid,
+                    batches: [{batchNumber: primitiveStock[0].batchNumber, amount: primitiveStock[0].amount, cleared: true}]
+                });
+            }
+            primitiveStock.splice(0, 1);
+        }
+        return consolidatedStock;
+    }
 
-    // getOutstandingOrderTotals(orders) {
-    //     console.log('Echo = ', orders);
-    //     const ordersTotals = <any>[];
-    //     for (let order = 0; order < orders.length; order++) {
-    //         if (order === 0) {
-    //             for (let product = 0; product < orders[order].products.length; product++) {
-    //                 ordersTotals.push({
-    //                     productid: orders[order].products[product].productid,
-    //                     stockTotal: orders[order].products[product].amount
-    //                 });
-    //             }
-    //         } else {
-    //             for (let total = 0; total < ordersTotals.length; total++) {
-    //                 for (let product = 0; product < orders[order].products.length; product++) {
-    //                     if (ordersTotals[total].productid === orders[order].products[product].productid) {
-    //                         ordersTotals[total].stockTotal = ordersTotals[total].stockTotal + orders[order].products[product].amount;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return ordersTotals;
+
+    getTotals(data: [], property: string) {
+        if (data) {
+            let total = 0;
+            data.map(dataPoint => total = total + dataPoint[property]);
+            return total;
+        }
+    }
+
+    // getHppLeakers(): Observable<[]> {
+    //     return this.http
+    //         .get<any>('assets/mockData/meatriteStock/hppLeakers.json').pipe(
+    //             map(data => data.hppLeakers),
+    //             map(data => data.map(stock => {
+    //                 stock.stockTotal = this.getTotals(stock.batches, 'amount');
+    //                 return stock;
+    //             }))
+    //         );
     // }
 
 }

@@ -5,6 +5,9 @@ import { HppEntryComponent } from './$hpp-entry/hpp-entry.component';
 import { HppTransferPrePostDataComponent } from './hpp-stock-transfer/2a#hpp-transfer-pre-post-data/hpp-transfer-pre-post-data.component';
 import { HppTransferPostLeakerDataComponent
 } from './hpp-stock-transfer/2b#hpp-transfer-post-leaker-data/hpp-transfer-post-leaker-data.component';
+import { HppTransferMrPreDataComponent } from './hpp-stock-transfer/2c#hpp-transfer-mr-pre-data/hpp-transfer-mr-pre-data.component';
+import { HppTransferPostDeliveredComponent } from './hpp-stock-transfer/2d#hpp-transfer-post-delivered/hpp-transfer-post-delivered.component';
+
 
 
 const dispatchRoutes: Routes = [
@@ -30,6 +33,14 @@ const dispatchRoutes: Routes = [
                 path: 'post_leaker_transfer',
                 component: HppTransferPostLeakerDataComponent,
                 // canActivate: [AuthGuard],
+            },
+            {
+                path: 'mr_pre_transfer',
+                component: HppTransferMrPreDataComponent,
+            },
+            {
+                path: 'post_pnp_transfer',
+                component: HppTransferPostDeliveredComponent,
             },
         ]
     }

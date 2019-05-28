@@ -1,0 +1,52 @@
+<div class='headingGrid'>
+    <h3>Meatrite PnP Stock</h3>
+    <button class='meatriteButton niceButton' (click)='addBatch.emit()'>Add Batch</button>
+</div>
+<div class='batchError' *ngIf='!formBatchesNamesValid'>
+    <p>The batch Number is not correct or missing!</p>
+    <p>It must look like "09:4" and not "9-4" or "09-4" or "9:4"</p>
+</div>
+<form [formGroup]="pnpStockForm"  (ngSubmit)='pnpStockFormSubmit.emit()'>
+    <table>
+        <thead>
+            <tr>
+                <th class='productidColm'>Product ID</th>
+                <ng-container *ngFor="let batch of pnpStockForm.get('batches').controls; let i=index"  formArrayName="batches">
+                    <th>
+                        Batch # {{i+1}}
+                    </th>
+                </ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <ng-container *ngFor="let batch of pnpStockForm.get('batches').controls; let i=index"  formArrayName="batches">
+                    <td formGroupName='{{i}}'>
+                        <input formControlName="batchNumber">
+                    </td>
+                </ng-container>
+            </tr>
+            <tr class='batchNumber'>
+                    <td></td>
+                    <ng-container *ngFor="let batch of pnpStockForm.get('batches').controls; let i=index"  formArrayName="batches">
+                            <td></td>
+                    </ng-container>
+            </tr>
+            <tr *ngFor="let product of pnpStockForm.get('products').controls; let j=index"  formArrayName="products">
+                <ng-container formGroupName='{{j}}'>
+                    <td>
+                        <!-- <input formControlName="productMRid"> -->
+                        {{pnpStockForm.get("products").value[j].productMRid}}
+                    </td>
+                    <ng-container *ngFor="let amount of product['controls'].amounts['controls']; let k=index" formArrayName="amounts">
+                        <td formGroupName='{{k}}'>
+                            <input formControlName="amount">
+                        </td>
+                    </ng-container>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+    <button class='meatriteButton niceButton' type="submit">Submit Stock</button>
+</form>

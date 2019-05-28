@@ -1,0 +1,15 @@
+<h3>Pallets Summary: {{currentDatePackage?.weekDayName}} {{currentDatePackage?.shortDate}}</h3>
+<div class='compContainer'>
+    <div class='pallet' *ngFor='let pallet of calculatedPallets; let a = index'>
+        <div class='heading'>Pallet {{a+1}}</div>
+        <div class='heading'>{{pallet.regionName}}</div>
+        <div class='data'>
+            <table class='productsTable'>
+                    <tr *ngFor='let product of pallet.products'>
+                        <td>{{product.productMRid}}:</td>
+                        <td class='productAmount'>{{product.amount}}</td>
+                    </tr>
+            </table>
+        </div>
+    </div>
+</div>

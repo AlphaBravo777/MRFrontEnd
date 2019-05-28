@@ -1,0 +1,102 @@
+.products {
+    padding-left: 10px;
+}
+
+.leftColm {
+    text-align: center;
+    margin: 10px;
+}
+
+.rightColm {
+    text-align: center;
+    margin: 10px;
+}
+
+.pallet {
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.deliveryDate {
+    padding: 0px 0px 20px 0px;
+}
+
+.regionName {
+    display: inline-block;
+    width: 100%;
+    padding: 20px 0px;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 1.5rem;
+}
+
+.palletNumberHeading {
+    padding-top: 30px;
+}
+
+.palletNumber {
+    display: inline-block;
+    width: 100%;
+    border: 2px solid black;
+    border-radius: 5px;
+
+    .number {
+        font-size: 12rem;
+        padding: 50px 0px 45px 0px;
+    }
+    .totalPallets {
+        text-align: right;
+        padding: 0px 5px 5px 0px;
+    }
+
+}
+
+
+
+
+.productsTable {
+    width: 100%;
+    margin-left: 20px;
+    // margin-top: 30px;
+    font-size: 0.9rem;
+
+    table, th, td {
+        border-collapse: collapse;
+        border: 1px solid black;
+        column-fill: balance;
+    }
+
+    th, td {
+        height: 25px;
+        text-align: left;
+        column-fill: balance;
+        padding: 3px;
+    }
+
+}
+
+.checkedByTable {
+    justify-self:end;
+    margin: 20px 0px 0px 20px;
+
+    .checkedBox {
+        width: 200px;
+        height: 25px;
+        border: 1px solid black;
+    }
+    .checkedNumber {
+        width: 30px;
+    }
+}
+
+@media print {
+    .pallet {
+        page-break-before: always;
+        border: none;
+    }
+}
+

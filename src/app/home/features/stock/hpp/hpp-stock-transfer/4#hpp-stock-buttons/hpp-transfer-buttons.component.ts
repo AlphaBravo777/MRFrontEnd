@@ -7,6 +7,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class HppTransferButtonsComponent implements OnInit {
 
+    @Input() sourceAmount;
+    @Input() destinationAmount;
     @Input() index;
     @Output() changeAmount: EventEmitter<any> = new EventEmitter<any>();
 

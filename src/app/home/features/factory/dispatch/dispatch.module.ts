@@ -4,22 +4,27 @@ import { CommonModule } from '@angular/common';
 import { DispatchRoutingModule } from './dispatch-routing.module';
 import { DispatchEntryComponent } from './$dispatch-entry/dispatch-entry.component';
 import { DispatchMenuComponent } from './$dispatch-menu/dispatch-menu.component';
-import { ChangeTestDataComponent } from './changeTest/changeTest-data/change-test-data.component';
-import { ChangeTestView1Component } from './changeTest/changeTest-view1/change-test-view1.component';
-import { ChangeTestView2Component } from './changeTest/changeTest-view2/change-test-view2.component';
-import { ChangeTestView3Component } from './changeTest/changeTest-view3/change-test-view3.component';
+import { PnpPalletsDataComponent } from './dispatch-pnp-pallets/2#pnp-pallets-data/pnp-pallets-data.component';
+import { CustomMaterialModule } from 'src/app/home/shared/dropdown-table/custom-material.module';
+import { PnpPalletsView2Component } from './dispatch-pnp-pallets/3b#pnp-pallets-view2/pnp-pallets-view2.component';
+import { PnpPalletsRegionsComponent } from './dispatch-pnp-pallets/4#pnp-pallets-regions/pnp-pallets-regions.component';
+import { PnpPalletsSummaryComponent } from './dispatch-pnp-pallets/5#pnp-pallets-summary/pnp-pallets-summary.component';
+import { PnpPalletsOrderMatrixComponent } from './dispatch-pnp-pallets/6#pnp-pallets-order-matrix/pnp-pallets-order-matrix.component';
 
 @NgModule({
     declarations: [
         DispatchEntryComponent,
         DispatchMenuComponent,
-        ChangeTestDataComponent,
-        ChangeTestView1Component,
-        ChangeTestView2Component,
-        ChangeTestView3Component],
+        PnpPalletsDataComponent,
+        PnpPalletsView2Component,
+        PnpPalletsRegionsComponent,
+        PnpPalletsSummaryComponent,
+        PnpPalletsOrderMatrixComponent,
+    ],
     imports: [
         CommonModule,
-        DispatchRoutingModule
+        DispatchRoutingModule,
+        CustomMaterialModule
     ]
 })
 export class DispatchModule { }

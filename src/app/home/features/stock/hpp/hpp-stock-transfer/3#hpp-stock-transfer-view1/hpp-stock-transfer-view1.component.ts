@@ -8,12 +8,14 @@ import { HppTransferService } from '../1#hpp-transfer-services/hpp-transfer.serv
 })
 export class HppStockTransferView1Component implements OnInit {
 
+    @Input() headingNames;
     @Input() productArray;
     @Output() changeAmount: EventEmitter<any> = new EventEmitter<any>();
 
     constructor() {}
 
     ngOnInit() {
+        console.log('Product array = ', this.productArray);
     }
 
 }
