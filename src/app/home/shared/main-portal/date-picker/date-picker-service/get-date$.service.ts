@@ -14,7 +14,7 @@ export class GetDate$Service {
 
     constructor(private datePickerService: DatePickerService) {}
 
-    inputLongDate(longDate: Date): Observable<any> {
+    inputLongDate(longDate: Date): Observable<IDate> {
         return this.datePickerService.inputLongDate(longDate).pipe(
             take(1),
             tap(data => this.datePackage.next(data))
@@ -28,12 +28,9 @@ export class GetDate$Service {
             ).subscribe();
     }
 
-    getDifferentDay(datePackage, days) {
-        console.log('Different day', datePackage, days);
-        // getLongDate(date: Date) {
-        //     date = new Date(date.valueOf() + (120 * 60000));
-        //     this.dateForm.value.longDate = date;
-        //     this.getDate$Service.inputLongDate(this.dateForm.value.longDate).subscribe();
-        // }
+    getDatePackageForGivenLongDate(longDate): Observable<IDate> {
+        return this.datePickerService.inputLongDate(longDate).pipe(
+            take(1),
+        );
     }
 }

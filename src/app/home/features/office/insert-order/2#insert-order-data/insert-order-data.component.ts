@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { InsertOrderService } from '../1#insert-order-services/insert-order.service';
 import { Subscription } from 'rxjs';
+import { DialogBoxService } from 'src/app/home/core/dialog-box/dialog-box.service';
 
 
 @Component({
@@ -17,9 +18,12 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     subscription2: Subscription;
 
-    constructor(private fb: FormBuilder, private insertOrderService: InsertOrderService) { }
+    constructor(private fb: FormBuilder,
+        private insertOrderService: InsertOrderService,
+        private dialogBoxService: DialogBoxService) { }
 
     ngOnInit() {
+        this.dialogBoxService.popUpMessage('MAKE SURE THAT YOU ARE ON THE DAY THAT YOU WANT TO ENTER THE ORDERS !!!');
         this.buildform();
         this.onFormChanges();
     }

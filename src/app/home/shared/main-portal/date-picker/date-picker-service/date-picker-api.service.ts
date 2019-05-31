@@ -22,7 +22,7 @@ export class DatePickerApiService {
         return this.http.post<any>(url, timePackage);
     }
 
-    getTimeStampIDs(data: IDate): Observable<any> {
+    getTimeStampIDs(data: IDate): Observable<IDate> {
         return this.apollo
             .watchQuery({
                 variables: { year: data.year, week: data.week, weekDayID: data.weekDayID, timeID: data.timeID },
@@ -39,7 +39,6 @@ export class DatePickerApiService {
                   }
             `,
             })
-            // .valueChanges.pipe(map(result => this.refineData(result)));
             .valueChanges.pipe(map(result => this.refineTimeStampIDs(result.data['nodeTimestamp'].edges[0])));
     }
 
