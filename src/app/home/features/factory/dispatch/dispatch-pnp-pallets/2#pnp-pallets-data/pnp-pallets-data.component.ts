@@ -65,8 +65,8 @@ export class PnpPalletsDataComponent implements OnInit, OnDestroy {
         tap(data => this.pnpOrderTotals = data),
         switchMap(() => this.pnpSharedService.createPnPRegionsAndProductsMatrix(this.orders)),
         tap((data) => this.pnpOrderMatrix = data),
-        switchMap(() => this.getNewDate.calculateNewDate(JSON.parse(JSON.stringify(datePackage)), -1)),
-        tap(data => console.log(' + + + ', data))
+        // switchMap(() => this.getNewDate.calculateNewDate(JSON.parse(JSON.stringify(datePackage)), -1)),
+        // tap(data => console.log(' + + + ', data))
         );
     }
 

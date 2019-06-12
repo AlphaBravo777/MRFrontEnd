@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { InsertOrderService } from '../1#insert-order-services/insert-order.service';
 import { Subscription } from 'rxjs';
 import { DialogBoxService } from 'src/app/home/core/dialog-box/dialog-box.service';
+import { IAccountDetails } from 'src/app/home/shared/services/adminServices/accountServices/account-interface';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { DialogBoxService } from 'src/app/home/core/dialog-box/dialog-box.servic
 export class InsertOrderDataComponent implements OnInit, OnDestroy {
 
     orderForm: FormGroup;
-    relevantAccountsArray = [];
+    relevantAccountsArray: IAccountDetails[] = [];
     productsToChooseFrom = [];
     subscription: Subscription;
     subscription2: Subscription;
@@ -30,7 +31,7 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
 
     buildform() {
         this.orderForm = this.fb.group({
-            accountsid: [''],
+            accountid: [''],
             accountID: [''],
             parentAccountid: [''],
             accountMRid: [''],

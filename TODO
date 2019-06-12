@@ -156,3 +156,23 @@ Add new product module:
         ☐ Brand, what brand does it belong to, not who can buy it, but more specifically what logo is on the packaging
         ☐ The image that comes with the brand (Actually this is the image of the packaging that it is in)
         ☐ User id that filled in the product
+
+Make summary Module (Version 2):
+    Data needed for summary module:
+        ☐ A list of the stock that came in on this day (Not the order, all the stock that was on the truck)
+            ☐ This may be an "order" that gets made up and put in, where the destination is instead of a shop, it will be HPP
+            ☐ So you get the info in the same table where you get the info of what needs to be on a truck for any route (All the orders of the truck put together)
+        ☐ From the same Table, get the list of all the stock that came in on the previous day as well
+            ☐ So get the order that was made out for Hpp for the previous day
+        ☐ A list of the stock that went out to PnP, this will basically be the orders for that day, minus what was not delivered
+            ☐ Again from the orders table, just get that order of that day where the client is PnP
+        ☐ The stock-take list of that day, of the stock that is left over, and also of the total leakers for that day
+            ☐ This is just a list that gets read in
+        ☐ The stock-take list of the previous day, as well as the leakers.
+            ☐ This is just the previous list with a different day
+        ☐ A list of all the stock that was picked that day, this may be stock for orders on different days.
+            ☐ Give the order list, and show all the products, then increase the products that were picked, save the timeStamp the increase
+            ☐ (change) was made, and then to see what stock was picked that day, just go and pull all the orders and amounts for that days timestamp.
+            ☐ There might be a problem here due to the fact that if you picked 35 today, and tomorrow you pick another 5,
+            ☐ it will say that you picked 40 on day two. So maybe another many-to-many table that saves the timestamp, amount, order, and product.
+

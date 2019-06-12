@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angu
 import { FormGroup } from '@angular/forms';
 import { fromEvent } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
+import { IAccountDetails } from 'src/app/home/shared/services/adminServices/accountServices/account-interface';
 
 @Component({
     selector: 'app-insert-order-view1',
@@ -11,7 +12,7 @@ import { debounceTime, map, tap } from 'rxjs/operators';
 export class InsertOrderView1Component implements OnInit {
 
     @Input() orderForm: FormGroup;
-    @Input() relevantAccountsArray;
+    @Input() relevantAccountsArray: IAccountDetails[];
     @Input() productsToChooseFrom;
     @Output() searchAccounts: EventEmitter<any> = new EventEmitter<any>();
     @Output() accountSelection: EventEmitter<any> = new EventEmitter<any>();

@@ -3,6 +3,8 @@ import { InsertOrderApiService } from './insert-order-api.service';
 import { Observable, of, interval } from 'rxjs';
 import { take, debounceTime, concatMap, tap, map } from 'rxjs/operators';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
+import { IAccountDetails } from 'src/app/home/shared/services/adminServices/accountServices/account-interface';
+import { IOrderDetails } from 'src/app/home/shared/services/adminServices/orderServices/order-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +13,7 @@ export class InsertOrderService {
 
     constructor(private insertOrderApiService: InsertOrderApiService, private dateService: GetDate$Service) {}
 
-    searchForAccount(semiAccountID): Observable<any> {
+    searchForAccount(semiAccountID): Observable<IAccountDetails[]> {
         return this.insertOrderApiService.searchForAccount(semiAccountID.toLowerCase()).pipe(
             take(1)
         );
@@ -41,7 +43,7 @@ export class InsertOrderService {
         ).subscribe();
     }
 
-    insertDetailsAndProductAmounts(orderForm): Observable<any> {
+    insertDetailsAndProductAmounts(orderForm: IOrderDetails): Observable<any> {
         const detailsForm = Object.assign({}, orderForm);
         delete detailsForm.orders;
         const productAmounts = [... orderForm.orders];

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IDate } from './date-interface';
-import { Observable, iif, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, tap, switchMap, concatMap, take } from 'rxjs/operators';
 import { DatePickerApiService } from './date-picker-api.service';
 
@@ -35,22 +35,6 @@ export class DatePickerService {
         return this.getOrCreateTimeStampData().pipe(
         );
     }
-
-    // weekMain(firstDate: any): IDate {  // Takes any day format and turns it into an array with Year, Week number and day number.
-
-    //     let workingDate;
-    //     const new2 = this.dateToString(firstDate);
-
-    //     if (new2.length < 13) {
-    //         workingDate = this.shortToLongDate(new2);
-    //     } else {
-    //         workingDate = firstDate;
-    //     }
-    //     const dateArray: IDate = this.getWeekNumber(workingDate);
-    //     if (dateArray.weekDay === 0) { dateArray.weekDay = 7; }
-    //     return dateArray;
-    // }
-
     getBlockDate(longDate: any) {
 
         longDate = new Date(Date.UTC(longDate.getFullYear(), longDate.getMonth(), longDate.getDate()));
