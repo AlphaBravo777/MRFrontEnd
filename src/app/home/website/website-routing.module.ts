@@ -32,6 +32,11 @@ const websiteRoutes: Routes = [
                 path: 'login',
                 component: LoginComponent,
             }
+            // {
+            //     path: 'login',
+            //     loadChildren: () => import('projects/user-service/src/public_api').then(m => m.UserServiceModule)
+            // }
+
     ]
     },
 ];

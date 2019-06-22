@@ -16,6 +16,20 @@
       "es2017",
       "dom",
       "esnext.asynciterable"
-    ]
+    ],
+    "paths": {
+      "user-service": [
+        "dist/user-service"
+      ],
+      "user-service/*": [
+        "dist/user-service/*"
+      ],
+      "insert-order-service": [
+        "dist/insert-order-service"
+      ],
+      "insert-order-service/*": [
+        "dist/insert-order-service/*"
+      ]
+    }
   }
 }

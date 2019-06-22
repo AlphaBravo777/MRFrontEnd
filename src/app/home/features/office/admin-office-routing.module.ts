@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { OfficeEntryComponent } from './$office-entry/office-entry.component';
 import { AdminOfficeMenuComponent } from './$office-menu/admin-office-menu.component';
 
-
 const officeRoutes: Routes = [
     {
         path: '',  // admin-office
@@ -30,6 +29,18 @@ const officeRoutes: Routes = [
                 path: 'checklists',
                 loadChildren: './checklists/checklists.module#ChecklistsModule',
             },
+            {
+                path: 'checklists',
+                loadChildren: './checklists/checklists.module#ChecklistsModule',
+            },
+            {
+                path: 'pnpCSV',
+                loadChildren: () => import('./pull-in-pnp-csv/pull-in-pnp-csv.module').then(m => m.PullInPnpCsvModule)
+            },
+            {
+                path: 'insertOrderService',
+                loadChildren: () => import('projects/insert-order-service/src/public_api').then(m => m.InsertOrderServiceModule)
+            }
         ]
     }
 ];

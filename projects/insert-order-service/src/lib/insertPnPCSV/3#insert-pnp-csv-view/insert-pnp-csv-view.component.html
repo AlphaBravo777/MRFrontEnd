@@ -1,0 +1,3 @@
+<input type='file' style='display: none' (change)='fileSelected.emit($event)' #imageInput>
+<img src="assets/images/insertImage.png" (click)='imageInput.click()'>
+<span> {{ selectedFile?.name }}</span>

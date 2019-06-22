@@ -13,7 +13,6 @@ export class ReportMainComponent implements OnInit {
     constructor(private reportEntryService: ReportEntryService) { }
 
     ngOnInit() {
-        console.log('Fox is running -------------------- Setting message to default');
         this.reportEntryService.setMessageToDefault();
     }
 
