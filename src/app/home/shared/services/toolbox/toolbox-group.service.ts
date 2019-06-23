@@ -9,8 +9,8 @@ export class ToolboxGroupService {
 
     constructor() { }
 
-    groupByArray(xs, key) {
-        return xs.reduce(function (rv, x) {
+    groupByArray(dataArray, key) {
+        return dataArray.reduce(function (rv, x) {
             const v = key instanceof Function ? key(x) : x[key];
             const el = rv.find(r => r && r.key === v);
             if (el) {
