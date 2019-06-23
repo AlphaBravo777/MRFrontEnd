@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EntryComponent } from './$entry/entry.component';
-import { MenuComponent } from './$menu/menu.component';
+import { EntryComponent } from './#entry/entry.component';
+import { MenuComponent } from './#menu/menu.component';
 import { InsertPnpCsvDataComponent } from './insertPnPCSV/2#insert-pnp-csv-data/insert-pnp-csv-data.component';
 
 const insertOrderServiceRoutes: Routes = [

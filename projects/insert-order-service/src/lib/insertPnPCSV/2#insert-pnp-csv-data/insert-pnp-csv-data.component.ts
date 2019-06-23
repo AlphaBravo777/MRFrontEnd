@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IPnPCSVFormat, IPnPCSVData, factoryConvertPnPRawData } from '../../$sharedServices/insert-order-service-Interfaces';
+import { IPnPCSVFormat, IPnPCSVData } from '../../#sharedServices/insert-order-service-Interfaces';
+import { ConvertPnpCsvDataFactoryService } from '../1#insert-pnp-csv-services/convert-pnp-csv-data-factory.service';
 
 @Component({
   selector: 'mr-insert-insert-pnp-csv-data',
@@ -8,8 +9,9 @@ import { IPnPCSVFormat, IPnPCSVData, factoryConvertPnPRawData } from '../../$sha
 })
 export class InsertPnpCsvDataComponent implements OnInit {
 
+    constructor(private convertPnPCVDataFactoryService: ConvertPnpCsvDataFactoryService) {}
+
     selectedCSVFile = null;
-    constructor() {}
 
     ngOnInit() {}
 
@@ -23,8 +25,8 @@ export class InsertPnpCsvDataComponent implements OnInit {
             for (let j = 0; j < headers.length; j++) {
                 obj[headers[j]] = currentline[j];
             }
-            const tempObj: IPnPCSVData =  factoryConvertPnPRawData(obj);
-            result.push(tempObj);
+            // const tempObj: IPnPCSVData =  factoryConvertPnPRawData(obj);
+            result.push(this.convertPnPCVDataFactoryService.factoryConvertPnPRawData(obj));
         }
         // return JSON.parse(JSON.stringify(result));
         return result;
