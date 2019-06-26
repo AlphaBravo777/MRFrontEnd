@@ -33,6 +33,7 @@
                                 <th>Product Code</th>
                                 <th>Large Lugs</th>
                                 <th>Small Lugs</th>
+                                <th style="text-align:center">Batch #</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,16 +47,18 @@
                                     <td style="text-align:right">
                                         <ng-container *ngIf='product.lugSize === 1'>/ {{product?.amount}}</ng-container>
                                     </td>
+                                    <td style="width:70px"></td>
                                 </tr>
                             </ng-container>
                             <tr>
                                 <td colspan="2">Lug Totals</td>
                                 <th style="text-align:right">{{pallet?.largeLugs}}</th>
                                 <th style="text-align:right">{{pallet?.smallLugs}}</th>
+                                <th></th>
                             </tr>
                             <tr>
                                 <th colspan="2">Total:</th>
-                                <th colspan="2" style="text-align:right">/ {{pallet?.amount}} ( {{pallet?.smallLugSpace}} )</th>
+                                <th colspan="3" style="text-align:right">/ {{pallet?.amount}} ( {{pallet?.smallLugSpace}} )</th>
                             </tr>
                         </tbody>
                     </table>

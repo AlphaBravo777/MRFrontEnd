@@ -13,7 +13,7 @@ export class InsertOrderService {
 
 
     insertNewOrder(orderForm: IOrderDetails) {
-        const tempDatePack: IDate = {id: 817, shortDate: '2019-06-25'};
+        const tempDatePack: IDate = {id: 827, shortDate: '2019-06-29'};
         of(tempDatePack)
             .pipe(
                 take(1),
@@ -25,11 +25,7 @@ export class InsertOrderService {
                         localStorage.getItem('userID')
                     );
                 }),
-                tap(() =>
-                    console.log(
-                        'This is the form that will be inserted: ',
-                        orderForm
-                    )
+                tap(() => console.log('This is the form that will be inserted: ', orderForm)
                 ),
                 concatMap(() => this.insertDetailsAndProductAmounts(orderForm))
             )
@@ -40,11 +36,11 @@ export class InsertOrderService {
         const detailsForm: IOrderDetails = Object.assign({}, orderForm);
         delete detailsForm.orders;
         const orderProducts = [...orderForm.orders];
-        console.log('The order details without products = ', detailsForm);
+        // console.log('The order details without products = ', detailsForm);
         return this.insertOrderApiService.enterNewOrderDetails(orderForm).pipe(
-            tap(orderid => console.log('The returning data = ', orderid)),
+            // tap(orderid => console.log('The returning data = ', orderid)),
             map(orderid => this.addUserIdAndOrderIdToProductAmounts(orderProducts, orderid)),
-            tap(data => console.log('Alpha - The returning data = ', data)),
+            // tap(data => console.log('Alpha - The returning data = ', data)),
             concatMap(data =>
                 this.insertOrderApiService.enterProductAmounts(data)
             )

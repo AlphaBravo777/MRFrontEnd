@@ -45,6 +45,7 @@ export class IAccountDetails {
     accountMRid: string;
     accountName: string;
     commonName: string;
+    orderNumber: number;
     parentAccountid: number;
     routeName: string;
     routeid: number;
@@ -67,7 +68,7 @@ export class IProductDetails {
 
 export class IProductOrderDetails extends IProductDetails {
     amount: number;
-    orderid: number;
+    orderDetailsid: number;
     userid: number;
 }
 
