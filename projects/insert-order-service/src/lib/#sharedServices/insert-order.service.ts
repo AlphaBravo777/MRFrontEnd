@@ -1,35 +1,41 @@
 import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
-import { take, tap, concatMap, map } from 'rxjs/operators';
-import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
+import { of, Observable, from } from 'rxjs';
+import { tap, concatMap, map } from 'rxjs/operators';
 import { IOrderDetails, IProductOrderDetails } from './insert-order-service-Interfaces';
 import { InsertOrderApiService } from './insert-order-api.service';
+import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
+import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class InsertOrderService {
-    constructor(private insertOrderApiService: InsertOrderApiService) {}
+    constructor(private insertOrderApiService: InsertOrderApiService,
+        private datePickerService: DatePickerService,
+        private getDateService: GetDate$Service) {}
 
-
-    insertNewOrder(orderForm: IOrderDetails) {
-        const tempDatePack: IDate = {id: 827, shortDate: '2019-06-29'};
-        of(tempDatePack)
-            .pipe(
-                take(1),
-                tap(data => {
-                    // orderForm.timeStampID = data.nodeID;
-                    orderForm.timeStampid = data.id;
-                    orderForm.orderDate = data.shortDate;
-                    orderForm.userid = JSON.parse(
-                        localStorage.getItem('userID')
+    insertNewOrder(orders: IOrderDetails[]): Observable<any> {
+        const timeStampidRegister = {};
+        return from(orders).pipe(
+            concatMap((order: IOrderDetails) => {
+                if (order.deliveryDate in timeStampidRegister) {
+                    console.log('Date IS in the registry', timeStampidRegister);
+                    order.timeStampid = timeStampidRegister[order.deliveryDate];
+                    return of(order);
+                } else {
+                    console.log('Date is NOT in the registry', order.deliveryDate, timeStampidRegister);
+                    return this.getDateService.getDatePackageForGivenLongDate(
+                        this.datePickerService.shortToLongDate(order.deliveryDate)).pipe(
+                        tap(datePackage => timeStampidRegister[order.deliveryDate] = datePackage.id),
+                        tap(datePackage => order.timeStampid = datePackage.id),
+                        map(() => order)
                     );
-                }),
-                tap(() => console.log('This is the form that will be inserted: ', orderForm)
-                ),
-                concatMap(() => this.insertDetailsAndProductAmounts(orderForm))
-            )
-            .subscribe();
+                }
+            }),
+            tap((order) => order.userid = JSON.parse(localStorage.getItem('userID'))),
+            tap((order) => console.log('This is the form that will be inserted: ', order)),
+            concatMap((order) => this.insertDetailsAndProductAmounts(order))
+            );
     }
 
     insertDetailsAndProductAmounts(orderForm: IOrderDetails): Observable<any> {
@@ -41,9 +47,8 @@ export class InsertOrderService {
             // tap(orderid => console.log('The returning data = ', orderid)),
             map(orderid => this.addUserIdAndOrderIdToProductAmounts(orderProducts, orderid)),
             // tap(data => console.log('Alpha - The returning data = ', data)),
-            concatMap(data =>
-                this.insertOrderApiService.enterProductAmounts(data)
-            )
+            concatMap(data => this.insertOrderApiService.enterProductAmounts(data)),
+            tap(result => console.log('The returning data = ', result))
         );
     }
 
@@ -54,8 +59,4 @@ export class InsertOrderService {
         }
         return productAmounts;
     }
-
-    // insertUserID(orderForm: IOrderDetails) {
-    //     return
-    // }
 }

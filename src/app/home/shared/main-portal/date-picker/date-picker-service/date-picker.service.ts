@@ -73,12 +73,21 @@ export class DatePickerService {
         return dateArray;
     }
 
-    shortToLongDate(tyd) {
-        // Takes a date in format "dd-mm-yyyy" and turns it into a "Date()" format -
+    shortToLongDate(shortDate) {
+        // To parse a date as UTC, append a Z - e.g.: new Date('2011-04-11T10:20:30Z') // Did not work so far
+        // Examples of ISO format: YYYY-MM-DD, or when you have time as well later (but it won't work now): YYYY-MM-DDTHH:MM:SS
+        // Takes a date in format "YYYY-MM-DD" and turns it into a "Date()" format
+        const parts = shortDate.split('-');
+        // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
+        // January - 0, February - 1, etc.
+        const date = new Date(parts[0], parts[1] - 1, parts[2]);
+        // console.log(mydate.toDateString());
+
+        // Old code
         // Tue Sep 12 2017 08:46:02 GMT+0200 (South Africa Standard Time)
-        tyd = tyd.split('-');
-        const newDate = tyd[0] + '-' + tyd[1] + '-' + tyd[2];
-        const date = new Date(newDate.replace(/-/g, '/'));
+        // shortDate = shortDate.split('-');
+        // const newDate = shortDate[0] + '/' + shortDate[1] + '/' + shortDate[2];
+        // const date = new Date(newDate);
         return date;
     }
 

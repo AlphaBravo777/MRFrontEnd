@@ -99,13 +99,10 @@ export class HppSummaryService {
         let amountOfOrders = 0;
         return this.hppSummaryApiService.getOutstandingPnPOrders(datePackage).pipe(
             map(data => data.filter(order => order.orderDate < datePackage.shortDate)),
-            // tap(data => console.log('These are the orders that qualify for outstanding = ', data)),
             tap(data => amountOfOrders = this.returnAmountOfOrders(data)),
             map(data => {
-                // console.log('DELTA = ', data);
                 return {data: this.getOutstandingOrderTotals(data), amountOfOrders: amountOfOrders};
             }),
-            // map(data => this.getOutstandingOrderTotals(data)),
             tap(data => console.log('Here are the final outstanding orders', data))
         );
     }

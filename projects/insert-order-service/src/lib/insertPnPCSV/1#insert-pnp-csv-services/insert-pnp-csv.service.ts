@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { IPnPCSVData, IPnPCSVFormat, IPnPCSVGroupedData, IOrderDetails } from '../../#sharedServices/insert-order-service-Interfaces';
+import { IPnPCSVData, IPnPCSVFormat, IOrderDetails } from '../../#sharedServices/insert-order-service-Interfaces';
 import { ConvertPnpCsvDataFactoryService } from './convert-pnp-csv-data-factory.service';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 import { ConvertPnpStructureToOrdersService } from './convert-pnp-structure-to-orders.service';
 import { InsertOrderService } from '../../#sharedServices/insert-order.service';
+import { Observable, of } from 'rxjs';
+import { mergeMap, map, tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -30,35 +32,38 @@ export class InsertPnpCsvService {
         return result;
     }
 
-    loadHandler(event) {
-        const groupByVendor: IPnPCSVGroupedData[] = [];
-        const mrPnPOrders = [];
+    loadHandler(event): IOrderDetails[] {
+        const mrPnPOrders: IOrderDetails[] = [];
         const text = event.target.result;
         const pnpJSON = this.csvTOjson(text);
-        const groupByRegion = this.toolBox.groupByArray(pnpJSON, 'vendorCode');
-        for (let region = 0; region < groupByRegion.length; region++) {
-            groupByVendor.push.apply(groupByVendor, this.toolBox.groupByArray(groupByRegion[region].values, 'storeCode'));
-        }
-        for (let vendor = 0; vendor < groupByVendor.length; vendor++) {
-            mrPnPOrders.push(this.convertPnPStructureToOrderService.factoryConvertPnPDataToOrders(groupByVendor[vendor]));
-        }
-        // console.log(mrPnPOrders);
-        // createPnPOrders(groupByVendor);
+        const groupedOrders: Array<IPnPCSVData[]> = this.toolBox.multipleGroupByArray(pnpJSON,
+            (item: IPnPCSVData) => [item.PONumber]);
+        console.log('Here is the TEST function: ', groupedOrders);
+        groupedOrders.forEach(vendor => {
+            mrPnPOrders.push(this.convertPnPStructureToOrderService.factoryConvertPnPDataToOrders(vendor));
+        });
         return mrPnPOrders;
     }
 
     fileSelected(file) {
-        let pnpOrders: IOrderDetails[] = {} as IOrderDetails[];
+        // let pnpOrders: IOrderDetails[] = {} as IOrderDetails[];
         const reader = new FileReader();
         reader.readAsText(file.target.files[0]);
         reader.onload = e => {
-            pnpOrders = this.loadHandler(e);
+            const pnpOrders: IOrderDetails[] = this.loadHandler(e);
+            // pnpOrders = this.loadHandler(e);
             console.log('Alpha = ', pnpOrders);
-            pnpOrders.forEach(order => {
-                this.insertOrderService.insertNewOrder(order);
-            });
+            this.insertOrderService.insertNewOrder(pnpOrders).pipe(
+            ).subscribe();
         };
-        // console.log('Alpha = ', pnpOrders);
-        // return of(pnpOrders);
     }
+
+    insertOrders(orders): Observable<any> {
+        orders.forEach(order => {
+            this.insertOrderService.insertNewOrder(order);
+            });
+        return null;
+    }
+
 }
+

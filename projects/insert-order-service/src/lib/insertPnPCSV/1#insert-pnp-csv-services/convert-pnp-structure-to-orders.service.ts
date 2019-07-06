@@ -1,53 +1,79 @@
 import { Injectable } from '@angular/core';
 import { IPnPCSVData,
          IAccountDetails,
-         IPnPCSVGroupedData,
          IProductOrderDetails,
          IOrderDetails} from '../../#sharedServices/insert-order-service-Interfaces';
+import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ConvertPnpStructureToOrdersService {
-    constructor() {}
+    constructor(private datePickerService: DatePickerService) {}
 
-    private createPnPAccount(regionCode, vendorFirstOrderDetail: IPnPCSVData) {
-        switch (regionCode) {
+    coastalDelieveryDateModifier = 2;
+    inlandDeliveryDateModifier = 1;
+
+    private calculateDcDeliveryDate(currentDate, days) {
+        const longDate = this.datePickerService.shortToLongDate(currentDate);
+        const deliveryDateAtDC =  new Date(longDate.setDate(longDate.getDate() - days));
+        const shortDCDate = this.datePickerService.longToShortDate(deliveryDateAtDC);
+        return shortDCDate;
+    }
+
+    private createPnPAccount(vendorFirstOrderDetail: IPnPCSVData) {
+        switch (vendorFirstOrderDetail.storeCode) {
             case 'MA08':
                 switch (vendorFirstOrderDetail.vendorCode) {
                     case 'P70':
                         return {accountid: 10, commonName: 'KZN - PnP Deli', parrentAccountid: 7,
-                        orderNumber: vendorFirstOrderDetail.PONumber} ;
+                        orderNumber: vendorFirstOrderDetail.PONumber,
+                        deliveryDateAtDC:
+                            this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
                     default:
                         return {accountid: 16, commonName: 'KZN - PnP Premium/NN', parrentAccountid: 8,
-                        orderNumber: vendorFirstOrderDetail.PONumber} ;
+                        orderNumber: vendorFirstOrderDetail.PONumber,
+                        deliveryDateAtDC:
+                            this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
                 }
             case 'MA09':
                 switch (vendorFirstOrderDetail.vendorCode) {
                     case 'P70':
                         return {accountid: 11, commonName: 'INL - PnP Deli', parrentAccountid: 7,
-                        orderNumber: vendorFirstOrderDetail.PONumber} ;
+                        orderNumber: vendorFirstOrderDetail.PONumber,
+                        deliveryDateAtDC:
+                            this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.inlandDeliveryDateModifier)};
                     default:
                         return {accountid: 17, commonName: 'INL - PnP Premium/NN', parrentAccountid: 8,
-                        orderNumber: vendorFirstOrderDetail.PONumber} ;
+                        orderNumber: vendorFirstOrderDetail.PONumber,
+                        deliveryDateAtDC:
+                            this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.inlandDeliveryDateModifier)};
                 }
             case 'MA06':
                 switch (vendorFirstOrderDetail.vendorCode) {
                     case 'P70':
                         return {accountid: 9, commonName: 'WC - PnP Deli', parrentAccountid: 7,
-                        orderNumber: vendorFirstOrderDetail.PONumber} ;
+                        orderNumber: vendorFirstOrderDetail.PONumber,
+                        deliveryDateAtDC:
+                            this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
                     default:
                         return {accountid: 14, commonName: 'WC - PnP Premium/NN', parrentAccountid: 8,
-                        orderNumber: vendorFirstOrderDetail.PONumber} ;
+                        orderNumber: vendorFirstOrderDetail.PONumber,
+                        deliveryDateAtDC:
+                            this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
                 }
             case 'EA91':
                 switch (vendorFirstOrderDetail.vendorCode) {
                     case 'P70':
                         return {accountid: 12, commonName: 'PE - PnP Deli', parrentAccountid: 7,
-                        orderNumber: vendorFirstOrderDetail.PONumber} ;
+                        orderNumber: vendorFirstOrderDetail.PONumber,
+                        deliveryDateAtDC:
+                            this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
                     default:
                         return {accountid: 15, commonName: 'PE - PnP Premium/NN', parrentAccountid: 8,
-                        orderNumber: vendorFirstOrderDetail.PONumber} ;
+                        orderNumber: vendorFirstOrderDetail.PONumber,
+                        deliveryDateAtDC:
+                            this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
                 }
         }
     }
@@ -126,34 +152,42 @@ export class ConvertPnpStructureToOrdersService {
         }
     }
 
-    private createPnPAccountFactory(pnpVendorOrder: IPnPCSVGroupedData): IAccountDetails {
-        const accountDetail = this.createPnPAccount(pnpVendorOrder.key, pnpVendorOrder.values[0]);
+    private createPnPOrderFactory(pnpVendorOrder: IPnPCSVData[], products: IProductOrderDetails[]): IOrderDetails {
+        const accountDetail = this.createPnPAccount(pnpVendorOrder[0]);
         const newPnPAccountObj: IAccountDetails = {
             accountid: accountDetail.accountid,
-            accountMRid: pnpVendorOrder.key,
+            accountMRid: pnpVendorOrder[0].storeCode,
             accountName: accountDetail.commonName,
             commonName: accountDetail.commonName,
             parentAccountid: accountDetail.parrentAccountid,
             routeid: 18,
             orderNumber: accountDetail.orderNumber,
             accountID: 'Insert GraphQL string',
-            routeName: 'PnP LongMeadow DC'
+            routeName: 'PnP LongMeadow DC',
         };
-        return newPnPAccountObj;
+        const pnpOrder: IOrderDetails = Object.assign({
+            deliveryDate: accountDetail.deliveryDateAtDC,
+            orderDate: accountDetail.deliveryDateAtDC,
+            timeStampid: null,
+            userid: null,
+            orders: products
+        },
+        newPnPAccountObj);
+        return pnpOrder;
     }
 
-    private createPnPProductsFactory(pnpVendorOrder: IPnPCSVGroupedData): IProductOrderDetails[] {
+    private createPnPProductsFactory(pnpVendorOrder: IPnPCSVData[]): IProductOrderDetails[] {
         const pnpProductsArray = [];
-        for (let prod = 0; prod < pnpVendorOrder.values.length; prod++) {
-            const productDetail = this.createPnPProduct(pnpVendorOrder.values[prod]);
+        for (let prod = 0; prod < pnpVendorOrder.length; prod++) {
+            const productDetail = this.createPnPProduct(pnpVendorOrder[prod]);
             const newPnPProductObj: IProductOrderDetails = {
                 productid: productDetail.productid,
-                productMRid: pnpVendorOrder.values[prod].vendorProductCode,
+                productMRid: pnpVendorOrder[prod].vendorProductCode,
                 lugSize: productDetail.lugSize,
-                packageWeight: pnpVendorOrder.values[prod].packSize,
+                packageWeight: pnpVendorOrder[prod].packSize,
                 rankingInGroup: productDetail.rankingInGroup,
                 batchRanking: 1,
-                amount: pnpVendorOrder.values[prod].quantity,
+                amount: pnpVendorOrder[prod].quantity,
                 orderDetailsid: null,
                 userid: null
             };
@@ -163,21 +197,9 @@ export class ConvertPnpStructureToOrdersService {
         return pnpProductsArray;
     }
 
-    createPnPOrderFactory(pnpAccount: IAccountDetails, pnpProducts: IProductOrderDetails[]): IOrderDetails {
-        const pnpOrder: IOrderDetails = Object.assign({
-                    orderDate: null,
-                    timeStampid: null,
-                    userid: null,
-                    orders: pnpProducts
-                },
-                pnpAccount);
-        return pnpOrder;
-    }
-
-    factoryConvertPnPDataToOrders(pnpVendorOrder) {
-        const pnpAccount: IAccountDetails = this.createPnPAccountFactory(pnpVendorOrder);
+    factoryConvertPnPDataToOrders(pnpVendorOrder: IPnPCSVData[]) {
         const pnpProducts: IProductOrderDetails[]  = this.createPnPProductsFactory(pnpVendorOrder);
-        const pnpOrder: IOrderDetails = this.createPnPOrderFactory(pnpAccount, pnpProducts);
+        const pnpOrder: IOrderDetails = this.createPnPOrderFactory(pnpVendorOrder, pnpProducts);
         return pnpOrder;
     }
 }

@@ -33,10 +33,10 @@ export class IPnPCSVData {
     vendorProductCode: string;
 }
 
-export class IPnPCSVGroupedData {
-    key: string;
-    values: IPnPCSVData[];
-}
+// export class IPnPCSVGroupedData {
+//     key: string;
+//     values: IPnPCSVData[];
+// }
 
 // This should be refractored out later to accountService
 export class IAccountDetails {
@@ -73,7 +73,8 @@ export class IProductOrderDetails extends IProductDetails {
 }
 
 export class IOrderDetails extends IAccountDetails {
-    orderDate: string;
+    orderDate?: string;
+    deliveryDate?: string;
     timeStampid: number;
     userid: number;
     orders: IProductOrderDetails[];
