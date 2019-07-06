@@ -5,6 +5,7 @@ import { IOrderDetails, IProductOrderDetails } from './insert-order-service-Inte
 import { InsertOrderApiService } from './insert-order-api.service';
 import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
+import { DialogBoxService } from 'src/app/home/core/dialog-box/dialog-box.service';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,8 @@ import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/dat
 export class InsertOrderService {
     constructor(private insertOrderApiService: InsertOrderApiService,
         private datePickerService: DatePickerService,
-        private getDateService: GetDate$Service) {}
+        private getDateService: GetDate$Service,
+        private dialogBoxService: DialogBoxService) {}
 
     insertNewOrder(orders: IOrderDetails[]): Observable<any> {
         const timeStampidRegister = {};
@@ -41,18 +43,25 @@ export class InsertOrderService {
     insertDetailsAndProductAmounts(orderForm: IOrderDetails): Observable<any> {
         const detailsForm: IOrderDetails = Object.assign({}, orderForm);
         delete detailsForm.orders;
-        const orderProducts = [...orderForm.orders];
-        // console.log('The order details without products = ', detailsForm);
+        const orderProducts: IProductOrderDetails[] = [...orderForm.orders];
         return this.insertOrderApiService.enterNewOrderDetails(orderForm).pipe(
-            // tap(orderid => console.log('The returning data = ', orderid)),
-            map(orderid => this.addUserIdAndOrderIdToProductAmounts(orderProducts, orderid)),
-            // tap(data => console.log('Alpha - The returning data = ', data)),
-            concatMap(data => this.insertOrderApiService.enterProductAmounts(data)),
+            concatMap(response => {
+                if ('error' in response) {
+                    this.dialogBoxService.popUpMessage(
+                        'There was already an order with the order number: ' + orderForm.orderNumber +
+                        '  ( ' + orderForm.commonName + ' )');
+                    return of(['No data was inserted for order number:', orderForm.orderNumber]);
+                } else {
+                    return of(this.addUserIdAndOrderIdToProductAmounts(orderProducts, response)).pipe(
+                        concatMap(data => this.insertOrderApiService.enterProductAmounts(data))
+                        );
+                }
+            }),
             tap(result => console.log('The returning data = ', result))
         );
     }
 
-    addUserIdAndOrderIdToProductAmounts(productAmounts, orderid): IProductOrderDetails {
+    addUserIdAndOrderIdToProductAmounts(productAmounts: IProductOrderDetails[], orderid): IProductOrderDetails[] {
         for (let prod = 0; prod < productAmounts.length; prod++) {
             productAmounts[prod].orderDetailsid = orderid.id;
             productAmounts[prod].userid = JSON.parse(localStorage.getItem('userID'));

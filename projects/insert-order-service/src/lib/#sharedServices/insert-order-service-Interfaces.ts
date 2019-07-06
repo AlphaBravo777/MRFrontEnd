@@ -45,7 +45,7 @@ export class IAccountDetails {
     accountMRid: string;
     accountName: string;
     commonName: string;
-    orderNumber: number;
+    orderNumber: string;
     parentAccountid: number;
     routeName: string;
     routeid: number;
@@ -89,6 +89,7 @@ export class IAccountDBDetails {
     parentAccountid: number;
     routeName: string;
     routeid: number;
+    orderNumber: string;
 
     constructor(obj: IAccountDetails) {
         this.accountsid = obj.accountid;
@@ -99,6 +100,7 @@ export class IAccountDBDetails {
         this.parentAccountid = obj.parentAccountid;
         this.routeName = obj.routeName;
         this.routeid = obj.routeid;
+        this.orderNumber = obj.orderNumber;
     }
 }
 
@@ -126,6 +128,7 @@ export class IOrderDBDetails extends IAccountDBDetails {
         this.timeStampid = obj.timeStampid;
         this.userid = obj.userid;
         this.orders = obj.orders;
+        this.orderNumber = obj.orderNumber;
     }
 }
 

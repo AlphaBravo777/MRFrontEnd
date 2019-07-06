@@ -161,7 +161,7 @@ export class ConvertPnpStructureToOrdersService {
             commonName: accountDetail.commonName,
             parentAccountid: accountDetail.parrentAccountid,
             routeid: 18,
-            orderNumber: accountDetail.orderNumber,
+            orderNumber: (accountDetail.orderNumber).toString(),
             accountID: 'Insert GraphQL string',
             routeName: 'PnP LongMeadow DC',
         };
