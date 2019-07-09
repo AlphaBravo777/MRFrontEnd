@@ -4,8 +4,8 @@ import { ConvertPnpCsvDataFactoryService } from './convert-pnp-csv-data-factory.
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 import { ConvertPnpStructureToOrdersService } from './convert-pnp-structure-to-orders.service';
 import { InsertOrderService } from '../../#sharedServices/insert-order.service';
-import { Observable, of } from 'rxjs';
-import { mergeMap, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +21,7 @@ export class InsertPnpCsvService {
         const lines = csv.split('\n');
         const result: IPnPCSVData[] = [];
         const headers = lines[0].split(',');
-        for (let i = 1; i < lines.length - 1; i++) {   // Make sure this '-1' is correct
+        for (let i = 1; i < lines.length - 1; i++) {
             const obj: IPnPCSVFormat = {};
             const currentline = lines[i].split(',');
             for (let j = 0; j < headers.length; j++) {
@@ -46,14 +46,14 @@ export class InsertPnpCsvService {
     }
 
     fileSelected(file) {
-        // let pnpOrders: IOrderDetails[] = {} as IOrderDetails[];
+        // let pnpOrders: IOrderDetails[] = {} a IOrderDetails[];
         const reader = new FileReader();
         reader.readAsText(file.target.files[0]);
         reader.onload = e => {
             const pnpOrders: IOrderDetails[] = this.loadHandler(e);
-            // pnpOrders = this.loadHandler(e);
             console.log('Alpha = ', pnpOrders);
             this.insertOrderService.insertNewOrder(pnpOrders).pipe(
+                take(pnpOrders.length)
             ).subscribe();
         };
     }

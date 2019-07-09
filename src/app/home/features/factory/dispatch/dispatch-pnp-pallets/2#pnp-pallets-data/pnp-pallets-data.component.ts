@@ -53,20 +53,18 @@ export class PnpPalletsDataComponent implements OnInit, OnDestroy {
 
     workingDate(datePackage: IDate): Observable<any> {
         return this.pnpPalletService.getPnPOrderForDateGiven(datePackage).pipe(
-        tap(data => console.log('The data of the pnp Order = ', data)),
-        tap(data => this.orders = data),
-        tap(data => this.tempLugsByRegionSummary = this.pnpPalletService.calculateTotalPalletsForRegions(data)),
-        map(data => this.pnpPalletService.calculatePalletOptions(data)),
-        tap(data => console.log('The data going to view = ', data)),
-        tap(data => this.lugsByRegionSummary = this.pnpPalletService.addTotalPalletsToLugsSummary(this.tempLugsByRegionSummary, data)),
-        tap(data => this.calculatedPallets = data),
-        switchMap(() => this.pnpSharedService.calculateTotalPnPOrderWeightForDate(JSON.parse(JSON.stringify(this.orders)))),
-        tap(data => console.log('Total PnP Order Weight = ', data)),
-        tap(data => this.pnpOrderTotals = data),
-        switchMap(() => this.pnpSharedService.createPnPRegionsAndProductsMatrix(this.orders)),
-        tap((data) => this.pnpOrderMatrix = data),
-        // switchMap(() => this.getNewDate.calculateNewDate(JSON.parse(JSON.stringify(datePackage)), -1)),
-        // tap(data => console.log(' + + + ', data))
+            tap(data => console.log('The data of the pnp Order = ', data)),
+            tap(data => this.orders = data),
+            tap(data => this.tempLugsByRegionSummary = this.pnpPalletService.calculateTotalPalletsForRegions(data)),
+            map(data => this.pnpPalletService.calculatePalletOptions(data)),
+            tap(data => console.log('The data going to view = ', data)),
+            tap(data => this.lugsByRegionSummary = this.pnpPalletService.addTotalPalletsToLugsSummary(this.tempLugsByRegionSummary, data)),
+            tap(data => this.calculatedPallets = data),
+            switchMap(() => this.pnpSharedService.calculateTotalPnPOrderWeightForDate(JSON.parse(JSON.stringify(this.orders)))),
+            tap(data => console.log('Total PnP Order Weight = ', data)),
+            tap(data => this.pnpOrderTotals = data),
+            switchMap(() => this.pnpSharedService.createPnPRegionsAndProductsMatrix(this.orders)),
+            tap((data) => this.pnpOrderMatrix = data),
         );
     }
 

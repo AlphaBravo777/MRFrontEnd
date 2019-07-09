@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { of, Observable, from } from 'rxjs';
-import { tap, concatMap, map } from 'rxjs/operators';
+import { of, Observable, from, BehaviorSubject } from 'rxjs';
+import { tap, concatMap, map, take } from 'rxjs/operators';
 import { IOrderDetails, IProductOrderDetails } from './insert-order-service-Interfaces';
 import { InsertOrderApiService } from './insert-order-api.service';
 import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
@@ -15,6 +15,17 @@ export class InsertOrderService {
         private datePickerService: DatePickerService,
         private getDateService: GetDate$Service,
         private dialogBoxService: DialogBoxService) {}
+
+    private ordersNotInserted = new BehaviorSubject<IOrderDetails[]>([]);
+    currentOrdersNotInserted$ = this.ordersNotInserted.asObservable();
+    ordersNotInsertedArray: IOrderDetails[] = [];
+
+    /*
+        * Inserting orders and giving popup feedback one-for-one is turning out to be to problematic. Just capture the orders that have not
+        been inserted into an array, and then right under the insert button display all the orders nicely.
+        * Sort out if there are more than 3 orders for a day. Say two deli's and a premium
+        * Next step will also be to make let Andelines orders that she reads in be inserted into the mysql database as well.
+    */
 
     insertNewOrder(orders: IOrderDetails[]): Observable<any> {
         const timeStampidRegister = {};
@@ -47,9 +58,11 @@ export class InsertOrderService {
         return this.insertOrderApiService.enterNewOrderDetails(orderForm).pipe(
             concatMap(response => {
                 if ('error' in response) {
-                    this.dialogBoxService.popUpMessage(
-                        'There was already an order with the order number: ' + orderForm.orderNumber +
-                        '  ( ' + orderForm.commonName + ' )');
+                    // this.dialogBoxService.popUpMessage(
+                    //     'There was already an order with the order number: ' + orderForm.orderNumber +
+                    //     '  ( ' + orderForm.commonName + ' )');
+                    this.ordersNotInsertedArray.push(orderForm);
+                    this.ordersNotInserted.next(this.ordersNotInsertedArray);
                     return of(['No data was inserted for order number:', orderForm.orderNumber]);
                 } else {
                     return of(this.addUserIdAndOrderIdToProductAmounts(orderProducts, response)).pipe(

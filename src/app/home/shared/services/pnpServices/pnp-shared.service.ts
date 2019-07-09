@@ -18,29 +18,38 @@ export class PnpSharedService {
     getAllPnPProductsThatAreActive(): Observable<IPnPOrderProduct[]> {
         return this.pnpSharedApiService.getAllPnPProductsThatAreActive().pipe(
             map(data => this.toolBoxService.sorting(data, 'rankingInGroup')),
-            tap(data => console.log('All active PnP products = ', data))
+            // tap(data => console.log('All active PnP products = ', data))
         );
     }
 
     addPnPRegionsDeliAndPremiumOrderTogether(orders: IPnPOrder[]): Observable<IPnPOrder[]> {
-        const newOrderArray: IPnPOrder[] = [];
+        const combinedOrderArray: IPnPOrder[] = [];
+        orders.sort((a, b) => b.products.length - a.products.length);
+        // console.log('Sorted orders',  orders);
         for (let order = 0; order < orders.length; order++) {
             let orderNotFound = true;
-            for (let newOrder = 0; newOrder < newOrderArray.length; newOrder++) {
-                if (orders[order].accountID === newOrderArray[newOrder].accountID) {
-                    newOrderArray[newOrder].products.push.apply(newOrderArray[newOrder].products, orders[order].products);
+            for (let newOrder = 0; newOrder < combinedOrderArray.length; newOrder++) {
+                if (orders[order].accountID === combinedOrderArray[newOrder].accountID) {
+                    orders[order].products.forEach(product => {
+                        const found = combinedOrderArray[newOrder].products.find(prod => prod.productid === product.productid);
+                        if (found) {
+                            found.amount = found.amount + product.amount;
+                        } else {
+                            combinedOrderArray[newOrder].products.push(product);
+                        }
+                    });
                     orderNotFound = false;
                     break;
                 }
             }
             if (orderNotFound) {
-                newOrderArray.push(orders[order]);
-                newOrderArray[newOrderArray.length - 1].commonName =
+                combinedOrderArray.push(orders[order]);
+                combinedOrderArray[combinedOrderArray.length - 1].commonName =
                     orders[order].commonName.substr(0, orders[order].commonName.indexOf(' '));
             }
         }
-        console.log('The new Order array = ', newOrderArray);
-        return of(newOrderArray);
+        // console.log('The new Order array = ', combinedOrderArray);
+        return of(combinedOrderArray);
     }
 
     calculateTotalPnPOrderWeightForDate(orders?: IPnPOrder[]): Observable<IPnPOrderTotals> {
@@ -57,7 +66,7 @@ export class PnpSharedService {
                     pnpOrderTotalLugs = pnpOrderTotalLugs + workingOrders[order].products[product].amount;
                 }
             }
-            console.log('The total number of pnp Lugs are: ', pnpOrderTotalLugs);
+            // console.log('The total number of pnp Lugs are: ', pnpOrderTotalLugs);
             return of({pnpOrderTotalWeight: pnpOrderTotalWeight, pnpOrderTotalLugs: pnpOrderTotalLugs});
         };
 
@@ -79,16 +88,17 @@ export class PnpSharedService {
 
                 const enterLine = (title: String, productList: IPnPOrderProduct[]) => {
                     pnpOrderMatrix.regions.push(title);
-                    for (let actProd = 0; actProd < pnpOrderMatrix.products.length; actProd++) {
+                    for (let matrixProd = 0; matrixProd < pnpOrderMatrix.products.length; matrixProd++) {
                         let productNotFound = true;
                         for (let product = 0; product < productList.length; product++) {
-                            if (productList[product].productid === pnpOrderMatrix.products[actProd].productName.productid) {
-                                pnpOrderMatrix.products[actProd].productAmounts.push(productList[product].amount);
+                            if (productList[product].productid === pnpOrderMatrix.products[matrixProd].productName.productid) {
+                                pnpOrderMatrix.products[matrixProd].productAmounts.push(productList[product].amount);
                                 productNotFound = false;
                             }
                         }
                         if (productNotFound) {
-                            pnpOrderMatrix.products[actProd].productAmounts.push(0);
+                            // If the order does not have a product then enter "0" to keep spacing
+                            pnpOrderMatrix.products[matrixProd].productAmounts.push(0);
                         }
 
                     }
@@ -110,7 +120,7 @@ export class PnpSharedService {
             const pnpproductTotals$ = this.getTotalAmountOfEachPnPProductForDate(JSON.parse(JSON.stringify(workingOrders)));
             return combineLatest([allPnPActiveProducts$, pnpOrders$, pnpproductTotals$]).pipe(
                 map(data => createPnPMatrix(data[0], data[1], data[2])),
-                tap(data => console.log('PnP Orders Matrix ', data))
+                // tap(data => console.log('PnP Orders Matrix ', data))
             );
 
         };
