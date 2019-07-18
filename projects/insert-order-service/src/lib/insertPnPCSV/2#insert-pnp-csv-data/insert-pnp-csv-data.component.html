@@ -2,7 +2,7 @@
     <mr-insert-insert-pnp-csv-view (fileSelected)="fileSelected($event)">
     </mr-insert-insert-pnp-csv-view>
     <div *ngIf="ordersNotInserted.length > 0">
-        <p><b>The following orders were not inserted succesfully:</b></p>
+        <p><b>The following orders were already inserted:</b></p>
         <div *ngFor="let order of ordersNotInserted">
             PO Number: {{ order.orderNumber }}, Name: {{ order.commonName }}
         </div>

@@ -28,6 +28,8 @@ Features todo list:
 Common bug reports:
     ✔ Sometimes "report-read-api.service.ts:81" will show that all daily reports EVER have been collected from the server. This may be because data is @done(19-02-04 14:48)
         ✔ collected without timestamp being available yet. This obviously takes a lot of time, and will become worst as time goes on. @done(19-02-04 14:48)
+    ☐ There is a big bug which happens once a year where come way you can reply to a post, but the timestamp of the reply and the timestamp of the original post is
+        ☐ different. This just leads the program to keep looking for the one or other post and the freezes.
 
 Checklist module:
     ☐  When ever adding a check, the subscriptions accumelate, so every time you enter a check the subscriptions become more and more

@@ -5,7 +5,6 @@ import { IOrderDetails, IProductOrderDetails } from './insert-order-service-Inte
 import { InsertOrderApiService } from './insert-order-api.service';
 import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
-import { DialogBoxService } from 'src/app/home/core/dialog-box/dialog-box.service';
 
 @Injectable({
     providedIn: 'root'
@@ -13,19 +12,11 @@ import { DialogBoxService } from 'src/app/home/core/dialog-box/dialog-box.servic
 export class InsertOrderService {
     constructor(private insertOrderApiService: InsertOrderApiService,
         private datePickerService: DatePickerService,
-        private getDateService: GetDate$Service,
-        private dialogBoxService: DialogBoxService) {}
+        private getDateService: GetDate$Service) {}
 
     private ordersNotInserted = new BehaviorSubject<IOrderDetails[]>([]);
     currentOrdersNotInserted$ = this.ordersNotInserted.asObservable();
     ordersNotInsertedArray: IOrderDetails[] = [];
-
-    /*
-        * Inserting orders and giving popup feedback one-for-one is turning out to be to problematic. Just capture the orders that have not
-        been inserted into an array, and then right under the insert button display all the orders nicely.
-        * Sort out if there are more than 3 orders for a day. Say two deli's and a premium
-        * Next step will also be to make let Andelines orders that she reads in be inserted into the mysql database as well.
-    */
 
     insertNewOrder(orders: IOrderDetails[]): Observable<any> {
         const timeStampidRegister = {};
