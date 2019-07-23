@@ -15,7 +15,7 @@ const TEST_DATA_PRODUCTS: IPnPOrderProduct[] = [
         amount: 39,
         lugSize: 2,
         packageWeight: 12,
-        rankingInGroup: 13
+        rankingInGroup: 13,
     }
 ];
 
@@ -48,6 +48,9 @@ const TEST_SEARCH = {
                                             productid: 'CV1NN',
                                             packageweight: 12,
                                             rankingInGroup: 13,
+                                            packaging: {
+                                                rowid: 8
+                                            }
                                         }
                                     }
                                 }
