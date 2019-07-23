@@ -31,6 +31,9 @@ export class PnpSharedApiService {
                                     productid
                                     packageweight
                                     rankingInGroup
+                                    packaging{
+                                        rowid
+                                    }
                                 }
                             }
                         }
@@ -72,7 +75,7 @@ export class PnpSharedApiService {
                 singleProduct.amount = data[array].node.orderproductamountsSet.edges[prod].node.amount;
                 singleProduct.packageWeight = data[array].node.orderproductamountsSet.edges[prod].node.productid.packageweight;
                 singleProduct.rankingInGroup = data[array].node.orderproductamountsSet.edges[prod].node.productid.rankingInGroup;
-                if (data[array].node.orderproductamountsSet.edges[prod].node.productid.packageweight <= 8) {
+                if (data[array].node.orderproductamountsSet.edges[prod].node.productid.packaging.rowid === 7) {
                     singleProduct.lugSize = 1;
                 } else {
                     singleProduct.lugSize = 2;

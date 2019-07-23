@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EntryComponent } from './#entry/entry.component';
 import { MenuComponent } from './#menu/menu.component';
 import { InsertPnpCsvDataComponent } from './insertPnPCSV/2#insert-pnp-csv-data/insert-pnp-csv-data.component';
+import { InsertPnpCsvViewComponent } from './insertPnPCSV/3#insert-pnp-csv-view/insert-pnp-csv-view.component';
 
 const insertOrderServiceRoutes: Routes = [
     {
@@ -34,5 +35,6 @@ export class InsertOrderServiceRoutingModule {}
 export const InsertOrderServiceRoutingComponent = [
     EntryComponent,
     MenuComponent,
-    InsertPnpCsvDataComponent
+    InsertPnpCsvDataComponent,
+    InsertPnpCsvViewComponent
 ];

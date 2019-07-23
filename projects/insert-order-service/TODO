@@ -1,0 +1,13 @@
+☐ Insert order todo list
+
+    ☐ Requested features
+        ☐ After an order was inserted, clear everything so that a person can just start with the new order
+        ☐ Only have one day where you read in the order day. Every route comes with a default order day, which is maybe not neccesary
+        ☐ Have a way to insert new clients/accounts
+        ☐ Maak deli's, butch en perish eenvormig, moenie party "1" maak en ander "butch" nie
+        ☐ Do not connect clients to specific route, they change to much and do not always go out on the same route
+        ☐ Make sure order number does not yet exist before entering order
+        ☐ Allow Details to be available when you press a butotn, so that you can see all contact info, as well as all the orders
+            ☐ that have been ordered the last 5 times
+        ☐ Return only top 10 accountid results as not to overwhelm system when nothing is entered
+

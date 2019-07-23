@@ -33,11 +33,6 @@ export class IPnPCSVData {
     vendorProductCode: string;
 }
 
-// export class IPnPCSVGroupedData {
-//     key: string;
-//     values: IPnPCSVData[];
-// }
-
 // This should be refractored out later to accountService
 export class IAccountDetails {
     accountid: number;
