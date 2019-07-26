@@ -1,24 +1,32 @@
-<div class='componentContainer'>
-    <div class='topMenuView'>
-        <mr-insert-top-menu-view>
-        </mr-insert-top-menu-view>
-    </div>
-    <div class='routeView'>
-        <mr-insert-route-view>
+<form [formGroup]='mainInsertForm'>
+    <div class='componentContainer'>
 
-        </mr-insert-route-view>
-    </div>
-    <div class='accountView'>
-        <mr-insert-account-view>
+            <div class='topMenuView'>
+                <mr-insert-top-menu-view>
+                </mr-insert-top-menu-view>
+            </div>
+            <div class='routeView'>
+                <mr-insert-route-view
+                    [routeFormControl]='mainInsertForm.get("routeName")'>
 
-        </mr-insert-account-view>
+                </mr-insert-route-view>
+            </div>
+            <div class='accountView'>
+                <mr-insert-account-view>
+
+                </mr-insert-account-view>
+            </div>
+            <div class='insertProducts'>
+                <mr-insert-insert-product-view>
+
+                </mr-insert-insert-product-view>
+            </div>
+            <div class='availableProducts'>
+                <mr-insert-products-available-view>
+
+                </mr-insert-products-available-view>
+            </div>
+
     </div>
-    <div class='insertProducts'>
-        <mr-insert-insert-product-view>
-        </mr-insert-insert-product-view>
-    </div>
-    <div class='availableProducts'>
-        <mr-insert-products-available-view>
-        </mr-insert-products-available-view>
-    </div>
-</div>
+</form>
+<pre>{{mainInsertForm?.value|json}}</pre>

@@ -136,8 +136,5 @@ export class DynamicFormSelectApiService {
     }
 
 
-    getAccounts(): IFormSelectControl[] {
-        return;
-    }
 }
 

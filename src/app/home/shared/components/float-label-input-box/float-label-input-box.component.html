@@ -1,6 +1,8 @@
 <div class="field">
-    <input [ngClass]="formControl.valid ? 'green' : 'red'"
-        type="text" id="fullname" placeholder={{placeHolderText}} spellcheck="false">
-    <label for="fullname">{{caption}}</label> 
+    <input [ngClass]="inputFormControl.valid ? 'green' : 'red'"
+        [formControl]="control"
+        type="text" id="fullname" placeholder={{placeHolderText}}
+        spellcheck="false">
+    <label for="fullname">{{caption}}</label>
 </div>
 

@@ -1,0 +1,5 @@
+<div class="field" [formGroup]="group">
+    <input type="text" id="config.name" [ngClass]="group.get(config.name).valid ? 'green' : 'red'" placeholder={{config.placeholder}}
+        [formControlName]="config.name" spellcheck="false" />
+    <label for="config.name">{{config.label}}</label>
+</div>

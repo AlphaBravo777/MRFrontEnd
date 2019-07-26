@@ -34,7 +34,7 @@ export class IPnPCSVData {
 }
 
 // This should be refractored out later to accountService
-export class IAccountDetails {
+export interface IAccountDetailsInterface {
     accountid: number;
     accountID: string;
     accountMRid: string;
@@ -46,8 +46,35 @@ export class IAccountDetails {
     routeid: number;
 }
 
+export class IAccountDetails implements IAccountDetailsInterface {
+    accountid: number;
+    accountID: string;
+    accountMRid: string;
+    accountName: string;
+    commonName: string;
+    orderNumber: string;
+    parentAccountid: number;
+    routeName: string;
+    routeid: number;
+}
+
+
+
 // This should be refractored out later to productService
-export class IProductDetails {
+export interface IProductDetailsInterface {
+    productMRid: string;
+    productid: number;
+    packageWeight: number;
+    rankingInGroup: number;
+    proddescription?: string;
+    productonhold?: boolean;
+    batchRanking?: number;
+    packaging?: number;
+    brand?: number;
+    unitWeight?: number;
+    lugSize: number;
+}
+export class IProductDetails implements IProductDetailsInterface {
     productMRid: string;
     productid: number;
     packageWeight: number;
@@ -61,13 +88,21 @@ export class IProductDetails {
     lugSize: number;
 }
 
-export class IProductOrderDetails extends IProductDetails {
+
+
+export interface IProductOrderDetailsInterface extends IProductDetailsInterface {
     amount: number;
     orderDetailsid: number;
     userid: number;
 }
 
-export class IOrderDetails extends IAccountDetails {
+export class IProductOrderDetails extends IProductDetails implements IProductOrderDetailsInterface {
+    amount: number;
+    orderDetailsid: number;
+    userid: number;
+}
+
+export interface IOrderDetailsInterface extends IAccountDetailsInterface {
     orderDate?: string;
     deliveryDate?: string;
     timeStampid: number;
@@ -75,7 +110,27 @@ export class IOrderDetails extends IAccountDetails {
     orders: IProductOrderDetails[];
 }
 
-export class IAccountDBDetails {
+export class IOrderDetails extends IAccountDetails implements IOrderDetailsInterface {
+    orderDate?: string;
+    deliveryDate?: string;
+    timeStampid: number;
+    userid: number;
+    orders: IProductOrderDetails[];
+}
+
+export interface IAccountDBDetailsInterface {
+    accountsid: number;
+    accountID: string;
+    accountMRid: string;
+    accountName: string;
+    commonName: string;
+    parentAccountid: number;
+    routeName: string;
+    routeid: number;
+    orderNumber: string;
+}
+
+export class IAccountDBDetails implements IAccountDBDetailsInterface {
     accountsid: number;
     accountID: string;
     accountMRid: string;
@@ -103,7 +158,14 @@ export function createAccount(obj: IAccountDetails): IAccountDBDetails {
     return new IAccountDBDetails(obj);
 }
 
-export class IOrderDBDetails extends IAccountDBDetails {
+export interface IOrderDBDetailsInterface extends IAccountDBDetailsInterface {
+    orderDate: string;
+    timeStampid: number;
+    userid: number;
+    orders: IProductOrderDetails[];
+}
+
+export class IOrderDBDetails extends IAccountDBDetails implements IOrderDBDetailsInterface {
     orderDate: string;
     timeStampid: number;
     userid: number;

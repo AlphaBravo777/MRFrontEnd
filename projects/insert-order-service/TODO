@@ -4,10 +4,19 @@
         ☐ After an order was inserted, clear everything so that a person can just start with the new order
         ☐ Only have one day where you read in the order day. Every route comes with a default order day, which is maybe not neccesary
         ☐ Have a way to insert new clients/accounts
-        ☐ Maak deli's, butch en perish eenvormig, moenie party "1" maak en ander "butch" nie
-        ☐ Do not connect clients to specific route, they change to much and do not always go out on the same route
+        ☐ Make deli's, butch and perish uniform, don't let some be "1" and others "butch"
+        ☐ Do not connect clients to specific route, they change too much and do not always go out on the same route
         ☐ Make sure order number does not yet exist before entering order
         ☐ Allow Details to be available when you press a butotn, so that you can see all contact info, as well as all the orders
             ☐ that have been ordered the last 5 times
         ☐ Return only top 10 accountid results as not to overwhelm system when nothing is entered
+        ☐ Have a button where you can see the history of items that have been bought previously, with an avarage as well, and buttons to just
+            ☐ insert the amount they bought previously, maybe even the whole order (When it comes to shoprites)
 
+    ☐ Step1
+        ☐ Create menu that shows the timestamp and the day that you are on
+        ☐ Create route box where you can choose the route where you want to insert the orders on
+
+    ☐ Step 2
+        ☐ Create the account view, where you start typing an account name and select form the list
+        ☐ Prob also create the order from that goes with the account select

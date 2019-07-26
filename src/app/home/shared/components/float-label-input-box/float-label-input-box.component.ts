@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, AbstractControl } from '@angular/forms';
+import { FormGroup, AbstractControl, FormControl, FormGroupDirective } from '@angular/forms';
 
 @Component({
     selector: 'app-float-label-input-box',
@@ -8,13 +8,18 @@ import { FormGroup, AbstractControl } from '@angular/forms';
 })
 export class FloatLabelInputBoxComponent implements OnInit {
 
-    constructor() { }
+    constructor(private fgd: FormGroupDirective) { }
 
     @Input() placeHolderText: string;
-    @Input() formControl: AbstractControl;
+    @Input() inputFormControl: FormControl;
     @Input() caption: string;
+    @Input() controlPath: any;
+    control: FormControl;
 
     ngOnInit() {
+        this.control = this.fgd.control.get(
+          this.controlPath
+        ) as FormControl;
     }
 
 }

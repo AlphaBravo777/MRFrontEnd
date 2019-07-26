@@ -17,7 +17,7 @@ import { FormFilterInputComponent } from './controls/form-filter-input/form-filt
         FormButtonComponent,
         DynamicFieldDirective,
         FilterInputComponent,
-        FormFilterInputComponent
+        FormFilterInputComponent,
     ],
     imports: [
         CommonModule,

@@ -27,6 +27,7 @@ import { GraphQLModule } from './graphql.module';
 import { MaterialConfigModule } from './material-config/material-config.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { FormBuilderTypeSafe } from './home/core/reactive-forms/reactive-forms-helper';
 
 @NgModule({
     exports: [
@@ -60,6 +61,7 @@ import { environment } from '../environments/environment';
         AuthService,
         UrlsService,
         AlertService,
+        FormBuilderTypeSafe,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptorService,

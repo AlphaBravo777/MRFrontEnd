@@ -1,12 +1,12 @@
 export class IFormSelectControl {
     name: string;
     optionid: number;
-    optionID: string;
+    optionID?: string;
+}
 
-    // constructor(name: string, areaid: number) {
-    //     this.name = name;
-    //     this.areaid = areaid;
-    // }
+export class IFormControlData {
+    controlName: string;
+    data: IFormSelectControl[];
 }
 
 export class IFormControl {
@@ -19,9 +19,4 @@ export class IFormControl {
     validation?: any[];
     options?: IFormSelectControl[];
     ranking: number;
-
-    // constructor(name: string, areaid: number) {
-    //     this.name = name;
-    //     this.areaid = areaid;
-    // }
 }

@@ -31,6 +31,4 @@ export class InsertOrderView1Component implements OnInit {
         ).subscribe();
     }
 
-
-
 }

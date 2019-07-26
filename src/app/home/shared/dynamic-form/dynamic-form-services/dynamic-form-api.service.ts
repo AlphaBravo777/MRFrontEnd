@@ -27,7 +27,7 @@ export class DynamicFormApiService {
         return this.http.post<any>(this.stockUrl + 'accounts/enterNew/', formData);
     }
 
-    getFormControls(formName): Observable<IFormControl[]> {
+    getFormControls(formName: string): Observable<IFormControl[]> {
         return this.apollo
             .watchQuery({
                 variables: { name: formName },
@@ -67,17 +67,16 @@ export class DynamicFormApiService {
             })
             .valueChanges.pipe(
                 map(result => this.consolidateFormControls(result.data['nodeForms'].edges[0].node.formbuilderSet.edges)),
-                map(data => {
-                    // console.log('data = ', data);
-                    data.map(item => {
-                        if (item.type === 'select' || item.type === 'filterInput') {
-                            const value = item.value;
-                            item.value = null;
-                            return this.dynamicFormSelectApiService.getSelection(value).subscribe(data2 => item.options = data2);
-                        }
-                    });
-                    return data;
-                }),
+                // map(data => {
+                //     data.map(item => {
+                //         if (item.type === 'select' || item.type === 'filterInput') {
+                //             const value = item.value;
+                //             item.value = null;
+                //             return this.dynamicFormSelectApiService.getSelection(value).subscribe(data2 => item.options = data2);
+                //         }
+                //     });
+                //     return data;
+                // }),
                 tap(data => this.toolbox.sorting(data, 'ranking'))
                 );
     }
@@ -100,6 +99,7 @@ export class DynamicFormApiService {
             singleData.placeholder = data[array].node.placeholder;
             singleData.ranking = data[array].node.ranking;
             singleData.validation = this.combineValidatorsIntoArray(data[array].node.validation.edges);
+            singleData.options = [{name: 'No data available', optionid: null}];
             flattendData.push(singleData);
         }
         return flattendData;
@@ -119,11 +119,6 @@ export class DynamicFormApiService {
             }
         }
         return flattendData;
-    }
-
-    private getArrayOfOptions(value): string[] {
-        console.log('The options value is', value);
-        return;
     }
 
 }

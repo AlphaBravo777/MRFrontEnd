@@ -11,7 +11,7 @@ export class DynamicFormService {
 
     constructor(private dynamicFormApiService: DynamicFormApiService) { }
 
-    getFormControls(formName): Observable<IFormControl[]> {
+    getFormControls(formName: string): Observable<IFormControl[]> {
         return this.dynamicFormApiService.getFormControls(formName).pipe();
     }
 
