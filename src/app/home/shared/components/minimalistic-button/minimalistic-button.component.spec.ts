@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActionInputComponent } from './action-input.component';
+import { MinimalisticButtonComponent } from './minimalistic-button.component';
 
-describe('ActionInputComponent', () => {
-  let component: ActionInputComponent;
-  let fixture: ComponentFixture<ActionInputComponent>;
+describe('MinimalisticButtonComponent', () => {
+  let component: MinimalisticButtonComponent;
+  let fixture: ComponentFixture<MinimalisticButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActionInputComponent ]
+      declarations: [ MinimalisticButtonComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActionInputComponent);
+    fixture = TestBed.createComponent(MinimalisticButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

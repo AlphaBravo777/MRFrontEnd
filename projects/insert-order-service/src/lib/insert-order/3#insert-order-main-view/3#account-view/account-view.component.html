@@ -1,7 +1,49 @@
 <div class='componentContainer'>
-    <!-- <app-float-label-input-box
-        [placeHolderText]='"Hello"'
-        [formControl]=''
-        [caption]='"Here"'>
-    </app-float-label-input-box> -->
+    <div class='accountMRid'>
+        <app-float-label-input-box
+            class='inputBox'
+            [placeHolderText]='accountMRidPlaceHolderText'
+            [inputFormControl]='accountMRidFormControl'
+            [caption]='accountMRidCaption'
+            [controlPath]='["accountMRid"]'
+            (userInput)='userAccountidSelection($event)'>
+        </app-float-label-input-box>
+        <table *ngIf='refinedAccountsArray.length > 0'>
+            <tbody>
+                <tr  *ngFor='let account of refinedAccountsArray; let i=index'>
+                    <app-minimalistic-button>
+                        <td class='accountsList' (click)='accountSelection(refinedAccountsArray[i])'>{{account.accountMRid}} - {{account.commonName}}</td>
+                    </app-minimalistic-button>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class='commonName'>
+        <app-float-label-input-box
+            class='inputBox'
+            [placeHolderText]='commonNamePlaceHolderText'
+            [inputFormControl]='accountMRidFormControl'
+            [caption]='commonNameCaption'
+            [controlPath]='["commonName"]'
+            (userInput)='userAccountCommonNameSelection($event)'>
+        </app-float-label-input-box>
+        <table *ngIf='refinedAccountsCommonNameArray.length > 0'>
+            <tbody>
+                <tr  *ngFor='let account of refinedAccountsCommonNameArray; let i=index'>
+                    <app-minimalistic-button>
+                        <td class='accountsList' (click)='accountSelection(refinedAccountsCommonNameArray[i])'>{{account.accountMRid}} - {{account.commonName}}</td>
+                    </app-minimalistic-button>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class='orderNumber'>
+        <app-float-label-input-box
+            class='inputBox'
+            [placeHolderText]='orderNumberPlaceHolderText'
+            [inputFormControl]='orderNumberFormControl'
+            [caption]='orderNumberCaption'
+            [controlPath]='["orderNumber"]'>
+        </app-float-label-input-box>
+    </div>
 </div>

@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 import { FormGroup, AbstractControl, FormControl, FormGroupDirective } from '@angular/forms';
+import { Subscription, fromEvent } from 'rxjs';
+import { map, debounceTime, tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-float-label-input-box',
@@ -14,12 +16,25 @@ export class FloatLabelInputBoxComponent implements OnInit {
     @Input() inputFormControl: FormControl;
     @Input() caption: string;
     @Input() controlPath: any;
-    control: FormControl;
+    @Output() userInput: EventEmitter<any> = new EventEmitter<any>();
+    @ViewChild('searchBox') searchBox: ElementRef;
+    @ViewChild('floatInput') floatInput: ElementRef;
+    subscription: Subscription;
+    controller: FormControl;
 
     ngOnInit() {
-        this.control = this.fgd.control.get(
+        this.controller = this.fgd.control.get(
           this.controlPath
         ) as FormControl;
+        this.subscription = fromEvent(this.searchBox.nativeElement, 'keyup').pipe(
+            map((k: any) => k.target.value),
+            debounceTime(500),
+            tap((data) => this.userInput.emit(data)),
+        ).subscribe();
+    }
+
+    inputSelected() {
+        setTimeout(() => this.floatInput.nativeElement.focus(), 0);
     }
 
 }

@@ -4,14 +4,12 @@ import { FormButtonComponent } from '../controls/form-button/form-button.compone
 import { FormInputComponent } from '../controls/form-input/form-input.component';
 import { FormSelectComponent } from '../controls/form-select/form-select.component';
 import { FormFilterInputComponent } from '../controls/form-filter-input/form-filter-input.component';
-import { ActionInputComponent } from '../controls/action-input/action-input.component';
 
 const components = {
     button: FormButtonComponent,
     input: FormInputComponent,
     select: FormSelectComponent,
     filterInput: FormFilterInputComponent,
-    actionInput: ActionInputComponent
 };
 
 @Directive({

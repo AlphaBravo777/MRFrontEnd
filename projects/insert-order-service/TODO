@@ -1,5 +1,16 @@
 ☐ Insert order todo list
 
+    ☐ Todo
+        ✔ Make sure that only numbers can be inserted into the amount box @done(19-08-07 14:58)
+        ☐ Change meatrite heading name to green when the order is valid.
+        ☐ Maybe put most used products at the top, from most to less.
+        ☐ When deleting, put the product that is deleted back to the other side.
+        ☐ Change DATABASE orderNumber to random
+        ☐ Make sure in form that order was not inserted yet, check that order id is not the same as another, and maybe date and name as well
+            ☐ If there is already an order, then insert the details for that order instead
+        ☐ If an order fails, maybe add the orderDetails and the products back together so that a person can fix something and press submit again.
+            ☐ At the moment when the order fails you can not insert again because you removed the "orders" property
+
     ☐ Requested features
         ☐ After an order was inserted, clear everything so that a person can just start with the new order
         ☐ Only have one day where you read in the order day. Every route comes with a default order day, which is maybe not neccesary

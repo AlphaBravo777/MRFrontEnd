@@ -93,6 +93,7 @@ export class DatePickerService {
 
     getShortDate(longDate: Date) {
         // console.log('--- ', longDate, longDate.getDate());
+        this.datePackage.stringDay = longDate.toString().split(' ')[0];
         const dd = longDate.getDate();  // Gets the day number of the date, meaning "12"
         const mm = longDate.getMonth() + 1; // Gets the month number of the date, meaning "9" and adds +1 because January = 0!
         const yyyy = longDate.getFullYear(); // Gets the year number of the date, meaning "2017"
@@ -160,7 +161,7 @@ export class DatePickerService {
         this.datePackage.shift = 'Day';
     }
 
-    getOrCreateTimeStampData(): Observable<any> {
+    getOrCreateTimeStampData(): Observable<IDate> {
         console.log(' ##################### getOrCreateTimeStampData is running ##############');
         const getWeekDayData$ = this.datePickerApiService.getWeekDayData(this.datePackage.weekDay);
         const getTimeData$ = this.datePickerApiService.getTimeData(this.datePackage.time);
@@ -179,10 +180,15 @@ export class DatePickerService {
             switchMap((data) => this.datePickerApiService.getTimeStampIDs(data)),
             switchMap(data => {
                 if (data.nodeID === undefined) {
-                    this.datePickerApiService.createTimeStampID(this.datePackage).subscribe();
-                    this.getOrCreateTimeStampData().subscribe();
-                    return;
+                    return this.datePickerApiService.createTimeStampID(this.datePackage).pipe(
+                    switchMap(() => this.getOrCreateTimeStampData())
+                    );
                 }
+                // if (data.nodeID === undefined) {
+                //     this.datePickerApiService.createTimeStampID(this.datePackage).subscribe();
+                //     this.getOrCreateTimeStampData().subscribe();
+                //     return;
+                // }
                 return of(data);
             }),
             tap((data) => console.log('There is a timestampID and it is', data)),

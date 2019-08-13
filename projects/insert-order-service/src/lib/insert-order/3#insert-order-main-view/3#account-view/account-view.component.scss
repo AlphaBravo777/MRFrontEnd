@@ -1,6 +1,14 @@
 .componentContainer {
     width:100%;
-    height: 100%;
-    min-height: 100px;
-    background: green;
+    min-height: 100%;
+    // min-height: 100px;
+    // background: green;
+}
+
+table {
+    width: 98%;
+}
+
+.inputBox {
+    margin-top: 20px;
 }

@@ -11,6 +11,8 @@ import { FloatLabelInputBoxComponent } from './float-label-input-box/float-label
 import { CustomTextareaComponent } from './custom-textarea/custom-textarea.component';
 import { CustomRadioGroupComponent } from './custom-radio-group/custom-radio-group.component';
 import { MatRadioModule } from '@angular/material';
+import { MinimalisticButtonComponent } from './minimalistic-button/minimalistic-button.component';
+import { ColorChangeInputBoxComponent } from './color-change-input-box/color-change-input-box.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { MatRadioModule } from '@angular/material';
         FloatLabelInputBoxComponent,
         CustomTextareaComponent,
         CustomRadioGroupComponent,
+        MinimalisticButtonComponent,
+        ColorChangeInputBoxComponent,
     ],
     exports: [
         RainbowProgressBarComponent,
@@ -35,7 +39,9 @@ import { MatRadioModule } from '@angular/material';
         CustomInputBoxComponent,
         FloatLabelInputBoxComponent,
         CustomTextareaComponent,
-        CustomRadioGroupComponent
+        CustomRadioGroupComponent,
+        MinimalisticButtonComponent,
+        ColorChangeInputBoxComponent
     ]
 })
 export class SharedComponentsModule { }

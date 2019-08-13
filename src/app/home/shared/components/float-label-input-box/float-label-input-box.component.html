@@ -1,8 +1,10 @@
 <div class="field">
-    <input [ngClass]="inputFormControl.valid ? 'green' : 'red'"
-        [formControl]="control"
-        type="text" id="fullname" placeholder={{placeHolderText}}
-        spellcheck="false">
-    <label for="fullname">{{caption}}</label>
+    <input #floatInput [ngClass]="inputFormControl.valid ? 'green' : 'red'"
+        #searchBox
+        [formControl]="controller"
+        type="text" id="fullname"
+        placeholder={{placeHolderText}}
+        spellcheck="false"
+        autocomplete="off">
+    <label #floatLabel (click)='inputSelected()' for="fullname">{{caption}}</label>
 </div>
-

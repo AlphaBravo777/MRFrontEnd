@@ -10,7 +10,6 @@ import { ProductsAvailableViewComponent
     } from './3#insert-order-main-view/4#products-view/products-available-view/products-available-view.component';
 import { ProductHistoryComponent } from './3#insert-order-main-view/4#products-view/product-history/product-history.component';
 import { CustomMaterialModule } from 'src/app/home/shared/dropdown-table/custom-material.module';
-import { DynamicFormModule } from 'src/app/home/shared/dynamic-form/dynamic-form.module';
 import { SharedComponentsModule } from 'src/app/home/shared/components/shared-components.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -28,7 +27,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     imports: [
         CommonModule,
         CustomMaterialModule,
-        DynamicFormModule,
         SharedComponentsModule,
         ReactiveFormsModule
     ]

@@ -9,6 +9,10 @@ import { AccountViewComponent } from '../3#insert-order-main-view/3#account-view
 import { InsertProductViewComponent } from '../3#insert-order-main-view/4#products-view/insert-products-view/insert-product-view.component';
 import { ProductsAvailableViewComponent
     } from '../3#insert-order-main-view/4#products-view/products-available-view/products-available-view.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedComponentsModule } from 'src/app/home/shared/components/shared-components.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ApolloTestingModule } from 'apollo-angular/testing';
 
 describe('InsertOrderDataComponent', () => {
     let component: InsertOrderDataComponent;
@@ -25,7 +29,13 @@ describe('InsertOrderDataComponent', () => {
                 InsertProductViewComponent,
                 ProductsAvailableViewComponent
             ],
-            imports: [CustomMaterialModule]
+            imports: [
+                CustomMaterialModule,
+                FormsModule,
+                ReactiveFormsModule,
+                SharedComponentsModule,
+                HttpClientTestingModule,
+                ApolloTestingModule ]
         }).compileComponents();
     }));
 

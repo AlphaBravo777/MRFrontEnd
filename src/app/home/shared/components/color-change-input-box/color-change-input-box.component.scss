@@ -1,0 +1,14 @@
+@import 'src/stylesColors.scss';
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+
+.red {
+    background: $thirdColorMinusOne;
+}
+
+.green {
+    background: #94e0b2;
+}

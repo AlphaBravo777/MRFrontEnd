@@ -1,3 +1,39 @@
 <div class='componentContainer'>
-    insert-product-view works!
-</div>
+        <table *ngIf='controller.controls.length > 0'>
+            <tbody>
+                <tr *ngFor='let product of controller.controls; let i=index'>
+                    <app-minimalistic-button>
+                        <span [formGroup]="product" class='productGrid'>
+                            <span class='data'>
+                                <span class='productMRidInput'>
+                                    <app-color-change-input-box
+                                        [colorChangeInputBoxData]='colorChangeInputBoxData'
+                                        [defaultValue]='product.productMRid'
+                                        [controlPath]='"productMRid"'
+                                        (valueChange)='productMRidInput($event, i)'
+                                        >
+                                    </app-color-change-input-box>
+                                </span>
+                            </span>
+                            <span class='amountInput'>
+                                <app-color-change-input-box
+                                    [colorChangeInputBoxData]='colorChangeInputBoxData'
+                                    [defaultValue]='product.amount'
+                                    [controlPath]='"amount"'
+                                    (valueChange)='productAmountInput($event, i)'
+                                    >
+                                </app-color-change-input-box>
+                            </span>
+                            <span class='cancel' (click)='deleteProduct(i)'>
+                                <img class='cancelImg' alt="Cancel" src="assets/images/delete.png">
+                            </span>
+                        </span>
+                        <span class='prodDescription'>
+                            {{product.controls.proddescription.value}}
+                        </span>
+                    </app-minimalistic-button>
+                </tr>
+                <tr></tr>
+            </tbody>
+        </table>
+    </div>

@@ -1,8 +1,19 @@
-<div class='componentContainer'>
+<div class='componentContainer' *ngIf='routesArray'>
     <app-float-label-input-box
+        class='inputBox'
         [placeHolderText]='placeHolderText'
-        [inputFormControl]='routeFormControl'
+        [inputFormControl]='routeNameFormControl'
         [caption]='caption'
-        [controlPath]="['routeName']">
+        [controlPath]='["routeName"]'
+        (userInput)='userRouteSelection($event)'>
     </app-float-label-input-box>
+    <table *ngIf='refinedRoutesArray.length > 0'>
+        <tbody>
+            <tr *ngFor='let route of refinedRoutesArray; let i=index'>
+                <app-minimalistic-button>
+                    <td class='routesList' (click)='routeSelection(refinedRoutesArray[i])'>{{route.routeName}}</td>
+                </app-minimalistic-button>
+            </tr>
+        </tbody>
+    </table>
 </div>

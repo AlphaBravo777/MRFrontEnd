@@ -1,0 +1,7 @@
+<input
+    [formControl]="controller"
+    [ngStyle]="getInputBoxStyle()"
+    [ngClass]="getInputBoxClass()"
+    (keyup)="valueChange.emit(controller.value)"
+    value="controller.value"
+>

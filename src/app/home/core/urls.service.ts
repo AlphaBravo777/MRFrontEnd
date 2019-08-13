@@ -12,8 +12,11 @@ export class UrlsService {
     root = 'http://192.168.2.25'; // This is meatrite live test server
     // root = 'http://192.168.45.2'; // This is meatrite development server
 
+    mrOrderService = this.root + ':8084/';
+
     // backendUrl = this.root + ':8000/';
     // graphqlAddress = this.root + ':8000/graphql/';
+
 
     backendUrl = this.root + ':8080/';
     graphqlAddress = this.root + ':8080/graphql/';

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IFormControl } from 'src/app/home/shared/dynamic-form/dynamic-form-services/form-control-interface';
+import { FormControl } from '@angular/forms';
+import { InsertFormChangesService } from '../../../1#insert-order-services/insert-form-changes.service';
+import { IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
 
 @Component({
     selector: 'mr-insert-products-available-view',
@@ -8,8 +10,17 @@ import { IFormControl } from 'src/app/home/shared/dynamic-form/dynamic-form-serv
 })
 export class ProductsAvailableViewComponent implements OnInit {
 
-    constructor() {}
+    @Input() productsAvailableFormControl: FormControl;
+
+    constructor(private insertFormChangesService: InsertFormChangesService) {}
 
     ngOnInit() {
+
+    }
+
+    availableProductSelected(product: IProductDetails) {
+        this.insertFormChangesService.addAvailableProductToOrderedProducts(product);
+        this.insertFormChangesService.removeProductFromAvailableList(product);
+        console.log('This product was picked: ', product);
     }
 }

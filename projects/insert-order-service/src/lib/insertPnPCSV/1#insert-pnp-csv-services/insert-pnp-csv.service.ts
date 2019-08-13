@@ -52,17 +52,10 @@ export class InsertPnpCsvService {
         reader.onload = e => {
             const pnpOrders: IOrderDetails[] = this.loadHandler(e);
             console.log('Alpha = ', pnpOrders);
-            this.insertOrderService.insertNewOrder(pnpOrders).pipe(
+            this.insertOrderService.insertNewPnPOrder(pnpOrders).pipe(
                 take(pnpOrders.length)
             ).subscribe();
         };
-    }
-
-    insertOrders(orders): Observable<any> {
-        orders.forEach(order => {
-            this.insertOrderService.insertNewOrder(order);
-            });
-        return null;
     }
 
 }

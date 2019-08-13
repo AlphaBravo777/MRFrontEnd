@@ -1,3 +1,6 @@
+import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
+import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+
 export class IPnPCSVFormat {
     'BARCODE NUMBER'?: string;
     'COST PRICE (Incl VAT)'?: string;
@@ -40,97 +43,133 @@ export interface IAccountDetailsInterface {
     accountMRid: string;
     accountName: string;
     commonName: string;
-    orderNumber: string;
+    // orderNumber: string;
     parentAccountid: number;
     routeName: string;
     routeid: number;
 }
 
-export class IAccountDetails implements IAccountDetailsInterface {
-    accountid: number;
-    accountID: string;
-    accountMRid: string;
-    accountName: string;
-    commonName: string;
-    orderNumber: string;
-    parentAccountid: number;
-    routeName: string;
-    routeid: number;
-}
+// export class IAccountDetails implements IAccountDetailsInterface {
+//     accountid: number;
+//     accountID: string;
+//     accountMRid: string;
+//     accountName: string;
+//     commonName: string;
+//     orderNumber: string;
+//     parentAccountid: number;
+//     routeName: string;
+//     routeid: number;
+// }
 
 
 
 // This should be refractored out later to productService
-export interface IProductDetailsInterface {
-    productMRid: string;
-    productid: number;
-    packageWeight: number;
-    rankingInGroup: number;
-    proddescription?: string;
-    productonhold?: boolean;
-    batchRanking?: number;
-    packaging?: number;
-    brand?: number;
-    unitWeight?: number;
-    lugSize: number;
-}
-export class IProductDetails implements IProductDetailsInterface {
-    productMRid: string;
-    productid: number;
-    packageWeight: number;
-    rankingInGroup: number;
-    proddescription?: string;
-    productonhold?: boolean;
-    batchRanking?: number;
-    packaging?: number;
-    brand?: number;
-    unitWeight?: number;
-    lugSize: number;
-}
+// export interface IProductDetailsInterface {
+//     productMRid: string;
+//     productid: number;
+//     packageWeight: number;
+//     rankingInGroup: number;
+//     proddescription?: string;
+//     productonhold?: boolean;
+//     batchRanking?: number;
+//     packaging?: number;
+//     brand?: number;
+//     unitWeight?: number;
+//     lugSize: number;
+// }
+// export class IProductDetails {
+//     productMRid: string;
+//     productid: number;
+//     packageWeight: number;
+//     rankingInGroup: number;
+//     proddescription?: string;
+//     productonhold?: boolean;
+//     batchRanking?: number;
+//     packaging?: number;
+//     brand?: number;
+//     unitWeight?: number;
+//     lugSize: number;
+// }
 
+// export class IProductOrderDetails extends IProductDetails {
+//     amount: number;
+//     orderDetailsid: number;
+//     userid: number;
+//     status?: boolean;
+//     lastModified?: string;
+// }
 
-
-export interface IProductOrderDetailsInterface extends IProductDetailsInterface {
-    amount: number;
-    orderDetailsid: number;
-    userid: number;
-}
-
-export class IProductOrderDetails extends IProductDetails implements IProductOrderDetailsInterface {
-    amount: number;
-    orderDetailsid: number;
-    userid: number;
-}
-
-export interface IOrderDetailsInterface extends IAccountDetailsInterface {
+//  Frontend Interface
+export class IOrderDetails extends IAccountDetails {
+    orderid: number;
     orderDate?: string;
-    deliveryDate?: string;
-    timeStampid: number;
-    userid: number;
-    orders: IProductOrderDetails[];
-}
-
-export class IOrderDetails extends IAccountDetails implements IOrderDetailsInterface {
-    orderDate?: string;
-    deliveryDate?: string;
-    timeStampid: number;
-    userid: number;
-    orders: IProductOrderDetails[];
-}
-
-export interface IAccountDBDetailsInterface {
-    accountsid: number;
-    accountID: string;
-    accountMRid: string;
-    accountName: string;
-    commonName: string;
-    parentAccountid: number;
-    routeName: string;
-    routeid: number;
     orderNumber: string;
+    deliveryDate?: string;
+    delivered?: boolean;
+    timeStampid: number;
+    userid: number;
+    dateCreated?: string;
+    lastModified?: string;
+    orders: IProductOrderDetails[];
+
 }
 
-export class IAccountDBDetails implements IAccountDBDetailsInterface {
+// Backend interface
+export class IOrderDetailsComingFromDB {
+    id: number;
+    accountMRid: string;
+    accountid: number;
+    commonName: string;
+    dateCreated: string;
+    delivered: boolean;
+    lastModified: string;
+    orderDate: string;
+    orderNumber: string;
+    routeid: number;
+    timeStampid: number;
+    userid: number;
+}
+
+// This is the factory that changes the return from our backend interface to our frontend interface
+export function ff_CreateOrderDetailsObjFromDBObj(obj: IOrderDetailsComingFromDB): IOrderDetails {
+    const order: IOrderDetails = {
+        orderid: obj.id,
+        accountMRid: obj.accountMRid,
+        accountName: null,
+        accountid: obj.accountid,
+        commonName: obj.commonName,
+        franchiseid: null,
+        orders: null,
+        routeName: null,
+        routeid: obj.routeid,
+        timeStampid: obj.timeStampid,
+        dateCreated: obj.dateCreated,
+        delivered: obj.delivered,
+        lastModified: obj.lastModified,
+        orderDate: obj.orderDate,
+        orderNumber: obj.orderNumber,
+        userid: obj.userid,
+        productGroupid: null
+    };
+    return order;
+}
+
+
+
+
+// export interface IAccountDBDetailsInterface {
+//     accountsid: number;
+//     accountID: string;
+//     accountMRid: string;
+//     accountName: string;
+//     commonName: string;
+//     parentAccountid: number;
+//     routeName: string;
+//     routeid: number;
+//     orderNumber: string;
+// }
+
+export class IAccountDBDetails {
     accountsid: number;
     accountID: string;
     accountMRid: string;
@@ -150,15 +189,14 @@ export class IAccountDBDetails implements IAccountDBDetailsInterface {
         this.parentAccountid = obj.parentAccountid;
         this.routeName = obj.routeName;
         this.routeid = obj.routeid;
-        this.orderNumber = obj.orderNumber;
     }
 }
 
-export function createAccount(obj: IAccountDetails): IAccountDBDetails {
-    return new IAccountDBDetails(obj);
-}
+// export function createAccount(obj: IAccountDetails): IAccountDBDetails {
+//     return new IAccountDBDetails(obj);
+// }
 
-export interface IOrderDBDetailsInterface extends IAccountDBDetailsInterface {
+export interface IOrderDBDetailsInterface {
     orderDate: string;
     timeStampid: number;
     userid: number;
@@ -191,4 +229,12 @@ export class IOrderDBDetails extends IAccountDBDetails implements IOrderDBDetail
 
 export function factoryFunctionDBLayerCreateNewOrder(obj: IOrderDetails): IOrderDBDetails {
     return new IOrderDBDetails(obj);
+}
+
+// export class IInsertFormDetails extends IOrderDetails {
+
+// }
+
+export class IInserOrderErrors {
+    error: string;
 }

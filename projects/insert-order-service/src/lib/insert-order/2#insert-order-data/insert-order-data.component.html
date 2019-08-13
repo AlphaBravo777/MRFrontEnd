@@ -1,5 +1,7 @@
 <app-box-shadow-container>
         <mr-insert-insert-order-main-view
-            [mainInsertForm]='mainInsertForm'>
+            [mainInsertForm]='mainInsertForm'
+            [errorMessages]= 'errorMessages'
+            (orderToInsert)='orderToInsert($event)'>
         </mr-insert-insert-order-main-view>
 </app-box-shadow-container>

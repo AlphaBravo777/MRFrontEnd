@@ -1,0 +1,54 @@
+@import 'src/stylesColors.scss';
+
+// These settings are made to fit with the menu and all the rest of the items outside of the box.
+// If you want this to be smaller, then you must change the things inside of the box.
+
+.ngc {
+    width: 100%;
+}
+
+:host {
+    display: block;
+    // overflow: auto;
+        min-height: 10px;
+        // font-size: 20px;
+        margin: 2px;
+        padding: 1px;
+        // background: var(--back);
+        background: $mainColorMinusOne;
+        border-radius: 6px;
+        box-shadow: 0px 0px 3px 1px rgba(0,0,0,.2);
+        width: 100%;
+                    // -3px -3px 3px 0px rgba(0,0,0,.2),
+                    // 0 3px 3px 0 rgba(0,0,0,.14),
+                    // 0 3px 5px 0 rgba(0,0,0,.12);
+
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    :host {
+        padding: 5px;
+        width: 95%;
+        cursor: pointer;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    :host {
+        padding: 5px;
+        width: 95%;
+        cursor: pointer;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 770px) {
+    :host {
+        padding: 4px;
+        width: 95%;
+        cursor: pointer;
+    }
+
+}

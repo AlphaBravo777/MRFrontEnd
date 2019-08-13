@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { IPnPCSVData,
-         IAccountDetails,
-         IProductOrderDetails,
          IOrderDetails} from '../../#sharedServices/insert-order-service-Interfaces';
 import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
+import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
+import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -161,18 +161,20 @@ export class ConvertPnpStructureToOrdersService {
             commonName: accountDetail.commonName,
             parentAccountid: accountDetail.parrentAccountid,
             routeid: 18,
-            orderNumber: (accountDetail.orderNumber).toString(),
             accountID: 'Insert GraphQL string',
             routeName: 'PnP LongMeadow DC',
+            franchiseid: 2,
+            productGroupid: null,
         };
         const pnpOrder: IOrderDetails = Object.assign({
+            orderid: null,
             deliveryDate: accountDetail.deliveryDateAtDC,
             orderDate: accountDetail.deliveryDateAtDC,
             timeStampid: null,
             userid: null,
-            orders: products
-        },
-        newPnPAccountObj);
+            orders: products,
+            orderNumber: (accountDetail.orderNumber).toString(),
+        }, newPnPAccountObj);
         return pnpOrder;
     }
 

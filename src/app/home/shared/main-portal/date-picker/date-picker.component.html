@@ -5,8 +5,9 @@
                 <td (click)='showHideDateForm()'><span>{{dateForm.get('year').value }}</span></td>
                 <td (click)='showHideDateForm()'><span>{{dateForm.get('week').value }}</span></td>
                 <td (click)='showHideDateForm()'><span>{{dateForm.get('weekDay').value }}</span></td>
-                <td (click)='showHideDateForm()'><span>{{dateForm.get('shift').value }}</span></td>
-                <td (click)='showHideDateForm()'><span>{{dateForm.get('time').value }}</span></td>
+                <!-- <td (click)='showHideDateForm()'><span>{{dateForm.get('shift').value }}</span></td>
+                <td (click)='showHideDateForm()'><span>{{dateForm.get('time').value }}</span></td> -->
+                <td (click)='showHideDateForm()'><span>{{dateForm.get('stringDay').value }}</span></td>
                 <td (click)='showHideDateForm()'><span>{{dateForm.get('shortDate').value }}</span></td>
                 <td (click)='showHideDateForm()'><span>{{dateForm.get('timeStampID').value }}</span></td>
                 <td (click)='showHideDateForm()' rowspan=2>
@@ -18,9 +19,10 @@
             <tr class='bottomRow'>
                 <td (click)='showHideDateForm()'>year</td>
                 <td (click)='showHideDateForm()'>week</td>
+                <td (click)='showHideDateForm()'>day#</td>
                 <td (click)='showHideDateForm()'>weekday</td>
-                <td (click)='showHideDateForm()'>shift</td>
-                <td (click)='showHideDateForm()'>time</td>
+                <!-- <td (click)='showHideDateForm()'>shift</td>
+                <td (click)='showHideDateForm()'>time</td> -->
                 <td (click)='showHideDateForm()'>date</td>
                 <td (click)='showHideDateForm()'>id</td>
             </tr>

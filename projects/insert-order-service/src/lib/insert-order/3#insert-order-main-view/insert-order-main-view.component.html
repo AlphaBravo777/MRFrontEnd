@@ -1,32 +1,36 @@
-<form [formGroup]='mainInsertForm'>
+<h1>Meatrite Orders Entry Form</h1>
+<form [formGroup]='mainInsertForm'  (ngSubmit)='orderToInsert.emit(mainInsertForm)'>
     <div class='componentContainer'>
-
             <div class='topMenuView'>
-                <mr-insert-top-menu-view>
+                <mr-insert-top-menu-view
+                    [mainInsertForm]='mainInsertForm'>
                 </mr-insert-top-menu-view>
+                <div *ngIf='errorMessages.length > 0' style='font-size: 1.3rem'>{{errorMessages[0].error}}</div>
             </div>
             <div class='routeView'>
                 <mr-insert-route-view
-                    [routeFormControl]='mainInsertForm.get("routeName")'>
-
+                    [routeNameFormControl]='mainInsertForm.get("routeName")'
+                    [routeidFormControl]='mainInsertForm.get("routeid")'>
                 </mr-insert-route-view>
             </div>
             <div class='accountView'>
-                <mr-insert-account-view>
-
+                <mr-insert-account-view
+                    [accountMRidFormControl]='mainInsertForm.get("accountMRid")'
+                    [commonNameFormControl]='mainInsertForm.get("commonName")'
+                    [orderNumberFormControl]='mainInsertForm.get("orderNumber")'>
                 </mr-insert-account-view>
             </div>
             <div class='insertProducts'>
-                <mr-insert-insert-product-view>
-
+                <mr-insert-insert-product-view
+                    [productsOrderedFormControl]='mainInsertForm.get("orders")'
+                    [controlPath]='["orders"]'>
                 </mr-insert-insert-product-view>
             </div>
             <div class='availableProducts'>
-                <mr-insert-products-available-view>
-
+                <mr-insert-products-available-view
+                    [productsAvailableFormControl]='mainInsertForm.get("productListToPickFrom")'>
                 </mr-insert-products-available-view>
             </div>
-
     </div>
 </form>
 <pre>{{mainInsertForm?.value|json}}</pre>

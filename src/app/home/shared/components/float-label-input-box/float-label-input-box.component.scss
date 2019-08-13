@@ -1,11 +1,19 @@
 @import 'src/stylesColors.scss';
 
+:host {
+    display: block;
+    // overflow: hidden;
+}
+
 /**
 * Make the field a flex-container, reverse the order so label is on top.
 */
+
 .field {
+
     display: flex;
     flex-flow: column-reverse;
+    width: 98%
   }
   /**
   * Add a transition to the label and input.
@@ -15,16 +23,17 @@
   }
 
   label {
-      
+
     color: $mainColorPlusOne;
     font-size: 1rem;
+    width: 98%
   }
-  
+
   input {
     color: $thirdColorPlusTwo;
     font-size: 1.5em;
     border: 0;
-    border-bottom: 2px solid $mainColorPlusTwo;
+    border-bottom: 3px solid $thirdColor;;
     background: $mainColorMinusOne;
 
   }
@@ -53,12 +62,12 @@
     /* |2] */
     cursor: text;
     /* [3 */
-    transform-origin: left bottom; 
+    transform-origin: left bottom;
     transform: translate(0, 2.125rem) scale(1.5);
-    
+
   }
   /**
-  * By default, the placeholder should be transparent. Also, it should 
+  * By default, the placeholder should be transparent. Also, it should
   * inherit the transition.
   */
   ::-webkit-input-placeholder {
@@ -73,7 +82,7 @@
   }
   /**
   * 1. When the element is focused, remove the label transform.
-  *     Also, do this when the placeholder is _not_ shown, i.e. when 
+  *     Also, do this when the placeholder is _not_ shown, i.e. when
   *     there's something in the input at all.
   * 2. ...and set the cursor to pointer.
   */
@@ -91,17 +100,18 @@
 .red:focus {
     color: $thirdColorPlusTwo;
     outline: 0;
-    border-bottom: 2px solid red;
+    border-bottom: 3px solid $thirdColor;;
 }
 
 .green:focus {
     color: $thirdColorPlusTwo;
     outline: 0;
-    border-bottom: 2px solid #00ff00;
+    // border-bottom: 3px solid #00ff00;
+    border-bottom: 3px solid #94e0b2
   }
 
 .green {
     color: $thirdColorPlusTwo;
     outline: 0;
-    border-bottom: 2px solid #00ff00;
+    border-bottom: 3px solid #94e0b2
 }
