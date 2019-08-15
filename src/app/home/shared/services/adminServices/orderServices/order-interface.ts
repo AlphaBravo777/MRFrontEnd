@@ -1,8 +1,8 @@
-import {
-    IAccountDetails,
-    IAccountDBDetails
-} from '../accountServices/account-interface';
-import { IProductOrderDetails } from '../../stockServices/product-interface';
+// import {
+//     IAccountDetails,
+//     IAccountDBDetails
+// } from '../accountServices/account-interface';
+// import { IProductOrderDetails } from '../../stockServices/product-interface';
 
 // export class IOrderDetails extends IAccountDetails {
 //     orderDate: string;

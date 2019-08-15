@@ -1,23 +1,25 @@
 import { Injectable } from '@angular/core';
 import { IPnPCSVData,
          IOrderDetails} from '../../#sharedServices/insert-order-service-Interfaces';
-import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ConvertPnpStructureToOrdersService {
+
     constructor(private datePickerService: DatePickerService) {}
 
     coastalDelieveryDateModifier = 2;
     inlandDeliveryDateModifier = 1;
+    deliveryDateAtDC: Date;
 
     private calculateDcDeliveryDate(currentDate, days) {
         const longDate = this.datePickerService.shortToLongDate(currentDate);
-        const deliveryDateAtDC =  new Date(longDate.setDate(longDate.getDate() - days));
-        const shortDCDate = this.datePickerService.longToShortDate(deliveryDateAtDC);
+        this.deliveryDateAtDC =  new Date(longDate.setDate(longDate.getDate() - days));
+        const shortDCDate = this.datePickerService.longToShortDate(this.deliveryDateAtDC);
         return shortDCDate;
     }
 
@@ -26,12 +28,12 @@ export class ConvertPnpStructureToOrdersService {
             case 'MA08':
                 switch (vendorFirstOrderDetail.vendorCode) {
                     case 'P70':
-                        return {accountid: 10, commonName: 'KZN - PnP Deli', parrentAccountid: 7,
+                        return {accountid: 8, commonName: 'KZN - PnP Deli', parrentAccountid: 7,
                         orderNumber: vendorFirstOrderDetail.PONumber,
                         deliveryDateAtDC:
                             this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
                     default:
-                        return {accountid: 16, commonName: 'KZN - PnP Premium/NN', parrentAccountid: 8,
+                        return {accountid: 4, commonName: 'KZN - PnP Premium/NN', parrentAccountid: 8,
                         orderNumber: vendorFirstOrderDetail.PONumber,
                         deliveryDateAtDC:
                             this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
@@ -39,12 +41,12 @@ export class ConvertPnpStructureToOrdersService {
             case 'MA09':
                 switch (vendorFirstOrderDetail.vendorCode) {
                     case 'P70':
-                        return {accountid: 11, commonName: 'INL - PnP Deli', parrentAccountid: 7,
+                        return {accountid: 7, commonName: 'INL - PnP Deli', parrentAccountid: 7,
                         orderNumber: vendorFirstOrderDetail.PONumber,
                         deliveryDateAtDC:
                             this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.inlandDeliveryDateModifier)};
                     default:
-                        return {accountid: 17, commonName: 'INL - PnP Premium/NN', parrentAccountid: 8,
+                        return {accountid: 3, commonName: 'INL - PnP Premium/NN', parrentAccountid: 8,
                         orderNumber: vendorFirstOrderDetail.PONumber,
                         deliveryDateAtDC:
                             this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.inlandDeliveryDateModifier)};
@@ -52,12 +54,12 @@ export class ConvertPnpStructureToOrdersService {
             case 'MA06':
                 switch (vendorFirstOrderDetail.vendorCode) {
                     case 'P70':
-                        return {accountid: 9, commonName: 'WC - PnP Deli', parrentAccountid: 7,
+                        return {accountid: 10, commonName: 'WC - PnP Deli', parrentAccountid: 7,
                         orderNumber: vendorFirstOrderDetail.PONumber,
                         deliveryDateAtDC:
                             this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
                     default:
-                        return {accountid: 14, commonName: 'WC - PnP Premium/NN', parrentAccountid: 8,
+                        return {accountid: 6, commonName: 'WC - PnP Premium/NN', parrentAccountid: 8,
                         orderNumber: vendorFirstOrderDetail.PONumber,
                         deliveryDateAtDC:
                             this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
@@ -65,12 +67,12 @@ export class ConvertPnpStructureToOrdersService {
             case 'EA91':
                 switch (vendorFirstOrderDetail.vendorCode) {
                     case 'P70':
-                        return {accountid: 12, commonName: 'PE - PnP Deli', parrentAccountid: 7,
+                        return {accountid: 9, commonName: 'PE - PnP Deli', parrentAccountid: 7,
                         orderNumber: vendorFirstOrderDetail.PONumber,
                         deliveryDateAtDC:
                             this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
                     default:
-                        return {accountid: 15, commonName: 'PE - PnP Premium/NN', parrentAccountid: 8,
+                        return {accountid: 5, commonName: 'PE - PnP Premium/NN', parrentAccountid: 8,
                         orderNumber: vendorFirstOrderDetail.PONumber,
                         deliveryDateAtDC:
                             this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
@@ -171,7 +173,7 @@ export class ConvertPnpStructureToOrdersService {
             deliveryDate: accountDetail.deliveryDateAtDC,
             orderDate: accountDetail.deliveryDateAtDC,
             timeStampid: null,
-            userid: null,
+            userid: JSON.parse(localStorage.getItem('userID')),
             orders: products,
             orderNumber: (accountDetail.orderNumber).toString(),
         }, newPnPAccountObj);
@@ -191,7 +193,7 @@ export class ConvertPnpStructureToOrdersService {
                 batchRanking: 1,
                 amount: pnpVendorOrder[prod].quantity,
                 orderDetailsid: null,
-                userid: null
+                userid: JSON.parse(localStorage.getItem('userID'))
             };
             pnpProductsArray.push(newPnPProductObj);
         }

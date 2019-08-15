@@ -24,8 +24,9 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
         private insertOrderService: InsertOrderService) {}
 
     ngOnInit() {
-        this.mainInsertForm = this.insertFormChangesService.getInsertForm();
+        // this.mainInsertForm = this.insertFormChangesService.getInsertForm();
         this.subscription = this.getDateService.currentDatePackage$.pipe(
+            tap(date => this.mainInsertForm = this.insertFormChangesService.getInsertForm()),
             tap(date => this.insertFormChangesService.insertDatesAndUser(date)),
         ).subscribe();
         console.log('Form = ', this.mainInsertForm);

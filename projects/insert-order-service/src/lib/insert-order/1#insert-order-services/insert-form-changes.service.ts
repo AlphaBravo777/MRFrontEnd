@@ -38,6 +38,8 @@ export class InsertFormChangesService {
         this.insertForm.get('accountID').setValue(account.accountID);
         this.insertForm.get('franchiseName').setValue(account.franchiseName);
         this.insertForm.get('franchiseid').setValue(account.franchiseid);
+        this.insertForm.get('orders').setValue([]);
+        this.insertForm.get('productListToPickFrom').setValue([]);
         const orderDate = this.insertForm.get('orderDate').value;
         console.log('Orderdate = ', orderDate);
         this.insertForm.get('orderNumber').setValue(account.accountMRid + '//' + orderDate + '//' + account.accountid + '//' + 1);
@@ -95,7 +97,9 @@ export class InsertFormChangesService {
     }
 
     addAlreadyInsertedProductToOrderedProducts(product: IProductOrderDetails) {
+        console.log('DELTA (Products that were inserted 1): ', JSON.parse(JSON.stringify(product)));
         const productListToPickFromArray: IProductDetails[] = this.insertForm.controls['productListToPickFrom'].value;
+        console.log('DELTA (Products that were inserted 2): ', JSON.parse(JSON.stringify(productListToPickFromArray)));
         const productFromProductList = productListToPickFromArray.find(prod => product.productid === prod.productid);
         this.insertFormService.insertProductOrderFields(productFromProductList, product.amountid, product.amount);
         this.removeProductFromAvailableList(productFromProductList);

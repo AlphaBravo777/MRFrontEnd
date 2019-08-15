@@ -6,8 +6,6 @@ import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/dat
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { PnpSharedService } from 'src/app/home/shared/services/pnpServices/pnp-shared.service';
 import { IPnPOrder } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
-import { GetNewDateByAddingOrSubtractingService
-    } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-new-date-by-adding-or-subtracting.service';
 
 @Component({
     selector: 'app-pnp-pallets-data',
@@ -30,7 +28,6 @@ export class PnpPalletsDataComponent implements OnInit, OnDestroy {
     constructor(
         private pnpPalletService: PnpPalletsService,
         private getDateService: GetDate$Service,
-        private getNewDate: GetNewDateByAddingOrSubtractingService,
         private pnpSharedService: PnpSharedService) {}
 
     ngOnInit() {

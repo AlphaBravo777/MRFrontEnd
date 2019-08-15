@@ -4,18 +4,24 @@ import { ConvertPnpCsvDataFactoryService } from './convert-pnp-csv-data-factory.
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 import { ConvertPnpStructureToOrdersService } from './convert-pnp-structure-to-orders.service';
 import { InsertOrderService } from '../../#sharedServices/insert-order.service';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, from, of } from 'rxjs';
+import { take, concatMap, tap, map, mergeMap } from 'rxjs/operators';
+import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
+import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class InsertPnpCsvService {
 
+    deliveryDaysChecked = {};
+
     constructor(private convertPnPCVDataFactoryService: ConvertPnpCsvDataFactoryService,
         private convertPnPStructureToOrderService: ConvertPnpStructureToOrdersService,
         private toolBox: ToolboxGroupService,
-        private insertOrderService: InsertOrderService) {}
+        private insertOrderService: InsertOrderService,
+        private getDateService: GetDate$Service,
+        private datePickerService: DatePickerService) {}
 
     csvTOjson(csv): IPnPCSVData[] {
         const lines = csv.split('\n');
@@ -47,16 +53,50 @@ export class InsertPnpCsvService {
 
     fileSelected(file) {
         // let pnpOrders: IOrderDetails[] = {} a IOrderDetails[];
+        const ordersNotInserted: IOrderDetails[] = [];
         const reader = new FileReader();
         reader.readAsText(file.target.files[0]);
         reader.onload = e => {
             const pnpOrders: IOrderDetails[] = this.loadHandler(e);
             console.log('Alpha = ', pnpOrders);
-            this.insertOrderService.insertNewPnPOrder(pnpOrders).pipe(
-                take(pnpOrders.length)
+            from(pnpOrders).pipe(
+                // take(pnpOrders.length),
+                mergeMap(order => this.insertOrderTimeStampid(order)),
+                tap(order => console.log('* * *', order)),
+                mergeMap(order => this.insertOrderService.searchForOrder({id: order.timeStampid}, order.accountid).pipe(
+                    concatMap(result => {
+                        if (result) {
+                            ordersNotInserted.push(order);
+                            return of('Order was already inserted');
+                        } else {
+                            return this.insertOrderService.insertNewOrder([order]);
+                        }
+                    })
+                )),
+                tap(() => console.log('The order that were not inserted = ', ordersNotInserted)),
+                tap(() => this.insertOrderService.setOrdersNotInserted(ordersNotInserted)),
             ).subscribe();
+            // this.insertOrderService.searchForOrder
+            // this.insertOrderService.insertNewPnPOrder(pnpOrders).pipe(
+            //     take(pnpOrders.length)
+            // ).subscribe();
         };
     }
 
-}
+    insertOrderTimeStampid(order: IOrderDetails): Observable<IOrderDetails> {
+        console.log('# # #', order);
+        if (order.deliveryDate in this.deliveryDaysChecked) {
+            order.timeStampid = this.deliveryDaysChecked[order.deliveryDate];
+            console.log(' ---------- There was a timestamp id ----------- ');
+            return of(order);
+        } else {
+            const longDate: Date = this.datePickerService.shortToLongDate(order.deliveryDate);
+            return this.getDateService.getDatePackageForGivenLongDate(longDate).pipe(
+                tap(datePackage => order.timeStampid = datePackage.id),
+                tap(datePackage => this.deliveryDaysChecked[order.deliveryDate] = datePackage.id),
+                map(() => order)
+            );
+        }
 
+    }
+}

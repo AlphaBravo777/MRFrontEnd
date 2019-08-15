@@ -14,6 +14,14 @@ button {
     float: right;
 }
 
+.niceButton {
+    margin-bottom: 15px;
+    margin-right: 20px;
+    display: inline-block;
+    height: 40px;
+    white-space: normal;
+}
+
 .deleteButton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #dbbda0;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #dbbda0;

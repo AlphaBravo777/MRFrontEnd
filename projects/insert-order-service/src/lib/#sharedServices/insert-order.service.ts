@@ -7,6 +7,7 @@ import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/d
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { InsertOrderData$Service } from '../insert-order/1#insert-order-services/insert-order-data$.service';
 import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +23,7 @@ export class InsertOrderService {
     ordersNotInsertedArray: IOrderDetails[] = [];
 
     insertNewOrder(orders: IOrderDetails[]): Observable<any> {
-        console.log('Bravo(c) = ', orders);
+        console.log('Bravo(c) = ', JSON.parse(JSON.stringify(orders)));
         let products: IProductOrderDetails[];
         return from(orders).pipe(
             tap(order => products = JSON.parse(JSON.stringify(order.orders))),
@@ -39,16 +40,15 @@ export class InsertOrderService {
     }
 
     insertProductAmounts(products: IProductOrderDetails[], orderDetails: IOrderDetails): Observable<any> {
-        console.log('Bravo(d) = ', orderDetails);
+        console.log('Bravo(Insert product amouts) = ', JSON.parse(JSON.stringify(products)));
         products.forEach(product => product.orderDetailsid = orderDetails.orderid);
         return this.insertOrderApiService.enterProductAmounts(products).pipe(
             tap(response => console.log('Bravo(b) = ', response)),
         );
     }
 
-    searchForOrder(accountid): Observable<IOrderDetails> {  // IOrderDetails
-        return this.getDateService.currentDatePackage$.pipe(
-            concatMap(datePackage => this.insertOrderApiService.searchForOrder(datePackage, accountid)),
+    searchForOrder(datePackage: IDate, accountid): Observable<IOrderDetails> {  // IOrderDetails
+        return this.insertOrderApiService.searchForOrder(datePackage, accountid).pipe(
             tap(order => console.log('Alfa(returned order) = ', order)),
             concatMap(order => {
                 if (order) {
@@ -64,16 +64,11 @@ export class InsertOrderService {
                     return of(order);
                 }
             }),
-            // tap(order => console.log('Alpha(Returned Order) = ', order)),
-            // concatMap(order => this.insertOrderData$Service.currentRoutes$.pipe(
-            //     tap(routes => console.log('Alfa(routes) = ', order, routes)),
-            //     tap(routes => {
-            //         const currentRoute = routes.find(route => route.routeid = order.routeid);
-            //         order.routeName = currentRoute.routeName;
-            //     }),
-            //     map(() => order)
-            // ))
         );
+    }
+
+    setOrdersNotInserted(orders: IOrderDetails[]) {
+        this.ordersNotInserted.next(orders);
     }
 
     insertNewPnPOrder(orders: IOrderDetails[]): Observable<any> {
@@ -130,7 +125,13 @@ export class InsertOrderService {
 
     deleteProductFromOrder(amountid: number) {
         this.insertOrderApiService.deleteProductFromOrder(amountid).subscribe(
-            data => console.log('Alfa(delete return data) = ', data)
+            data => console.log('Alfa(delete product return data) = ', data)
+        );
+    }
+
+    deleteOrder(orderid: number) {
+        this.insertOrderApiService.deleteOrder(orderid).subscribe(
+            data => console.log('Alfa(delete order return data) = ', data)
         );
     }
 

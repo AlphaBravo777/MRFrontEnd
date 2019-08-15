@@ -60,20 +60,20 @@ export class InsertFormService {
     }
 
     private productFields(product: IProductDetails) {
-        return this.fb.group({
-            productMRid: [product.productMRid,
-                [Validators.required, Validators.minLength(1)]],
-            productid: [product.productid],
-            packageWeight: [product.packageWeight],
-            rankingInGroup: [product.rankingInGroup],
-            proddescription: [product.proddescription],
-            productonhold: [product.productonhold],
-            batchRanking: [product.batchRanking],
-            packaging: [product.packaging],
-            brand: [product.brand],
-            unitWeight: [product.unitWeight],
-            lugSize: [product.lugSize],
-        });
+            return this.fb.group({
+                productMRid: [product.productMRid,
+                    [Validators.required, Validators.minLength(1)]],
+                productid: [product.productid],
+                packageWeight: [product.packageWeight],
+                rankingInGroup: [product.rankingInGroup],
+                proddescription: [product.proddescription],
+                productonhold: [product.productonhold],
+                batchRanking: [product.batchRanking],
+                packaging: [product.packaging],
+                brand: [product.brand],
+                unitWeight: [product.unitWeight],
+                lugSize: [product.lugSize],
+            });
     }
 
     createProductGroupid() {

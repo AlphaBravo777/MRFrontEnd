@@ -39,7 +39,10 @@ export class InsertOrderApiService {
                             node{
                                 rowid
                                 id
-                                productid
+                                productid{
+                                    productid
+                                    rowid
+                                }
                                 productMRid
                                 amount
                                 status
@@ -86,6 +89,10 @@ export class InsertOrderApiService {
         return this.http.delete<any>(this.orderServiceUrl + 'orders/deleteProduct/' + amountid);
     }
 
+    deleteOrder(orderid: number) {
+        return this.http.delete<any>(this.orderServiceUrl + 'orders/deleteOrder/' + orderid);
+    }
+
     searchForOrder(datePackage: IDate, accountid: string): Observable<IOrderDetails> {
         console.log('Fox(b) = ', datePackage.id, accountid);
         return this.apollo
@@ -104,7 +111,7 @@ export class InsertOrderApiService {
             const productEdge = data[0].node.orderproductamountsmicroserviceSet.edges;
             for (let prod = 0; prod < productEdge.length; ++prod) {
                 const singleGroup: IProductOrderDetails = {
-                    productid: productEdge[prod].node.productid,
+                    productid: productEdge[prod].node.productid.rowid,
                     productMRid: productEdge[prod].node.productMRid,
                     amountid: productEdge[prod].node.rowid,
                     amount: productEdge[prod].node.amount,

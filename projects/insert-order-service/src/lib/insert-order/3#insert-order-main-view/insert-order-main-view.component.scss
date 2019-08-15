@@ -7,6 +7,8 @@
     grid-gap: 5px;
 }
 
+
+
 h1 {
     text-align : center;
 }
@@ -25,6 +27,8 @@ h1 {
         grid-column: span 6;
         grid-row: span 1;
     }
+
+
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -59,27 +63,29 @@ h1 {
 @media only screen and (min-width: 770px) {
 
     .topMenuView {
-        grid-column: 6/7;
+        grid-column: 1/7;
         grid-row: 1/2;
     }
 
     .accountView {
         grid-column: 1/4;
-        grid-row: 1/2;
+        grid-row: 2/3;
     }
 
     .routeView {
-        grid-column: 4/6;
-        grid-row: 1/2;
+        grid-column: 4/7;
+        grid-row: 2/3;
     }
 
     .insertProducts {
         grid-column: span 3;
-        grid-row: 2/3;
+        grid-row: 3/4;
     }
 
     .availableProducts {
         grid-column: span 3;
-        grid-row: 2/3;
+        grid-row: 3/4;
     }
+
+
 }
