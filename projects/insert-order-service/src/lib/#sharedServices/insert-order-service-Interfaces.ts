@@ -111,7 +111,6 @@ export class IOrderDetails extends IAccountDetails {
     dateCreated?: string;
     lastModified?: string;
     orders: IProductOrderDetails[];
-
 }
 
 // Backend interface

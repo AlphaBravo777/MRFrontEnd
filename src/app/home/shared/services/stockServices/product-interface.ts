@@ -1,4 +1,4 @@
-export class IProductDetails {
+export class IProductDetailsDepricated {
     productMRid: string;
     productid: number;
     packageWeight: number;
@@ -11,12 +11,12 @@ export class IProductDetails {
     unitWeight?: number;
 }
 
-export class IPnPOrderProduct extends IProductDetails {
+export class IPnPOrderProduct extends IProductDetailsDepricated {
     amount: number;
     lugSize: number;
 }
 
-export class IProductOrderDetails extends IProductDetails {
+export class IProductOrderDetailsDepricated extends IProductDetailsDepricated {
     amount: number;
     lugSize: number;
 }

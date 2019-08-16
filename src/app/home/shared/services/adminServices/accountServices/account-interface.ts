@@ -1,6 +1,4 @@
-import { IProductOrderDetails } from '../../stockServices/product-interface';
-
-export class IAccountDetails {
+export class IAccountDetailsDepricated {
     accountid: number;
     accountID: string;
     accountMRid: string;
@@ -11,9 +9,7 @@ export class IAccountDetails {
     routeid: number;
 }
 
-
-
-export class IAccountDBDetails {
+export class IAccountDBDetailsDepricated {
     accountsid: number;
     accountID: string;
     accountMRid: string;
@@ -23,7 +19,7 @@ export class IAccountDBDetails {
     routeName: string;
     routeid: number;
 
-    constructor(obj: IAccountDetails) {
+    constructor(obj: IAccountDetailsDepricated) {
         this.accountsid = obj.accountid;
         this.accountID = obj.accountID;
         this.accountMRid = obj.accountMRid;
@@ -35,6 +31,6 @@ export class IAccountDBDetails {
     }
 }
 
-export function createAccount(obj: IAccountDetails): IAccountDBDetails {
-    return new IAccountDBDetails(obj);
+export function createAccount(obj: IAccountDetailsDepricated): IAccountDBDetailsDepricated {
+    return new IAccountDBDetailsDepricated(obj);
 }

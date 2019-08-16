@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { PnpPickPalletsService } from './pnp-pick-pallets.service';
-import { IPnPOrder } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
+import { IPalletPickedDetails, IPnPRegions } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
 import { PnpSharedApiService } from 'src/app/home/shared/services/pnpServices/pnp-shared-api.service';
+import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/insert-order-service-Interfaces';
+import { tap } from 'rxjs/operators';
+import { OrderGraphqlApiService } from 'projects/insert-order-service/src/lib/#sharedServices/order-graphql-api.service';
 
 @Injectable({
     providedIn: 'root'
@@ -12,27 +15,35 @@ export class PnpPalletsService {
 
     constructor(
         private pickPalletsService: PnpPickPalletsService,
-        private pnpSharedApiService: PnpSharedApiService) {}
+        private pnpSharedApiService: PnpSharedApiService,
+        private orderGraphqlApiService: OrderGraphqlApiService) {}
 
-    getPnPOrderForDateGiven(datePackage: IDate): Observable<IPnPOrder[]> {
+    getPnPOrderForDateGiven(datePackage: IDate): Observable<IOrderDetails[]> {
+        // This line needs to be refractored to the new DB table
         return this.pnpSharedApiService.getPnPOrder(datePackage).pipe();
     }
 
-    calculatePalletOptions(orders) {
-        return this.pickPalletsService.keepProductsTogetherOption2(orders);
+    searchForOrdersMain(datePackage: IDate): Observable<IOrderDetails[]> {
+        return this.orderGraphqlApiService.searchForOrdersMain(undefined, datePackage, 18);
     }
 
-    calculateTotalPalletsForRegions(orders) {
-        const regions = [];
+    calculatePalletOptions(orders: IOrderDetails[]) {
+        return this.pickPalletsService.calculatePalletsPerAccountMRid(orders);
+    }
+
+    calculateTotalPalletsForRegions(orders: IOrderDetails[]): IPnPRegions[] {
+        // This needs to be refractored so that we know what a region consists of...
+        // accountID does not exists
+        const regions: IPnPRegions[] = [];
 
         const countLugSizes = (num) => {
             let largeLugs = 0;
             let smallLugs = 0;
-            for (let prod = 0; prod < orders[num].products.length; prod++) {
-                if (orders[num].products[prod].lugSize === 1) {
-                    smallLugs = smallLugs + orders[num].products[prod].amount;
+            for (let prod = 0; prod < orders[num].orders.length; prod++) {
+                if (orders[num].orders[prod].lugSize === 1) {
+                    smallLugs = smallLugs + orders[num].orders[prod].amount;
                 } else {
-                    largeLugs = largeLugs + orders[num].products[prod].amount;
+                    largeLugs = largeLugs + orders[num].orders[prod].amount;
                 }
             }
             return {largeLugs: largeLugs, smallLugs: smallLugs};
@@ -41,12 +52,13 @@ export class PnpPalletsService {
         for (let order = 0; order < orders.length; order++) {
             if (regions.length === 0) {
                 const lugCount = countLugSizes(0);
-                regions.push({accountID: orders[0].accountID, commonName: orders[0].commonName.substr(0, orders[0].commonName.indexOf(' ')),
-                largeLugs: lugCount.largeLugs, smallLugs: lugCount.smallLugs});
+                regions.push({regionid: orders[0].accountMRid,
+                    commonName: orders[0].commonName.substr(0, orders[0].commonName.indexOf(' ')),
+                    largeLugs: lugCount.largeLugs, smallLugs: lugCount.smallLugs, totalPallets: null});
             } else {
                 let flag = true;
                 for (let region = 0; region < regions.length; region++) {
-                    if (orders[order].accountID === regions[region].accountID) {
+                    if (orders[order].accountMRid === regions[region].regionid) {
                         const lugCount = countLugSizes(order);
                         regions[region].largeLugs = regions[region].largeLugs + lugCount.largeLugs;
                         regions[region].smallLugs = regions[region].smallLugs + lugCount.smallLugs;
@@ -55,9 +67,9 @@ export class PnpPalletsService {
                 }
                 if (flag) {
                     const lugCount = countLugSizes(order);
-                    regions.push({accountID: orders[order].accountID,
+                    regions.push({regionid: orders[order].accountMRid,
                     commonName: orders[order].commonName.substr(0, orders[order].commonName.indexOf(' ')), largeLugs: lugCount.largeLugs,
-                    smallLugs: lugCount.smallLugs});
+                    smallLugs: lugCount.smallLugs, totalPallets: null});
                 }
             }
         }
@@ -65,10 +77,10 @@ export class PnpPalletsService {
         return regions;
     }
 
-    addTotalPalletsToLugsSummary(regions, pallets) {
+    addTotalPalletsToLugsSummary(regions: IPnPRegions[], pallets: IPalletPickedDetails[]): IPnPRegions[] {
         for (let pallet = 0; pallet < pallets.length; pallet++) {
             for (let region = 0; region < regions.length; region++) {
-                if (pallets[pallet].accountID === regions[region].accountID) {
+                if (pallets[pallet].palletid === regions[region].regionid) {
                     if (regions[region].totalPallets) {
                         regions[region].totalPallets++;
                     } else {

@@ -3,8 +3,9 @@ import { Apollo, gql } from 'apollo-angular-boost';
 import { HttpClient } from '@angular/common/http';
 import { IDate } from '../../main-portal/date-picker/date-picker-service/date-interface';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { IPnPOrder, IPnPOrderProduct } from './pnp-shared-interfaces';
+import { map } from 'rxjs/operators';
+import { IProductOrderDetails, IProductDetails } from '../productServices/products-interface';
+import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/insert-order-service-Interfaces';
 
 @Injectable({
     providedIn: 'root'
@@ -44,9 +45,9 @@ export class PnpSharedApiService {
     }
 `;
 
-    constructor(private http: HttpClient, private apollo: Apollo) {}
+    constructor(private apollo: Apollo) {}
 
-    getPnPOrder(datePackage: IDate): Observable<IPnPOrder[]> {
+    getPnPOrder(datePackage: IDate): Observable<IOrderDetails[]> {
         console.log(' * * * * * * * * * Collecting PnP Orders * * * * * * * * * ');
         return this.apollo
             .watchQuery({
@@ -58,37 +59,62 @@ export class PnpSharedApiService {
             );
     }
 
-    private consolidatePnPOrder(data): IPnPOrder[] {
+    private consolidatePnPOrder(data): IOrderDetails[] {
 
-        const flattendData: IPnPOrder[] = [];
-        for (let array = 0; array < data.length; ++array) {
-            const singleData: IPnPOrder = {} as IPnPOrder;
-            singleData.accountID = data[array].node.accountsid.accountID;
-            singleData.commonName = data[array].node.commonName;
-            singleData.orderDate = data[array].node.orderDate;
-            singleData.delivered = data[array].node.delivered;
-            const flattenProducts: IPnPOrderProduct[] = [];
-            for (let prod = 0; prod < data[array].node.orderproductamountsSet.edges.length; prod++) {
-                const singleProduct = {} as IPnPOrderProduct;
-                singleProduct.productMRid = data[array].node.orderproductamountsSet.edges[prod].node.productid.productid;
-                singleProduct.productid = data[array].node.orderproductamountsSet.edges[prod].node.productid.rowid;
-                singleProduct.amount = data[array].node.orderproductamountsSet.edges[prod].node.amount;
-                singleProduct.packageWeight = data[array].node.orderproductamountsSet.edges[prod].node.productid.packageweight;
-                singleProduct.rankingInGroup = data[array].node.orderproductamountsSet.edges[prod].node.productid.rankingInGroup;
-                if (data[array].node.orderproductamountsSet.edges[prod].node.productid.packaging.rowid === 7) {
-                    singleProduct.lugSize = 1;
-                } else {
-                    singleProduct.lugSize = 2;
-                }
+        function calculateLugSize(containerid) {
+            if (containerid === 7) {
+                return 1;
+            } else {
+                return 2;
+            }
+        }
+
+        function consolidateProducts(dataProducts) {
+            const flattenProducts: IProductOrderDetails[] = [];
+            for (let prod = 0; prod < dataProducts.length; prod++) {
+                const singleProduct: IProductOrderDetails = {
+                    productMRid: dataProducts[prod].node.productid.productid,
+                    productid: dataProducts[prod].node.productid.rowid,
+                    amount: dataProducts[prod].node.amount,
+                    packageWeight: dataProducts[prod].node.productid.packageweight,
+                    rankingInGroup: dataProducts[prod].node.productid.rankingInGroup,
+                    lugSize: calculateLugSize(dataProducts[prod].node.productid.packaging.rowid),
+                    orderDetailsid: null,
+                    userid: null
+                };
                 flattenProducts.push(singleProduct);
             }
-            singleData.products = flattenProducts;
+            return flattenProducts;
+        }
+
+        const flattendData: IOrderDetails[] = [];
+        for (let array = 0; array < data.length; ++array) {
+            const singleData: IOrderDetails = {
+                accountID: data[array].node.accountsid.accountID,
+                commonName: data[array].node.commonName,
+                orderDate: data[array].node.orderDate,
+                delivered: data[array].node.delivered,
+                accountMRid: null,
+                accountName: null,
+                accountid: null,
+                franchiseid: null,
+                orderNumber: null,
+                orderid: null,
+                productGroupid: null,
+                routeName: null,
+                routeid: null,
+                timeStampid: null,
+                userid: null,
+                orders: consolidateProducts(data[array].node.orderproductamountsSet.edges),
+            };
             flattendData.push(singleData);
         }
         return flattendData;
     }
 
-    getAllPnPProductsThatAreActive(): Observable<any> {
+
+
+    getAllPnPProductsThatAreActive(): Observable<IProductDetails[]> {
         return this.apollo
             .watchQuery({
                 // variables: { accountID: accountID },
@@ -112,17 +138,19 @@ export class PnpSharedApiService {
             .valueChanges.pipe(map(result => this.consolidateGetAllPnPProducts(result.data['nodeProductlist'].edges)));
     }
 
-    private consolidateGetAllPnPProducts(data) {
+    private consolidateGetAllPnPProducts(data): IProductDetails[] {
         const flattendData = [];
         for (let array = 0; array < data.length; ++array) {
             if (!data[array].node.productonhold) {
-                const singleData: IPnPOrderProduct = {} as IPnPOrderProduct;
-                singleData.productMRid = data[array].node.productid;
-                singleData.productid = data[array].node.rowid;
-                singleData.packageWeight = data[array].node.packageweight;
-                singleData.proddescription = data[array].node.proddescription;
-                singleData.rankingInGroup = data[array].node.rankingInGroup;
-                singleData.productonhold = data[array].node.productonhold;
+                const singleData: IProductDetails = {
+                productMRid: data[array].node.productid,
+                productid: data[array].node.rowid,
+                packageWeight: data[array].node.packageweight,
+                proddescription: data[array].node.proddescription,
+                rankingInGroup: data[array].node.rankingInGroup,
+                productonhold: data[array].node.productonhold,
+                lugSize: null
+                };
                 flattendData.push(singleData);
             }
         }

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
+import { IPalletPickedDetails } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
+import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/insert-order-service-Interfaces';
 
 @Injectable({
     providedIn: 'root'
@@ -17,60 +20,54 @@ export class PnpPickPalletsService {
     // createNewHalfPallet
     // addToHalfPallet
 
-    keepProductsTogetherOption2(orders) {
+    calculatePalletsPerAccountMRid(orders: IOrderDetails[]): IPalletPickedDetails[] {
         const topLevel = 100;
         const maxTopLevel = 110;
         const palletCounter = 1;
         // Go through all the orders and create pallets that will be full with one product.
         // In the end show the pallets, as well as the products that are left over
 
-        const calculatePalletsOfOrder = (order) => {
-            const orderPallets = [];
-            let products = order.products;
+        const calculatePalletsOfOrder = (order: IOrderDetails): IPalletPickedDetails[] => {
+            const orderPallets: IPalletPickedDetails[] = [];
+            let products = order.orders;
 
-            const createNewFullPallet = (product) => {
+            const createNewFullPallet = (product: IProductOrderDetails): IPalletPickedDetails => {
                 let largeLugs = 0;
                 let smallLugs = 0;
-                const prod = {productMRid: product.productMRid, productid: product.productid,
-                        amount: topLevel / product.lugSize, lugSize:  product.lugSize};
                 if (product.lugSize === 2) {
                     largeLugs = topLevel / product.lugSize;
                 } else {
                     smallLugs = topLevel / product.lugSize;
                 }
-                const pallet = {amount: topLevel / product.lugSize, products: [prod], smallLugSpace: topLevel,
-                    accountID: order.accountID, regionName: order.commonName, largeLugs: largeLugs, smallLugs: smallLugs};
+                const pallet: IPalletPickedDetails = {lugAmount: topLevel / product.lugSize, products: [product], smallLugSpace: topLevel,
+                    palletid: order.accountMRid, palletName: order.commonName, largeLugs: largeLugs, smallLugs: smallLugs};
                 return pallet;
             };
 
-            const createNewHalfPallet = (product) => {
+            const createNewHalfPallet = (product: IProductOrderDetails): IPalletPickedDetails => {
                 let largeLugs = 0;
                 let smallLugs = 0;
-                const prod = {productMRid: product.productMRid, productid: product.productid,
-                    amount: product.amount, lugSize: product.lugSize};
                 if (product.lugSize === 2) {
                     largeLugs = product.amount;
                 } else {
                     smallLugs = product.amount;
                 }
-                const pallet = {amount: product.amount, products: [prod], smallLugSpace: product.amount * product.lugSize,
-                    accountID: order.accountID, regionName: order.commonName, largeLugs: largeLugs, smallLugs: smallLugs};
+                const pallet: IPalletPickedDetails = {lugAmount: product.amount, products: [product],
+                    smallLugSpace: product.amount * product.lugSize,
+                    palletid: order.accountMRid, palletName: order.commonName, largeLugs: largeLugs, smallLugs: smallLugs};
                 return pallet;
             };
 
-            const addToHalfPallet = (pallet, product) => {
+            const addToHalfPallet = (pallet: IPalletPickedDetails, product: IProductOrderDetails) => {
                 let largeLugs = pallet.largeLugs;
                 let smallLugs = pallet.smallLugs;
-                // console.log('Half pallet = ', pallet, product);
-                const prod = {productMRid: product.productMRid, productid: product.productid,
-                        amount: product.amount, lugSize: product.lugSize};
-                pallet.products.push(prod);
+                pallet.products.push(product);
                 if (product.lugSize === 2) {
                     largeLugs = largeLugs + product.amount;
                 } else {
                     smallLugs = smallLugs + product.amount;
                 }
-                pallet.amount = pallet.amount + product.amount;
+                pallet.lugAmount = pallet.lugAmount + product.amount;
                 pallet.largeLugs = largeLugs;
                 pallet.smallLugs = smallLugs;
                 pallet.smallLugSpace = pallet.smallLugSpace + (product.amount * product.lugSize);
@@ -89,7 +86,6 @@ export class PnpPickPalletsService {
             }
 
             while (products.length > 0) {
-                // console.log('$ $ $ $ $ Products are running', JSON.parse(JSON.stringify(products)));
                 products = this.toolbox.multiFieldSorting(products, ['lugSize', 'amount']).reverse();
                     if (orderPallets.length > 0) {
                         // if there are already pallets packed
@@ -101,15 +97,12 @@ export class PnpPickPalletsService {
                                 const smallLugAmount = products[prod].amount * products[prod].lugSize;
                                 const smallLugAmountLeft = topLevel - orderPallets[orderPallets.length - 1].smallLugSpace;
                                 if (smallLugAmount <= smallLugAmountLeft) {
-                                    // console.log('Lug amounts = ', smallLugAmount, smallLugAmountLeft);
                                     addToHalfPallet(orderPallets[orderPallets.length - 1], products[prod]);
                                     // When you splice this number, the for loop jumps a product
                                     products.splice(prod, 1);
                                     prod--;
                                     flag = false;
                                 }
-                                // flag = fitOnExistingPallet(110, prod);  // This gives fewer lugs but with more problems that
-                                // still needs to be sorted
                             }
                             if (flag && products[0].amount < topLevel) {
                                 orderPallets.push(createNewHalfPallet(products[0]));
@@ -126,16 +119,21 @@ export class PnpPickPalletsService {
                         products.shift();
                     }
                 }
-            // console.log('Charlie * ', orderPallets);
             return orderPallets;
         };
 
-        const totalPallets = [];
+        const totalPallets: IPalletPickedDetails[] = [];
         for (let order = 0; order < orders.length; order++) {
             // console.log('Bravo * ', orders[order].products);
             totalPallets.push.apply(totalPallets, calculatePalletsOfOrder(JSON.parse(JSON.stringify(orders[order]))));
         }
         return totalPallets;
+    }
+
+    calculatePalletsPerProductid(orders: IOrderDetails[]): IPalletPickedDetails[] {
+        // Here we could insert the business logic that would calculate the pallets so that they are packed per product,
+        // the way that the factory would like to send it to hpp.
+        return null;
     }
 
 }

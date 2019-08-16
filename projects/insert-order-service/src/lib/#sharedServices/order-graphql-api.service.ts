@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
-import { UrlsService } from 'src/app/home/core/urls.service';
-import { HttpClient } from '@angular/common/http';
-import { IOrderDetails,
-    IOrderDBDetails,
-    factoryFunctionDBLayerCreateNewOrder,
-    ff_CreateOrderDetailsObjFromDBObj } from './insert-order-service-Interfaces';
+import { IOrderDetails } from './insert-order-service-Interfaces';
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { map } from 'rxjs/operators';
 import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { INodeOrderDetailsMicroService, IOrderproductamountsmicroserviceSet } from './order-backend-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -17,95 +13,144 @@ import { IProductOrderDetails } from 'src/app/home/shared/services/productServic
 
 export class OrderGraphqlApiService {
 
-    public GET_ALL_ORDERS_FOR_DATE = gql`
-        query getNewPnPOrder($timeStampid:Float){
-            nodeOrderDetailsMicroService(timeStampid:$timeStampid){
-                edges{
-                    node{
-                        accountid
-                          accountMRid
-                        commonName
-                        orderDate
-                        delivered
-                        orderproductamountsmicroserviceSet{
-                            edges{
-                                node{
-                                    amount
-                                    productid{
+    public MAIN_QUERY_FOR_SEARCHING_ORDERS = gql`
+    query searchForOrder($accountid:Float, $timestampid:Float, $routeid: Float){
+        nodeOrderDetailsMicroService(timeStampid:$timestampid, accountid:$accountid, routeid: $routeid){
+            edges{
+                node{
+                    rowid
+                    id
+                    accountid
+                    accountMRid
+                    commonName
+                    orderDate
+                    dateCreated
+                    lastModified
+                    userid
+                    routeid
+                    delivered
+                    orderNumber
+                    timeStampid
+                    orderproductamountsmicroserviceSet{
+                        edges{
+                            node{
+                                rowid
+                                productid {
+                                    rowid
+                                    proddescription
+                                    productonhold
+                                    batchranking
+                                    rankingInGroup
+                                    brand{
+                                        brand
+                                    }
+                                    unitweight{
+                                        unitAmount
+                                        measuringUnit
+                                    }
+                                    packaging{
                                         rowid
-                                        productid
-                                        packageweight
-                                        rankingInGroup
-                                        packaging{
-                                            rowid
-                                        }
+                                        packagingType
                                     }
                                 }
+                                productMRid
+                                amount
+                                status
+                                lastModified
+                                userid
+                                packageWeight
                             }
                         }
                     }
                 }
             }
         }
-  `;
+    }`;
 
     constructor(private apollo: Apollo) { }
 
-    getAllDailyOrders(datePackage: IDate): Observable<IOrderDetails[]> {
+    searchForOrdersMain(accountid: number, datePackage: IDate, routeid: number): Observable<IOrderDetails[]> {
         console.log('Fox(b) = ', datePackage.id);
         return this.apollo
-            .watchQuery({
-                variables: { timestampid: datePackage.id },
-                query: this.GET_ALL_ORDERS_FOR_DATE
+            .watchQuery<INodeOrderDetailsMicroService>({
+                variables: { accountid: accountid, timestampid: datePackage.id, routeid: 18 },
+                query: this.MAIN_QUERY_FOR_SEARCHING_ORDERS,
             })
             .valueChanges.pipe(
-                map(result => this.consolidateAccountsData(result.data['nodeOrderDetailsMicroService'].edges)));
+                map(result => this.consolidateDailyOrders(result.data['nodeOrderDetailsMicroService'])));
     }
 
-    private consolidateAccountsData(data): IOrderDetails[] {
-        console.log('Fox(a) = ', data);
-        if (data.length === 1) {
-            for (let order = 0; order < data.length; ++order) {
-                const products: IProductOrderDetails[] = [];
-                const productEdge = data[0].node.orderproductamountsmicroserviceSet.edges;
-                for (let prod = 0; prod < productEdge.length; ++prod) {
-                    const singleGroup: IProductOrderDetails = {
-                        productid: productEdge[prod].node.productid,
-                        productMRid: productEdge[prod].node.productMRid,
-                        amountid: productEdge[prod].node.rowid,
-                        amount: productEdge[prod].node.amount,
-                        status: productEdge[prod].node.status,
-                        lastModified: productEdge[prod].node.lastModified,
-                        userid: productEdge[prod].node.userid,
-                        packageWeight: productEdge[prod].node.packageWeight,
-                        orderDetailsid: null,
-                        lugSize: null,
-                        rankingInGroup: null,
-                    };
-                    products.push(singleGroup);
-                }
-                const singleOrder: IOrderDetails = {
-                    orderid: data[0].node.rowid,
-                    accountid: data[0].node.accountid,
-                    accountMRid: data[0].node.accountMRid,
-                    accountName: null,
-                    commonName: data[0].node.commonName,
-                    routeid: data[0].node.routeid,
-                    routeName: null,
-                    franchiseid: null,
-                    userid: null,
-                    timeStampid: data[0].node.timeStampid.rowid,
-                    franchiseName: data[0].node.accountid,
-                    orderNumber: data[0].node.orderNumber,
-                    productGroupid: data[0].node.accountid,
-                    childAccount: data[0].node.accountid,
-                    parentAccountid: data[0].node.accountid,
-                    orders: products,
-                };
-                }
-            return singleOrder;
+    private consolidateDailyOrders(data: INodeOrderDetailsMicroService): IOrderDetails[] {
+
+        function calculateLugSize(containerid) {
+            if (containerid === 7) {
+                return 1;
+            } else {
+                return 2;
+            }
         }
 
+        console.log('Fox(a) = ', data);
+        const orders: IOrderDetails[] = [];
+        for (let order = 0; order < data.edges.length; ++order) {
+            const products: IProductOrderDetails[] = [];
+            const productData: IOrderproductamountsmicroserviceSet = data.edges[order].node.orderproductamountsmicroserviceSet;
+            for (let prod = 0; prod < productData.edges.length; ++prod) {
+                const singleGroup: IProductOrderDetails = {
+                    productid: productData.edges[prod].node.productid.rowid,
+                    productMRid: productData.edges[prod].node.productMRid,
+                    amountid: productData.edges[prod].node.rowid,
+                    amount: productData.edges[prod].node.amount,
+                    status: productData.edges[prod].node.status,
+                    lastModified: productData.edges[prod].node.lastModified,
+                    userid: productData.edges[prod].node.userid,
+                    packageWeight: productData.edges[prod].node.packageWeight,
+                    orderDetailsid: productData.edges[prod].node.rowid,
+                    lugSize: calculateLugSize(productData.edges[prod].node.productid.packaging.rowid),
+                    rankingInGroup: productData.edges[prod].node.productid.rankingInGroup
+                };
+                products.push(singleGroup);
+            }
+            const singleOrder: IOrderDetails = {
+                orderid: data.edges[order].node.rowid,
+                accountid: data.edges[order].node.accountid,
+                accountMRid: data.edges[order].node.accountMRid,
+                accountName: null,
+                commonName: data.edges[order].node.commonName,
+                routeid: data.edges[order].node.routeid,
+                routeName: null,
+                franchiseid: null,
+                userid: null,
+                timeStampid: data.edges[order].node.timeStampid,
+                franchiseName: null,
+                orderNumber: data.edges[order].node.orderNumber,
+                productGroupid: null,
+                parentAccountid: data.edges[order].node.accountid,
+                orders: products,
+            };
+            orders.push(singleOrder);
+        }
+        console.log('FOX (Normal order returns) = ', orders);
+        return orders;
     }
 
 }
+
+// private consolidatePnPOrder(data): IOrderDetails[] {
+
+//     const flattendData: IOrderDetails[] = [];
+//     for (let array = 0; array < data.length; ++array) {
+//         const singleData: IOrderDetails = {
+//             accountID: data[array].node.accountsid.accountID,
+//             orderDate: data[array].node.orderDate,
+//             delivered: data[array].node.delivered,
+//             orderNumber: null,
+//             productGroupid: null,
+//             timeStampid: null,
+//             userid: null,
+//             orders: consolidateProducts(data[array].node.orderproductamountsSet.edges),
+//         };
+//         flattendData.push(singleData);
+//     }
+//     return flattendData;
+// }

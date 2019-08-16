@@ -5,7 +5,9 @@ import { tap, switchMap, map } from 'rxjs/operators';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { PnpSharedService } from 'src/app/home/shared/services/pnpServices/pnp-shared.service';
-import { IPnPOrder } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
+import { IPnPRegions, IPalletPickedDetails,
+    IPnPOrderTotals, IPnPOrderMatrix } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
+import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/insert-order-service-Interfaces';
 
 @Component({
     selector: 'app-pnp-pallets-data',
@@ -15,15 +17,12 @@ import { IPnPOrder } from 'src/app/home/shared/services/pnpServices/pnp-shared-i
 export class PnpPalletsDataComponent implements OnInit, OnDestroy {
 
     subscription: Subscription;
-    calcKeepProductsTogether;
-    calculatedPallets;
-    lugsByRegionSummary;
-    tempLugsByRegionSummary;
+    calculatedPallets: IPalletPickedDetails[];
+    lugsByRegionSummary: IPnPRegions[];
     currentDatePackage: IDate;
-    pnpOrderTotals: number;
-    orders: IPnPOrder[];
-    totalAmountOfEachProduct;
-    pnpOrderMatrix;
+    pnpOrderTotals: IPnPOrderTotals;
+    orders: IOrderDetails[];
+    pnpOrderMatrix: IPnPOrderMatrix;
 
     constructor(
         private pnpPalletService: PnpPalletsService,
@@ -49,17 +48,21 @@ export class PnpPalletsDataComponent implements OnInit, OnDestroy {
     }
 
     workingDate(datePackage: IDate): Observable<any> {
-        return this.pnpPalletService.getPnPOrderForDateGiven(datePackage).pipe(
+        // return this.pnpPalletService.getPnPOrderForDateGiven(datePackage).pipe(
+        return this.pnpPalletService.searchForOrdersMain(datePackage).pipe(
             tap(data => console.log('The data of the pnp Order = ', data)),
             tap(data => this.orders = data),
-            tap(data => this.tempLugsByRegionSummary = this.pnpPalletService.calculateTotalPalletsForRegions(data)),
+            tap(data => this.lugsByRegionSummary = this.pnpPalletService.calculateTotalPalletsForRegions(data)),
             map(data => this.pnpPalletService.calculatePalletOptions(data)),
-            tap(data => console.log('The data going to view = ', data)),
-            tap(data => this.lugsByRegionSummary = this.pnpPalletService.addTotalPalletsToLugsSummary(this.tempLugsByRegionSummary, data)),
-            tap(data => this.calculatedPallets = data),
+            tap(pickedPallets => console.log('The data going to view = ', pickedPallets)),
+            tap(pickedPallets =>
+                this.lugsByRegionSummary = this.pnpPalletService.addTotalPalletsToLugsSummary(this.lugsByRegionSummary, pickedPallets)),
+            tap(pickedPallets => this.calculatedPallets = pickedPallets),
             switchMap(() => this.pnpSharedService.calculateTotalPnPOrderWeightForDate(JSON.parse(JSON.stringify(this.orders)))),
-            tap(data => console.log('Total PnP Order Weight = ', data)),
-            tap(data => this.pnpOrderTotals = data),
+            tap(orderTotals => console.log('Total PnP Order Weight = ', orderTotals)),
+            tap(orderTotals => this.pnpOrderTotals = orderTotals),
+            switchMap(() => this.pnpSharedService.calculateTotalPalletsForOrder(this.calculatedPallets)),
+            tap(totalPalletsForOrder => this.pnpOrderTotals.pnpOrderTotalPallets = totalPalletsForOrder),
             switchMap(() => this.pnpSharedService.createPnPRegionsAndProductsMatrix(this.orders)),
             tap((data) => this.pnpOrderMatrix = data),
         );

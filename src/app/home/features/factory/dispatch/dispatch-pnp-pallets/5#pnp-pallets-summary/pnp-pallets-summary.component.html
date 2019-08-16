@@ -2,7 +2,7 @@
 <div class='compContainer'>
     <div class='pallet' *ngFor='let pallet of calculatedPallets; let a = index'>
         <div class='heading'>Pallet {{a+1}}</div>
-        <div class='heading'>{{pallet.regionName}}</div>
+        <div class='heading'>{{pallet.palletName}}</div>
         <div class='data'>
             <table class='productsTable'>
                     <tr *ngFor='let product of pallet.products'>

@@ -35,6 +35,8 @@ export class AccountViewComponent implements OnInit {
     ngOnInit() {}
 
     accountSelection(account: IAccountDetails) {
+        this.refinedAccountsArray = [];
+        this.refinedAccountsCommonNameArray = [];
         console.log('Selected account = ', account);
         let prodListToPickFrom: IProductDetails[] = [];
         this.insertFormChangesService.changeAccountDetails(account);
@@ -53,8 +55,6 @@ export class AccountViewComponent implements OnInit {
                 }
             })
         ).subscribe();
-        this.refinedAccountsArray = [];
-        this.refinedAccountsCommonNameArray = [];
     }
 
     userAccountidSelection(accountMRid: string) {
@@ -64,9 +64,10 @@ export class AccountViewComponent implements OnInit {
                 tap(data => this.refinedAccountsArray = data),
                 tap(() => {
                     if (this.refinedAccountsArray.length === 1) {
-                        this.accountSelection(this.refinedAccountsArray[0]);
-                    } else if (this.refinedAccountsCommonNameArray.length === 0) {
-                        this.insertFormChangesService.clearAccountMainValues();
+                        this.accountSelection(JSON.parse(JSON.stringify(this.refinedAccountsArray[0])));
+                    } else if (this.refinedAccountsArray.length === 0) {
+                        // this.insertFormChangesService.clearAccountMainValues();
+                        this.insertFormChangesService.getInsertForm();
                     }
                 })
             ).subscribe();
@@ -83,7 +84,8 @@ export class AccountViewComponent implements OnInit {
                     if (this.refinedAccountsCommonNameArray.length === 1) {
                         this.accountSelection(this.refinedAccountsCommonNameArray[0]);
                     } else if (this.refinedAccountsCommonNameArray.length === 0) {
-                        this.insertFormChangesService.clearAccountMainValues();
+                        // this.insertFormChangesService.clearAccountMainValues();
+                        this.insertFormChangesService.getInsertForm();
                     }
                 })
             ).subscribe();

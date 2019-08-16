@@ -188,7 +188,7 @@ export class ConvertPnpStructureToOrdersService {
                 productid: productDetail.productid,
                 productMRid: pnpVendorOrder[prod].vendorProductCode,
                 lugSize: productDetail.lugSize,
-                packageWeight: pnpVendorOrder[prod].packSize,
+                packageWeight: productDetail.unitWeight * pnpVendorOrder[prod].packSize,
                 rankingInGroup: productDetail.rankingInGroup,
                 batchRanking: 1,
                 amount: pnpVendorOrder[prod].quantity,

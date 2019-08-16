@@ -3,7 +3,7 @@
         <caption><h3>{{currentDatePackage?.weekDayName}} {{currentDatePackage?.shortDate}}</h3></caption>
         <thead>
             <tr>
-                <ng-container *ngFor='let title of pnpOrderMatrix?.regions'>
+                <ng-container *ngFor='let title of pnpOrderMatrix?.heading'>
                     <th>{{title}}</th>
                 </ng-container>
             </tr>
@@ -18,11 +18,11 @@
                 </tr>
             </ng-container>
             <tr class="weight">
-                    <td  [attr.colspan]="pnpOrderMatrix?.regions.length - 2">Total Lugs</td>
+                    <td  [attr.colspan]="pnpOrderMatrix?.heading.length - 2">Total Lugs</td>
                     <td colspan="2" style="text-align:right">{{pnpOrderTotals.pnpOrderTotalLugs}}</td>
                 </tr>
             <tr class="weight">
-                <td  [attr.colspan]="pnpOrderMatrix?.regions.length - 2">Order Weight</td>
+                <td  [attr.colspan]="pnpOrderMatrix?.heading.length - 2">Order Weight</td>
                 <td colspan="2" style="text-align:right">{{pnpOrderTotals.pnpOrderTotalWeight}} kg</td>
             </tr>
         </tbody>

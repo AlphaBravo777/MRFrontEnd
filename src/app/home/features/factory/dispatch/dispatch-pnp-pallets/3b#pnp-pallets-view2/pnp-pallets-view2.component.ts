@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
+import { IPalletPickedDetails } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
 
 @Component({
   selector: 'app-pnp-pallets-view2',
@@ -8,7 +9,7 @@ import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-s
 })
 export class PnpPalletsView2Component implements OnInit {
 
-  @Input() calculatedPallets;
+  @Input() calculatedPallets: IPalletPickedDetails[];
   @Input() currentDatePackage: IDate;
 
   constructor() {}

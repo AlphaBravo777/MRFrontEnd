@@ -3,8 +3,10 @@ import { PnpSharedApiService } from './pnp-shared-api.service';
 import { GetDate$Service } from '../../main-portal/date-picker/date-picker-service/get-date$.service';
 import { Observable, of, combineLatest } from 'rxjs';
 import { switchMap, tap, map } from 'rxjs/operators';
-import { IPnPOrderProduct, IPnPOrder, IPnPOrderMatrix, IPnPOrderTotals } from './pnp-shared-interfaces';
+import { IPnPOrderMatrix, IPnPOrderTotals, IPalletPickedDetails } from './pnp-shared-interfaces';
 import { ToolboxGroupService } from '../toolbox/toolbox-group.service';
+import { IProductOrderDetails } from '../productServices/products-interface';
+import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/insert-order-service-Interfaces';
 
 @Injectable({
     providedIn: 'root'
@@ -15,27 +17,27 @@ export class PnpSharedService {
         private getDateService: GetDate$Service,
         private toolBoxService: ToolboxGroupService) {}
 
-    getAllPnPProductsThatAreActive(): Observable<IPnPOrderProduct[]> {
+    getAllPnPProductsThatAreActive(): Observable<IProductOrderDetails[]> {
         return this.pnpSharedApiService.getAllPnPProductsThatAreActive().pipe(
             map(data => this.toolBoxService.sorting(data, 'rankingInGroup')),
             // tap(data => console.log('All active PnP products = ', data))
         );
     }
 
-    addPnPRegionsDeliAndPremiumOrderTogether(orders: IPnPOrder[]): Observable<IPnPOrder[]> {
-        const combinedOrderArray: IPnPOrder[] = [];
-        orders.sort((a, b) => b.products.length - a.products.length);
+    addPnPRegionsDeliAndPremiumOrderTogether(orders: IOrderDetails[]): Observable<IOrderDetails[]> {
+        const combinedOrderArray: IOrderDetails[] = [];
+        orders.sort((a, b) => b.orders.length - a.orders.length);
         // console.log('Sorted orders',  orders);
         for (let order = 0; order < orders.length; order++) {
             let orderNotFound = true;
             for (let newOrder = 0; newOrder < combinedOrderArray.length; newOrder++) {
-                if (orders[order].accountID === combinedOrderArray[newOrder].accountID) {
-                    orders[order].products.forEach(product => {
-                        const found = combinedOrderArray[newOrder].products.find(prod => prod.productid === product.productid);
+                if (orders[order].accountMRid === combinedOrderArray[newOrder].accountMRid) {
+                    orders[order].orders.forEach(product => {
+                        const found = combinedOrderArray[newOrder].orders.find(prod => prod.productid === product.productid);
                         if (found) {
                             found.amount = found.amount + product.amount;
                         } else {
-                            combinedOrderArray[newOrder].products.push(product);
+                            combinedOrderArray[newOrder].orders.push(product);
                         }
                     });
                     orderNotFound = false;
@@ -52,22 +54,23 @@ export class PnpSharedService {
         return of(combinedOrderArray);
     }
 
-    calculateTotalPnPOrderWeightForDate(orders?: IPnPOrder[]): Observable<IPnPOrderTotals> {
+    calculateTotalPnPOrderWeightForDate(orders?: IOrderDetails[]): Observable<IPnPOrderTotals> {
 
-        const addProductWeightsTogether = (workingOrders: IPnPOrder[]): Observable<IPnPOrderTotals> => {
+        const addProductWeightsTogether = (workingOrders: IOrderDetails[]): Observable<IPnPOrderTotals> => {
             let pnpOrderTotalWeight = 0;
             let pnpOrderTotalLugs = 0;
 
             for (let order = 0; order < workingOrders.length; order++) {
-                for (let product = 0; product < workingOrders[order].products.length; product++) {
-                    const productWeight = workingOrders[order].products[product].amount *
-                        workingOrders[order].products[product].packageWeight;
+                for (let product = 0; product < workingOrders[order].orders.length; product++) {
+                    const productWeight = workingOrders[order].orders[product].amount *
+                        workingOrders[order].orders[product].packageWeight;
                     pnpOrderTotalWeight = pnpOrderTotalWeight + productWeight;
-                    pnpOrderTotalLugs = pnpOrderTotalLugs + workingOrders[order].products[product].amount;
+                    pnpOrderTotalLugs = pnpOrderTotalLugs + workingOrders[order].orders[product].amount;
                 }
             }
             // console.log('The total number of pnp Lugs are: ', pnpOrderTotalLugs);
-            return of({pnpOrderTotalWeight: pnpOrderTotalWeight, pnpOrderTotalLugs: pnpOrderTotalLugs});
+            return of({pnpOrderTotalWeight: pnpOrderTotalWeight,
+                pnpOrderTotalLugs: pnpOrderTotalLugs, pnpOrderTotalPallets: null});
         };
 
         if (orders) {
@@ -79,15 +82,20 @@ export class PnpSharedService {
         }
     }
 
-    createPnPRegionsAndProductsMatrix(orders?: IPnPOrder[]): Observable<any> {
+    createPnPRegionsAndProductsMatrix(orders?: IOrderDetails[]): Observable<IPnPOrderMatrix> {
+        // console.log('Here is the Matrix order data: ', JSON.parse(JSON.stringify(orders)));
 
-        const pnpRegionsAndProductsMatrix = (workingOrders: IPnPOrder[]): Observable<any> => {
-            const pnpOrderMatrix: IPnPOrderMatrix = {regions: [], products: []};
+        const pnpRegionsAndProductsMatrix = (workingOrders: IOrderDetails[]): Observable<IPnPOrderMatrix> => {
 
-            const createPnPMatrix = (pnpActiveProducts: IPnPOrderProduct[], pnpOrders: IPnPOrder[], pnpProductTotals) => {
+            const pnpOrderMatrix: IPnPOrderMatrix = {heading: [], products: []};
 
-                const enterLine = (title: String, productList: IPnPOrderProduct[]) => {
-                    pnpOrderMatrix.regions.push(title);
+            const createPnPMatrix = (
+                pnpActiveProducts: IProductOrderDetails[],
+                pnpOrders: IOrderDetails[],
+                pnpProductTotals: IProductOrderDetails[]): IPnPOrderMatrix => {
+
+                const enterColumn = (title: String, productList: IProductOrderDetails[]) => {
+                    pnpOrderMatrix.heading.push(title);
                     for (let matrixProd = 0; matrixProd < pnpOrderMatrix.products.length; matrixProd++) {
                         let productNotFound = true;
                         for (let product = 0; product < productList.length; product++) {
@@ -100,18 +108,35 @@ export class PnpSharedService {
                             // If the order does not have a product then enter "0" to keep spacing
                             pnpOrderMatrix.products[matrixProd].productAmounts.push(0);
                         }
-
                     }
                 };
 
-                pnpOrderMatrix.regions.push('Products');
+                const enterWeightColumn = (title: String, productList: IProductOrderDetails[]) => {
+                    pnpOrderMatrix.heading.push(title);
+                    for (let matrixProd = 0; matrixProd < pnpOrderMatrix.products.length; matrixProd++) {
+                        let productNotFound = true;
+                        for (let product = 0; product < productList.length; product++) {
+                            if (productList[product].productid === pnpOrderMatrix.products[matrixProd].productName.productid) {
+                                pnpOrderMatrix.products[matrixProd].productAmounts.push(productList[product].unitWeight);
+                                productNotFound = false;
+                            }
+                        }
+                        if (productNotFound) {
+                            // If the order does not have a product then enter "0" to keep spacing
+                            pnpOrderMatrix.products[matrixProd].productAmounts.push(0);
+                        }
+                    }
+                };
+
+                pnpOrderMatrix.heading.push('Products'); // This is the heading of the products colm
                 for (let actProd = 0; actProd < pnpActiveProducts.length; actProd++) {
-                    pnpOrderMatrix.products.push({productName: pnpActiveProducts[actProd], productAmounts: []});
+                    pnpOrderMatrix.products.push({productName: pnpActiveProducts[actProd], productAmounts: [], productWeights: []});
                 }
                 for (let order = 0; order < pnpOrders.length; order++) {
-                    enterLine(pnpOrders[order].commonName, pnpOrders[order].products);
+                    enterColumn(pnpOrders[order].commonName, pnpOrders[order].orders);
                 }
-                enterLine('Totals', pnpProductTotals);
+                enterColumn('T/Lugs', pnpProductTotals);
+                // enterWeightColumn('T Weight', pnpProductTotals);  // This will add a weight column for each product as well
                 return pnpOrderMatrix;
             };
 
@@ -119,8 +144,8 @@ export class PnpSharedService {
             const pnpOrders$ =  this.addPnPRegionsDeliAndPremiumOrderTogether(JSON.parse(JSON.stringify(workingOrders)));
             const pnpproductTotals$ = this.getTotalAmountOfEachPnPProductForDate(JSON.parse(JSON.stringify(workingOrders)));
             return combineLatest([allPnPActiveProducts$, pnpOrders$, pnpproductTotals$]).pipe(
+                tap(data => console.log('PnP Orders Matrix ', data)),
                 map(data => createPnPMatrix(data[0], data[1], data[2])),
-                // tap(data => console.log('PnP Orders Matrix ', data))
             );
 
         };
@@ -134,12 +159,12 @@ export class PnpSharedService {
         }
     }
 
-    getTotalAmountOfEachPnPProductForDate(orders?: IPnPOrder[]): Observable<any> {
+    getTotalAmountOfEachPnPProductForDate(orders?: IOrderDetails[]): Observable<IProductOrderDetails[]> {
 
-        const addSameProductsTogether = (workingOrders: IPnPOrder[]): Observable<any> => {
-            const productGroup: IPnPOrderProduct[]  = [];
+        const addSameProductsTogether = (workingOrders: IOrderDetails[]): Observable<IProductOrderDetails[]> => {
+            let productGroup: IProductOrderDetails[]  = [];
 
-            const individualProducts = (orderProduct: IPnPOrderProduct) => {
+            const individualProducts = (orderProduct: IProductOrderDetails) => {
                 let prodNotFound = true;
                 for (let group = 0; group < productGroup.length; group++) {
                     if (orderProduct.productid === productGroup[group].productid) {
@@ -153,11 +178,12 @@ export class PnpSharedService {
             };
 
             for (let order = 0; order < workingOrders.length; order++) {
-                for (let product = 0; product < workingOrders[order].products.length; product++) {
-                    individualProducts(workingOrders[order].products[product]);
+                for (let product = 0; product < workingOrders[order].orders.length; product++) {
+                    individualProducts(workingOrders[order].orders[product]);
                 }
             }
             this.toolBoxService.sorting(productGroup, 'rankingInGroup');
+            productGroup = this.calculateTotalWeightForEachProduct(productGroup);
             return of(productGroup);
         };
 
@@ -170,7 +196,13 @@ export class PnpSharedService {
         }
     }
 
-    getSelectedDayPnPOrders(): Observable<IPnPOrder[]> {
+    calculateTotalWeightForEachProduct = (products: IProductOrderDetails[]) => {
+            products.forEach(product => product.unitWeight = product.amount * product.packageWeight);
+            console.log('-- WEIGHTS -- ', products);
+            return products;
+    }
+
+    getSelectedDayPnPOrders(): Observable<IOrderDetails[]> {
         return this.getDateService.currentDatePackage$.pipe(
             switchMap(datePackage => {
                 if (datePackage.id === null) {
@@ -180,6 +212,12 @@ export class PnpSharedService {
                 }
             })
         );
+    }
+
+    calculateTotalPalletsForOrder(pallets: IPalletPickedDetails[]): Observable<number> {
+        let totalPalletsForOrder = 0;
+        pallets.forEach(pallet => totalPalletsForOrder++);
+        return of(totalPalletsForOrder);
     }
 
 }

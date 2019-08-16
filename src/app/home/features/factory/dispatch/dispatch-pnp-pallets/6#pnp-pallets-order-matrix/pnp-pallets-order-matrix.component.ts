@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IPnPOrderTotals } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
+import { IPnPOrderTotals, IPnPOrderMatrix } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 
 @Component({
@@ -11,7 +11,7 @@ export class PnpPalletsOrderMatrixComponent implements OnInit {
 
   constructor() { }
 
-  @Input() pnpOrderMatrix;
+  @Input() pnpOrderMatrix: IPnPOrderMatrix;
   @Input() pnpOrderTotals: IPnPOrderTotals;
   @Input() currentDatePackage: IDate;
 

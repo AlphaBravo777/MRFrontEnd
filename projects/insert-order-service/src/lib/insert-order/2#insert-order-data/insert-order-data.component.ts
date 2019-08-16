@@ -17,6 +17,7 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
 
     subscription: Subscription;
     mainInsertForm: FormGroup;
+    currentFormAccountID: number;
     errorMessages: IInserOrderErrors[] = [];
 
     constructor(private insertFormChangesService: InsertFormChangesService,
@@ -26,10 +27,18 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
     ngOnInit() {
         // this.mainInsertForm = this.insertFormChangesService.getInsertForm();
         this.subscription = this.getDateService.currentDatePackage$.pipe(
+            tap(date => this.checkIfAccountidAvailable()),
+            tap(date => console.log('CURRENT FORM ACCOUNT ID = ', this.currentFormAccountID)),
             tap(date => this.mainInsertForm = this.insertFormChangesService.getInsertForm()),
             tap(date => this.insertFormChangesService.insertDatesAndUser(date)),
         ).subscribe();
         console.log('Form = ', this.mainInsertForm);
+    }
+
+    checkIfAccountidAvailable() {
+        if (this.mainInsertForm) {
+            this.currentFormAccountID = this.mainInsertForm.get('accountid').value;
+        }
     }
 
     orderToInsert(order) {
