@@ -1,44 +1,53 @@
 import { Injectable } from '@angular/core';
 import { InsertFormService } from './insert-form.service';
-import { FormGroup, FormArray } from '@angular/forms';
+import { FormGroup, FormArray, Form } from '@angular/forms';
 import { IProductGroupName, IProductDetails, IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { IOrderDetails } from '../../#sharedServices/insert-order-service-Interfaces';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { Observable, of } from 'rxjs';
+import { InsertOrderData$Service } from './insert-order-data$.service';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
 })
 export class InsertFormChangesService {
 
-    insertForm: FormGroup;
+    orderForm: FormGroup;
+    routeForm: FormGroup;
 
-    constructor(private insertFormService: InsertFormService) {}
+    constructor(private insertFormService: InsertFormService,
+        private insertOrderData$Service: InsertOrderData$Service) {}
 
-    getInsertForm(): FormGroup {
-        this.insertForm = this.insertFormService.getInsertForm();
-        return this.insertForm;
+    getOrderInsertForm(): FormGroup {
+        this.orderForm = this.insertFormService.getInsertForm();
+        return this.orderForm;
     }
 
-    resetForm() {
-        this.insertForm.reset();
-        const productListToPickFromArray = <FormArray>this.insertForm.controls['productListToPickFrom'];
+    getRouteInsertForm(): FormGroup {
+        this.routeForm = this.insertFormService.getRouteInsertForm();
+        return this.routeForm;
+    }
+
+    resetOrderForm() {
+        this.orderForm.reset();
+        const productListToPickFromArray = <FormArray>this.orderForm.controls['productListToPickFrom'];
         while (0 !== productListToPickFromArray.length) {
             productListToPickFromArray.removeAt(0);
         }
-        const ordersArray = <FormArray>this.insertForm.controls['orders'];
+        const ordersArray = <FormArray>this.orderForm.controls['orders'];
         while (0 !== ordersArray.length) {
             ordersArray.removeAt(0);
         }
     }
 
     insertDatesAndUser(datePackage: IDate) {
-        this.insertForm.get('timeStampid').setValue(datePackage.id);
-        this.insertForm.get('timeStampID').setValue(datePackage.nodeID);
-        this.insertForm.get('orderDate').setValue(datePackage.shortDate);
-        this.insertForm.get('userid').setValue(JSON.parse(localStorage.getItem('userID')));
+        this.orderForm.get('timeStampid').setValue(datePackage.id);
+        this.orderForm.get('timeStampID').setValue(datePackage.nodeID);
+        this.orderForm.get('orderDate').setValue(datePackage.shortDate);
+        this.orderForm.get('userid').setValue(JSON.parse(localStorage.getItem('userID')));
     }
 
     insertAccountDetails(account: IAccountDetails) {
@@ -47,39 +56,39 @@ export class InsertFormChangesService {
     }
 
     insertMainAccountDetails(account: IAccountDetails) {
-        this.insertForm.get('accountMRid').setValue(account.accountMRid);
-        this.insertForm.get('commonName').setValue(account.commonName);
-        this.insertForm.get('accountName').setValue(account.accountName);
-        this.insertForm.get('accountid').setValue(account.accountid);
-        this.insertForm.get('accountID').setValue(account.accountID);
-        this.insertForm.get('franchiseName').setValue(account.franchiseName);
-        this.insertForm.get('franchiseid').setValue(account.franchiseid);
+        this.orderForm.get('accountMRid').setValue(account.accountMRid);
+        this.orderForm.get('commonName').setValue(account.commonName);
+        this.orderForm.get('accountName').setValue(account.accountName);
+        this.orderForm.get('accountid').setValue(account.accountid);
+        this.orderForm.get('accountID').setValue(account.accountID);
+        this.orderForm.get('franchiseName').setValue(account.franchiseName);
+        this.orderForm.get('franchiseid').setValue(account.franchiseid);
     }
 
     insertFormProductGroup(productGroupDetail: IProductGroupName) {
-        const control = this.insertForm.get('productGroupid');
+        const control = this.orderForm.get('productGroupid');
         control.get('id').setValue(productGroupDetail.id);
         control.get('ID').setValue(productGroupDetail.ID);
         control.get('groupName').setValue(productGroupDetail.groupName);
     }
 
     insertRouteDetails(route: IRoute) {
-        this.insertForm.get('routeid').setValue(route.routeid);
-        this.insertForm.get('routeName').setValue(route.routeName);
+        this.routeForm.get('routeid').setValue(route.routeid);
+        this.routeForm.get('routeName').setValue(route.routeName);
     }
 
     clearAccountMainValues() {
-        this.insertForm.get('commonName').setValue(null);
-        this.insertForm.get('accountMRid').setValue(null);
-        this.insertForm.get('accountid').setValue(null);
-        this.insertForm.get('orderNumber').setValue(null);
-        this.insertForm.get('orderid').setValue(null);
+        this.orderForm.get('commonName').setValue(null);
+        this.orderForm.get('accountMRid').setValue(null);
+        this.orderForm.get('accountid').setValue(null);
+        this.orderForm.get('orderNumber').setValue(null);
+        this.orderForm.get('orderid').setValue(null);
         // this.insertForm.get('productListToPickFrom').setValue([]);
-        const productListToPickFromArray = <FormArray>this.insertForm.controls['productListToPickFrom'];
+        const productListToPickFromArray = <FormArray>this.orderForm.controls['productListToPickFrom'];
         while (0 !== productListToPickFromArray.length) {
             productListToPickFromArray.removeAt(0);
         }
-        const ordersArray = <FormArray>this.insertForm.controls['orders'];
+        const ordersArray = <FormArray>this.orderForm.controls['orders'];
         while (0 !== ordersArray.length) {
             ordersArray.removeAt(0);
         }
@@ -90,19 +99,21 @@ export class InsertFormChangesService {
         this.insertFormService.createProductListToPickFrom(products);
     }
 
-    insertExistingOrder(order: IOrderDetails) {
-        this.isnertOrderDetails(order);
+    insertExistingOrder(order: IOrderDetails, route: IRoute) {
+        console.log('The route = ', route);
+        this.insertOrderDetails(order);
+        this.insertRouteDetails(route);
         order.orders.forEach(product => this.addProductToOrdersAndRemoveFromAvailableList(product));
     }
 
-    isnertOrderDetails(order: IOrderDetails) {
-        this.insertForm.controls['orderNumber'].setValue(order.orderNumber);
-        this.insertForm.controls['orderid'].setValue(order.orderid);
+    insertOrderDetails(order: IOrderDetails) {
+        this.orderForm.controls['orderNumber'].setValue(order.orderNumber);
+        this.orderForm.controls['orderid'].setValue(order.orderid);
     }
 
     private addProductToOrdersAndRemoveFromAvailableList(product: IProductOrderDetails) {
         // console.log('DELTA (Products that were inserted 1): ', JSON.parse(JSON.stringify(product)));
-        const productListToPickFromArray: IProductDetails[] = this.insertForm.controls['productListToPickFrom'].value;
+        const productListToPickFromArray: IProductDetails[] = this.orderForm.controls['productListToPickFrom'].value;
         // console.log('DELTA (Products that were inserted 2): ', JSON.parse(JSON.stringify(productListToPickFromArray)));
         const productFromProductList = productListToPickFromArray.find(prod => product.productid === prod.productid);
         this.insertFormService.insertProductOrderFields(productFromProductList, product.amountid, product.amount);
@@ -115,7 +126,7 @@ export class InsertFormChangesService {
     }
 
     private removeProductFromAvailableList(product: IProductDetails) {
-        const productListsControls = <FormArray>this.insertForm.controls.productListToPickFrom;
+        const productListsControls = <FormArray>this.orderForm.controls.productListToPickFrom;
         let a = 0;
         for (const control of productListsControls['controls']) {
             if (control.value.productid === product.productid) {
@@ -127,7 +138,7 @@ export class InsertFormChangesService {
 
     changeProductMRidValidation(flag: boolean, index) {
         const orderNum = 'orders.' + index + '.productMRid';
-        const order = <FormArray>this.insertForm.get(orderNum);
+        const order = <FormArray>this.orderForm.get(orderNum);
         if (flag) {
             order.setErrors(null);
         } else {
@@ -136,7 +147,7 @@ export class InsertFormChangesService {
     }
 
     deleteOrder(index) {
-        const orders = <FormArray>this.insertForm.get('orders');
+        const orders = <FormArray>this.orderForm.get('orders');
         const amountid = orders.controls[index].value.amountid;
         orders.removeAt(index);
         return amountid;

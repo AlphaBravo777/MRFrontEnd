@@ -10,6 +10,7 @@ import { OrderService } from '../../../#sharedServices/order.service';
 export class TopMenuViewComponent implements OnInit {
 
     @Input() mainInsertForm: FormGroup;
+    @Input() routeForm: FormGroup;
 
     constructor(private insertOrderService: OrderService) {}
 

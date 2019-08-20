@@ -8,6 +8,7 @@ import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-s
 import { InsertOrderData$Service } from './insert-order-data$.service';
 import { Observable, of } from 'rxjs';
 import { IOrderDetails } from '../../#sharedServices/insert-order-service-Interfaces';
+import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -30,7 +31,7 @@ export class InsertOrderService {
     }
 
     setNewAccountDetails(workingAccount: IAccountDetails, datePackage: IDate): Observable<any> {
-        this.insertFormChangesService.resetForm();
+        this.insertFormChangesService.resetOrderForm();
         this.insertFormChangesService.insertDatesAndUser(datePackage);
         this.insertFormChangesService.insertAccountDetails(workingAccount);
         return this.checkIfAccountHasAnOrder(workingAccount, datePackage).pipe();
@@ -42,9 +43,16 @@ export class InsertOrderService {
             take(1),
             tap(productListToPickFrom => this.insertFormChangesService.insertProductsToPickFrom(productListToPickFrom)),
             switchMap(() => this.insertOrderService.searchForOrder(datePackage, account.accountid)),
-            tap(order => {
+            switchMap(order => {
                 if (order) {
-                    this.insertFormChangesService.insertExistingOrder(order);
+                    let route: IRoute;
+                    return this.insertOrderData$Service.currentRoutes$.pipe(
+                        tap(routes => route = routes.find(r => r.routeid === order.routeid)),
+                        tap(() => this.insertFormChangesService.insertExistingOrder(order, route)),
+                        map(() => order)
+                    );
+                } else {
+                    return of(order);
                 }
             }),
         );

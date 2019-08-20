@@ -37,7 +37,6 @@ export class RouteViewComponent implements OnInit, OnDestroy {
 
     routeSelection(route: IRoute) {
         this.insertFormChangesService.insertRouteDetails(route);
-
         this.refinedRoutesArray = [];
     }
 

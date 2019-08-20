@@ -1,5 +1,5 @@
 <div class='componentContainer'>
-    <button class='meatriteButton niceButton' type="submit" [disabled]='mainInsertForm.invalid'>Enter order</button>
+    <button class='meatriteButton niceButton' type="submit" [disabled]='mainInsertForm.invalid || routeForm.invalid'>Enter order</button>
     <button class='deleteButton niceButton' type="button"
         [disabled]='mainInsertForm.get("orderid").value === null || mainInsertForm.get("orderid").value === ""'
         (click)="deleteOrder(mainInsertForm.get('orderid').value)">

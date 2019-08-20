@@ -9,6 +9,7 @@ import { IProductDetails, IProductOrderDetails } from 'src/app/home/shared/servi
 export class InsertFormService {
 
     insertForm: FormGroup;
+    routeForm: FormGroup;
 
     constructor(private fb: FormBuilder) {}
 
@@ -25,8 +26,6 @@ export class InsertFormService {
             accountName: [''],
             commonName: ['', [Validators.required, Validators.minLength(6)]],
             parentAccountid: [''],
-            routeName: ['', [Validators.required, Validators.minLength(4)]],
-            routeid: ['', [Validators.required, Validators.minLength(1)]],
             orderNumber: ['', [Validators.required, Validators.minLength(4)]],
             orderDate: [''],
             orderid:  [''],
@@ -81,6 +80,18 @@ export class InsertFormService {
             id: [''],
             ID: [''],
             groupName: ['']
+        });
+    }
+
+    getRouteInsertForm() {
+        this.addRoutePrimaryFields();
+        return this.routeForm;
+    }
+
+    private addRoutePrimaryFields() {
+        this.routeForm = this.fb.group({
+            routeName: ['', [Validators.required, Validators.minLength(4)]],
+            routeid: ['', [Validators.required, Validators.minLength(1)]],
         });
     }
 

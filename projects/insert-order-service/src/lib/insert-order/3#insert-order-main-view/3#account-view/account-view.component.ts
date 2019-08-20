@@ -1,11 +1,10 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { InsertOrderData$Service } from '../../1#insert-order-services/insert-order-data$.service';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
-import { tap, take, switchMap } from 'rxjs/operators';
+import { tap, take } from 'rxjs/operators';
 import { InsertFormChangesService } from '../../1#insert-order-services/insert-form-changes.service';
 import { OrderService } from '../../../#sharedServices/order.service';
-import { IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Subscription, Observable } from 'rxjs';
 
@@ -60,14 +59,12 @@ export class AccountViewComponent implements OnInit {
                     if (this.refinedAccountsArray.length === 1) {
                         this.accountSelection(this.refinedAccountsArray[0]);
                     } else if (this.refinedAccountsArray.length === 0) {
-                        // this.insertFormChangesService.clearAccountMainValues();
-                        // this.insertFormChangesService.getInsertForm();
-                        this.insertFormChangesService.resetForm();
+                        this.insertFormChangesService.resetOrderForm();
                     }
                 })
             ).subscribe();
         } else {
-            this.insertFormChangesService.resetForm();
+            this.insertFormChangesService.resetOrderForm();
         }
     }
 

@@ -1,8 +1,24 @@
 <app-box-shadow-container>
         <mr-insert-insert-order-main-view
             [mainInsertForm]='mainInsertForm'
+            [routeForm]='routeForm'
             [datePackage]='datePackage'
             [errorMessages]= 'errorMessages'
             (orderToInsert)='insertOrderIntoDB($event)'>
+
+            <div class='routeView'>
+                <form [formGroup]='routeForm '>
+                    <mr-insert-route-view
+                        [routeNameFormControl]='routeForm.get("routeName")'
+                        [routeidFormControl]='routeForm.get("routeid")'>
+                    </mr-insert-route-view>
+                </form>
+            </div>
         </mr-insert-insert-order-main-view>
+
+    <pre>{{routeForm?.value|json}}</pre>
+    <pre>{{mainInsertForm?.value|json}}</pre>
+
 </app-box-shadow-container>
+
+

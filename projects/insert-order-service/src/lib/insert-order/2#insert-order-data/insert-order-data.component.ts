@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable, combineLatest } from 'rxjs';
-import { tap, take, switchMap } from 'rxjs/operators';
+import { tap, take, switchMap, concatMap } from 'rxjs/operators';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { InsertFormChangesService } from '../1#insert-order-services/insert-form-changes.service';
@@ -10,6 +10,7 @@ import { IInserOrderErrors, IOrderDetails } from '../../#sharedServices/insert-o
 import { InsertOrderService } from '../1#insert-order-services/insert-order.service';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import { InsertOrderData$Service } from '../1#insert-order-services/insert-order-data$.service';
+import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 
 @Component({
     selector: 'mr-insert-insert-order-data',
@@ -20,6 +21,7 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
 
     subscription: Subscription;
     mainInsertForm: FormGroup;
+    routeForm: FormGroup;
     errorMessages: IInserOrderErrors[] = [];
     datePackage: IDate;
 
@@ -30,33 +32,30 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
         private insertOrderData$Service: InsertOrderData$Service) {}
 
     ngOnInit() {
-        this.mainInsertForm = this.insertFormChangesService.getInsertForm();
+        this.mainInsertForm = this.insertFormChangesService.getOrderInsertForm();
+        this.routeForm = this.insertFormChangesService.getRouteInsertForm();
+        this.subscribeToAccountAndDateChanges();
+    }
+
+    subscribeToAccountAndDateChanges() {
         const datePackage$: Observable<IDate> = this.getDateService.currentDatePackage$;
-        const formChanges$: Observable<any> = this.mainInsertForm.get('accountMRid').valueChanges;
         const currentWorkingAccount$: Observable<IAccountDetails> = this.insertOrderData$Service.currentWorkingAccount$;
 
-        // Maybe we should subscribe to a data$ observable that has the latest account in it, and just give this through when needed
-
-        this.subscription = combineLatest([datePackage$, currentWorkingAccount$]).pipe(
+        this.subscription = this.orderService.getAllRoutes().pipe(
+            tap(routes => this.insertOrderData$Service.setRoutes(routes)),
+            concatMap(() => combineLatest([datePackage$, currentWorkingAccount$])),
             tap(data => console.log('---- COMBINELATEST HAVE CHANGED ----' , data)),
             tap(data => this.datePackage = <IDate>data[0]),
-            // switchMap(() => currentWorkingAccount$),
-            // switchMap(() => this.insertOrderData$Service.currentWorkingAccount$),
-            // tap(data => this.insertFormChangesService.insertDatesAndUser(<IDate>data[0])),  // refracture this some place else
             switchMap(data => this.insertOrderService.datePackageOrAccountChanged(
                 <IAccountDetails>data[1], this.datePackage))
         ).subscribe();
-
-        // this.subscription = this.getDateService.currentDatePackage$.pipe(
-        //     // tap(date => this.checkIfAccountidAvailable()),
-        //     // tap(date => console.log('CURRENT FORM ACCOUNT ID = ', this.currentFormAccountID)),
-        //     // tap(date => this.mainInsertForm = this.insertFormChangesService.getInsertForm()),
-        //     tap(date => this.insertFormChangesService.insertDatesAndUser(date)),
-        // ).subscribe();
     }
 
-    insertOrderIntoDB(order) {
-        this.orderService.insertNewOrder([order.value]).pipe(
+    insertOrderIntoDB(orders: [IOrderDetails, IRoute]) {
+        console.log('Order to insert = ', orders);
+        orders[0].routeid = orders[1].routeid;
+        orders[0].routeName = orders[1].routeName;
+        this.orderService.insertNewOrder([orders[0]]).pipe(
             take(1),
             tap(response => {
                 if ('error' in response) {

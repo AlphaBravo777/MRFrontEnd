@@ -8,6 +8,8 @@ import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-s
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import { ProductSharedApiService } from 'src/app/home/shared/services/productServices/product-shared-api.service';
 import { AccountSharedApiService } from 'src/app/home/shared/services/accountServices/account-shared-api.service';
+import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
+import { RoutesSharedApiService } from 'src/app/home/shared/services/routesServices/routes-shared-api.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +17,9 @@ import { AccountSharedApiService } from 'src/app/home/shared/services/accountSer
 export class OrderService {
     constructor(private insertOrderApiService: InsertOrderApiService,
         private productSharedAPIService: ProductSharedApiService,
-        private accountSharedAPIService: AccountSharedApiService) {}
+        private accountSharedAPIService: AccountSharedApiService,
+        private routesSharedAPIService: RoutesSharedApiService
+        ) {}
 
     private ordersNotInserted = new BehaviorSubject<IOrderDetails[]>([]);
     currentOrdersNotInserted$ = this.ordersNotInserted.asObservable();
@@ -83,6 +87,10 @@ export class OrderService {
             take(1),
             tap(data => console.log('getUserInputCommonNameAccounts = ', data))
         );
+    }
+
+    getAllRoutes(): Observable<IRoute[]> {
+        return this.routesSharedAPIService.getAllRoutes();
     }
 
 }

@@ -11,6 +11,7 @@ import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-s
 export class InsertOrderMainViewComponent implements OnInit {
 
     @Input() mainInsertForm: FormGroup;
+    @Input() routeForm: FormGroup;
     @Input() datePackage: IDate;
     @Input() errorMessages: IInserOrderErrors[];
     @Output() orderToInsert: EventEmitter<any> = new EventEmitter<any>();

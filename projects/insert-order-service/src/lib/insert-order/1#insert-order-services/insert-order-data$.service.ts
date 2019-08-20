@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { RoutesSharedApiService } from 'src/app/home/shared/services/routesServices/routes-shared-api.service';
-import { take, tap } from 'rxjs/operators';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import { IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
@@ -24,18 +22,10 @@ export class InsertOrderData$Service {
     private productListToPickFrom = new BehaviorSubject<IProductDetails[]>(null);
     productListToPickFrom$ = this.productListToPickFrom.asObservable();
 
-    constructor(private routesSharedAPIService: RoutesSharedApiService,
-        ) {
-        this.getRoutes();
-    }
+    constructor() {}
 
-    // Refracrute this out, since it is depending on another service. Just let data.component call a method in
-    // insert-order-service to populate this observable, and then insert it here.
-    getRoutes() {
-        this.routesSharedAPIService.getAllRoutes().pipe(
-            take(1),
-            tap(data => this.routes.next(data))
-        ).subscribe();
+    setRoutes(routes: IRoute[]) {
+        this.routes.next(routes);
     }
 
     setAccountsToPickFrom(accounts: IAccountDetails[]) {
