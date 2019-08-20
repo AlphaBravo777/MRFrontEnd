@@ -3,8 +3,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { InsertOrderService } from '../1#insert-order-services/insert-order.service';
 import { Subscription } from 'rxjs';
 import { DialogBoxService } from 'src/app/home/core/dialog-box/dialog-box.service';
-import { IAccountDetails } from 'src/app/home/shared/services/adminServices/accountServices/account-interface';
-
+import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 
 @Component({
     selector: 'app-insert-order-data',

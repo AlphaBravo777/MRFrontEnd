@@ -198,7 +198,6 @@ export class PnpSharedService {
 
     calculateTotalWeightForEachProduct = (products: IProductOrderDetails[]) => {
             products.forEach(product => product.unitWeight = product.amount * product.packageWeight);
-            console.log('-- WEIGHTS -- ', products);
             return products;
     }
 

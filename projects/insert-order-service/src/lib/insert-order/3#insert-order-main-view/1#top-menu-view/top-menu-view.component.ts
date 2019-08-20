@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { InsertOrderService } from '../../../#sharedServices/insert-order.service';
+import { OrderService } from '../../../#sharedServices/order.service';
 
 @Component({
     selector: 'mr-insert-top-menu-view',
@@ -11,7 +11,7 @@ export class TopMenuViewComponent implements OnInit {
 
     @Input() mainInsertForm: FormGroup;
 
-    constructor(private insertOrderService: InsertOrderService) {}
+    constructor(private insertOrderService: OrderService) {}
 
     ngOnInit() {}
 

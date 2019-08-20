@@ -135,22 +135,3 @@ export class OrderGraphqlApiService {
     }
 
 }
-
-// private consolidatePnPOrder(data): IOrderDetails[] {
-
-//     const flattendData: IOrderDetails[] = [];
-//     for (let array = 0; array < data.length; ++array) {
-//         const singleData: IOrderDetails = {
-//             accountID: data[array].node.accountsid.accountID,
-//             orderDate: data[array].node.orderDate,
-//             delivered: data[array].node.delivered,
-//             orderNumber: null,
-//             productGroupid: null,
-//             timeStampid: null,
-//             userid: null,
-//             orders: consolidateProducts(data[array].node.orderproductamountsSet.edges),
-//         };
-//         flattendData.push(singleData);
-//     }
-//     return flattendData;
-// }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { Observable } from 'rxjs';
 import { IAccountDetails } from './account-interface';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { IProductGroupName } from '../productServices/products-interface';
 
 @Injectable({
@@ -52,6 +52,7 @@ export class AccountSharedApiService {
                 query: this.SEARCH_ACCOUNTS_MRID_OR_COMMONNAMES_QUERY
             })
             .valueChanges.pipe(
+                // take(1),
                 map(result => this.consolidateAccountsData(result.data['nodeAccountNameMicroService'].edges)));
     }
 

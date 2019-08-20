@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { RoutesSharedApiService } from 'src/app/home/shared/services/routesServices/routes-shared-api.service';
 import { take, tap } from 'rxjs/operators';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
-import { AccountSharedApiService } from 'src/app/home/shared/services/accountServices/account-shared-api.service';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
-import { ProductSharedApiService } from 'src/app/home/shared/services/productServices/product-shared-api.service';
 import { IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
 
 @Injectable({
@@ -13,17 +11,26 @@ import { IProductDetails } from 'src/app/home/shared/services/productServices/pr
 })
 export class InsertOrderData$Service {
 
+    // A data service should almost not have to subscribe to any other service, else you are doing it wrong
+    // It is like a temp database (and a database does not depend on other services) that just recieves data,
+    // and gives it back as necessary.
+
+    private workingAccount = new BehaviorSubject<IAccountDetails>(null);
+    currentWorkingAccount$ = this.workingAccount.asObservable();
+    private accountsToPickFrom = new BehaviorSubject<IAccountDetails[]>([]);
+    returnedAccountsFromDBToPickFrom$ = this.accountsToPickFrom.asObservable();
     private routes = new BehaviorSubject<IRoute[]>(null);
     currentRoutes$ = this.routes.asObservable();
     private productListToPickFrom = new BehaviorSubject<IProductDetails[]>(null);
     productListToPickFrom$ = this.productListToPickFrom.asObservable();
 
     constructor(private routesSharedAPIService: RoutesSharedApiService,
-        private accountSharedAPIService: AccountSharedApiService,
-        private productSharedAPIService: ProductSharedApiService) {
+        ) {
         this.getRoutes();
     }
 
+    // Refracrute this out, since it is depending on another service. Just let data.component call a method in
+    // insert-order-service to populate this observable, and then insert it here.
     getRoutes() {
         this.routesSharedAPIService.getAllRoutes().pipe(
             take(1),
@@ -31,19 +38,14 @@ export class InsertOrderData$Service {
         ).subscribe();
     }
 
-    getUserInputAccountOrCommonName(accountMRid: string, accountString: string): Observable<IAccountDetails[]> {
-        return this.accountSharedAPIService.searchAccountsOrCommonNames(accountMRid, accountString).pipe(
-            take(1),
-            tap(data => console.log('getUserInputCommonNameAccounts = ', data))
-        );
+    setAccountsToPickFrom(accounts: IAccountDetails[]) {
+        this.accountsToPickFrom.next(accounts);
     }
 
-    getProductListToPickFromForAccount(account: IAccountDetails): Observable<IProductDetails[]> {
-        return this.productSharedAPIService.getProductsOfProductGroup(account.productGroupid.ID).pipe(
-            take(1),
-            tap(data => console.log('getProductsOfProductGroup = ', data)),
-            tap(data => this.productListToPickFrom.next(data))
-        );
+    setWorkingAccount(account: IAccountDetails) {
+        this.workingAccount.next(account);
     }
+
+
 
 }

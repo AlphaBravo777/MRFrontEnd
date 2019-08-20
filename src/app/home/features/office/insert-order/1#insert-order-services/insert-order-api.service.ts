@@ -4,12 +4,11 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UrlsService } from 'src/app/home/core/urls.service';
 import { HttpClient } from '@angular/common/http';
-import { IAccountDetails } from 'src/app/home/shared/services/adminServices/accountServices/account-interface';
+import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import {
-    IOrderDBDetails,
+    IOrderDetails,
     factoryFunctionDBLayerCreateNewOrder,
-    IOrderDetails
-} from 'src/app/home/shared/services/adminServices/orderServices/order-interface';
+    IOrderDBDetails } from 'projects/insert-order-service/src/lib/#sharedServices/insert-order-service-Interfaces';
 
 @Injectable({
     providedIn: 'root'
@@ -86,7 +85,9 @@ export class InsertOrderApiService {
                 commonName: null,
                 parentAccountid: null,
                 routeName: null,
-                routeid: null
+                routeid: null,
+                franchiseid: null,
+                productGroupid: null
             };
             singleData.accountid = data[array].node.rowid;
             singleData.accountID = data[array].node.id;
@@ -161,34 +162,3 @@ export class InsertOrderApiService {
         return flattendData;
     }
 }
-
-// Getting the parent account with all the children, you can even go further and get the grandchildren
-
-// query getAccountName($accountID:String="P74"){
-//     nodeAccountnames(accountID_Icontains:$accountID){
-//       edges{
-//         node{
-//           accountnameSet{
-//             edges{
-//               node{
-//                 commonName
-//               }
-//             }
-//           }
-//           accountID
-//           accountName
-//           id
-//           rowid
-//           commonName
-//           accountID
-//           route{
-//             rowid
-//             routeName
-//           }
-//           parentAccountID{
-//             accountID
-//           }
-//         }
-//       }
-//     }
-//   }

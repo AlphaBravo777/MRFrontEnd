@@ -6,6 +6,7 @@ import { IAccountDetails } from 'src/app/home/shared/services/accountServices/ac
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { IOrderDetails } from '../../#sharedServices/insert-order-service-Interfaces';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -17,9 +18,20 @@ export class InsertFormChangesService {
     constructor(private insertFormService: InsertFormService) {}
 
     getInsertForm(): FormGroup {
-        this.insertForm = null;
         this.insertForm = this.insertFormService.getInsertForm();
         return this.insertForm;
+    }
+
+    resetForm() {
+        this.insertForm.reset();
+        const productListToPickFromArray = <FormArray>this.insertForm.controls['productListToPickFrom'];
+        while (0 !== productListToPickFromArray.length) {
+            productListToPickFromArray.removeAt(0);
+        }
+        const ordersArray = <FormArray>this.insertForm.controls['orders'];
+        while (0 !== ordersArray.length) {
+            ordersArray.removeAt(0);
+        }
     }
 
     insertDatesAndUser(datePackage: IDate) {
@@ -29,9 +41,12 @@ export class InsertFormChangesService {
         this.insertForm.get('userid').setValue(JSON.parse(localStorage.getItem('userID')));
     }
 
-    changeAccountDetails(account: IAccountDetails) {
-        console.log('Change Account details = ', account);
-        // Here we can maybe subscribe to the datePackage so that we change the orderName as the date changes
+    insertAccountDetails(account: IAccountDetails) {
+        this.insertMainAccountDetails(account);
+        this.insertFormProductGroup(account.productGroupid);
+    }
+
+    insertMainAccountDetails(account: IAccountDetails) {
         this.insertForm.get('accountMRid').setValue(account.accountMRid);
         this.insertForm.get('commonName').setValue(account.commonName);
         this.insertForm.get('accountName').setValue(account.accountName);
@@ -39,33 +54,10 @@ export class InsertFormChangesService {
         this.insertForm.get('accountID').setValue(account.accountID);
         this.insertForm.get('franchiseName').setValue(account.franchiseName);
         this.insertForm.get('franchiseid').setValue(account.franchiseid);
-        // this.insertForm.get('orders').setValue([]);
-        // this.insertForm.get('productListToPickFrom').setValue([]);
-        const orderDate = this.insertForm.get('orderDate').value;
-        console.log('Orderdate = ', orderDate);
-        this.insertForm.get('orderNumber').setValue(account.accountMRid + '//' + orderDate + '//' + account.accountid + '//' + 1);
     }
 
-    insertExistingOrder(order: IOrderDetails) {
-        // Here we can maybe subscribe to the datePackage so that we change the orderName as the date changes
-        this.insertForm.get('orderid').setValue(order.orderid);
-        this.insertForm.get('accountMRid').setValue(order.accountMRid);
-        this.insertForm.get('commonName').setValue(order.commonName);
-        this.insertForm.get('accountName').setValue(order.accountName);
-        this.insertForm.get('accountid').setValue(order.accountid);
-        this.insertForm.get('accountID').setValue(order.accountID);
-        this.insertForm.get('franchiseName').setValue(order.franchiseName);
-        this.insertForm.get('franchiseid').setValue(order.franchiseid);
-        const orderDate = this.insertForm.get('orderDate').value;
-        this.insertRouteDetails({routeid: order.routeid, routeName: order.routeName});
-        console.log('Orderdate = ', orderDate);
-        this.insertForm.get('orderNumber').setValue(order.accountMRid + '//' + orderDate + '//' + order.accountid + '//' + 1);
-        order.orders.forEach(product => this.addAlreadyInsertedProductToOrderedProducts(product));
-    }
-
-    changeFormProductGroup(productGroupDetail: IProductGroupName) {
+    insertFormProductGroup(productGroupDetail: IProductGroupName) {
         const control = this.insertForm.get('productGroupid');
-        console.log('Here is the productGroup control: ', control);
         control.get('id').setValue(productGroupDetail.id);
         control.get('ID').setValue(productGroupDetail.ID);
         control.get('groupName').setValue(productGroupDetail.groupName);
@@ -94,10 +86,21 @@ export class InsertFormChangesService {
     }
 
     insertProductsToPickFrom(products: IProductDetails[]) {
+        // this.insertForm.get('productListToPickFrom').setValue([]);
         this.insertFormService.createProductListToPickFrom(products);
     }
 
-    addAlreadyInsertedProductToOrderedProducts(product: IProductOrderDetails) {
+    insertExistingOrder(order: IOrderDetails) {
+        this.isnertOrderDetails(order);
+        order.orders.forEach(product => this.addProductToOrdersAndRemoveFromAvailableList(product));
+    }
+
+    isnertOrderDetails(order: IOrderDetails) {
+        this.insertForm.controls['orderNumber'].setValue(order.orderNumber);
+        this.insertForm.controls['orderid'].setValue(order.orderid);
+    }
+
+    private addProductToOrdersAndRemoveFromAvailableList(product: IProductOrderDetails) {
         // console.log('DELTA (Products that were inserted 1): ', JSON.parse(JSON.stringify(product)));
         const productListToPickFromArray: IProductDetails[] = this.insertForm.controls['productListToPickFrom'].value;
         // console.log('DELTA (Products that were inserted 2): ', JSON.parse(JSON.stringify(productListToPickFromArray)));
@@ -108,9 +111,10 @@ export class InsertFormChangesService {
 
     addAvailableProductToOrderedProducts(product: IProductDetails) {
         this.insertFormService.insertProductOrderFields(product, undefined, undefined);
+        this.removeProductFromAvailableList(product);
     }
 
-    removeProductFromAvailableList(product: IProductDetails) {
+    private removeProductFromAvailableList(product: IProductDetails) {
         const productListsControls = <FormArray>this.insertForm.controls.productListToPickFrom;
         let a = 0;
         for (const control of productListsControls['controls']) {

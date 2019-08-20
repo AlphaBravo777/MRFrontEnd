@@ -8,7 +8,7 @@ import { IOrderDetails,
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
 
 @Injectable({
@@ -93,7 +93,7 @@ export class InsertOrderApiService {
         return this.http.delete<any>(this.orderServiceUrl + 'orders/deleteOrder/' + orderid);
     }
 
-    searchForOrder(datePackage: IDate, accountid: string): Observable<IOrderDetails> {
+    searchForOrder(datePackage: IDate, accountid: number): Observable<IOrderDetails> {
         console.log('Fox(b) = ', datePackage.id, accountid);
         return this.apollo
             .watchQuery({
@@ -101,6 +101,7 @@ export class InsertOrderApiService {
                 query: this.SEARCH_FOR_ORDER_QUERY
             })
             .valueChanges.pipe(
+                take(1),
                 map(result => this.consolidateAccountsData(result.data['nodeOrderDetailsMicroService'].edges)));
     }
 

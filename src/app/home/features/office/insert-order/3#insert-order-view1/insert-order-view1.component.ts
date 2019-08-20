@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angu
 import { FormGroup } from '@angular/forms';
 import { fromEvent } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
-import { IAccountDetails } from 'src/app/home/shared/services/adminServices/accountServices/account-interface';
+import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 
 @Component({
     selector: 'app-insert-order-view1',

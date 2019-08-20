@@ -3,7 +3,7 @@ import { FormControl, FormArray, FormGroupDirective } from '@angular/forms';
 import { IColorChangeInputBoxInterface } from 'src/app/home/shared/components/shared-components-interface';
 import { ProductValidationService } from './product-validation.service';
 import { InsertFormChangesService } from '../../../1#insert-order-services/insert-form-changes.service';
-import { InsertOrderService } from 'projects/insert-order-service/src/lib/#sharedServices/insert-order.service';
+import { OrderService } from 'projects/insert-order-service/src/lib/#sharedServices/order.service';
 
 @Component({
     selector: 'mr-insert-insert-product-view',
@@ -36,9 +36,10 @@ export class InsertProductViewComponent implements OnInit {
     constructor(private fgd: FormGroupDirective,
         private productValidationService: ProductValidationService,
         private insertFormChangesService: InsertFormChangesService,
-        private insertOrderService: InsertOrderService) {}
+        private insertOrderService: OrderService) {}
 
     ngOnInit() {
+        console.log('insert Products', this.productsOrderedFormControl);
         this.controller = this.fgd.control.get(
             this.controlPath
           ) as FormArray;

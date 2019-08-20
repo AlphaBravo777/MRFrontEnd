@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InsertPnpCsvService } from '../1#insert-pnp-csv-services/insert-pnp-csv.service';
 import { IOrderDetails } from '../../#sharedServices/insert-order-service-Interfaces';
-import { InsertOrderService } from '../../#sharedServices/insert-order.service';
+import { OrderService } from '../../#sharedServices/order.service';
 import { Subscription } from 'rxjs';
 
 
@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 export class InsertPnpCsvDataComponent implements OnInit, OnDestroy {
 
     constructor(private insertPnPCSVService: InsertPnpCsvService,
-        private insertOrderService: InsertOrderService) {}
+        private insertOrderService: OrderService) {}
 
     selectedCSVFile = null;
     pnpOrders: IOrderDetails[];

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IInserOrderErrors } from '../../#sharedServices/insert-order-service-Interfaces';
+import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 
 @Component({
     selector: 'mr-insert-insert-order-main-view',
@@ -10,6 +11,7 @@ import { IInserOrderErrors } from '../../#sharedServices/insert-order-service-In
 export class InsertOrderMainViewComponent implements OnInit {
 
     @Input() mainInsertForm: FormGroup;
+    @Input() datePackage: IDate;
     @Input() errorMessages: IInserOrderErrors[];
     @Output() orderToInsert: EventEmitter<any> = new EventEmitter<any>();
 

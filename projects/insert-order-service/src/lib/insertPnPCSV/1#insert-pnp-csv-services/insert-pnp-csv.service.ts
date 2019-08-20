@@ -3,7 +3,7 @@ import { IPnPCSVData, IPnPCSVFormat, IOrderDetails } from '../../#sharedServices
 import { ConvertPnpCsvDataFactoryService } from './convert-pnp-csv-data-factory.service';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 import { ConvertPnpStructureToOrdersService } from './convert-pnp-structure-to-orders.service';
-import { InsertOrderService } from '../../#sharedServices/insert-order.service';
+import { OrderService } from '../../#sharedServices/order.service';
 import { Observable, from, of } from 'rxjs';
 import { take, concatMap, tap, map, mergeMap } from 'rxjs/operators';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
@@ -17,7 +17,7 @@ export class InsertPnpCsvService {
     constructor(private convertPnPCVDataFactoryService: ConvertPnpCsvDataFactoryService,
         private convertPnPStructureToOrderService: ConvertPnpStructureToOrdersService,
         private toolBox: ToolboxGroupService,
-        private insertOrderService: InsertOrderService,
+        private insertOrderService: OrderService,
         private getDateService: GetDate$Service,
         private datePickerService: DatePickerService) {}
 
@@ -61,6 +61,7 @@ export class InsertPnpCsvService {
                 concatMap(order => this.insertOrderTimeStampid(order)),
                 tap(order => console.log('* * *', order)),
                 mergeMap(order => this.insertOrderService.searchForOrder({id: order.timeStampid}, order.accountid).pipe(
+                    take(1),
                     concatMap(result => {
                         if (result) {
                             ordersNotInserted.push(order);

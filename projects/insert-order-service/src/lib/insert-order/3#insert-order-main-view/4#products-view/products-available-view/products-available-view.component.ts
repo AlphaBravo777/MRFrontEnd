@@ -20,7 +20,7 @@ export class ProductsAvailableViewComponent implements OnInit {
 
     availableProductSelected(product: IProductDetails) {
         this.insertFormChangesService.addAvailableProductToOrderedProducts(product);
-        this.insertFormChangesService.removeProductFromAvailableList(product);
+        // this.insertFormChangesService.removeProductFromAvailableList(product);
         console.log('This product was picked: ', product);
     }
 }

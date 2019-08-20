@@ -11,21 +11,9 @@ export class PnpPickPalletsService {
 
     constructor(private toolbox: ToolboxGroupService) {}
 
-    // How to check pallets
-        // Go through an order and get out all the full pallet lugs first.
-        // Go through the largest products that are left over to see if they can fit on top of another pallet
-        // If they can not, check again and see when you use maximum size if there is one that can fit on another
-        // When you get to the last product, see if you can split it in two, on only two pallets.
-    // createNewFullPallet
-    // createNewHalfPallet
-    // addToHalfPallet
-
     calculatePalletsPerAccountMRid(orders: IOrderDetails[]): IPalletPickedDetails[] {
-        const topLevel = 100;
+        const TOPLEVEL = 100;
         const maxTopLevel = 110;
-        const palletCounter = 1;
-        // Go through all the orders and create pallets that will be full with one product.
-        // In the end show the pallets, as well as the products that are left over
 
         const calculatePalletsOfOrder = (order: IOrderDetails): IPalletPickedDetails[] => {
             const orderPallets: IPalletPickedDetails[] = [];
@@ -35,12 +23,16 @@ export class PnpPickPalletsService {
                 let largeLugs = 0;
                 let smallLugs = 0;
                 if (product.lugSize === 2) {
-                    largeLugs = topLevel / product.lugSize;
+                    largeLugs = TOPLEVEL / product.lugSize;
                 } else {
-                    smallLugs = topLevel / product.lugSize;
+                    smallLugs = TOPLEVEL / product.lugSize;
                 }
-                const pallet: IPalletPickedDetails = {lugAmount: topLevel / product.lugSize, products: [product], smallLugSpace: topLevel,
-                    palletid: order.accountMRid, palletName: order.commonName, largeLugs: largeLugs, smallLugs: smallLugs};
+                product.amount = TOPLEVEL / product.lugSize;
+                // const prod: IProductOrderDetails = {amount: TOPLEVEL / product.lugSize, lugSize: product.lugSize,
+                //     packageWeight: product.packageWeight, productMRid: product.productMRid, productid: product.productid,
+                //     rankingInGroup: product.rankingInGroup, userid: product.userid, orderDetailsid: product.orderDetailsid};
+                const pallet: IPalletPickedDetails = { lugAmount: TOPLEVEL / product.lugSize, products: [product], smallLugSpace: TOPLEVEL,
+                    palletid: order.accountMRid, palletName: order.commonName, largeLugs: largeLugs, smallLugs: smallLugs };
                 return pallet;
             };
 
@@ -75,9 +67,9 @@ export class PnpPickPalletsService {
 
             for (let prod = 0; prod < products.length; prod++) {
                 let smallLugSpace = products[prod].amount * products[prod].lugSize;
-                while (smallLugSpace >= topLevel) {
-                    orderPallets.push(createNewFullPallet(products[prod]));
-                    products[prod].amount = products[prod].amount - topLevel / products[prod].lugSize;
+                while (smallLugSpace >= TOPLEVEL) { // If the amount is more than a full pallet
+                    orderPallets.push(createNewFullPallet(JSON.parse(JSON.stringify(products[prod]))));
+                    products[prod].amount = products[prod].amount - TOPLEVEL / products[prod].lugSize;
                     smallLugSpace = products[prod].amount * products[prod].lugSize;
                     if (products[prod].amount <= 0) {
                         products.splice(prod, 1);
@@ -89,13 +81,13 @@ export class PnpPickPalletsService {
                 products = this.toolbox.multiFieldSorting(products, ['lugSize', 'amount']).reverse();
                     if (orderPallets.length > 0) {
                         // if there are already pallets packed
-                        if (orderPallets[orderPallets.length - 1].smallLugSpace < topLevel) {
+                        if (orderPallets[orderPallets.length - 1].smallLugSpace < TOPLEVEL) {
                             // check if the last pallet has space left open
                             let flag = true;
                             for (let prod = 0; prod < products.length; prod++) {
                                 // go through all the product and see if something will fit on it
                                 const smallLugAmount = products[prod].amount * products[prod].lugSize;
-                                const smallLugAmountLeft = topLevel - orderPallets[orderPallets.length - 1].smallLugSpace;
+                                const smallLugAmountLeft = TOPLEVEL - orderPallets[orderPallets.length - 1].smallLugSpace;
                                 if (smallLugAmount <= smallLugAmountLeft) {
                                     addToHalfPallet(orderPallets[orderPallets.length - 1], products[prod]);
                                     // When you splice this number, the for loop jumps a product
@@ -104,7 +96,7 @@ export class PnpPickPalletsService {
                                     flag = false;
                                 }
                             }
-                            if (flag && products[0].amount < topLevel) {
+                            if (flag && products[0].amount < TOPLEVEL) {
                                 orderPallets.push(createNewHalfPallet(products[0]));
                                 products.shift();
                             }
