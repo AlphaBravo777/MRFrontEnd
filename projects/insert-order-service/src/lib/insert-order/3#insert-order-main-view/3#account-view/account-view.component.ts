@@ -86,4 +86,8 @@ export class AccountViewComponent implements OnInit {
         //     ).subscribe();
         // }
     }
+
+    clearOrderNumber() {
+        this.insertFormChangesService.insertOrderNumber('');
+    }
 }

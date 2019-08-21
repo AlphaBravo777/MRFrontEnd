@@ -37,7 +37,7 @@
             </tbody>
         </table>
     </div>
-    <div class='orderNumber'>
+    <span class='orderNumber'>
         <app-float-label-input-box
             class='inputBox'
             [placeHolderText]='orderNumberPlaceHolderText'
@@ -45,5 +45,6 @@
             [caption]='orderNumberCaption'
             [controlPath]='["orderNumber"]'>
         </app-float-label-input-box>
-    </div>
+        <img class='deleteImage' src="assets/images/delete.png" (click)='clearOrderNumber()'>
+    </span>
 </div>

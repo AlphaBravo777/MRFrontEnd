@@ -36,6 +36,10 @@ export class InsertOrderData$Service {
         this.workingAccount.next(account);
     }
 
+    setProductListToPickFrom(productListToPickFrom) {
+        this.productListToPickFrom.next(productListToPickFrom);
+    }
+
 
 
 }

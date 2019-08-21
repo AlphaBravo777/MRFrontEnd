@@ -1,5 +1,5 @@
 <h1>Meatrite Orders Entry Form</h1>
-<form [formGroup]='mainInsertForm'  (ngSubmit)='orderToInsert.emit([mainInsertForm.value, routeForm.value])'>
+<form [formGroup]='mainInsertForm'  (ngSubmit)='finalChecksBeforeInsertingOrder()'>
     <div class='componentContainer'>
             <div class='topMenuView'>
                 <mr-insert-top-menu-view

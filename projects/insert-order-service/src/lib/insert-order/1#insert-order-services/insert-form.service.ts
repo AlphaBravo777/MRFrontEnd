@@ -20,7 +20,7 @@ export class InsertFormService {
 
     private addPrimaryFields() {
         this.insertForm = this.fb.group({
-            accountid: ['', Validators.required],
+            accountid: ['', [Validators.required, Validators.minLength(1)]],
             accountID: [''],
             accountMRid: ['', [Validators.required, Validators.minLength(2)]],
             accountName: [''],
@@ -90,7 +90,7 @@ export class InsertFormService {
 
     private addRoutePrimaryFields() {
         this.routeForm = this.fb.group({
-            routeName: ['', [Validators.required, Validators.minLength(4)]],
+            routeName: ['', [Validators.required, Validators.minLength(3)]],
             routeid: ['', [Validators.required, Validators.minLength(1)]],
         });
     }

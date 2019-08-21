@@ -41,6 +41,20 @@ table {
     width: 20px;
 }
 
-#addProductButton {
-    height: 20px;
+.addProductButton {
+    width: 100%;
+    background-color: transparent;
+    border: 0px solid;
+    color: #000000;
+    padding: 0px;
+    padding-right: 6px;
+}
+
+.addProduct {
+    display: grid;
+    span{
+        font-weight: bold;
+        justify-self: center;
+    }
+
 }

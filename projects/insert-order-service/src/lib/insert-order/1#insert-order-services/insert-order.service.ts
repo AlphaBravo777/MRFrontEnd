@@ -42,6 +42,7 @@ export class InsertOrderService {
         return this.orderService.getProductListToPickFromForAccount(account).pipe(
             take(1),
             tap(productListToPickFrom => this.insertFormChangesService.insertProductsToPickFrom(productListToPickFrom)),
+            tap(productListToPickFrom => this.insertOrderData$Service.setProductListToPickFrom(productListToPickFrom)),
             switchMap(() => this.insertOrderService.searchForOrder(datePackage, account.accountid)),
             switchMap(order => {
                 if (order) {

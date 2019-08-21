@@ -10,6 +10,7 @@
                                         [colorChangeInputBoxData]='colorChangeInputBoxData'
                                         [defaultValue]='product.productMRid'
                                         [controlPath]='"productMRid"'
+                                        [capitalize]=true
                                         (valueChange)='productMRidInput($event, i)'
                                         >
                                     </app-color-change-input-box>
@@ -33,7 +34,11 @@
                         </span>
                     </app-minimalistic-button>
                 </tr>
-                <tr></tr>
             </tbody>
         </table>
+        <button class='addProductButton' type="button" (click)='addProduct()'>
+            <app-minimalistic-button class='addProduct'>
+                <span>Add another product</span>
+            </app-minimalistic-button>
+        </button>
     </div>

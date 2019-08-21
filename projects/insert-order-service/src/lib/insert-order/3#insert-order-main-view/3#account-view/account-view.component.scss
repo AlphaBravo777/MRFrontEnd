@@ -12,3 +12,14 @@ table {
 .inputBox {
     margin-top: 20px;
 }
+
+.orderNumber{
+    display: grid;
+    grid-template-columns: 1fr 30px;
+
+    .deleteImage{
+        width: 20px;
+        align-self: end;
+        padding: 5px;
+    }
+}

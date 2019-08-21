@@ -67,12 +67,15 @@ export class PnpPickPalletsService {
 
             for (let prod = 0; prod < products.length; prod++) {
                 let smallLugSpace = products[prod].amount * products[prod].lugSize;
+
                 while (smallLugSpace >= TOPLEVEL) { // If the amount is more than a full pallet
                     orderPallets.push(createNewFullPallet(JSON.parse(JSON.stringify(products[prod]))));
                     products[prod].amount = products[prod].amount - TOPLEVEL / products[prod].lugSize;
                     smallLugSpace = products[prod].amount * products[prod].lugSize;
                     if (products[prod].amount <= 0) {
+                        // When you splice this number, the for loop jumps a product
                         products.splice(prod, 1);
+                        prod--;
                     }
                 }
             }

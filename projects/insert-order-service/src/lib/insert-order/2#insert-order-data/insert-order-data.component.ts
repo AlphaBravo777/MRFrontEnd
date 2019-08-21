@@ -60,6 +60,8 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
             tap(response => {
                 if ('error' in response) {
                     this.errorMessages.push({error: response.error});
+                } else {
+                    this.insertFormChangesService.resetOrderForm();
                 }
             })
         ).subscribe();

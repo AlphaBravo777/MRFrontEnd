@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroupDirective, FormArray } from '@angular/forms';
 import { IColorChangeInputBoxInterface } from '../shared-components-interface';
 
@@ -13,16 +13,18 @@ export class ColorChangeInputBoxComponent implements OnInit {
     @Input() defaultValue: string;
     @Input() inputBoxFormControl: FormArray;
     @Input() controlPath: string;
+    @Input() capitalize: boolean;
     @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
+    @ViewChild('userInput') userInput: ElementRef;
+
     controller: FormControl;
 
-    constructor(private fgd: FormGroupDirective) {}
+    constructor(private fgd: FormGroupDirective, private renderer: Renderer2) {}
 
     ngOnInit() {
         this.controller = this.fgd.control.get(
             this.controlPath
         ) as FormControl;
-        // console.log('* The product form control = ', this.controller, this.controlPath);
     }
 
     getInputBoxStyle(): Object {
@@ -35,6 +37,13 @@ export class ColorChangeInputBoxComponent implements OnInit {
         } else {
             return 'green';
         }
+    }
+
+    valueChanged(value: string) {
+        if (this.capitalize && value) {
+            this.renderer.setProperty(this.userInput.nativeElement, 'value', value.toUpperCase());
+        }
+        this.valueChange.emit(value);
     }
 
 }
