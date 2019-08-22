@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, ViewChild, Renderer2 } from '@angular/core';
 
-import { IProductDetails, IProductGroup, IProcessedStockProducts, IContainerGroups } from '../../../stock-services/Stock';
-import { BehaviorSubject } from 'rxjs';
+import { IProcessedStockProducts, IContainerGroups } from '../../../stock-services/Stock';
 import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
 import { StockAPIService } from '../../../stock-services/stock-api.service';
-import { AuthService } from '../../../../admin/admin-services/auth.service';
 import { AuthGuard } from '../../../../admin/admin-services/auth.guard';
+import { IProductGroupName } from 'src/app/home/shared/services/productServices/products-interface';
 
 @Component({
     selector: 'app-stock-products',
@@ -34,7 +33,7 @@ export class StockProductsComponent implements OnInit {
     // (This is the main data, we will try and change it to localStorage)
     @Input() workingProcessedStock: IProcessedStockProducts[];
     @Input() stocktime;
-    @Input() processedGroup: IProductGroup[]; // This is all the product group names
+    @Input() processedGroup: IProductGroupName[]; // This is all the product group names
     productsOfWorkingSession: IProcessedStockProducts[] = JSON.parse(localStorage.getItem(this.apiService.workingProcStock));
 
     ngOnInit() {

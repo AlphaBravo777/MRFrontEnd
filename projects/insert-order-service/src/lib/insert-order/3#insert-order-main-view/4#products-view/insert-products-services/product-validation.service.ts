@@ -27,7 +27,7 @@ export class ProductValidationService {
         ).subscribe();
     }
 
-    productInList(value: string, data: IProductDetails[]): [boolean, IProductDetails?] {
+    private productInList(value: string, data: IProductDetails[]): [boolean, IProductDetails?] {
         for (let index = 0; index < data.length; index++) {
             if (value === data[index].productMRid) {
                 return [true, data[index]];
@@ -36,7 +36,7 @@ export class ProductValidationService {
         return [false];
     }
 
-    productUnique(value: string, orders: FormControl) {
+    private productUnique(value: string, orders: FormControl) {
         let sameOrders = 0;
         let a = 0;
         for (const control of orders['controls']) {

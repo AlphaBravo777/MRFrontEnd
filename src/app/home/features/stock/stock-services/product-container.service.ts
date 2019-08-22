@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { StockAPIService } from './stock-api.service';
 import {    IProductContainers,
-            IProductDetails,
             IProcessedStockProducts,
             IProcessedStockContainer,
             IRawProcessedStock,
-            IProductGroup } from './Stock';
+            IProductGroup,
+            IProductDetailsStockDepricated,
+            } from './Stock';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductContainerService {
 
-    createPlaceForContainers(products: IProductDetails[]): IProcessedStockProducts[] {
+    createPlaceForContainers(products: IProductDetailsStockDepricated[]): IProcessedStockProducts[] {
         const emptyProdConGroup: IProcessedStockProducts[] = [];
         for (let prodnum = 0; prodnum < products.length; ++prodnum) {
-            const emptyProdCon: IProcessedStockProducts = {product: products[prodnum].productid, mainContainer: []};
+            const emptyProdCon: IProcessedStockProducts = {product: products[prodnum].productid.toString(), mainContainer: []};
             emptyProdConGroup.push(emptyProdCon);
         }
         return emptyProdConGroup;
@@ -48,7 +48,7 @@ export class ProductContainerService {
         return processedStockMain;
     }
 
-    groupByCategory(products: IProductDetails[]): IProductGroup[] {
+    groupByCategory(products: IProductDetailsStockDepricated[]): IProductGroup[] {
         if (!products) { return; } // This helps also to avoid an "undefined" error
         const categories = new Set(products.map(x => x.batchgroup).sort());
         const result = Array.from(categories).map(x => ({

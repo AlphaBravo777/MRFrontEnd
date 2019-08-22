@@ -61,6 +61,7 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
                 if ('error' in response) {
                     this.errorMessages.push({error: response.error});
                 } else {
+                    console.log('Here is the response from the insert: ', response);
                     this.insertFormChangesService.resetOrderForm();
                 }
             })

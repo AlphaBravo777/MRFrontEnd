@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import {IProductDetails,
-        IProcessedStockProducts,
-        IProductGroup} from '../../stock-services/Stock';
+import {IProcessedStockProducts, IProductGroup} from '../../stock-services/Stock';
 import { StockAPIService } from '../../stock-services/stock-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProductContainerService } from '../../stock-services/product-container.service';
@@ -43,10 +41,6 @@ export class GetProductsComponent implements OnInit {
                 localStorage.setItem(this.stockAPI.workingProcStock, JSON.stringify(prodWithContainers));
                 this.workingProcessedStock = prodWithContainers;
             }
-            // tslint:disable-next-line
-            // this.productsWithContainersAndAmounts = this.productContainerService.insertTotalsIntoContainers(results[2], prodWithContainers);
-            // tslint:disable-next-line
-            // localStorage.setItem('stock', JSON.stringify(this.productsWithContainersAndAmounts)); // This line resets the stock to DB data
             this.processedGroup = this.productContainerService.groupByCategory(results[0]);
           });
     }

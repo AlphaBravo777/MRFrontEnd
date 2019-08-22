@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { StockAPIService } from '../../stock-services/stock-api.service';
-import { forkJoin } from 'rxjs';
-import { IProdDeleteGroups, IProductDetails, IProductContainers } from '../../stock-services/Stock';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 @Component({

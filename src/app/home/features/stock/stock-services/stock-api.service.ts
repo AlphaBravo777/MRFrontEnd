@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { UrlsService } from '../../../core/urls.service';
 import { HttpClient } from '@angular/common/http';
-import { IRawProcessedStock, IProductContainers, IProductDetails } from './Stock';
+import { IRawProcessedStock, IProductContainers, IProductDetailsStockDepricated } from './Stock';
 import { Observable } from 'rxjs';
-
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +17,8 @@ export class StockAPIService {
 
     private productsUrl = this.urlService.backendUrl + 'api/products/';
 
-    getProducts(): Observable<IProductDetails[]> {     // Gets all the meatrite products that are active
-        return this.http.get<IProductDetails[]>(this.productsUrl);
+    getProducts(): Observable<IProductDetailsStockDepricated[]> {     // Gets all the meatrite products that are active
+        return this.http.get<IProductDetailsStockDepricated[]>(this.productsUrl);
     }
 
     getTimedStock(time: String): Observable<IRawProcessedStock[]> { // Gets all the stock values for a specifi time

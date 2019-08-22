@@ -33,6 +33,7 @@ export class InsertOrderData$Service {
     }
 
     setWorkingAccount(account: IAccountDetails) {
+        console.log('Working account have been set - ', account);
         this.workingAccount.next(account);
     }
 

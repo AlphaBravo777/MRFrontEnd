@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormArray, FormGroupDirective } from '@angular/forms';
 import { IColorChangeInputBoxInterface } from 'src/app/home/shared/components/shared-components-interface';
-import { ProductValidationService } from './product-validation.service';
+import { ProductValidationService } from '../insert-products-services/product-validation.service';
 import { InsertFormChangesService } from '../../../1#insert-order-services/insert-form-changes.service';
 import { OrderService } from 'projects/insert-order-service/src/lib/#sharedServices/order.service';
-import { IProductOrderDetails, IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
 
 @Component({
     selector: 'mr-insert-insert-product-view',
@@ -74,6 +74,4 @@ export class InsertProductViewComponent implements OnInit {
         this.insertFormChangesService.removeAnyOrderedProductsFromAvailableList();
         this.insertFormChangesService.addAvailableProductToOrderedProducts(product);
     }
-
-
 }

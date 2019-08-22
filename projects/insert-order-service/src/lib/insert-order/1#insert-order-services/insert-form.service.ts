@@ -31,7 +31,7 @@ export class InsertFormService {
             orderid:  [''],
             timeStampid: ['', [Validators.required, Validators.minLength(1)]],
             timeStampID: [''],
-            userid: ['', [Validators.required, Validators.minLength(1)]],
+            userid: [JSON.parse(JSON.stringify(localStorage.getItem('userID'))), [Validators.required, Validators.minLength(1)]],
             franchiseid: [''],
             franchiseName: [''],
             productGroupid: this.createProductGroupid(),
@@ -47,7 +47,7 @@ export class InsertFormService {
         orderProduct.addControl('amount', this.fb.control(amount,
             [Validators.required, Validators.minLength(1), Validators.pattern('[0-9]*')]));
         orderProduct.addControl('orderDetailsid', this.fb.control(null));
-        orderProduct.addControl('userid', this.fb.control(this.insertForm.get('userid').value));
+        orderProduct.addControl('userid', this.fb.control(JSON.parse(JSON.stringify(localStorage.getItem('userID')))));
         control.push(orderProduct);
     }
 

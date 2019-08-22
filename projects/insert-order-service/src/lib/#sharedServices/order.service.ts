@@ -10,6 +10,7 @@ import { ProductSharedApiService } from 'src/app/home/shared/services/productSer
 import { AccountSharedApiService } from 'src/app/home/shared/services/accountServices/account-shared-api.service';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { RoutesSharedApiService } from 'src/app/home/shared/services/routesServices/routes-shared-api.service';
+import { InsertOrderData$Service } from '../insert-order/1#insert-order-services/insert-order-data$.service';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +19,8 @@ export class OrderService {
     constructor(private insertOrderApiService: InsertOrderApiService,
         private productSharedAPIService: ProductSharedApiService,
         private accountSharedAPIService: AccountSharedApiService,
-        private routesSharedAPIService: RoutesSharedApiService
+        private routesSharedAPIService: RoutesSharedApiService,
+        private insertOrderData$Service: InsertOrderData$Service
         ) {}
 
     private ordersNotInserted = new BehaviorSubject<IOrderDetails[]>([]);
@@ -69,8 +71,12 @@ export class OrderService {
         );
     }
 
-    deleteOrder(orderid: number) {
-        this.insertOrderApiService.deleteOrder(orderid).subscribe(
+    deleteOrder(order: IOrderDetails) {
+        // const orderAccount: IAccountDetails = Object.assign({}, order);
+        this.insertOrderApiService.deleteOrder(order.orderid).pipe(
+            take(1),
+            tap(() => this.insertOrderData$Service.setWorkingAccount(null))
+        ).subscribe(
             data => console.log('Alfa(delete order return data) = ', data)
         );
     }

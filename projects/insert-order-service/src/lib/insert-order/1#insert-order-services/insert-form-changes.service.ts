@@ -129,7 +129,12 @@ export class InsertFormChangesService {
             if (productFromProductList) {
                 const tempRemovedProduct = this.removeProductFromAvailableList(productFromProductList);
                 const removedProduct: IProductOrderDetails = Object.assign(
-                    {amount: control.value.amount, userid: null, orderDetailsid: null, amountid: null}, tempRemovedProduct);
+                    {
+                        amount: control.value.amount,
+                        userid: JSON.parse(JSON.stringify(localStorage.getItem('userID'))),
+                        orderDetailsid: null,
+                        amountid: null
+                    }, tempRemovedProduct);
                 control.setValue(removedProduct);
             }
             a += 1;

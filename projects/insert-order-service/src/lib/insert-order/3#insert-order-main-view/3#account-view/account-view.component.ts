@@ -60,11 +60,13 @@ export class AccountViewComponent implements OnInit {
                         this.accountSelection(this.refinedAccountsArray[0]);
                     } else if (this.refinedAccountsArray.length === 0) {
                         this.insertFormChangesService.resetOrderForm();
+                        this.insertOrderData$Service.setWorkingAccount(null);
                     }
                 })
             ).subscribe();
         } else {
             this.insertFormChangesService.resetOrderForm();
+            this.insertOrderData$Service.setWorkingAccount(null);
         }
     }
 

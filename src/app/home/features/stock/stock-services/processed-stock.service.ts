@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { StockAPIService } from './stock-api.service';
 
-import { IProductGroup, IProductDetails, IProcessedStockProducts } from './Stock';
+import { IProcessedStockProducts } from './Stock';
 import { Router } from '@angular/router';
-import { ReplaySubject, Observable } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 import { DialogBoxService } from '../../../core/dialog-box/dialog-box.service';
 
 @Injectable({

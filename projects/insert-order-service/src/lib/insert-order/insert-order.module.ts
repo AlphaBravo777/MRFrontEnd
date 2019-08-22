@@ -12,6 +12,7 @@ import { ProductHistoryComponent } from './3#insert-order-main-view/4#products-v
 import { CustomMaterialModule } from 'src/app/home/shared/dropdown-table/custom-material.module';
 import { SharedComponentsModule } from 'src/app/home/shared/components/shared-components.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputBoxFocusDirective } from './1#insert-order-services/input-box-focus.directive';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         InsertProductViewComponent,
         ProductsAvailableViewComponent,
         InsertOrderDataComponent,
-        ProductHistoryComponent
+        ProductHistoryComponent,
+        InputBoxFocusDirective
     ],
     imports: [
         CommonModule,

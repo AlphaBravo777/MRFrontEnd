@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { OrderService } from '../../../#sharedServices/order.service';
+import { IOrderDetails } from '../../../#sharedServices/insert-order-service-Interfaces';
 
 @Component({
     selector: 'mr-insert-top-menu-view',
@@ -16,8 +17,7 @@ export class TopMenuViewComponent implements OnInit {
 
     ngOnInit() {}
 
-    deleteOrder(orderid) {
-        console.log('Delete button clicked: ', orderid);
-        this.insertOrderService.deleteOrder(orderid);
+    deleteOrder(order: IOrderDetails) {
+        this.insertOrderService.deleteOrder(order);
     }
 }

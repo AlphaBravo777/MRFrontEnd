@@ -26,6 +26,7 @@ export class InsertOrderService {
             console.log('There IS a working account');
             return this.setNewAccountDetails(workingAccount, datePackage).pipe();
         } else { // If there is no current selected account, then it is only the date that changed, or invalid account id
+            this.insertFormChangesService.resetOrderForm();
             return of([]);
         }
     }
@@ -59,32 +60,12 @@ export class InsertOrderService {
         );
     }
 
-    // What we want to do is when the user changes the accountMRid, it comes here where we debuonce it for .5 sec,
-    // then we send the accountMRid or commonName to be searched, then the results we put in a data$ observable,
-    // and then our accounts component can just subscribe to that observable adn display the names in the component
-
     userAccountidSelection(accountMRid: string, commonName: string): Observable<IAccountDetails[]> {
-        // let refinedAccountsArray: IAccountDetails[] = [];
-        // if (accountMRid || commonName) {
             return of([]).pipe(
                 take(1),
                 delay(500),
                 switchMap(() => this.orderService.getUserInputAccountOrCommonName(accountMRid, commonName)),
                 tap(accounts => this.insertOrderData$Service.setAccountsToPickFrom(accounts))
-                // tap(data => refinedAccountsArray = data),
-                // tap(() => {
-                //     if (refinedAccountsArray.length === 1) {
-                //         console.log('One entry');
-                //         // this.accountSelection(this.refinedAccountsArray[0]);
-                //     } else if (refinedAccountsArray.length === 0) {
-                //         console.log('Zero entries');
-                //         // this.insertFormChangesService.clearAccountMainValues();
-                //         // this.insertFormChangesService.getInsertForm();
-                //     } else {
-                //         console.log('Running');
-                //         this.insertOrderData$Service.setAccountsToPickFrom(refinedAccountsArray);
-                //     }
-                // })
             );
         }
     // }
