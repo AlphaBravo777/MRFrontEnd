@@ -92,6 +92,7 @@ export class InsertFormService {
         this.routeForm = this.fb.group({
             routeName: ['', [Validators.required, Validators.minLength(3)]],
             routeid: ['', [Validators.required, Validators.minLength(1)]],
+            productUnitMeasurement: ['', [Validators.required, Validators.minLength(1)]],
         });
     }
 

@@ -1,3 +1,5 @@
+@import 'src/stylesColors.scss';
+
 .componentContainer {
     padding: 0px;
     margin: 0px;
@@ -20,6 +22,16 @@ h1 {
 .availableProducts {
     padding-top: 20px;
 }
+
+// .routeView {
+//     border-radius: 6px;
+//     background: $mainColor;
+// }
+
+// .accountView {
+//     border-radius: 6px;
+//     background: $mainColor;
+// }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {

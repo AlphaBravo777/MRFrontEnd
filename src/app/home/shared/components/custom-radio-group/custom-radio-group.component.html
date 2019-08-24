@@ -1,5 +1,10 @@
 <mat-radio-group class="example-radio-group">
-    <mat-radio-button class="example-radio-button" color="warn" *ngFor="let button of radioButtons" [value]="button" (click)=buttonPick(button)>
-        {{button.name}} 
+    <mat-radio-button
+        class="example-radio-button"
+        *ngFor="let button of radioButtons; let i = index"
+        color="warn" [value]="button"
+        (click)=buttonPick(button)
+        [checked]="i+1 === defaultButton?.buttonid">
+        {{button.name}}
     </mat-radio-button>
 </mat-radio-group>

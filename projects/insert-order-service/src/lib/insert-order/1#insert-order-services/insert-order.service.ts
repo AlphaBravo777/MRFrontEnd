@@ -9,6 +9,7 @@ import { InsertOrderData$Service } from './insert-order-data$.service';
 import { Observable, of } from 'rxjs';
 import { IOrderDetails } from '../../#sharedServices/insert-order-service-Interfaces';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
+import { FormGroup, FormArray } from '@angular/forms';
 
 @Injectable({
     providedIn: 'root'
@@ -68,5 +69,13 @@ export class InsertOrderService {
                 tap(accounts => this.insertOrderData$Service.setAccountsToPickFrom(accounts))
             );
         }
-    // }
+
+    changeAmountMeasurementToUnitsIfCurrentlyKgs(orderForm: FormGroup, routeForm: FormGroup) {
+        if (routeForm.get('productUnitMeasurement').value === 2) {
+            const orderedProducts = <FormArray>orderForm.controls.orders;
+            for (const control of orderedProducts['controls']) {
+                control.get('amount').setValue(Math.floor(control.get('amount').value / control.get('packageWeight').value));
+            }
+        }
+    }
 }

@@ -1,10 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-
-export class ICustomRadioButton {
-    name?: string;
-    color?: string;
-    rank?: number;
-}
+import { ICustomRadioButton } from './radio-button-interface';
 
 @Component({
     selector: 'app-custom-radio-group',
@@ -14,7 +9,8 @@ export class ICustomRadioButton {
 
 export class CustomRadioGroupComponent implements OnInit {
 
-    @Input() buttons;
+    @Input() buttons: ICustomRadioButton[];
+    @Input() defaultButton: ICustomRadioButton;
     @Output() buttonPicked: EventEmitter<any> = new EventEmitter<any>();
     radioButtons: ICustomRadioButton[] = [];
 
@@ -22,14 +18,18 @@ export class CustomRadioGroupComponent implements OnInit {
 
     ngOnInit() {
         this.buttons.map((object, index) => {
-            const tempObject: ICustomRadioButton = {};
+            const tempObject: ICustomRadioButton = {name: null};
             Object.keys(object).map(prop => {
-                if (prop.includes('Name')) {
+                if (prop.includes('Name') || prop.includes('name')) {
                     tempObject.name = object[prop];
-                } else if (prop.includes('Color')) {
+                } else if (prop.includes('Color') || prop.includes('color')) {
                     tempObject.color = object[prop];
-                } else if (prop.includes('Rank')) {
+                } else if (prop.includes('Rank') || prop.includes('rank')) {
                     tempObject.rank = object[prop];
+                } else if (prop.includes('buttonid')) {
+                    tempObject.buttonid = object[prop];
+                } else if (prop.includes('description')) {
+                    tempObject.description = object[prop];
                 } else {
                     console.log(' # # # # # # The radio button properties do not match up correctly # # # # # #');
                 }
@@ -41,7 +41,7 @@ export class CustomRadioGroupComponent implements OnInit {
     public buttonPick(filter: ICustomRadioButton): void {
         this.buttons.map(object => {
             Object.keys(object).map(prop => {
-                if (prop.includes('Name')) {
+                if (prop.includes('Name') || prop.includes('name')) {
                     if (object[prop] === filter.name) {
                         this.buttonPicked.emit(object);
                         return;

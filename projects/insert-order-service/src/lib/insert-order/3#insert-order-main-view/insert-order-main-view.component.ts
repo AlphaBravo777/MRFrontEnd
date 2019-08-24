@@ -4,6 +4,7 @@ import { IInserOrderErrors, IOrderDetails } from '../../#sharedServices/insert-o
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { InsertFormChangesService } from '../1#insert-order-services/insert-form-changes.service';
+import { InsertOrderService } from '../1#insert-order-services/insert-order.service';
 
 @Component({
     selector: 'mr-insert-insert-order-main-view',
@@ -18,7 +19,8 @@ export class InsertOrderMainViewComponent implements OnInit {
     @Input() errorMessages: IInserOrderErrors[];
     @Output() orderToInsert: EventEmitter<[IOrderDetails, IRoute]> = new EventEmitter<[IOrderDetails, IRoute]>();
 
-    constructor(private insertFormChangesService: InsertFormChangesService) {}
+    constructor(private insertFormChangesService: InsertFormChangesService,
+        private insertOrderService: InsertOrderService) {}
 
     ngOnInit() {}
 
@@ -28,6 +30,7 @@ export class InsertOrderMainViewComponent implements OnInit {
 
     finalChecksBeforeInsertingOrder() {
         this.insertFormChangesService.removeAnyOrderedProductsFromAvailableList();
+        this.insertOrderService.changeAmountMeasurementToUnitsIfCurrentlyKgs(this.mainInsertForm, this.routeForm);
         this.orderToInsert.emit([this.mainInsertForm.value, this.routeForm.value]);
     }
 }

@@ -3,9 +3,14 @@
     ✔ Allow user to update form @done(19-08-23 16:52)
     ☐ Show user in some way if order was succesfull
     ☐ Set units to buy in - kg/units
+    ☐ For Checkers/Shoprite, we need an alternative product id to insert.
     ✔ After deleting/updating an order return the new state @done(19-08-21 16:49)
     ☐ When you were on a product and you go back to menu -> insert order, the product is still available
     ☐ Add little "x"s next to other fields that you can press to clear them quickly
+    ☐ Allow user to insert decimals into amount slot
+    ☐ Maybe put gridboxes in own color scheme
+    ☐ When you get order to edit, all unitmeasurements will be in units. When you change unitMeasurement to kgs,
+        ☐ then change all amounts in form that will be in units to kgs
 
 
 ☐ Bugs

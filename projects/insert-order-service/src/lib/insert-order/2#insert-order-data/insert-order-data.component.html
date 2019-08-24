@@ -12,13 +12,14 @@
                         [routeNameFormControl]='routeForm.get("routeName")'
                         [routeidFormControl]='routeForm.get("routeid")'>
                     </mr-insert-route-view>
+                    <mr-insert-amount-unit-selection>
+                    </mr-insert-amount-unit-selection>
                 </form>
             </div>
         </mr-insert-insert-order-main-view>
 
     <pre>{{routeForm?.value|json}}</pre>
     <pre>{{mainInsertForm?.value|json}}</pre>
-
 </app-box-shadow-container>
 
 

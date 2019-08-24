@@ -6,6 +6,7 @@ import { IAccountDetails } from 'src/app/home/shared/services/accountServices/ac
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { IOrderDetails } from '../../#sharedServices/insert-order-service-Interfaces';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
+import { ICustomRadioButton } from 'src/app/home/shared/components/custom-radio-group/radio-button-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -85,22 +86,9 @@ export class InsertFormChangesService {
         this.routeForm.get('routeName').setValue(route.routeName);
     }
 
-    // clearAccountMainValues() {
-    //     this.orderForm.get('commonName').setValue(null);
-    //     this.orderForm.get('accountMRid').setValue(null);
-    //     this.orderForm.get('accountid').setValue(null);
-    //     this.orderForm.get('orderNumber').setValue(null);
-    //     this.orderForm.get('orderid').setValue(null);
-    //     // this.insertForm.get('productListToPickFrom').setValue([]);
-    //     const productListToPickFromArray = <FormArray>this.orderForm.controls['productListToPickFrom'];
-    //     while (0 !== productListToPickFromArray.length) {
-    //         productListToPickFromArray.removeAt(0);
-    //     }
-    //     const ordersArray = <FormArray>this.orderForm.controls['orders'];
-    //     while (0 !== ordersArray.length) {
-    //         ordersArray.removeAt(0);
-    //     }
-    // }
+    insertProductUnitMeasurement(unit: ICustomRadioButton) {
+        this.routeForm.get('productUnitMeasurement').setValue(unit.buttonid);
+    }
 
     insertProductsToPickFrom(products: IProductDetails[]) {
         // this.insertForm.get('productListToPickFrom').setValue([]);
