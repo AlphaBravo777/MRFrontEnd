@@ -49,56 +49,6 @@ export interface IAccountDetailsInterface {
     routeid: number;
 }
 
-// export class IAccountDetails implements IAccountDetailsInterface {
-//     accountid: number;
-//     accountID: string;
-//     accountMRid: string;
-//     accountName: string;
-//     commonName: string;
-//     orderNumber: string;
-//     parentAccountid: number;
-//     routeName: string;
-//     routeid: number;
-// }
-
-
-
-// This should be refractored out later to productService
-// export interface IProductDetailsInterface {
-//     productMRid: string;
-//     productid: number;
-//     packageWeight: number;
-//     rankingInGroup: number;
-//     proddescription?: string;
-//     productonhold?: boolean;
-//     batchRanking?: number;
-//     packaging?: number;
-//     brand?: number;
-//     unitWeight?: number;
-//     lugSize: number;
-// }
-// export class IProductDetails {
-//     productMRid: string;
-//     productid: number;
-//     packageWeight: number;
-//     rankingInGroup: number;
-//     proddescription?: string;
-//     productonhold?: boolean;
-//     batchRanking?: number;
-//     packaging?: number;
-//     brand?: number;
-//     unitWeight?: number;
-//     lugSize: number;
-// }
-
-// export class IProductOrderDetails extends IProductDetails {
-//     amount: number;
-//     orderDetailsid: number;
-//     userid: number;
-//     status?: boolean;
-//     lastModified?: string;
-// }
-
 //  Frontend Interface
 export class IOrderDetails extends IAccountDetails {
     orderid: number;
@@ -153,86 +103,30 @@ export function ff_CreateOrderDetailsObjFromDBObj(obj: IOrderDetailsComingFromDB
     return order;
 }
 
-
-
-
-// export interface IAccountDBDetailsInterface {
-//     accountsid: number;
-//     accountID: string;
-//     accountMRid: string;
-//     accountName: string;
-//     commonName: string;
-//     parentAccountid: number;
-//     routeName: string;
-//     routeid: number;
-//     orderNumber: string;
-// }
-
-export class IAccountDBDetails {
-    accountsid: number;
-    accountID: string;
-    accountMRid: string;
-    accountName: string;
-    commonName: string;
-    parentAccountid: number;
-    routeName: string;
-    routeid: number;
+export class IOrderDBDetails extends IAccountDetails {
+    id: number;
+    orderDate: string;
+    timeStampid: number;
+    userid: number;
     orderNumber: string;
 
-    constructor(obj: IAccountDetails) {
-        this.accountsid = obj.accountid;
-        this.accountID = obj.accountID;
-        this.accountMRid = obj.accountMRid;
-        this.accountName = obj.accountName;
-        this.commonName = obj.commonName;
-        this.parentAccountid = obj.parentAccountid;
-        this.routeName = obj.routeName;
-        this.routeid = obj.routeid;
-    }
-}
-
-// export function createAccount(obj: IAccountDetails): IAccountDBDetails {
-//     return new IAccountDBDetails(obj);
-// }
-
-export interface IOrderDBDetailsInterface {
-    orderDate: string;
-    timeStampid: number;
-    userid: number;
-    orders: IProductOrderDetails[];
-}
-
-export class IOrderDBDetails extends IAccountDBDetails implements IOrderDBDetailsInterface {
-    orderDate: string;
-    timeStampid: number;
-    userid: number;
-    orders: IProductOrderDetails[];
-
     constructor(obj: IOrderDetails) {
-        super(obj);
-        this.accountsid = obj.accountid;
-        this.accountID = obj.accountID;
+        super();
+        this.id = obj.orderid;
+        this.accountid = obj.accountid;
         this.accountMRid = obj.accountMRid;
-        this.accountName = obj.accountName;
         this.commonName = obj.commonName;
-        this.parentAccountid = obj.parentAccountid;
-        this.routeName = obj.routeName;
         this.routeid = obj.routeid;
         this.orderDate = obj.orderDate;
         this.timeStampid = obj.timeStampid;
         this.userid = obj.userid;
-        this.orders = obj.orders;
         this.orderNumber = obj.orderNumber;
     }
 }
 
-export function factoryFunctionDBLayerCreateNewOrder(obj: IOrderDetails): IOrderDBDetails {
+export function ff_createOrderDetailsObjectForDB(obj: IOrderDetails): IOrderDBDetails {
     return new IOrderDBDetails(obj);
 }
-
-// export class IInsertFormDetails extends IOrderDetails {
-
-// }
 
 export class IInserOrderErrors {
     error: string;

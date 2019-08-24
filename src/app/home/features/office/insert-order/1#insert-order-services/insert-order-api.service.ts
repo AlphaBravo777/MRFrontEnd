@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import {
     IOrderDetails,
-    factoryFunctionDBLayerCreateNewOrder,
+    ff_createOrderDetailsObjectForDB,
     IOrderDBDetails } from 'projects/insert-order-service/src/lib/#sharedServices/insert-order-service-Interfaces';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class InsertOrderApiService {
     private stockUrl = this.urlService.backendUrl + 'office/';
 
     enterNewOrderDetails(newOrderDetails: IOrderDetails) {
-        const dbOrderDetails: IOrderDBDetails = factoryFunctionDBLayerCreateNewOrder(newOrderDetails);
+        const dbOrderDetails: IOrderDBDetails = ff_createOrderDetailsObjectForDB(newOrderDetails);
         return this.http.post<any>(this.stockUrl + 'orders/enterDetails/', dbOrderDetails);
     }
 

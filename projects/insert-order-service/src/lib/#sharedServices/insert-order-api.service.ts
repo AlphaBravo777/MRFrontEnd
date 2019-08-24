@@ -3,13 +3,15 @@ import { UrlsService } from 'src/app/home/core/urls.service';
 import { HttpClient } from '@angular/common/http';
 import { IOrderDetails,
     IOrderDBDetails,
-    factoryFunctionDBLayerCreateNewOrder,
+    ff_createOrderDetailsObjectForDB,
     ff_CreateOrderDetailsObjFromDBObj } from './insert-order-service-Interfaces';
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';
-import { map, take } from 'rxjs/operators';
-import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { map, take, tap } from 'rxjs/operators';
+import { IProductOrderDetails,
+    ff_createProductDetailsObjectForDB,
+    IProductOrderDBDetails } from 'src/app/home/shared/services/productServices/products-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -64,17 +66,26 @@ export class InsertOrderApiService {
     private orderServiceUrl = this.urlService.mrOrderService;
 
     enterNewOrderDetails(orderDetails: IOrderDetails): Observable<IOrderDetails> {
-      return this.http.post<any>(this.orderServiceUrl + 'orders/insertNewOrderDetails/', orderDetails).pipe(
-          map(response => ff_CreateOrderDetailsObjFromDBObj(response))
+        const orderDetailsBackend: IOrderDBDetails = ff_createOrderDetailsObjectForDB(orderDetails);
+        console.log('Backend object: ', orderDetailsBackend);
+        return this.http.put<any>(this.orderServiceUrl + 'orders/insertNewOrderDetails/', orderDetailsBackend).pipe(
+            tap(response => console.log('This is the responce now', JSON.parse(JSON.stringify(response)))),
+            map(response => ff_CreateOrderDetailsObjFromDBObj(response)),
+            tap(response => console.log('This is the response now', response))
       );
+        // return null;
     }
 
     enterProductAmounts(productAmounts: IProductOrderDetails[]): Observable<any> {
-      return this.http.post<any>(this.orderServiceUrl + 'orders/insertProductAmounts/', productAmounts);
+        const productDetailsBackend: IProductOrderDBDetails[] = [];
+        productAmounts.forEach(product => productDetailsBackend.push(ff_createProductDetailsObjectForDB(product)));
+        console.log('The products that will be inserted = ', productDetailsBackend);
+    //   const productDetailsBackend: IProductOrderDBDetails[] = ff_createProductDetailsObjectForDB(productAmounts)
+        return this.http.put<any>(this.orderServiceUrl + 'orders/insertProductAmounts/', productDetailsBackend);
     }
 
     enterNewPnPOrderDetails(newOrderDetails: IOrderDetails) {
-        const dbOrderDetails: IOrderDBDetails = factoryFunctionDBLayerCreateNewOrder(newOrderDetails);
+        const dbOrderDetails: IOrderDBDetails = ff_createOrderDetailsObjectForDB(newOrderDetails);
       //   return of({id: 123});
         return this.http.post<any>(this.stockUrl + 'orders/enterDetails/', dbOrderDetails);
     }

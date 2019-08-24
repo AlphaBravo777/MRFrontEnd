@@ -1,9 +1,11 @@
 ☐ Features still to add
     ✔ When user enters new product, make cursor to appear in product input box @done(19-08-21 15:31)
-    ☐ Allow user to update form
+    ✔ Allow user to update form @done(19-08-23 16:52)
     ☐ Show user in some way if order was succesfull
     ☐ Set units to buy in - kg/units
     ✔ After deleting/updating an order return the new state @done(19-08-21 16:49)
+    ☐ When you were on a product and you go back to menu -> insert order, the product is still available
+    ☐ Add little "x"s next to other fields that you can press to clear them quickly
 
 
 ☐ Bugs
@@ -11,3 +13,6 @@
         ☐ (which means the product get deleted form the products to pick form list)
         ☐ and he then enters a product by clicking on its card, you will now have
         ☐ two valid product that are the same
+    ☐ When you have two orders in the db with the same info, two for the same day, then it will insert
+    ☐ You are able to insert the same order twice in the db (But this may just be with the put method)
+    ☐ When you insert a product like MINI, it shows up in the form as MINi, and therefore is not validated
