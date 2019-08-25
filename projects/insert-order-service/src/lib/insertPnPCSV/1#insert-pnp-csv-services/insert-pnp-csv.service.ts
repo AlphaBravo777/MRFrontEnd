@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IPnPCSVData, IPnPCSVFormat, IOrderDetails } from '../../#sharedServices/insert-order-service-Interfaces';
+import { IPnPCSVData, IPnPCSVFormat, IOrderDetails } from '../../#sharedServices/interfaces/insert-order-service-Interfaces';
 import { ConvertPnpCsvDataFactoryService } from './convert-pnp-csv-data-factory.service';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 import { ConvertPnpStructureToOrdersService } from './convert-pnp-structure-to-orders.service';

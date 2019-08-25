@@ -4,7 +4,7 @@ import { FormGroup, FormArray } from '@angular/forms';
 import { IProductGroupName, IProductDetails, IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
-import { IOrderDetails } from '../../#sharedServices/insert-order-service-Interfaces';
+import { IOrderDetails } from '../../#sharedServices/interfaces/insert-order-service-Interfaces';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { ICustomRadioButton } from 'src/app/home/shared/components/custom-radio-group/radio-button-interface';
 

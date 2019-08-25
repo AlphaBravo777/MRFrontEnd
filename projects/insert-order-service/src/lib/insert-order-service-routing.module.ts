@@ -26,6 +26,10 @@ const insertOrderServiceRoutes: Routes = [
             {
                 path: 'insertPnPCSV',
                 component: InsertPnpCsvDataComponent
+            },
+            {
+                path: 'view-orders',
+                loadChildren: () => import('./view-orders/view-orders.module').then(m => m.ViewOrdersModule)
             }
         ]
     }

@@ -6,7 +6,7 @@ import { switchMap, tap, map } from 'rxjs/operators';
 import { IPnPOrderMatrix, IPnPOrderTotals, IPalletPickedDetails } from './pnp-shared-interfaces';
 import { ToolboxGroupService } from '../toolbox/toolbox-group.service';
 import { IProductOrderDetails } from '../productServices/products-interface';
-import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/insert-order-service-Interfaces';
+import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/insert-order-service-Interfaces';
 
 @Injectable({
     providedIn: 'root'

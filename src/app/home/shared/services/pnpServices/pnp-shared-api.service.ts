@@ -5,7 +5,7 @@ import { IDate } from '../../main-portal/date-picker/date-picker-service/date-in
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IProductOrderDetails, IProductDetails } from '../productServices/products-interface';
-import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/insert-order-service-Interfaces';
+import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/insert-order-service-Interfaces';
 
 @Injectable({
     providedIn: 'root'

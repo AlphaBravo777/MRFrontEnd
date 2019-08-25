@@ -2,7 +2,7 @@
     ✔ When user enters new product, make cursor to appear in product input box @done(19-08-21 15:31)
     ✔ Allow user to update form @done(19-08-23 16:52)
     ☐ Show user in some way if order was succesfull
-    ☐ Set units to buy in - kg/units
+    ✔ Set units to buy in - kg/units @done(19-08-24 10:31)
     ☐ For Checkers/Shoprite, we need an alternative product id to insert.
     ✔ After deleting/updating an order return the new state @done(19-08-21 16:49)
     ☐ When you were on a product and you go back to menu -> insert order, the product is still available

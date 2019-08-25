@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of, Observable, from, BehaviorSubject } from 'rxjs';
 import { tap, concatMap, take } from 'rxjs/operators';
-import { IOrderDetails } from './insert-order-service-Interfaces';
+import { IOrderDetails } from './interfaces/insert-order-service-Interfaces';
 import { InsertOrderApiService } from './insert-order-api.service';
 import { IProductOrderDetails, IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';

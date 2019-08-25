@@ -7,7 +7,7 @@ import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-s
 import { PnpSharedService } from 'src/app/home/shared/services/pnpServices/pnp-shared.service';
 import { IPnPRegions, IPalletPickedDetails,
     IPnPOrderTotals, IPnPOrderMatrix } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
-import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/insert-order-service-Interfaces';
+import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/insert-order-service-Interfaces';
 
 @Component({
     selector: 'app-pnp-pallets-data',

@@ -1,18 +1,22 @@
 class IBrandBackend {
+    id: string;
     brand: string;
 }
 
 class IUnitWeightBackend {
+    id: string;
     unitAmount: number;
     measuringUnit: string;
 }
 
 class IPackagingBackend {
+    id: string;
     rowid: number;
     packagingType: string;
 }
 
 class IProductBackend {
+    id: string;
     rowid: number;
     proddescription: string;
     productonhold: boolean;
@@ -24,6 +28,7 @@ class IProductBackend {
 }
 
 class IOrderProductAmountsBackend {
+    id: string;
     rowid: number;
     productMRid: string;
     amount: number;

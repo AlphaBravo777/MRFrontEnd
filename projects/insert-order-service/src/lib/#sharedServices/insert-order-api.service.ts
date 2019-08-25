@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { IOrderDetails,
     IOrderDBDetails,
     ff_createOrderDetailsObjectForDB,
-    ff_CreateOrderDetailsObjFromDBObj } from './insert-order-service-Interfaces';
+    ff_CreateOrderDetailsObjFromDBObj } from './interfaces/insert-order-service-Interfaces';
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';

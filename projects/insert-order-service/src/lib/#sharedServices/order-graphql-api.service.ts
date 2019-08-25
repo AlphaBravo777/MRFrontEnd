@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { IOrderDetails } from './insert-order-service-Interfaces';
+import { IOrderDetails } from './interfaces/insert-order-service-Interfaces';
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { map } from 'rxjs/operators';
 import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
-import { INodeOrderDetailsMicroService, IOrderproductamountsmicroserviceSet } from './order-backend-interfaces';
+import { INodeOrderDetailsMicroService, IOrderproductamountsmicroserviceSet } from './interfaces/order-backend-interfaces';
 
 @Injectable({
   providedIn: 'root'
