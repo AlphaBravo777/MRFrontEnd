@@ -11,6 +11,7 @@
     ☐ Maybe put gridboxes in own color scheme
     ☐ When you get order to edit, all unitmeasurements will be in units. When you change unitMeasurement to kgs,
         ☐ then change all amounts in form that will be in units to kgs
+    ☐ Allow user to click on the route or a button next to it, to go to the route view window of that route
 
 
 ☐ Bugs
