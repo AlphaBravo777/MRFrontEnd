@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IPnPCSVData, IPnPCSVFormat } from '../../#sharedServices/interfaces/insert-order-service-Interfaces';
+import { IPnPCSVFormat, IPnPCSVData } from '../../#sharedServices/interfaces/pnp-csv-interface';
 
 @Injectable({
   providedIn: 'root'

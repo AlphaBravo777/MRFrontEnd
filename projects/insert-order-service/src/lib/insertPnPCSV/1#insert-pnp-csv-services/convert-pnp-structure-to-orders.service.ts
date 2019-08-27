@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { IPnPCSVData,
-         IOrderDetails} from '../../#sharedServices/interfaces/insert-order-service-Interfaces';
+import { IOrderDetails} from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
 import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
+import { IPnPCSVData } from '../../#sharedServices/interfaces/pnp-csv-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -170,6 +170,7 @@ export class ConvertPnpStructureToOrdersService {
         };
         const pnpOrder: IOrderDetails = Object.assign({
             orderid: null,
+            orderTotalAmount: null,
             deliveryDate: accountDetail.deliveryDateAtDC,
             orderDate: accountDetail.deliveryDateAtDC,
             timeStampid: null,

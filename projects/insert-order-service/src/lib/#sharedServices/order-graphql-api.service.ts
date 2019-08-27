@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IOrderDetails } from './interfaces/insert-order-service-Interfaces';
+import { IOrderDetails } from './interfaces/order-service-Interfaces';
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';
@@ -67,13 +67,25 @@ export class OrderGraphqlApiService {
         }
     }`;
 
+    public QUERY_FOR_GETTING_MINIMAL_ROUTE_DATA_FOR_DATE = gql`
+    query getOrderRoutesForDay($timeStampid: Float) {
+        nodeOrderDetailsMicroService(timeStampid:$timeStampid){
+        edges{
+            node{
+                orderTotalAmount
+                routeid
+                }
+            }
+        }
+    }`;
+
     constructor(private apollo: Apollo) { }
 
     searchForOrdersMain(accountid: number, datePackage: IDate, routeid: number): Observable<IOrderDetails[]> {
         console.log('Fox(b) = ', datePackage.id);
         return this.apollo
             .watchQuery<INodeOrderDetailsMicroService>({
-                variables: { accountid: accountid, timestampid: datePackage.id, routeid: 18 },
+                variables: { accountid: accountid, timestampid: datePackage.id, routeid: routeid},
                 query: this.MAIN_QUERY_FOR_SEARCHING_ORDERS,
             })
             .valueChanges.pipe(
@@ -94,22 +106,24 @@ export class OrderGraphqlApiService {
         const orders: IOrderDetails[] = [];
         for (let order = 0; order < data.edges.length; ++order) {
             const products: IProductOrderDetails[] = [];
-            const productData: IOrderproductamountsmicroserviceSet = data.edges[order].node.orderproductamountsmicroserviceSet;
-            for (let prod = 0; prod < productData.edges.length; ++prod) {
-                const singleGroup: IProductOrderDetails = {
-                    productid: productData.edges[prod].node.productid.rowid,
-                    productMRid: productData.edges[prod].node.productMRid,
-                    amountid: productData.edges[prod].node.rowid,
-                    amount: productData.edges[prod].node.amount,
-                    status: productData.edges[prod].node.status,
-                    lastModified: productData.edges[prod].node.lastModified,
-                    userid: productData.edges[prod].node.userid,
-                    packageWeight: productData.edges[prod].node.packageWeight,
-                    orderDetailsid: productData.edges[prod].node.rowid,
-                    lugSize: calculateLugSize(productData.edges[prod].node.productid.packaging.rowid),
-                    rankingInGroup: productData.edges[prod].node.productid.rankingInGroup
-                };
-                products.push(singleGroup);
+            if (data.edges[order].node.orderproductamountsmicroserviceSet) {
+                const productData: IOrderproductamountsmicroserviceSet = data.edges[order].node.orderproductamountsmicroserviceSet;
+                for (let prod = 0; prod < productData.edges.length; ++prod) {
+                    const singleGroup: IProductOrderDetails = {
+                        productid: productData.edges[prod].node.productid.rowid,
+                        productMRid: productData.edges[prod].node.productMRid,
+                        amountid: productData.edges[prod].node.rowid,
+                        amount: productData.edges[prod].node.amount,
+                        status: productData.edges[prod].node.status,
+                        lastModified: productData.edges[prod].node.lastModified,
+                        userid: productData.edges[prod].node.userid,
+                        packageWeight: productData.edges[prod].node.packageWeight,
+                        orderDetailsid: productData.edges[prod].node.rowid,
+                        lugSize: calculateLugSize(productData.edges[prod].node.productid.packaging.rowid),
+                        rankingInGroup: productData.edges[prod].node.productid.rankingInGroup
+                    };
+                    products.push(singleGroup);
+                }
             }
             const singleOrder: IOrderDetails = {
                 orderid: data.edges[order].node.rowid,
@@ -127,11 +141,26 @@ export class OrderGraphqlApiService {
                 productGroupid: null,
                 parentAccountid: data.edges[order].node.accountid,
                 orders: products,
+                orderTotalAmount: data.edges[order].node.orderTotalAmount,
             };
             orders.push(singleOrder);
         }
         console.log('FOX (Normal order returns) = ', orders);
         return orders;
+    }
+
+    getRoutesForDatePackage_minimalData(datePackage: IDate): Observable<IOrderDetails[]> {
+        console.log('Fox(b) = ', datePackage.id);
+        if (datePackage.id === null) {  // Do this, else if datePackage === null EVERY order will be returned
+            datePackage.id = 0;
+        }
+        return this.apollo
+            .watchQuery<INodeOrderDetailsMicroService>({
+                variables: { timeStampid: datePackage.id },
+                query: this.QUERY_FOR_GETTING_MINIMAL_ROUTE_DATA_FOR_DATE,
+            })
+            .valueChanges.pipe(
+                map(result => this.consolidateDailyOrders(result.data['nodeOrderDetailsMicroService'])));
     }
 
 }

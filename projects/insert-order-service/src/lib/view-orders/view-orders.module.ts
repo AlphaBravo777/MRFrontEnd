@@ -4,12 +4,16 @@ import { CommonModule } from '@angular/common';
 import { ViewOrdersRoutingModule } from './view-orders-routing.module';
 import { ViewOrderDataComponent } from './2#view-order-data/view-order-data.component';
 import { ViewOrderMainViewComponent } from './3#view-order-main-view/view-order-main-view.component';
+import { SharedComponentsModule } from 'src/app/home/shared/components/shared-components.module';
+import { CustomMaterialModule } from 'src/app/home/shared/dropdown-table/custom-material.module';
 
 @NgModule({
   declarations: [ViewOrderDataComponent, ViewOrderMainViewComponent],
   imports: [
     CommonModule,
-    ViewOrdersRoutingModule
+    ViewOrdersRoutingModule,
+    SharedComponentsModule,
+    CustomMaterialModule,
   ]
 })
 export class ViewOrdersModule { }

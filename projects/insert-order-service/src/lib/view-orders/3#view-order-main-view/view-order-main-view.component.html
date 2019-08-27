@@ -1,3 +1,26 @@
-<p>
-  view-order-main-view works!
-</p>
+<div class='componentContainer'>
+    <table>
+        <thead>
+            <tr>
+                <th align="left">Route Name</th>
+                <th align="left">Weight</th>
+                <th align="right" style="font-size: 1.1rem">%</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor='let route of smallRoutesForDay'>
+                <tr class='individualRoutes'>
+                    <td>{{route.routeName}}</td>
+                    <td>{{route.routeAmountTotal}}</td>
+                    <td align="right">{{route.routeAmountPercentage}}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th align="left">Total:</th>
+                <th align="left">{{totalWeightForTheDay}}</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

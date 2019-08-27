@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IPnPCSVData, IPnPCSVFormat, IOrderDetails } from '../../#sharedServices/interfaces/insert-order-service-Interfaces';
+import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { ConvertPnpCsvDataFactoryService } from './convert-pnp-csv-data-factory.service';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 import { ConvertPnpStructureToOrdersService } from './convert-pnp-structure-to-orders.service';
@@ -8,6 +8,7 @@ import { Observable, from, of } from 'rxjs';
 import { take, concatMap, tap, map, mergeMap } from 'rxjs/operators';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
+import { IPnPCSVData, IPnPCSVFormat } from '../../#sharedServices/interfaces/pnp-csv-interface';
 
 @Injectable({
     providedIn: 'root'

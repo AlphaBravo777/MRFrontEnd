@@ -127,7 +127,8 @@ export class ToolboxGroupService {
         }
     }
 
-    removeObjectsWithDuplicatePropertiesInArray(arr, key) {
+    removeObjectsWithDuplicatePropertiesInArray(arr: Array<any>, key: string) {
+        // call using removeObjectsWithDuplicatePropertiesInArray(arrayOfObjects, 'propertyName')
         const values = {};
         return arr.filter(function(item) {
             const val = item[key];

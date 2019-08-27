@@ -8,7 +8,7 @@ import { IAccountDetails } from 'src/app/home/shared/services/accountServices/ac
 import {
     IOrderDetails,
     ff_createOrderDetailsObjectForDB,
-    IOrderDBDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/insert-order-service-Interfaces';
+    IOrderDBDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/order-service-Interfaces';
 
 @Injectable({
     providedIn: 'root'

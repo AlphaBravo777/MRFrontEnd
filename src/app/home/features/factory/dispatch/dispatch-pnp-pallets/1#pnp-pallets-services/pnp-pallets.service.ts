@@ -4,9 +4,10 @@ import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-s
 import { PnpPickPalletsService } from './pnp-pick-pallets.service';
 import { IPalletPickedDetails, IPnPRegions } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
 import { PnpSharedApiService } from 'src/app/home/shared/services/pnpServices/pnp-shared-api.service';
-import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/insert-order-service-Interfaces';
+import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/order-service-Interfaces';
 import { tap } from 'rxjs/operators';
 import { OrderGraphqlApiService } from 'projects/insert-order-service/src/lib/#sharedServices/order-graphql-api.service';
+import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -23,8 +24,8 @@ export class PnpPalletsService {
         return this.pnpSharedApiService.getPnPOrder(datePackage).pipe();
     }
 
-    searchForOrdersMain(datePackage: IDate): Observable<IOrderDetails[]> {
-        return this.orderGraphqlApiService.searchForOrdersMain(undefined, datePackage, 18);
+    searchForOrdersMain(account: number, datePackage: IDate, routeid: number): Observable<IOrderDetails[]> {
+        return this.orderGraphqlApiService.searchForOrdersMain(account, datePackage, routeid);
     }
 
     calculatePalletOptions(orders: IOrderDetails[]) {

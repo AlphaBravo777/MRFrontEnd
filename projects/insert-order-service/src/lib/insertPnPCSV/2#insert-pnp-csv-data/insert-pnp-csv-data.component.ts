@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InsertPnpCsvService } from '../1#insert-pnp-csv-services/insert-pnp-csv.service';
-import { IOrderDetails } from '../../#sharedServices/interfaces/insert-order-service-Interfaces';
+import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { OrderService } from '../../#sharedServices/order.service';
 import { Subscription } from 'rxjs';
 

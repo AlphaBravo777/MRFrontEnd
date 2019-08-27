@@ -7,7 +7,7 @@ import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-s
 import { PnpSharedService } from 'src/app/home/shared/services/pnpServices/pnp-shared.service';
 import { IPnPRegions, IPalletPickedDetails,
     IPnPOrderTotals, IPnPOrderMatrix } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
-import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/insert-order-service-Interfaces';
+import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/order-service-Interfaces';
 
 @Component({
     selector: 'app-pnp-pallets-data',
@@ -49,7 +49,7 @@ export class PnpPalletsDataComponent implements OnInit, OnDestroy {
 
     workingDate(datePackage: IDate): Observable<any> {
         // return this.pnpPalletService.getPnPOrderForDateGiven(datePackage).pipe(
-        return this.pnpPalletService.searchForOrdersMain(datePackage).pipe(
+        return this.pnpPalletService.searchForOrdersMain(undefined, datePackage, 18).pipe(
             tap(data => console.log('The data of the pnp Order = ', data)),
             tap(data => this.orders = data),
             tap(data => this.lugsByRegionSummary = this.pnpPalletService.calculateTotalPalletsForRegions(data)),

@@ -61,6 +61,7 @@ class IOrderBackend {
     delivered: boolean;
     orderNumber: string;
     timeStampid: number;
+    orderTotalAmount: number;
     orderproductamountsmicroserviceSet: IOrderproductamountsmicroserviceSet;
 
 }

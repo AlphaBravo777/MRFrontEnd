@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { take, concatMap, tap, map } from 'rxjs/operators';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
-import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/insert-order-service-Interfaces';
+import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/order-service-Interfaces';
 
 @Injectable({
     providedIn: 'root'

@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import { IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { OrderService } from '../../#sharedServices/order.service';
+import { take, tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +24,16 @@ export class InsertOrderData$Service {
     private productListToPickFrom = new BehaviorSubject<IProductDetails[]>(null);
     productListToPickFrom$ = this.productListToPickFrom.asObservable();
 
-    constructor() {}
+    constructor(private orderService: OrderService) {
+        this.getAllRoutes();
+    }
+
+    private getAllRoutes() {
+        this.orderService.getAllRoutes().pipe(
+            take(1),
+            tap(routes => this.setRoutes(routes))
+        ).subscribe();
+    }
 
     setRoutes(routes: IRoute[]) {
         this.routes.next(routes);

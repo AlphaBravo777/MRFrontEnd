@@ -1,3 +1,7 @@
-<p>
-  view-order-data works!
-</p>
+<app-box-shadow-container>
+    <mr-insert-view-order-main-view
+        *ngIf='smallRoutesForDay'
+        [smallRoutesForDay]='smallRoutesForDay'
+        [totalWeightForTheDay]='totalWeightForTheDay'>
+    </mr-insert-view-order-main-view>
+</app-box-shadow-container>

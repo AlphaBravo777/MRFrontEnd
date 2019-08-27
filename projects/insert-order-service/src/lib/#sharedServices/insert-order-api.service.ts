@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { IOrderDetails,
     IOrderDBDetails,
     ff_createOrderDetailsObjectForDB,
-    ff_CreateOrderDetailsObjFromDBObj } from './interfaces/insert-order-service-Interfaces';
+    ff_CreateOrderDetailsObjFromDBObj } from './interfaces/order-service-Interfaces';
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';
@@ -123,14 +123,14 @@ export class InsertOrderApiService {
             const productEdge = data[0].node.orderproductamountsmicroserviceSet.edges;
             for (let prod = 0; prod < productEdge.length; ++prod) {
                 const singleGroup: IProductOrderDetails = {
-                    productid: productEdge[prod].node.productid.rowid,
-                    productMRid: productEdge[prod].node.productMRid,
-                    amountid: productEdge[prod].node.rowid,
-                    amount: productEdge[prod].node.amount,
-                    status: productEdge[prod].node.status,
-                    lastModified: productEdge[prod].node.lastModified,
-                    userid: productEdge[prod].node.userid,
-                    packageWeight: productEdge[prod].node.packageWeight,
+                    productid: productEdge[prod].node.productid.rowid || null,
+                    productMRid: productEdge[prod].node.productMRid || null,
+                    amountid: productEdge[prod].node.rowid || null,
+                    amount: productEdge[prod].node.amount || null,
+                    status: productEdge[prod].node.status || null,
+                    lastModified: productEdge[prod].node.lastModified || null,
+                    userid: productEdge[prod].node.userid || null,
+                    packageWeight: productEdge[prod].node.packageWeight || null,
                     orderDetailsid: null,
                     lugSize: null,
                     rankingInGroup: null,
@@ -138,21 +138,22 @@ export class InsertOrderApiService {
                 products.push(singleGroup);
             }
             const singleOrder: IOrderDetails = {
-                orderid: data[0].node.rowid,
-                accountid: data[0].node.accountid,
-                accountMRid: data[0].node.accountMRid,
+                orderid: data[0].node.rowid || null,
+                accountid: data[0].node.accountid || null,
+                accountMRid: data[0].node.accountMRid || null,
                 accountName: null,
-                commonName: data[0].node.commonName,
-                routeid: data[0].node.routeid,
+                commonName: data[0].node.commonName || null,
+                routeid: data[0].node.routeid || null,
                 routeName: null,
                 franchiseid: null,
                 userid: null,
-                timeStampid: data[0].node.timeStampid.rowid,
-                franchiseName: data[0].node.accountid,
-                orderNumber: data[0].node.orderNumber,
-                productGroupid: data[0].node.accountid,
-                childAccount: data[0].node.accountid,
-                parentAccountid: data[0].node.accountid,
+                timeStampid: data[0].node.timeStampid.rowid || null,
+                franchiseName: data[0].node.accountid || null,
+                orderNumber: data[0].node.orderNumber || null,
+                productGroupid: data[0].node.accountid || null,
+                childAccount: data[0].node.accountid || null,
+                parentAccountid: data[0].node.accountid || null,
+                orderTotalAmount: data[0].node.orderTotalAmount || null,
                 orders: products,
             };
             return singleOrder;

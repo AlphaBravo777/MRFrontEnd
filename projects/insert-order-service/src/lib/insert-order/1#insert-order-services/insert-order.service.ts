@@ -7,9 +7,10 @@ import { take, tap, switchMap, delay, map, concatMap } from 'rxjs/operators';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { InsertOrderData$Service } from './insert-order-data$.service';
 import { Observable, of } from 'rxjs';
-import { IOrderDetails } from '../../#sharedServices/interfaces/insert-order-service-Interfaces';
+import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { FormGroup, FormArray } from '@angular/forms';
+import { InsertOrderApiService } from '../../#sharedServices/insert-order-api.service';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,8 @@ export class InsertOrderService {
     constructor(private orderService: OrderService,
         private insertFormChangesService: InsertFormChangesService,
         private insertOrderService: OrderService,
-        private insertOrderData$Service: InsertOrderData$Service) {}
+        private insertOrderData$Service: InsertOrderData$Service,
+        private insertOrderApiService: InsertOrderApiService) {}
 
     datePackageOrAccountChanged(workingAccount: IAccountDetails, datePackage: IDate): Observable<any> {
         console.log(' - - - - - Account Selection is running - - - - - ', workingAccount);
@@ -77,5 +79,15 @@ export class InsertOrderService {
                 control.get('amount').setValue(Math.floor(control.get('amount').value / control.get('packageWeight').value));
             }
         }
+    }
+
+    deleteOrder(order: IOrderDetails) {
+        // const orderAccount: IAccountDetails = Object.assign({}, order);
+        this.insertOrderApiService.deleteOrder(order.orderid).pipe(
+            take(1),
+            tap(() => this.insertOrderData$Service.setWorkingAccount(null))
+        ).subscribe(
+            data => console.log('Alfa(delete order return data) = ', data)
+        );
     }
 }
