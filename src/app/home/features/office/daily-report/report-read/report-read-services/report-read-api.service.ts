@@ -48,6 +48,7 @@ export class ReportReadApiService {
                             id
                             rowid
                             message
+                            dateCreated
                             reply{
                                 rowid
                               }
@@ -84,13 +85,15 @@ export class ReportReadApiService {
     }
 
     private consolidateDailyReportMessages(data): IReadReport[] {
-        // console.log('Bravo consolidateDailyReportMessages = ', data);
+        console.log('Bravo consolidateDailyReportMessages = ', data);
         const flattendData: IReadReport[] = [];
 
         for (let array = 0; array < data.length; ++array) {
             const singleData = <IReadReport>{};
             singleData.rowid = data[array].node.rowid;
             singleData.messageID = data[array].node.id;
+            singleData.dateCreated = new Date(Date.parse(data[array].node.dateCreated));
+            // console.log(singleData.dateCreated.toLocaleTimeString('en-US', { hour12: false }));
             singleData.message = data[array].node.message;
             if (!data[array].node.reply) {
                 singleData.reply = null;
@@ -120,6 +123,7 @@ export class ReportReadApiService {
             }
             flattendData.push(singleData);
         }
+        console.log('Bravo(2) consolidateDailyReportMessages = ', flattendData);
         return this.toolBox.sorting(flattendData, 'rowid');
     }
 

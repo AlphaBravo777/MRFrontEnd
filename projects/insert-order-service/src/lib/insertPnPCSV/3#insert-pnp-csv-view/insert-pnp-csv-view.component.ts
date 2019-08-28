@@ -12,4 +12,8 @@ export class InsertPnpCsvViewComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
+
+    fileSelect(event) {
+        this.fileSelected.emit(event);
+    }
 }

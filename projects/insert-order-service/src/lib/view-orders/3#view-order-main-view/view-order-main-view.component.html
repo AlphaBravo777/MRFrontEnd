@@ -2,24 +2,24 @@
     <table>
         <thead>
             <tr>
-                <th align="left">Route Name</th>
-                <th align="left">Weight</th>
-                <th align="right" style="font-size: 1.1rem">%</th>
+                <th style="text-align:left">Route Name</th>
+                <th style="text-align:right">Weight</th>
+                <th style="text-align:right" style="font-size: 1.1rem">%</th>
             </tr>
         </thead>
         <tbody>
             <ng-container *ngFor='let route of smallRoutesForDay'>
-                <tr class='individualRoutes'>
-                    <td>{{route.routeName}}</td>
-                    <td>{{route.routeAmountTotal}}</td>
-                    <td align="right">{{route.routeAmountPercentage}}</td>
+                <tr class='individualRoutes' (click)='routeSelected(route)'>
+                    <td id='routeName'>{{route.routeName}}</td>
+                    <td style="text-align:right">{{route.routeAmountTotal}} kg</td>
+                    <td style="text-align:right">{{route.routeAmountPercentage}}</td>
                 </tr>
             </ng-container>
         </tbody>
         <tfoot>
             <tr>
-                <th align="left">Total:</th>
-                <th align="left">{{totalWeightForTheDay}}</th>
+                <th style="text-align:left">Total:</th>
+                <th style="text-align:right">{{totalWeightForTheDay}} kg</th>
             </tr>
         </tfoot>
     </table>

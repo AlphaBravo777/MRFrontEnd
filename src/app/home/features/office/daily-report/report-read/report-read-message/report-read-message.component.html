@@ -1,19 +1,20 @@
 <div class='messageContainer' [ngStyle]="styleObjectMessageContainer()">
-    <div [ngClass]="{'gridContainer':       message.reply=== null, 
+    <div [ngClass]="{'gridContainer':       message.reply=== null,
                      'replyGridContainer':  message.reply!== null}">
         <div class='ranking' [ngStyle]="styleObjectRanking()">
         </div>
         <div class='header'>
             <span>User: {{message.userName}}</span>
-            <span>Message ID: {{message.rowid}}</span>
+            <span>Time: {{timePosted}}</span>
+            <span>#: {{message.rowid}}</span>
         </div>
         <div class='body'>
             <span class='body2'>{{message.message}}</span>
         </div>
         <div class='replies' *ngIf='message.replies'>
             <div *ngFor='let reply of message.replies'>
-                <app-report-read-message 
-                    [message]='reply' 
+                <app-report-read-message
+                    [message]='reply'
                     [userid]='userid'
                     (deleteReport)='deleteReport.emit($event)'
                     (editReport)='editReport.emit($event)'>
@@ -33,9 +34,9 @@
             </span>
             <img src="assets/images/reply.png" (click)='replyToReport(message.rowid)'>
             <!-- <img src="assets/images/save.png"> -->
-            
+
             <span class='icons' *ngIf='message.messageFlag.levelColor === "#997049"'>
-                <img src="assets/images/repair.png"> 
+                <img src="assets/images/repair.png">
             </span>
         </div>
     </div>

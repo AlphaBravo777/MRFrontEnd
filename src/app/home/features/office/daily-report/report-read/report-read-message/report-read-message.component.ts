@@ -14,10 +14,13 @@ export class ReportReadMessageComponent implements OnInit {
     @Input() userid: number;
     @Output() deleteReport: EventEmitter<any> = new EventEmitter<any>();
     @Output() editReport: EventEmitter<IReadReport> = new EventEmitter<IReadReport>();
+    timePosted: string;
 
     constructor(private reportEntryService: ReportEntryService, private router: Router) { }
 
     ngOnInit() {
+        this.timePosted = this.message.dateCreated.toLocaleDateString() + ' ' +
+            this.message.dateCreated.toLocaleTimeString('en-US', { hour12: false });
     }
 
     styleObjectRanking(): Object {

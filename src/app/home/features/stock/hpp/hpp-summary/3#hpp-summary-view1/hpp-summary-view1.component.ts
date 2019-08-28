@@ -23,4 +23,8 @@ export class HppSummaryView1Component implements OnInit {
     ngOnInit() {
     }
 
+    switchStock(number) {
+        // Had to add this function to remove an error, but do not know why it is here or what it should do
+    }
+
 }

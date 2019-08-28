@@ -31,7 +31,10 @@
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     border-top-right-radius: 4px;
-    :first-child {
+    // :first-child {
+    //     padding-right: 10px;
+    // }
+    span {
         padding-right: 10px;
     }
 }

@@ -9,6 +9,7 @@ export class IReadReport {
     reply: number;
     replies?: IReadReport[];
     images?: IReadReportImages[];
+    dateCreated: Date;
 }
 
 export class IReadReportLevels {

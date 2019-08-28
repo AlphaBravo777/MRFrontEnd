@@ -25,7 +25,7 @@
             </div>
             <p class='field'>Products:</p>
             <div formArrayName="orders">
-                <div class='products' *ngFor='let order of orderForm.get("orders").controls; let i=index'>
+                <div class='products' *ngFor='let order of orderForm.get("orders"); let i=index'>
                     <div formGroupName='{{i}}'>
                         <span class='productName' (keyup)='productSelection.emit({productMRid: orderForm.get("orders").value[i].productMRid, index: i})'>
                             <input [ngClass]="orderForm.get('orders').value[i].allowed === true ? 'green' : 'red'"

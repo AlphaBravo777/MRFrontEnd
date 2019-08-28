@@ -1,4 +1,4 @@
-<input type='file' style='display: none' (change)='fileSelected.emit($event)' #buttonInput>
+<input type='file' style='display: none' (change)='fileSelect($event)' #buttonInput>
 <!-- <img src="assets/images/insertImage.png" (click)='imageInput.click()'> -->
 <button class='meatriteButton niceButton' (click)='buttonInput.click()'>Select CSV File and insert</button>
-<span> {{ selectedFile?.name }}</span>
+<!-- <span> {{ fileSelect?.name }}</span> -->

@@ -1,5 +1,7 @@
 ☐ Get working data, which will be a small amount of data just to show all the information for a route
     ✔ This must include routeName, and how much weight (With and without crates) the route is. @done(19-08-27 14:46)
+    ☐ Create a completely on its own routeView module to go with the viewOrders module, then when you select a route, you just navigate to
+        ☐ data component of this module
     ☐ The factory may also want to see all the products for the route, so maybe have a summary with routeWeight and totalWeight for all
         ☐ routes, and then also a dropdown to show all the products that will be ordered, and the total of all products.
         ☐ This will be difficult to implement with the same view, so just have two different views, one with summary, and one with products included

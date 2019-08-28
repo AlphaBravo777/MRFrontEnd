@@ -27,31 +27,4 @@
             </tr>
         </ng-container>
     </tbody>
-    <!-- <tbody>
-        <tr *ngFor='let pnpProduct of pnpProducts'>
-            <td>{{pnpProduct?.productName}}</td>
-            <ng-container #test *ngFor='let mrStock of meatriteStock'>
-                    <td *ngIf='pnpProduct.productid === mrStock.productid'>{{mrStock?.stockTotal}}</td>
-            </ng-container>
-            <ng-container *ngFor='let preStock of preHppStock'>
-                    <td *ngIf='pnpProduct.productid === preStock.productid'>{{preStock?.stockTotal}}</td>
-            </ng-container>
-            <ng-container *ngFor='let postStock of postHppStock'>
-                    <td *ngIf='pnpProduct.productid === postStock.productid'>{{postStock?.stockTotal}}</td>
-            </ng-container>
-            <ng-container *ngFor='let curPnPOrder of pnpOrder'>
-                    <td *ngIf='pnpProduct.productid === curPnPOrder.productid'>{{curPnPOrder?.amount}}</td>
-            </ng-container>
-            <ng-container *ngFor='let pnpOutstanding of pnpOutstandingOrders'>
-                    <td *ngIf='pnpProduct.productid === pnpOutstanding.productid'>{{pnpOutstanding?.stockTotal}}</td>
-            </ng-container>
-            <ng-container *ngFor='let leaker of hppLeakers'>
-                    <td *ngIf='pnpProduct.productid === leaker.productid'>{{leaker?.stockTotal}}</td>
-            </ng-container>
-            <ng-container *ngFor='let short of outstandingStock'>
-                    <td [ngClass]="short.amount === 0 ? 'green' : 'red'"
-                        *ngIf='pnpProduct.productid === short.productid'>{{short?.amount}}</td>
-            </ng-container>
-        </tr>
-    </tbody> -->
 </table>
