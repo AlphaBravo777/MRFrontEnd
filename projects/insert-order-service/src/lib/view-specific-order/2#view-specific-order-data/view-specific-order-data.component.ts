@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ViewOrderData$Service } from '../../view-orders/1#view-order-services/view-order-data$.service';
 import { Subscription } from 'rxjs';
 import { ViewSpecificOrderService } from '../1#view-specific-order-services/view-specific-order.service';
 

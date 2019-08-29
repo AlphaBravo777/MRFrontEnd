@@ -41,7 +41,7 @@ export class InsertOrderService {
         return this.checkIfAccountHasAnOrder(workingAccount, datePackage).pipe();
     }
 
-    checkIfAccountHasAnOrder(account: IAccountDetails, datePackage: IDate): Observable<IOrderDetails> {
+    checkIfAccountHasAnOrder(account: IAccountDetails, datePackage: IDate): Observable<IOrderDetails[]> {
         console.log('Selected account = ', account, datePackage);
         return this.orderService.getProductListToPickFromForAccount(account).pipe(
             take(1),

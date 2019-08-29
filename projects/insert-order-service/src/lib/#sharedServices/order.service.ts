@@ -10,7 +10,7 @@ import { ProductSharedApiService } from 'src/app/home/shared/services/productSer
 import { AccountSharedApiService } from 'src/app/home/shared/services/accountServices/account-shared-api.service';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { RoutesSharedApiService } from 'src/app/home/shared/services/routesServices/routes-shared-api.service';
-import { InsertOrderData$Service } from '../insert-order/1#insert-order-services/insert-order-data$.service';
+import { OrderGraphqlApiService } from './order-graphql-api.service';
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +20,7 @@ export class OrderService {
         private productSharedAPIService: ProductSharedApiService,
         private accountSharedAPIService: AccountSharedApiService,
         private routesSharedAPIService: RoutesSharedApiService,
+        private orderGraphQlApiService: OrderGraphqlApiService
         ) {}
 
     private ordersNotInserted = new BehaviorSubject<IOrderDetails[]>([]);
@@ -51,12 +52,16 @@ export class OrderService {
         );
     }
 
-    searchForOrder(datePackage: IDate, accountid: number): Observable<IOrderDetails> {  // IOrderDetails
-        console.log('The date package = ', datePackage);
+    searchForOrder(datePackage: IDate, accountid: number): Observable<IOrderDetails[]> {  // IOrderDetails
+        // console.log('The date package = ', datePackage);
         return this.insertOrderApiService.searchForOrder(datePackage, accountid).pipe(
             take(1),
-            tap(order => console.log('Alfa (returned order) = ', order)),
+            // tap(order => console.log('Alfa (returned order) = ', order)),
         );
+    }
+
+    searchForOrdersMain(accountid: number, datePackage: IDate, routeid: number, queryString: string): Observable<IOrderDetails[]> {
+        return this.orderGraphQlApiService.searchForOrdersMain(accountid, datePackage, routeid, queryString);
     }
 
     setOrdersNotInserted(orders: IOrderDetails[]) {

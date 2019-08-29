@@ -3,4 +3,8 @@
 
 
 ☐ Bugs
-    ☐ PNP CSV excel sheet orders pulling in orders twice, and leaving others behind
+    ✔ PNP CSV excel sheet orders pulling in orders twice, and leaving others behind @done(19-08-29 11:53)
+
+    ☐ Once you have pressed the "Insert CSV File" button, you can not use it again before refreshing (You can not use it on the same file
+        ☐ but you can use it on a different file. It will be because the value is the same as the previous value (if you pick the same
+        ☐ file, and because it did not change, it does nothing. So the solution is the clear the value back to '' after inserting)

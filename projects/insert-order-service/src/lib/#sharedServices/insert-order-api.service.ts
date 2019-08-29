@@ -104,8 +104,9 @@ export class InsertOrderApiService {
         return this.http.delete<any>(this.orderServiceUrl + 'orders/deleteOrder/' + orderid);
     }
 
-    searchForOrder(datePackage: IDate, accountid: number): Observable<IOrderDetails> {
-        console.log('Fox(b) = ', datePackage.id, accountid);
+    searchForOrder(datePackage: IDate, accountid: number): Observable<IOrderDetails[]> {
+        // This may return more than one order, for instance if it is pnp and they have two KZN Delis for one day
+        // console.log('Parameters of search orders = ', datePackage.id, accountid);
         return this.apollo
             .watchQuery({
                 variables: { accountid: accountid, timestampid: datePackage.id },
@@ -116,47 +117,52 @@ export class InsertOrderApiService {
                 map(result => this.consolidateAccountsData(result.data['nodeOrderDetailsMicroService'].edges)));
     }
 
-    private consolidateAccountsData(data): IOrderDetails {
-        console.log('Fox(a) = ', data);
-        if (data.length === 1) {
-            const products: IProductOrderDetails[] = [];
-            const productEdge = data[0].node.orderproductamountsmicroserviceSet.edges;
-            for (let prod = 0; prod < productEdge.length; ++prod) {
-                const singleGroup: IProductOrderDetails = {
-                    productid: productEdge[prod].node.productid.rowid || null,
-                    productMRid: productEdge[prod].node.productMRid || null,
-                    amountid: productEdge[prod].node.rowid || null,
-                    amount: productEdge[prod].node.amount || null,
-                    status: productEdge[prod].node.status || null,
-                    lastModified: productEdge[prod].node.lastModified || null,
-                    userid: productEdge[prod].node.userid || null,
-                    packageWeight: productEdge[prod].node.packageWeight || null,
-                    orderDetailsid: null,
-                    lugSize: null,
-                    rankingInGroup: null,
+    private consolidateAccountsData(data): IOrderDetails[] {
+        // console.log('Raw data of search orders = ', data);
+        if (data.length > 0) {
+            const currentOrders: IOrderDetails[] = [];
+            for (let order = 0; order < data.length; order++) {
+                const products: IProductOrderDetails[] = [];
+                const productEdge = data[order].node.orderproductamountsmicroserviceSet.edges;
+                for (let prod = 0; prod < productEdge.length; ++prod) {
+                    const singleGroup: IProductOrderDetails = {
+                        productid: productEdge[prod].node.productid.rowid || null,
+                        productMRid: productEdge[prod].node.productMRid || null,
+                        amountid: productEdge[prod].node.rowid || null,
+                        amount: productEdge[prod].node.amount || null,
+                        status: productEdge[prod].node.status || null,
+                        lastModified: productEdge[prod].node.lastModified || null,
+                        userid: productEdge[prod].node.userid || null,
+                        packageWeight: productEdge[prod].node.packageWeight || null,
+                        orderDetailsid: null,
+                        lugSize: null,
+                        rankingInGroup: null,
+                    };
+                    products.push(singleGroup);
+                }
+                const singleOrder: IOrderDetails = {
+                    orderid: data[order].node.rowid || null,
+                    accountid: data[order].node.accountid || null,
+                    accountMRid: data[order].node.accountMRid || null,
+                    accountName: null,
+                    commonName: data[order].node.commonName || null,
+                    routeid: data[order].node.routeid || null,
+                    routeName: null,
+                    franchiseid: null,
+                    userid: null,
+                    timeStampid: data[order].node.timeStampid.rowid || null,
+                    franchiseName: data[order].node.accountid || null,
+                    orderNumber: data[order].node.orderNumber || null,
+                    productGroupid: data[order].node.accountid || null,
+                    childAccount: data[order].node.accountid || null,
+                    parentAccountid: data[order].node.accountid || null,
+                    orderTotalAmount: data[order].node.orderTotalAmount || null,
+                    orders: products,
                 };
-                products.push(singleGroup);
+                currentOrders.push(singleOrder);
             }
-            const singleOrder: IOrderDetails = {
-                orderid: data[0].node.rowid || null,
-                accountid: data[0].node.accountid || null,
-                accountMRid: data[0].node.accountMRid || null,
-                accountName: null,
-                commonName: data[0].node.commonName || null,
-                routeid: data[0].node.routeid || null,
-                routeName: null,
-                franchiseid: null,
-                userid: null,
-                timeStampid: data[0].node.timeStampid.rowid || null,
-                franchiseName: data[0].node.accountid || null,
-                orderNumber: data[0].node.orderNumber || null,
-                productGroupid: data[0].node.accountid || null,
-                childAccount: data[0].node.accountid || null,
-                parentAccountid: data[0].node.accountid || null,
-                orderTotalAmount: data[0].node.orderTotalAmount || null,
-                orders: products,
-            };
-            return singleOrder;
+            // console.log('Consolidate search orders = ', currentOrders);
+            return currentOrders;
         }
 
     }

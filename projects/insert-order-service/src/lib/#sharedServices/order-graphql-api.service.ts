@@ -81,12 +81,13 @@ export class OrderGraphqlApiService {
 
     constructor(private apollo: Apollo) { }
 
-    searchForOrdersMain(accountid: number, datePackage: IDate, routeid: number): Observable<IOrderDetails[]> {
+    searchForOrdersMain(accountid: number, datePackage: IDate,
+        routeid: number, queryString = this.MAIN_QUERY_FOR_SEARCHING_ORDERS): Observable<IOrderDetails[]> {
         console.log('Fox(b) = ', datePackage.id);
         return this.apollo
             .watchQuery<INodeOrderDetailsMicroService>({
                 variables: { accountid: accountid, timestampid: datePackage.id, routeid: routeid},
-                query: this.MAIN_QUERY_FOR_SEARCHING_ORDERS,
+                query: queryString,
             })
             .valueChanges.pipe(
                 map(result => this.consolidateDailyOrders(result.data['nodeOrderDetailsMicroService'])));

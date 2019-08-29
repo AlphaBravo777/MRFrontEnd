@@ -81,7 +81,7 @@ export class DatePickerService {
         // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
         // January - 0, February - 1, etc.
         const date = new Date(parts[0], parts[1] - 1, parts[2]);
-        console.log('Date -- ', date);
+        // console.log('Date -- ', date);
         // console.log(mydate.toDateString());
 
         // Old code

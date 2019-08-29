@@ -4,8 +4,8 @@ import { ConvertPnpCsvDataFactoryService } from './convert-pnp-csv-data-factory.
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 import { ConvertPnpStructureToOrdersService } from './convert-pnp-structure-to-orders.service';
 import { OrderService } from '../../#sharedServices/order.service';
-import { Observable, from, of } from 'rxjs';
-import { take, concatMap, tap, map, mergeMap } from 'rxjs/operators';
+import { Observable, from, of, interval } from 'rxjs';
+import { take, concatMap, tap, map, mergeMap, switchMap, flatMap } from 'rxjs/operators';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
 import { IPnPCSVData, IPnPCSVFormat } from '../../#sharedServices/interfaces/pnp-csv-interface';
@@ -14,6 +14,8 @@ import { IPnPCSVData, IPnPCSVFormat } from '../../#sharedServices/interfaces/pnp
     providedIn: 'root'
 })
 export class InsertPnpCsvService {
+
+    deliveryDaysChecked = {};
 
     constructor(private convertPnPCVDataFactoryService: ConvertPnpCsvDataFactoryService,
         private convertPnPStructureToOrderService: ConvertPnpStructureToOrdersService,
@@ -43,7 +45,6 @@ export class InsertPnpCsvService {
         const pnpJSON = this.csvTOjson(text);
         const groupedOrders: Array<IPnPCSVData[]> = this.toolBox.multipleGroupByArray(pnpJSON,
             (item: IPnPCSVData) => [item.PONumber]);
-        console.log('Here is the TEST function: ', groupedOrders);
         groupedOrders.forEach(vendor => {
             mrPnPOrders.push(this.convertPnPStructureToOrderService.factoryConvertPnPDataToOrders(vendor));
         });
@@ -56,43 +57,62 @@ export class InsertPnpCsvService {
         reader.readAsText(file.target.files[0]);
         reader.onload = e => {
             const pnpOrders: IOrderDetails[] = this.loadHandler(e);
-            // console.log('Alpha = ', pnpOrders);
-            from(pnpOrders).pipe(
-                take(pnpOrders.length),
-                concatMap(order => this.insertOrderTimeStampid(order)),
-                tap(order => console.log('* * *', order)),
-                mergeMap(order => this.insertOrderService.searchForOrder({id: order.timeStampid}, order.accountid).pipe(
-                    take(1),
-                    concatMap(result => {
-                        if (result) {
-                            ordersNotInserted.push(order);
-                            return of('Order was already inserted');
-                        } else {
-                            return this.insertOrderService.insertNewOrder([order]);
-                        }
-                    })
-                )),
-                // tap(() => console.log('The order that was not inserted = ', ordersNotInserted)),
-                tap(() => this.insertOrderService.setOrdersNotInserted(ordersNotInserted)),
+            of({}).pipe(
+                concatMap(() => from(pnpOrders).pipe(
+                    take(pnpOrders.length),
+                    concatMap(order => this.insertOrderTimeStampid(order).pipe(
+                        concatMap(orderWithTimeStamp => this.insertOrderService.searchForOrder(
+                            {id: orderWithTimeStamp.timeStampid}, orderWithTimeStamp.accountid)),
+                        concatMap(result => {
+                            if (this.checkIfReturningOrdersHasSameOrderNumber(result, order)) {
+                                ordersNotInserted.push(order);
+                                return of(' ---------- Order was already inserted ----------- ');
+                            } else {
+                                return this.insertOrderService.insertNewOrder([order]);
+                                // return of(' ---------- Order was NOT inserted ----------- ');
+                            }
+                        }),
+                        tap(message => console.log(message)),
+                        tap(() => this.insertOrderService.setOrdersNotInserted(ordersNotInserted)),
+                    ))
+                ))
             ).subscribe();
         };
     }
 
+    checkIfReturningOrdersHasSameOrderNumber(returningOrder: IOrderDetails[], orderToInsert: IOrderDetails): boolean {
+        // console.log(' ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ', returningOrder, orderToInsert);
+        let flag = false;
+        if (returningOrder) {
+            returningOrder.forEach(order => {
+                if (order.orderNumber === orderToInsert.orderNumber) {
+                    flag = true;
+                }
+            });
+        }
+        return flag;
+    }
+
     insertOrderTimeStampid(order: IOrderDetails): Observable<IOrderDetails> {
-        // console.log('# # #', order);
-        const deliveryDaysChecked = {};
-        if (order.deliveryDate in deliveryDaysChecked) {
-            order.timeStampid = deliveryDaysChecked[order.deliveryDate];
-            // console.log(' ---------- There was a timestamp id ----------- ');
+        if (order.deliveryDate in this.deliveryDaysChecked) {
+            order.timeStampid = this.deliveryDaysChecked[order.deliveryDate];
             return of(order);
         } else {
             const longDate: Date = this.datePickerService.shortToLongDate(order.deliveryDate);
             return this.getDateService.getDatePackageForGivenLongDate(longDate).pipe(
                 tap(datePackage => order.timeStampid = datePackage.id),
-                tap(datePackage => deliveryDaysChecked[order.deliveryDate] = datePackage.id),
+                tap(datePackage => this.deliveryDaysChecked[order.deliveryDate] = datePackage.id),
                 map(() => order)
             );
         }
 
+    }
+
+    innerTest(obs): Observable<any> {
+        const source2 = interval(500);
+        return source2.pipe(
+            take(4),
+            tap(innerObs => console.log(obs, innerObs)),
+        );
     }
 }
