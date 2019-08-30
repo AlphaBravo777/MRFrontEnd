@@ -41,27 +41,37 @@ export class InsertOrderService {
         return this.checkIfAccountHasAnOrder(workingAccount, datePackage).pipe();
     }
 
-    checkIfAccountHasAnOrder(account: IAccountDetails, datePackage: IDate): Observable<IOrderDetails[]> {
+    checkIfAccountHasAnOrder(account: IAccountDetails, datePackage: IDate): Observable<IOrderDetails> {
         console.log('Selected account = ', account, datePackage);
         return this.orderService.getProductListToPickFromForAccount(account).pipe(
             take(1),
             tap(productListToPickFrom => this.insertFormChangesService.insertProductsToPickFrom(productListToPickFrom)),
             tap(productListToPickFrom => this.insertOrderData$Service.setProductListToPickFrom(productListToPickFrom)),
             switchMap(() => this.insertOrderService.searchForOrder(datePackage, account.accountid)),
-            switchMap(order => {
-                if (order) {
-                    let route: IRoute;
-                    return this.insertOrderData$Service.currentRoutes$.pipe(
-                        tap(routes => route = routes.find(r => r.routeid === order.routeid)),
-                        tap(() => this.insertFormChangesService.insertExistingOrder(order, route)),
-                        map(() => order)
-                    );
+            switchMap(orders => {
+                if (orders) {
+                    if (orders.length === 1) {
+                        let route: IRoute;
+                        return this.insertOrderData$Service.currentRoutes$.pipe(
+                            tap(routes => route = routes.find(r => r.routeid === orders[0].routeid)),
+                            tap(() => this.insertFormChangesService.insertExistingOrder(orders[0], route)),
+                            map(() => orders[0])
+                        );
+                    } else {
+                        this.insertOrderData$Service.setOrderNumbers(orders);
+                        // This is where we want to run a function that goes through the orders and shows it as ordernumber
+                        // for the user to pick
+                        return of(orders[0]);
+                    }
+
                 } else {
-                    return of(order);
+                    return of();
                 }
             }),
         );
     }
+
+
 
     userAccountidSelection(accountMRid: string, commonName: string): Observable<IAccountDetails[]> {
             return of([]).pipe(

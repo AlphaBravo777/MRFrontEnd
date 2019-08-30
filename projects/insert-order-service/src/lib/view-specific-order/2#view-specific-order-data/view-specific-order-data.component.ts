@@ -19,7 +19,6 @@ export class ViewSpecificOrderDataComponent implements OnInit, OnDestroy {
 
     getSelectedOrderData() {
         this.subscription = this.viewSpecificOrderService.getViewSpecificOrderInitialData().pipe(
-
         ).subscribe();
     }
 

@@ -1,13 +1,12 @@
 ☐ Features still to add
-    ☐ PNP Orders pulling in orders twice, and leaving others behind
     ✔ When user enters new product, make cursor to appear in product input box @done(19-08-21 15:31)
     ✔ Allow user to update form @done(19-08-23 16:52)
-    ☐ Using the commonName field is not working anymore
+    ✔ Using the commonName field is not working anymore @done(19-08-30 12:40)
     ☐ Show user in some way if order was succesfull
     ✔ Set units to buy in - kg/units @done(19-08-24 10:31)
-    ☐ For Checkers/Shoprite, we need an alternative product id to insert.
+    ☐ For Checkers/Shoprite, we need an alternative product id to insert. Meaning "BG2" = "8520"
     ✔ After deleting/updating an order return the new state @done(19-08-21 16:49)
-    ☐ When you were on a product and you go back to menu -> insert order, the product is still available
+    ☐ When you were on an order and you go back to menu -> insert order, the product is still available
     ☐ Add little "x"s next to other fields that you can press to clear them quickly
     ☐ Allow user to insert decimals into amount slot
     ☐ Maybe put gridboxes in own color scheme

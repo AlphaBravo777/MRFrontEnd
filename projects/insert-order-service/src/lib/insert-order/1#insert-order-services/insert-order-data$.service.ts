@@ -5,6 +5,7 @@ import { IAccountDetails } from 'src/app/home/shared/services/accountServices/ac
 import { IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
 import { OrderService } from '../../#sharedServices/order.service';
 import { take, tap } from 'rxjs/operators';
+import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 
 @Injectable({
     providedIn: 'root'
@@ -23,6 +24,8 @@ export class InsertOrderData$Service {
     currentRoutes$ = this.routes.asObservable();
     private productListToPickFrom = new BehaviorSubject<IProductDetails[]>(null);
     productListToPickFrom$ = this.productListToPickFrom.asObservable();
+    private orderNumbersToPickFrom = new BehaviorSubject<IOrderDetails[]>([]);
+    orderNumbersToPickFrom$ = this.orderNumbersToPickFrom.asObservable();
 
     constructor(private orderService: OrderService) {
         this.getAllRoutes();
@@ -46,6 +49,11 @@ export class InsertOrderData$Service {
     setWorkingAccount(account: IAccountDetails) {
         console.log('Working account have been set - ', account);
         this.workingAccount.next(account);
+    }
+
+    setOrderNumbers(orders: IOrderDetails[]) {
+        // console.log('Working account have been set - ', account);
+        this.orderNumbersToPickFrom.next(orders);
     }
 
     setProductListToPickFrom(productListToPickFrom) {

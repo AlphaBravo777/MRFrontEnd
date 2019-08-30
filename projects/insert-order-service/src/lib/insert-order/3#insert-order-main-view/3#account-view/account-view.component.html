@@ -38,13 +38,24 @@
         </table>
     </div>
     <span class='orderNumber'>
-        <app-float-label-input-box
-            class='inputBox'
-            [placeHolderText]='orderNumberPlaceHolderText'
-            [inputFormControl]='orderNumberFormControl'
-            [caption]='orderNumberCaption'
-            [controlPath]='["orderNumber"]'>
-        </app-float-label-input-box>
-        <img class='deleteImage' src="assets/images/delete.png" (click)='clearOrderNumber()'>
+        <div class='orderNumberGrid'>
+            <app-float-label-input-box
+                class='inputBox'
+                [placeHolderText]='orderNumberPlaceHolderText'
+                [inputFormControl]='orderNumberFormControl'
+                [caption]='orderNumberCaption'
+                [controlPath]='["orderNumber"]'>
+            </app-float-label-input-box>
+            <img class='deleteImage' src="assets/images/delete.png" (click)='clearOrderNumber()'>
+        </div>
+        <table *ngIf='orderNumbersArray.length > 0'>
+            <tbody>
+                <tr  *ngFor='let order of orderNumbersArray; let i=index'>
+                    <app-minimalistic-button>
+                        <td class='accountsList' (click)='orderNumberSelection(orderNumbersArray[i])'>{{order.orderNumber}}</td>
+                    </app-minimalistic-button>
+                </tr>
+            </tbody>
+        </table>
     </span>
 </div>

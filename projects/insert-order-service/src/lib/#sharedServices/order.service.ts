@@ -56,7 +56,7 @@ export class OrderService {
         // console.log('The date package = ', datePackage);
         return this.insertOrderApiService.searchForOrder(datePackage, accountid).pipe(
             take(1),
-            // tap(order => console.log('Alfa (returned order) = ', order)),
+            tap(order => console.log('Alfa (returned order) = ', order)),
         );
     }
 

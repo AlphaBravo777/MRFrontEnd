@@ -14,12 +14,19 @@ table {
 }
 
 .orderNumber{
-    display: grid;
-    grid-template-columns: 1fr 30px;
 
-    .deleteImage{
-        width: 20px;
-        align-self: end;
-        padding: 5px;
+    .orderNumberGrid{
+        display: grid;
+        grid-template-columns: 1fr 30px;
+
+        .deleteImage{
+            width: 20px;
+            align-self: end;
+            padding: 5px;
+        }
+    }
+
+    table {
+        margin-top: 15px;
     }
 }

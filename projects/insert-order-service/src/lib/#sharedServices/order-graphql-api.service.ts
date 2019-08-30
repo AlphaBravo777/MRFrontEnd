@@ -14,8 +14,8 @@ import { INodeOrderDetailsMicroService, IOrderproductamountsmicroserviceSet } fr
 export class OrderGraphqlApiService {
 
     public MAIN_QUERY_FOR_SEARCHING_ORDERS = gql`
-    query searchForOrder($accountid:Float, $timestampid:Float, $routeid: Float){
-        nodeOrderDetailsMicroService(timeStampid:$timestampid, accountid:$accountid, routeid: $routeid){
+    query searchForOrder($accountid:Float, $timeStampid:Float, $routeid: Float){
+        nodeOrderDetailsMicroService(timeStampid:$timeStampid, accountid:$accountid, routeid: $routeid){
             edges{
                 node{
                     rowid
@@ -83,10 +83,10 @@ export class OrderGraphqlApiService {
 
     searchForOrdersMain(accountid: number, datePackage: IDate,
         routeid: number, queryString = this.MAIN_QUERY_FOR_SEARCHING_ORDERS): Observable<IOrderDetails[]> {
-        console.log('Fox(b) = ', datePackage.id);
+        console.log('Fox(b) = ', accountid, datePackage.id, routeid, queryString);
         return this.apollo
             .watchQuery<INodeOrderDetailsMicroService>({
-                variables: { accountid: accountid, timestampid: datePackage.id, routeid: routeid},
+                variables: { accountid: accountid, timeStampid: datePackage.id, routeid: routeid},
                 query: queryString,
             })
             .valueChanges.pipe(

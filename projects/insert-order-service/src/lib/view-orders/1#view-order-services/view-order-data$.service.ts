@@ -7,7 +7,12 @@ import { IViewRoutesData } from './view-order-interface';
 })
 export class ViewOrderData$Service {
 
-    private pickedRoute = new BehaviorSubject<IViewRoutesData>(null);
+    private pickedRoute = new BehaviorSubject<IViewRoutesData>({
+        routeAmountPercentage: undefined,
+        routeAmountTotal: undefined,
+        routeName: undefined,
+        routeid: 0.1  // So that no routes will return by default
+    });
     currentPickedRoute$ = this.pickedRoute.asObservable();
 
     constructor() {}

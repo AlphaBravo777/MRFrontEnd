@@ -59,7 +59,7 @@ export class ViewOrderService {
     }
 
     addRouteNamesToRoutes(routes: IViewRoutesData[], currentRoutes: IRoute[]): IViewRoutesData[] {
-        if (routes) {
+        if (routes && currentRoutes) {
             routes.forEach(route => {
                 route.routeName = currentRoutes.find(currRoute => currRoute.routeid === route.routeid).routeName;
             });

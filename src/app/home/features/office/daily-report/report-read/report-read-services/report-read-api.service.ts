@@ -25,11 +25,6 @@ export class ReportReadApiService {
         return this.http.delete<any>(timeUrl);
     }
 
-    // downloadDailyReportFile(imageUrl: string): Observable<any> {
-    //     const getReportImages = this.stockUrl + 'report/downloadImage/';
-    //     return this.http.get(getReportImages);
-    // }
-
     getDailyReportMessages(timeStampIDs): Observable<IReadReport[]> {
         console.log('Alpha = I am running daily report here with timesStampIDs', timeStampIDs);
         if (timeStampIDs.id === null) {
@@ -150,13 +145,14 @@ export class ReportReadApiService {
 
     private consolidateMessageLevels(data) {
         const flattendData = [];
-
-        for (let array = 0; array < data.length; ++array) {
-            const singleData = { name: '', color: '', rank: '' };
-            singleData.name = data[array].node.levelName;
-            singleData.color = data[array].node.levelColor;
-            singleData.rank = data[array].node.levelRank;
-            flattendData.push(singleData);
+        if (data.length > 0) {
+            for (let array = 0; array < data.length; ++array) {
+                const singleData = { name: '', color: '', rank: '' };
+                singleData.name = data[array].node.levelName;
+                singleData.color = data[array].node.levelColor;
+                singleData.rank = data[array].node.levelRank;
+                flattendData.push(singleData);
+            }
         }
         return this.toolBox.sorting(flattendData, 'rank');
     }
