@@ -1,0 +1,29 @@
+th.shopNames {
+    /* Something you can count on */
+    height: 200px;
+    white-space: nowrap;
+
+    div {
+        transform:
+        /* Magic Numbers */
+        translate(25px, 51px)
+        /* 45 is really 360 - 45 */
+        rotate(315deg);
+        width: 30px;
+
+        span {
+            border-bottom: 1px solid #ccc;
+            padding: 5px 10px;
+        }
+    }
+
+}
+
+th.shopNames:first-child {
+    color: red;
+    padding: 10px;
+}
+
+td.prodNames{
+    font-weight: bold;
+}

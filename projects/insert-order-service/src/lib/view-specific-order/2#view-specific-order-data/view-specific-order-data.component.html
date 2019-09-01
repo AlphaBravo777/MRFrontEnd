@@ -1,3 +1,16 @@
-<p>
-  view-specific-order-data works!
-</p>
+<app-box-shadow-container>
+    <div *ngIf="orders ; then showBlock1; else notShowBlock"></div>
+    <ng-template #showBlock1>
+        <div *ngIf="orders.length > 0; then showBlock2; else notShowBlock"></div>
+    </ng-template>
+    <ng-template #showBlock2>
+        <mr-insert-view-specific-order-view
+        *ngIf='orders'
+        [orders]='orders'
+        [uniqueProducts]='uniqueProducts'>
+        </mr-insert-view-specific-order-view>
+    </ng-template>
+    <ng-template #notShowBlock>
+        <span>There are no orders available, or you must select a route again</span>
+    </ng-template>
+</app-box-shadow-container>

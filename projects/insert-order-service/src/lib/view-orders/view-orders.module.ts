@@ -7,14 +7,20 @@ import { ViewOrderMainViewComponent } from './3#view-order-main-view/view-order-
 import { SharedComponentsModule } from 'src/app/home/shared/components/shared-components.module';
 import { CustomMaterialModule } from 'src/app/home/shared/dropdown-table/custom-material.module';
 import { ViewSpecificOrderDataComponent } from '../view-specific-order/2#view-specific-order-data/view-specific-order-data.component';
+import { ViewSpecificOrderViewComponent } from '../view-specific-order/3#view-specific-order-view/view-specific-order-view.component';
 
 @NgModule({
-  declarations: [ViewOrderDataComponent, ViewOrderMainViewComponent, ViewSpecificOrderDataComponent],
-  imports: [
-    CommonModule,
-    ViewOrdersRoutingModule,
-    SharedComponentsModule,
-    CustomMaterialModule,
-  ]
+    declarations: [
+        ViewOrderDataComponent,
+        ViewOrderMainViewComponent,
+        ViewSpecificOrderDataComponent,
+        ViewSpecificOrderViewComponent
+    ],
+    imports: [
+        CommonModule,
+        ViewOrdersRoutingModule,
+        SharedComponentsModule,
+        CustomMaterialModule
+    ]
 })
-export class ViewOrdersModule { }
+export class ViewOrdersModule {}

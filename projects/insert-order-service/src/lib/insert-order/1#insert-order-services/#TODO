@@ -19,7 +19,8 @@
     ☐ When user auto enters a product, and he does not pick to enter another product
         ☐ (which means the product get deleted form the products to pick form list)
         ☐ and he then enters a product by clicking on its card, you will now have
-        ☐ two valid product that are the same
+        ☐ two valid product that are the same (Maybe when he picks the product card, run product checks and make sure
+        ☐ product not already inserted before inserting card). Override current product with card, but keep amount
     ☐ When you have two orders in the db with the same info, two for the same day, then it will insert
     ☐ You are able to insert the same order twice in the db (But this may just be with the put method)
     ☐ When you insert a product like MINI, it shows up in the form as MINi, and therefore is not validated

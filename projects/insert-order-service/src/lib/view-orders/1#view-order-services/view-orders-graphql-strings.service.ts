@@ -11,6 +11,7 @@ export class ViewOrdersGraphqlStringsService {
         nodeOrderDetailsMicroService(timeStampid:$timeStampid, routeid:$routeid, accountid:$accountid){
             edges{
                 node{
+                    id
                     commonName
                     rowid
                     accountid
@@ -18,13 +19,17 @@ export class ViewOrdersGraphqlStringsService {
                     orderproductamountsmicroserviceSet{
                         edges{
                             node{
+                                id
                                 productMRid
                                 rowid
                                 amount
                                 productid{
+                                    id
+                                    rowid
                                     packaging{
-                                      packagingWeight
-                                      rowid
+                                        id
+                                        packagingWeight
+                                        rowid
                                     }
                                 }
                             }

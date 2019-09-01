@@ -9,7 +9,7 @@ import { InsertOrderModule } from './insert-order/insert-order.module';
 
 @NgModule({
     declarations: [
-        InsertOrderServiceRoutingComponent,
+        InsertOrderServiceRoutingComponent
     ],
     imports: [
         InsertOrderModule,
