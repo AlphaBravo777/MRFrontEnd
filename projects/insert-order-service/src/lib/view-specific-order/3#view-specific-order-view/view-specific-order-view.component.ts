@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Renderer2, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { SpecificRouteTableService } from './specific-route-table.service';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
@@ -8,12 +8,13 @@ import { IProductOrderDetails } from 'src/app/home/shared/services/productServic
     templateUrl: './view-specific-order-view.component.html',
     styleUrls: ['./view-specific-order-view.component.scss']
 })
-export class ViewSpecificOrderViewComponent implements OnInit {
+export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
 
     @Input() orders: IOrderDetails[];
     @Input() uniqueProducts: IProductOrderDetails[];
     @ViewChild('tableDiv') tableDiv: ElementRef;
     table;
+    maxShopNumber = 0;
 
     constructor(
         private specificRouteTable: SpecificRouteTableService,
@@ -28,7 +29,16 @@ export class ViewSpecificOrderViewComponent implements OnInit {
     }
 
     insertSpecificRouteTable() {
-        this.table = this.specificRouteTable.createSpecificRouteTable(this.orders, this.uniqueProducts);
+        const returnData = this.specificRouteTable.createSpecificRouteTable(this.orders, this.uniqueProducts);
+        this.table = returnData[0];
+        this.maxShopNumber = returnData[1];
         this.tableDiv.nativeElement.appendChild(this.table);
+        console.log('The maximum number = ', this.maxShopNumber);
+    }
+
+    ngAfterViewInit() {
+        console.log('Here is the element: ', this.tableDiv.nativeElement);
+        this.tableDiv.nativeElement.children[0].children[0].style.height = this.maxShopNumber * 9.5 + 'px';
+        // this.tableDiv.nativeElement.children[0].children[0].children[0].children[0].style.height = this.maxShopNumber * 9.5 - 10 + 'px';
     }
 }

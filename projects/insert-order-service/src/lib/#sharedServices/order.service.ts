@@ -53,7 +53,7 @@ export class OrderService {
     }
 
     searchForOrder(datePackage: IDate, accountid: number): Observable<IOrderDetails[]> {  // IOrderDetails
-        // console.log('The date package = ', datePackage);
+        console.log('The date package = ', datePackage, accountid);
         return this.insertOrderApiService.searchForOrder(datePackage, accountid).pipe(
             take(1),
             tap(order => console.log('Alfa (returned order) = ', order)),

@@ -1,29 +1,65 @@
-th.shopNames {
-    /* Something you can count on */
-    height: 200px;
-    white-space: nowrap;
+@import 'src/stylesColors.scss';
 
+.componentContainer{
+    display: inline-grid;
+    grid-template-columns: 1fr;
+    width: 100%;
     div {
-        transform:
-        /* Magic Numbers */
-        translate(25px, 51px)
-        /* 45 is really 360 - 45 */
-        rotate(315deg);
-        width: 30px;
+        justify-self:center;
+    }
+}
 
-        span {
-            border-bottom: 1px solid #ccc;
-            padding: 5px 10px;
-        }
+.mainTable {
+    display: block;
+    overflow: auto;
+    // color: blue;
+    padding: 20px;
+
+    tr:nth-child(even) {
+        background: $mainColor;
     }
 
 }
 
-th.shopNames:first-child {
-    color: red;
-    padding: 10px;
+th.shopNames {
+    /* Something you can count on */
+    // height: 150px;
+    white-space: nowrap;
+    height: auto;
+
+    div {
+        transform:
+        /* Magic Numbers */
+        translate(0px, 70px)
+        /* 45 is really 360 - 45 */
+        rotate(270deg);
+        width: 30px;
+
+        span {
+            border-bottom: 1px solid rgb(110, 109, 109);
+            // padding: 5px 10px;
+        }
+    }
+}
+
+.productHeading {
+    display: grid;
+    height: 150px;
+    span {
+        align-self: end;
+        justify-self:start;
+        color: red;
+        padding: 10px 0px;
+    }
 }
 
 td.prodNames{
     font-weight: bold;
+    padding-right: 10px;
+}
+
+td.prodAmounts {
+    border: 1px solid rgb(110, 109, 109);
+    text-align: right;
+    font-weight: 600;
 }
