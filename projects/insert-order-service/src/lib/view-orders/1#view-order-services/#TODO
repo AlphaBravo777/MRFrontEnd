@@ -1,16 +1,14 @@
-✔ Get working data, which will be a small amount of data just to show all the information for a route @done(19-08-29 17:22)
-    ✔ This must include routeName, and how much weight (With and without crates) the route is. @done(19-08-27 14:46)
-
-☐ Create a completely on its own routeView module to go with the viewOrders module, then when you select a route, you just navigate to
-    ☐ data component of this module
-☐ The factory may also want to see all the products for the route, so maybe have a summary with routeWeight and totalWeight for all
-    ☐ routes, and then also a dropdown to show all the products that will be ordered, and the total of all products.
-    ☐ This will be difficult to implement with the same view, so just have two different views, one with summary, and one with products included
-☐ Let user click on a route, and then get the rest of the data for the route, like all the shops etc.
-☐ And then when you can see all the shops, let a user click on a shop and bring up the order, so that you can change it as neccesary
-☐ Here it should also be able to change a route to a different route, as well as move the route to a different day.
-☐ Show the pnp order total as percentage against other totals
-☐ Have an option to print out a route, so when you click print route, it will print all the orders in the route
+☐ Features
+    ✔ Get working data, which will be a small amount of data just to show all the information for a route @done(19-08-29 17:22)
+        ✔ This must include routeName, and how much weight (With and without crates) the route is. @done(19-08-27 14:46)
+    ✔ Create a completely on its own routeView module to go with the viewOrders module, then when you select a route, you just navigate to @done(19-09-02 16:51)
+        ✔ data component of this module @done(19-09-02 16:51)
+    ☐ The factory may also want to see all the products for the route, so maybe have a summary with routeWeight and totalWeight for all
+        ☐ routes, and then also a dropdown to show all the products that will be ordered, and the total of all products.
+        ☐ This will be difficult to implement with the same view, so just have two different views, one with summary, and one with products included
+    ✔ Let user click on a route, and then get the rest of the data for the route, like all the shops etc. @done(19-09-02 16:51)
+    ☐ Show the pnp order total as percentage against other totals
+    ☐ Have an option to print out a route, so when you click print route, it will print all the orders in the route
 
 ☐ Bug report
     ✔ Check that orders that are read in on Sunday, is showing on the Monday of the wrong week. @done(19-08-30 15:47)

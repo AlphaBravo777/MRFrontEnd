@@ -5,7 +5,9 @@ import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-s
 import { Apollo, gql } from 'apollo-angular-boost';
 import { map } from 'rxjs/operators';
 import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
-import { INodeOrderDetailsMicroService, IOrderproductamountsmicroserviceSet } from './interfaces/order-backend-interfaces';
+import { INodeOrderDetailsMicroService,
+    IOrderproductamountsmicroserviceSet,
+    getDefaultINodeOrderDetailsMicroService } from './interfaces/order-backend-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +54,9 @@ export class OrderGraphqlApiService {
                                         rowid
                                         packagingType
                                     }
+                                    packagingShipping{
+                                        packagingWeight
+                                    }
                                 }
                                 productMRid
                                 amount
@@ -94,6 +99,8 @@ export class OrderGraphqlApiService {
     }
 
     private consolidateDailyOrders(data: INodeOrderDetailsMicroService): IOrderDetails[] {
+        const defaultValues: INodeOrderDetailsMicroService = getDefaultINodeOrderDetailsMicroService();
+        console.log('DEFAULT VALUES: ', defaultValues);
 
         function calculateLugSize(containerid) {
             if (containerid === 7) {
@@ -118,10 +125,12 @@ export class OrderGraphqlApiService {
                         status: productData.edges[prod].node.status,
                         lastModified: productData.edges[prod].node.lastModified,
                         userid: productData.edges[prod].node.userid,
-                        packageWeight: productData.edges[prod].node.packageWeight,
+                        packageWeight: productData.edges[prod].node.packageWeight || null,
                         orderDetailsid: productData.edges[prod].node.rowid,
                         lugSize: calculateLugSize(productData.edges[prod].node.productid.packaging.rowid),
-                        rankingInGroup: productData.edges[prod].node.productid.rankingInGroup
+                        rankingInGroup: productData.edges[prod].node.productid.rankingInGroup,
+                        packagingShippingWeight: productData.edges[prod].node.productid.packagingShipping.packagingWeight || 0,
+                        unitsPerMaxShippingWeight: productData.edges[prod].node.productid.unitsPerMaxShippingWeight,
                     };
                     products.push(singleGroup);
                 }

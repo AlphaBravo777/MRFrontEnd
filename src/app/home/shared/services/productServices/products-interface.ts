@@ -2,6 +2,8 @@ export class IProductDetails {
     productMRid: string;
     productid: number;
     packageWeight: number;
+    packagingShippingWeight: number;
+    unitsPerMaxShippingWeight: number;
     rankingInGroup: number;
     proddescription?: string;
     productonhold?: boolean;
@@ -51,4 +53,13 @@ export class IProductOrderDBDetails extends IProductDetails {
 
 export function ff_createProductDetailsObjectForDB(obj: IProductOrderDetails): IProductOrderDBDetails {
     return new IProductOrderDBDetails(obj);
+}
+
+export class IUniqueProductsDetails {
+    uniqueProducts: Set<Object>;
+    productRowValues: Set<number>;
+    productUnitWeight: Set<Object>;
+    productTotalAmounts: Set<Object>;
+    productTotalWeights: Set<Object>;
+    productTotalWeightsWithCrates: Set<Object>;
 }

@@ -12,7 +12,6 @@
 .mainTable {
     display: block;
     overflow: auto;
-    // color: blue;
     padding: 20px;
 
     tr:nth-child(even) {
@@ -25,6 +24,7 @@ th.shopNames {
     /* Something you can count on */
     // height: 150px;
     white-space: nowrap;
+    // text-overflow: ellipsis;
     height: auto;
 
     div {
@@ -62,4 +62,27 @@ td.prodAmounts {
     border: 1px solid rgb(110, 109, 109);
     text-align: right;
     font-weight: 600;
+}
+
+.weightTotals > div {
+    font-weight: 600;
+    color: red;
+    text-align: right;
+    padding-left: 3px;
+    border: 1px solid rgb(110, 109, 109);
+}
+
+.routeTotals1 > div {
+    font-weight: 600;
+    color: red;
+}
+
+.prodTotAmount {
+    border: 1px solid rgb(110, 109, 109);
+    text-align: right;
+
+    span {
+        color: blue;
+        font-weight: 600;
+    }
 }

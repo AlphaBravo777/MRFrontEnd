@@ -23,9 +23,14 @@ export class ViewOrdersGraphqlStringsService {
                                 productMRid
                                 rowid
                                 amount
+                                packageWeight
                                 productid{
                                     id
                                     rowid
+                                    unitsPerMaxShippingWeight
+                                    packagingShipping{
+                                        packagingWeight
+                                        }
                                     packaging{
                                         id
                                         packagingWeight

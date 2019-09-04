@@ -1,7 +1,7 @@
 import { Component, OnInit, Renderer2, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { SpecificRouteTableService } from './specific-route-table.service';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
-import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductOrderDetails, IUniqueProductsDetails } from 'src/app/home/shared/services/productServices/products-interface';
 
 @Component({
     selector: 'mr-insert-view-specific-order-view',
@@ -11,7 +11,8 @@ import { IProductOrderDetails } from 'src/app/home/shared/services/productServic
 export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
 
     @Input() orders: IOrderDetails[];
-    @Input() uniqueProducts: IProductOrderDetails[];
+    @Input() uniqueProductsDetails: IUniqueProductsDetails;
+    // @Input() uniqueProductAmountTotals: Object;
     @ViewChild('tableDiv') tableDiv: ElementRef;
     table;
     maxShopNumber = 0;
@@ -29,9 +30,10 @@ export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
     }
 
     insertSpecificRouteTable() {
-        const returnData = this.specificRouteTable.createSpecificRouteTable(this.orders, this.uniqueProducts);
-        this.table = returnData[0];
-        this.maxShopNumber = returnData[1];
+        const returnTable = this.specificRouteTable.createSpecificRouteTable(
+            this.orders, this.uniqueProductsDetails);
+        this.table = returnTable[0];
+        this.maxShopNumber = returnTable[1];
         this.tableDiv.nativeElement.appendChild(this.table);
         console.log('The maximum number = ', this.maxShopNumber);
     }
