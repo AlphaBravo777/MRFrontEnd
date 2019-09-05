@@ -21,6 +21,13 @@
                 <th style="text-align:left">Total:</th>
                 <th style="text-align:right">{{totalWeightForTheDay}} kg</th>
             </tr>
+            <tr>
+                <th colspan="3">
+                    <app-minimalistic-button>
+                            <div class='viewProducts' (click)='routeSelected({routeid: undefined, routeName: "Daily Route"})'>View Product</div>
+                    </app-minimalistic-button>
+                </th>
+            </tr>
         </tfoot>
     </table>
 </div>

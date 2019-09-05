@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { ViewSpecificOrderService } from '../1#view-specific-order-services/view-specific-order.service';
 import { tap } from 'rxjs/operators';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
-import { IProductOrderDetails, IUniqueProductsDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductOrderDetails, IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
 
 @Component({
     selector: 'mr-insert-view-specific-order-data',
@@ -14,11 +14,7 @@ export class ViewSpecificOrderDataComponent implements OnInit, OnDestroy {
 
     subscription: Subscription;
     orders: IOrderDetails[];
-    // uniqueProducts: IProductOrderDetails[]; // Turns this into an object
-    // uniqueProductAmountTotals;  // Turns this into an object
-    // uniqueProductAmountWeights; // Turns this into an object
-    // Add a product weight also to the object
-    uniqueProductsDetails: IUniqueProductsDetails;
+    uniqueProductsDetails: Set<IUniqueProductTotals>;
 
     constructor(private viewSpecificOrderService: ViewSpecificOrderService) {}
 
@@ -29,9 +25,6 @@ export class ViewSpecificOrderDataComponent implements OnInit, OnDestroy {
     getSelectedOrderData() {
         this.subscription = this.viewSpecificOrderService.getViewSpecificOrderInitialData().pipe(
             tap(orders => this.orders = orders),
-            // tap(orders => this.uniqueProducts = this.viewSpecificOrderService.getUniqueProducts(orders)),
-            // tap(orders => this.uniqueProductAmountTotals = this.viewSpecificOrderService.getUniqueProductTotals(orders)),
-            // tap(orders => this.uniqueProductAmountWeights = this.viewSpecificOrderService.getUniqueProductWeights(orders)),
             tap(orders => this.uniqueProductsDetails = this.viewSpecificOrderService.getUniqueProductDetails(orders)),
             tap(() => console.log('Here is the uniqueProductsDetails: ', this.uniqueProductsDetails)),
 

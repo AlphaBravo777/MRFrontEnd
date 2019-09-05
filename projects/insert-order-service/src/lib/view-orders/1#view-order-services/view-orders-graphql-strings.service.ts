@@ -16,6 +16,7 @@ export class ViewOrdersGraphqlStringsService {
                     rowid
                     accountid
                     orderTotalAmount
+                    routeid
                     orderproductamountsmicroserviceSet{
                         edges{
                             node{

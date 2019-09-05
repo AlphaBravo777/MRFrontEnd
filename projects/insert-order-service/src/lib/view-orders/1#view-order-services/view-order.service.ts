@@ -8,6 +8,7 @@ import { tap, concatMap, switchMap, map } from 'rxjs/operators';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { OrderGraphqlApiService } from '../../#sharedServices/order-graphql-api.service';
+import { ViewOrderData$Service } from './view-order-data$.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +18,7 @@ export class ViewOrderService {
     currentRoutes: IRoute[];
 
     constructor(private insertOrderData$Service: InsertOrderData$Service,
+        private viewOrderData$Service: ViewOrderData$Service,
         private getDateService: GetDate$Service,
         private orderGraphqlApiService: OrderGraphqlApiService) {}
 
@@ -26,7 +28,8 @@ export class ViewOrderService {
             concatMap(() => this.getDateService.currentDatePackage$),
             switchMap(datePackage => this.getRoutesForDatePackage(datePackage)),
             map(orders => this.calculateRoutesAndTotalAmounts(orders)),
-            map(routes => this.addRouteNamesToRoutes(routes, this.currentRoutes))
+            map(routes => this.addRouteNamesToRoutes(routes, this.currentRoutes)),
+            tap(namedRoutes => this.viewOrderData$Service.setDailyRoutes(namedRoutes)),
         );
     }
 

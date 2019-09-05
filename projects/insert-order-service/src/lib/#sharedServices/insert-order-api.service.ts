@@ -137,6 +137,8 @@ export class InsertOrderApiService {
                         orderDetailsid: null,
                         lugSize: null,
                         rankingInGroup: null,
+                        packagingShippingWeight: productEdge[prod].node.productid.packagingShipping.packagingWeight || 0,
+                        unitsPerMaxShippingWeight: productEdge[prod].node.productid.unitsPerMaxShippingWeight,
                     };
                     products.push(singleGroup);
                 }

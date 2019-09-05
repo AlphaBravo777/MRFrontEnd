@@ -21,4 +21,5 @@ export class ViewOrderMainViewComponent implements OnInit {
         this.viewOrderData$Service.setPickedRoute(route);
         this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-specific-order']);
     }
+
 }

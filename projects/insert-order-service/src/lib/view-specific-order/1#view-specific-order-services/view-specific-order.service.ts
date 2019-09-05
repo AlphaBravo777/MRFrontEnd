@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ViewOrderData$Service } from '../../view-orders/1#view-order-services/view-order-data$.service';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, of } from 'rxjs';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, map, concatMap } from 'rxjs/operators';
 import { OrderService } from '../../#sharedServices/order.service';
 import { IViewRoutesData } from '../../view-orders/1#view-order-services/view-order-interface';
 import { ViewOrdersGraphqlStringsService } from '../../view-orders/1#view-order-services/view-orders-graphql-strings.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
-import { IProductOrderDetails, IUniqueProductsDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
+import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ViewSpecificOrderService {
-
-
 
     constructor(private viewOrderData$Service: ViewOrderData$Service,
         private getDateService: GetDate$Service,
@@ -27,86 +26,75 @@ export class ViewSpecificOrderService {
         const datePackage$ = this.getDateService.currentDatePackage$;
         const selectedRoute$: Observable<IViewRoutesData> = this.viewOrderData$Service.currentPickedRoute$;
         return combineLatest([datePackage$, selectedRoute$]).pipe(
-            switchMap(data => this.orderService.searchForOrdersMain(undefined, <IDate>data[0], <number>data[1].routeid, queryString)),
+            concatMap(data => this.orderService.searchForOrdersMain(undefined, <IDate>data[0], <number>data[1].routeid, queryString).pipe(
+                concatMap(orders => {
+                    if (data[1].routeid) {
+                        return of(orders);
+                    } else {
+                        console.log('There was NO route ID');
+                        return this.viewOrderData$Service.currentDailyRoute$.pipe(
+                            map(dailyRoutes => this.consolidateRouteOrdersIntoOne(orders, dailyRoutes))
+                        );
+                    }
+                }),
+            )),
             tap(orders => console.log('Orders = ', orders))
-            // map(orders => convertOrderDataForHTMLTable)
         );
     }
 
-    getUniqueProducts(orders: IOrderDetails[]) {
-        const uniqueValues = {};
-        const uniqueProducts: IProductOrderDetails[] = [];
+    getUniqueProductDetails(orders: IOrderDetails[]): Set<IUniqueProductTotals> {
+        const uniqueProductDetails: Set<IUniqueProductTotals> = new Set<IUniqueProductTotals>();
         orders.forEach(order => {
             order.orders.forEach(product => {
-                if (!(product.productid in uniqueValues)) {
-                    uniqueValues[product.productid] = product.productid;
-                    uniqueProducts.push(product);
-                }
-            });
-        });
-        console.log('UniqueValues = ', uniqueValues);
-        return uniqueProducts;
-    }
-
-    getUniqueProducts2(orders: IOrderDetails[]): Set<Object> {
-        const uniqueValues = new Set<Object>();
-        orders.forEach(order => {
-            order.orders.forEach(product => {
-                uniqueValues[product.productid] = product.productMRid;
-            });
-        });
-        // console.log('UniqueValues2 = ', uniqueValues);
-        return uniqueValues;
-    }
-
-    getUniqueProductTotals(orders: IOrderDetails[]) {
-        const uniqueProductsDictionary = {};
-        orders.forEach(order => {
-            order.orders.forEach(product => {
-                if (product.productid in uniqueProductsDictionary) {
-                    uniqueProductsDictionary[product.productid] += product.amount;
+                if (product.productid in uniqueProductDetails) {
+                    uniqueProductDetails[product.productid].totalAmount += product.amount;
+                    uniqueProductDetails[product.productid].totalWeight += product.amount * product.packageWeight;
+                    uniqueProductDetails[product.productid].totalWeightWithCrates += (Math.ceil(product.amount /
+                        product.unitsPerMaxShippingWeight) * product.packagingShippingWeight) + (product.amount * product.packageWeight);
                 } else {
-                    uniqueProductsDictionary[product.productid] = product.amount;
+                    const uniqueProduct: IUniqueProductTotals = {
+                        productMRid: product.productMRid, rowNumber: null, totalAmount: product.amount,
+                        totalWeight: product.amount * product.packageWeight, unitWeight: product.packageWeight,
+                        totalWeightWithCrates: (Math.ceil(product.amount / product.unitsPerMaxShippingWeight) *
+                        product.packagingShippingWeight) + (product.amount * product.packageWeight)
+                    };
+                    uniqueProductDetails[product.productid] = uniqueProduct;
                 }
             });
         });
-        return uniqueProductsDictionary;
-    }
-
-    getUniqueProductTotals2(orders: IOrderDetails[]) {
-        const uniqueProductDetails: IUniqueProductsDetails = {productRowValues: new Set(), productTotalWeights: new Set(),
-            productTotalAmounts: new Set(), productTotalWeightsWithCrates: new Set(), productUnitWeight: new Set(),
-            uniqueProducts: new Set()};
-        orders.forEach(order => {
-            order.orders.forEach(product => {
-                if (product.productid in uniqueProductDetails.productTotalAmounts) {
-                    uniqueProductDetails.productTotalAmounts[product.productid] += product.amount;
-                    uniqueProductDetails.productTotalWeights[product.productid] += product.amount * product.packageWeight;
-                    uniqueProductDetails.productTotalWeightsWithCrates[product.productid] +=
-                        (Math.ceil(product.amount / product.unitsPerMaxShippingWeight) * product.packagingShippingWeight) +
-                        (product.amount * product.packageWeight);
-                } else {
-                    uniqueProductDetails.productTotalAmounts[product.productid] = product.amount;
-                    uniqueProductDetails.productTotalWeights[product.productid] = product.amount * product.packageWeight;
-                    uniqueProductDetails.uniqueProducts[product.productid] = product.productMRid;
-                    uniqueProductDetails.productUnitWeight[product.productid] = product.packageWeight;
-                    uniqueProductDetails.productTotalWeightsWithCrates[product.productid] =
-                        (Math.ceil(product.amount / product.unitsPerMaxShippingWeight) * product.packagingShippingWeight) +
-                        (product.amount * product.packageWeight);
-                }
-            });
-        });
+        console.log('ALPHA = ', uniqueProductDetails);
         return uniqueProductDetails;
     }
 
-    getUniqueProductWeights(orders: IOrderDetails[]) {
-
+    consolidateRouteOrdersIntoOne(orders: IOrderDetails[], dailyRoutes: IRoute[]): IOrderDetails[] {
+        const routeids: Set<Object> = new Set();
+        orders.forEach(order => {
+            if (order.routeid in routeids) {
+                routeids[order.routeid].orders.push.apply(routeids[order.routeid].orders, order.orders);
+                routeids[order.routeid].orderTotalAmount += order.orderTotalAmount;
+            } else {
+                routeids[order.routeid] = order;
+            }
+        });
+        const newOrders: IOrderDetails[] = [];
+        dailyRoutes.forEach(route => {
+            routeids[route.routeid].commonName = route.routeName;
+            newOrders.push(routeids[route.routeid]);
+        });
+        console.log('The routeids = ', routeids);
+        return newOrders;
     }
 
-    getUniqueProductDetails(orders: IOrderDetails[]) {
-        // this.uniqueProductDetails.productids = this.getUniqueProducts2(orders);
-        // this.getUniqueProductTotals2(orders);
-        return this.getUniqueProductTotals2(orders); // Try and make this global variable local
+    calculateRouteWeightWithAndWithoutWeight(uniqueProductsDetails: Set<IUniqueProductTotals>): Array<any> {
+        let totalWeight = 0;
+        let totalWeightWithCrates = 0;
+        for (const key in uniqueProductsDetails) {
+            if (uniqueProductsDetails.hasOwnProperty(key)) {
+                totalWeight += uniqueProductsDetails[key].totalWeight;
+                totalWeightWithCrates += uniqueProductsDetails[key].totalWeightWithCrates;
+            }
+        }
+        return [totalWeight, totalWeightWithCrates];
     }
 
 }

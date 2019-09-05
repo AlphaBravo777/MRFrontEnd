@@ -1,6 +1,6 @@
 import { Injectable, Renderer2 } from '@angular/core';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
-import { IUniqueProductsDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IUniqueProductsDetails, IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
 
 
 @Injectable({
@@ -14,10 +14,22 @@ export class SpecificRouteTableService {
 
     constructor() {}
 
-    createSpecificRouteTable(orders: IOrderDetails[], uniqueProductsDetails: IUniqueProductsDetails) {
+    createSpecificRouteTable(orders: IOrderDetails[], uniqueProductsDetails: Set<IUniqueProductTotals>) {
         this.maxShopNameLength = 0;
         this.createTable(orders, uniqueProductsDetails);
         return [this.table, this.maxShopNameLength];
+    }
+
+    private createTable(orders: IOrderDetails[], uniqueProductsDetails: Set<IUniqueProductTotals>) {
+        this.table = this.renderer.createElement('table');
+        this.renderer.addClass(this.table, 'mainTable');
+        this.createHeadingTrack(orders);
+        this.insertUniqueProductsColumn(uniqueProductsDetails);
+        this.insertInitialZeroValueForAllProducts(orders.length, uniqueProductsDetails);
+        this.insertProductValues(orders, uniqueProductsDetails);
+        this.insertShopTotalWeightAmount(orders);
+        this.insertUniqueProductAmountTotals(uniqueProductsDetails);
+        this.insertUniqueProductWeightTotals(uniqueProductsDetails);
     }
 
     private createRowColmDivSpanValue(colmString: string, classColmString: string,
@@ -35,19 +47,7 @@ export class SpecificRouteTableService {
         this.renderer.addClass(div, classDivString);
         this.renderer.addClass(colm, classColmString);
         return tr;
-    }
-
-    private createTable(orders: IOrderDetails[], uniqueProductsDetails: IUniqueProductsDetails) {
-        this.table = this.renderer.createElement('table');
-        this.renderer.addClass(this.table, 'mainTable');
-        this.createHeadingTrack(orders);
-        this.insertUniqueProductsColumn(uniqueProductsDetails);
-        this.insertInitialZeroValueForAllProducts(orders.length, uniqueProductsDetails.uniqueProducts);
-        this.insertProductValues(orders, uniqueProductsDetails.productRowValues);
-        this.insertShopTotalWeightAmount(orders);
-        this.insertUniqueProductAmountTotals(uniqueProductsDetails);
-        this.insertUniqueProductWeightTotals(uniqueProductsDetails);
-    }
+}
 
     private createHeadingTrack(orders: IOrderDetails[]) {
         const tr = this.renderer.createElement('tr');
@@ -64,21 +64,22 @@ export class SpecificRouteTableService {
         this.table.appendChild(tr);
     }
 
-    private insertUniqueProductsColumn(uniqueProductsDetails: IUniqueProductsDetails) {
+    private insertUniqueProductsColumn(uniqueProductsDetails: Set<IUniqueProductTotals>) {
         let counter = 1;
-        for (const [key, value] of Object.entries(uniqueProductsDetails.uniqueProducts)) {
-            // if you want to sort the productNames first before entering, then you can maybe turn the
-            // object first into an array with "newArray = Array.from(object)""
-            this.table.appendChild(this.createRowColmDivSpanValue(
-                'td', 'prodNames', undefined, undefined, value));
-            uniqueProductsDetails.productRowValues[key] = counter;
-            counter += 1;
+        for (const key in uniqueProductsDetails) {
+            if (uniqueProductsDetails.hasOwnProperty(key)) {
+                // if you want to sort the productNames first before entering, then you can maybe turn the
+                // object first into an array with "newArray = Array.from(object)""
+                this.table.appendChild(this.createRowColmDivSpanValue(
+                    'td', 'prodNames', undefined, undefined, uniqueProductsDetails[key].productMRid));
+                uniqueProductsDetails[key].rowNumber = counter;
+                counter += 1;
+            }
         }
     }
 
-    private insertInitialZeroValueForAllProducts(numberOfOrders: number, uniqueProducts: Set<Object>) {
+    private insertInitialZeroValueForAllProducts(numberOfOrders: number, uniqueProducts: Set<IUniqueProductTotals>) {
         const numberOfProducts = Object.keys(uniqueProducts).length;
-        console.log('Values = ', numberOfOrders, numberOfProducts);
         for (let row = 1; row < numberOfProducts + 1; row++) {
             for (let col = 0; col < numberOfOrders; col++) {
                 this.table.rows[row].appendChild(this.createRowColmDivSpanValue(
@@ -87,13 +88,14 @@ export class SpecificRouteTableService {
         }
     }
 
-    private insertProductValues(orders: IOrderDetails[], uniqueProductRows: Set<Object>) {
-        console.log('Dictionary : ', this.shopDictionary);
+    private insertProductValues(orders: IOrderDetails[], uniqueProducts: Set<IUniqueProductTotals>) {
         for (let order = 0; order < orders.length; order++) {
             const shopNumber = this.shopDictionary[orders[order].orderid];
             for (let prod = 0; prod < orders[order].orders.length; prod++) {
-                const prodNumber = uniqueProductRows[orders[order].orders[prod].productid];
-                this.table.rows[prodNumber].cells[shopNumber].innerHTML = orders[order].orders[prod].amount;
+                const prodNumber = uniqueProducts[orders[order].orders[prod].productid].rowNumber;
+                const currentTableValue = Number(this.table.rows[prodNumber].cells[shopNumber].children[0].children[0].innerHTML);
+                this.table.rows[prodNumber].cells[shopNumber].children[0].children[0].innerHTML =
+                    currentTableValue + orders[order].orders[prod].amount;
             }
         }
     }
@@ -113,27 +115,25 @@ export class SpecificRouteTableService {
     private insertUniqueProductAmountTotals(uniqueProductsDetails: IUniqueProductsDetails) {
         this.table.rows[0].appendChild(this.createRowColmDivSpanValue(
             'th', 'shopNames', undefined, undefined, 'Product Amounts').children[0]);
-        Object.entries(uniqueProductsDetails.productTotalAmounts).forEach(
-            ([key, value]) => {
-                const rowNumber = uniqueProductsDetails.productRowValues[key];
-                console.log(key, value, rowNumber);
+            for (const key in uniqueProductsDetails) {
+                if (uniqueProductsDetails.hasOwnProperty(key)) {
+                const rowNumber = uniqueProductsDetails[key].rowNumber;
                 this.table.rows[rowNumber].appendChild(this.createRowColmDivSpanValue(
-                    'td', undefined, 'prodTotAmount', undefined, value).children[0]);
+                    'td', undefined, 'prodTotAmount', undefined, uniqueProductsDetails[key].totalAmount).children[0]);
+                }
             }
-          );
     }
 
     private insertUniqueProductWeightTotals(uniqueProductsDetails: IUniqueProductsDetails) {
         this.table.rows[0].appendChild(this.createRowColmDivSpanValue(
             'th', 'shopNames', undefined, undefined, 'Product Weights').children[0]);
-        Object.entries(uniqueProductsDetails.productTotalWeights).forEach(
-            ([key, value]) => {
-                const rowNumber = uniqueProductsDetails.productRowValues[key];
-                console.log(key, value, rowNumber);
-                this.table.rows[rowNumber].appendChild(this.createRowColmDivSpanValue(
-                    'td', 'weightTotals', undefined, undefined, value).children[0]);
+        for (const key in uniqueProductsDetails) {
+            if (uniqueProductsDetails.hasOwnProperty(key)) {
+            const rowNumber = uniqueProductsDetails[key].rowNumber;
+            this.table.rows[rowNumber].appendChild(this.createRowColmDivSpanValue(
+                'td', undefined, 'weightTotals2', undefined, uniqueProductsDetails[key].totalWeight).children[0]);
             }
-          );
+        }
     }
 
 }

@@ -56,10 +56,23 @@ export function ff_createProductDetailsObjectForDB(obj: IProductOrderDetails): I
 }
 
 export class IUniqueProductsDetails {
-    uniqueProducts: Set<Object>;
-    productRowValues: Set<number>;
-    productUnitWeight: Set<Object>;
-    productTotalAmounts: Set<Object>;
-    productTotalWeights: Set<Object>;
-    productTotalWeightsWithCrates: Set<Object>;
+    // uniqueProducts: Set<Object>;
+    // productRowValues: Set<number>;
+    // productUnitWeight: Set<Object>;
+    // productTotalAmounts: Set<Object>;
+    // productTotalWeights: Set<Object>;
+    // productTotalWeightsWithCrates: Set<Object>;
 }
+
+export class IUniqueProductTotals {
+    productMRid: string;
+    rowNumber: number;
+    unitWeight: number;
+    totalAmount: number;
+    totalWeight: number;
+    totalWeightWithCrates: number;
+}
+
+// export class IUniqueProductsDetails2 {
+//     uniqueProduct: IUniqueProductTotals;
+// }

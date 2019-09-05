@@ -36,25 +36,31 @@ export class OrderGraphqlApiService {
                     orderproductamountsmicroserviceSet{
                         edges{
                             node{
+                                id
                                 rowid
                                 productid {
+                                    id
                                     rowid
                                     proddescription
                                     productonhold
                                     batchranking
                                     rankingInGroup
                                     brand{
+                                        id
                                         brand
                                     }
                                     unitweight{
+                                        id
                                         unitAmount
                                         measuringUnit
                                     }
                                     packaging{
+                                        id
                                         rowid
                                         packagingType
                                     }
                                     packagingShipping{
+                                        id
                                         packagingWeight
                                     }
                                 }
@@ -77,6 +83,7 @@ export class OrderGraphqlApiService {
         nodeOrderDetailsMicroService(timeStampid:$timeStampid){
         edges{
             node{
+                id
                 orderTotalAmount
                 routeid
                 }
@@ -149,7 +156,7 @@ export class OrderGraphqlApiService {
                 franchiseName: null,
                 orderNumber: data.edges[order].node.orderNumber,
                 productGroupid: null,
-                parentAccountid: data.edges[order].node.accountid,
+                parentAccountid: null,
                 orders: products,
                 orderTotalAmount: data.edges[order].node.orderTotalAmount,
             };

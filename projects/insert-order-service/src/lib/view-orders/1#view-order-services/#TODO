@@ -3,20 +3,22 @@
         ✔ This must include routeName, and how much weight (With and without crates) the route is. @done(19-08-27 14:46)
     ✔ Create a completely on its own routeView module to go with the viewOrders module, then when you select a route, you just navigate to @done(19-09-02 16:51)
         ✔ data component of this module @done(19-09-02 16:51)
-    ☐ The factory may also want to see all the products for the route, so maybe have a summary with routeWeight and totalWeight for all
-        ☐ routes, and then also a dropdown to show all the products that will be ordered, and the total of all products.
+    ✔ The factory may also want to see all the products for the route, so maybe have a summary with routeWeight and totalWeight for all @done(19-09-05 12:12)
+        ✔ routes, and then also a dropdown to show all the products that will be ordered, and the total of all products. @done(19-09-05 12:12)
         ☐ This will be difficult to implement with the same view, so just have two different views, one with summary, and one with products included
     ✔ Let user click on a route, and then get the rest of the data for the route, like all the shops etc. @done(19-09-02 16:51)
     ☐ Show the pnp order total as percentage against other totals
     ☐ Have an option to print out a route, so when you click print route, it will print all the orders in the route
 
 ☐ Bug report
-    ✔ Check that orders that are read in on Sunday, is showing on the Monday of the wrong week. @done(19-08-30 15:47)
+    ✔ Check why orders that are read in on Sunday, is showing on the Monday of the wrong week. @done(19-08-30 15:47)
 
 ☐  Views
     ☐ Main view
-        ☐ Summary view (Just for a routeName, and a weight (with and without crates)
+        ✔ Summary view (Just for a routeName, and a weight @done(19-09-05 12:15)
         ☐ Product view. This is to show all the routes, with the total products for each, as well as overall total
-        ☐ Specific route view that shows the route with all the shops and products in it.
+        ✔ Specific route view that shows the route with all the shops and products in it. @done(19-09-05 12:15)
             ☐ Here we should be able to change the routeName, as well as the date that the route must go out
-
+            ☐ Click on route to edit it.
+        ☐ View that shows the totals for all the routes of the week
+        ☐ Allow view to show at opening screen

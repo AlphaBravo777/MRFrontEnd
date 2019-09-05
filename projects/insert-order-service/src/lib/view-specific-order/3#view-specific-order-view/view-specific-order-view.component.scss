@@ -70,6 +70,7 @@ td.prodAmounts {
     text-align: right;
     padding-left: 3px;
     border: 1px solid rgb(110, 109, 109);
+
 }
 
 .routeTotals1 > div {
@@ -83,6 +84,16 @@ td.prodAmounts {
 
     span {
         color: blue;
+        font-weight: 600;
+    }
+}
+
+.weightTotals2 {
+    border: 1px solid rgb(110, 109, 109);
+    text-align: right;
+
+    span {
+        color: red;
         font-weight: 600;
     }
 }
