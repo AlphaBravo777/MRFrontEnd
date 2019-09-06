@@ -3,6 +3,7 @@ import { SpecificRouteTableService } from './specific-route-table.service';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
 import { ViewSpecificOrderService } from '../1#view-specific-order-services/view-specific-order.service';
+import { IViewRoutesData } from '../../view-orders/1#view-order-services/view-order-interface';
 
 @Component({
     selector: 'mr-insert-view-specific-order-view',
@@ -13,6 +14,7 @@ export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
 
     @Input() orders: IOrderDetails[];
     @Input() uniqueProductsDetails: Set<IUniqueProductTotals>;
+    @Input() currentRoute: IViewRoutesData;
     @ViewChild('tableDiv') tableDiv: ElementRef;
     totalRouteWeight = 0;
     totalRouteWeightWithCrates = 0;
@@ -45,6 +47,10 @@ export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
             this.viewSpecificOrderService.calculateRouteWeightWithAndWithoutWeight(this.uniqueProductsDetails);
         this.totalRouteWeight = returnedWeights[0];
         this.totalRouteWeightWithCrates = returnedWeights[1];
+    }
+
+    dropDownTableState(event, key) {
+        console.log(event, key);
     }
 
     ngAfterViewInit() {

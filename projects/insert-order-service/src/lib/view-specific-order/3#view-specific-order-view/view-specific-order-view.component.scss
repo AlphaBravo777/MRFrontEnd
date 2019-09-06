@@ -9,6 +9,12 @@
     }
 }
 
+.topHeadingDropdownBar {
+    width: 100%;
+    border-radius: 5px;
+
+}
+
 .mainTable {
     display: block;
     overflow: auto;
@@ -96,4 +102,9 @@ td.prodAmounts {
         color: red;
         font-weight: 600;
     }
+}
+
+.bottomHeadings {
+    text-align: center;
+
 }

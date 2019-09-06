@@ -1,0 +1,54 @@
+@import 'src/stylesColors.scss';
+
+.class1 {
+    display: block;
+    padding: 10px;
+    // background: $mainColorMinusOne;
+    margin: 4px 0px 0px 0px;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),
+                0 2px 2px 0 rgba(0,0,0,.14),
+                0 1px 5px 0 rgba(0,0,0,.12);
+    border-radius: 6px;
+
+    .container {
+        display: grid;
+        grid-template-columns: 90% 10%;
+
+        .heading {
+            justify-self: center;
+            align-self: center;
+            font-weight: bold;
+        }
+
+        .headingIcon {
+            justify-self: center;
+            align-self: center;
+            font-weight: bold;
+        }
+    }
+}
+
+
+
+// .topLevel {
+//     display: block;
+//     padding: 10px;
+//     // background: $mainColorMinusOne;
+//     margin: 4px 0px 0px 0px;
+//     box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),
+//                 0 2px 2px 0 rgba(0,0,0,.14),
+//                 0 1px 5px 0 rgba(0,0,0,.12);
+// }
+
+// .heading{
+//     min-height: 35px;
+//     font-size: 15px;
+//     color: $secondColorPlusTwo;
+//     font-weight: bold;
+//     display: grid;
+//     grid-template-columns: minmax(min-content, max-content) 1fr 1fr 5%;
+// }
+
+// .topLevel div {
+//     align-self: center;
+// }

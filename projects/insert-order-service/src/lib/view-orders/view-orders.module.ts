@@ -8,19 +8,24 @@ import { SharedComponentsModule } from 'src/app/home/shared/components/shared-co
 import { CustomMaterialModule } from 'src/app/home/shared/dropdown-table/custom-material.module';
 import { ViewSpecificOrderDataComponent } from '../view-specific-order/2#view-specific-order-data/view-specific-order-data.component';
 import { ViewSpecificOrderViewComponent } from '../view-specific-order/3#view-specific-order-view/view-specific-order-view.component';
+import { HeadingDropdownViewComponent
+    } from '../view-specific-order/3#view-specific-order-view/heading-dropdown-view/heading-dropdown-view.component';
+import { MaterialConfigModule } from 'src/app/material-config/material-config.module';
 
 @NgModule({
     declarations: [
         ViewOrderDataComponent,
         ViewOrderMainViewComponent,
         ViewSpecificOrderDataComponent,
-        ViewSpecificOrderViewComponent
+        ViewSpecificOrderViewComponent,
+        HeadingDropdownViewComponent
     ],
     imports: [
         CommonModule,
         ViewOrdersRoutingModule,
         SharedComponentsModule,
-        CustomMaterialModule
+        CustomMaterialModule,
+        MaterialConfigModule
     ]
 })
 export class ViewOrdersModule {}

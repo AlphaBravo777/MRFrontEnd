@@ -5,7 +5,7 @@
         ✔ data component of this module @done(19-09-02 16:51)
     ✔ The factory may also want to see all the products for the route, so maybe have a summary with routeWeight and totalWeight for all @done(19-09-05 12:12)
         ✔ routes, and then also a dropdown to show all the products that will be ordered, and the total of all products. @done(19-09-05 12:12)
-        ☐ This will be difficult to implement with the same view, so just have two different views, one with summary, and one with products included
+        ✔ This will be difficult to implement with the same view, so just have two different views, one with summary, and one with products included @done(19-09-06 08:28)
     ✔ Let user click on a route, and then get the rest of the data for the route, like all the shops etc. @done(19-09-02 16:51)
     ☐ Show the pnp order total as percentage against other totals
     ☐ Have an option to print out a route, so when you click print route, it will print all the orders in the route
@@ -16,7 +16,7 @@
 ☐  Views
     ☐ Main view
         ✔ Summary view (Just for a routeName, and a weight @done(19-09-05 12:15)
-        ☐ Product view. This is to show all the routes, with the total products for each, as well as overall total
+        ✔ Product view. This is to show all the routes, with the total products for each, as well as overall total @done(19-09-06 08:29)
         ✔ Specific route view that shows the route with all the shops and products in it. @done(19-09-05 12:15)
             ☐ Here we should be able to change the routeName, as well as the date that the route must go out
             ☐ Click on route to edit it.

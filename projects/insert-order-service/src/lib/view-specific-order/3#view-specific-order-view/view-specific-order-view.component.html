@@ -1,6 +1,14 @@
 <div class='componentContainer'>
+    <div class='topHeadingDropdownBar'>
+        <app-expandable-div
+            [heading]='currentRoute.routeName'
+            [className]='"class1"'>
+            <mr-insert-heading-dropdown-view>
+            </mr-insert-heading-dropdown-view>
+        </app-expandable-div>
+    </div>
     <div #tableDiv>
     </div>
+
 </div>
-<h3>The total route weight = {{totalRouteWeight}} kg</h3>
-<h3>The total route weight with crates included = {{totalRouteWeightWithCrates}} kg</h3>
+

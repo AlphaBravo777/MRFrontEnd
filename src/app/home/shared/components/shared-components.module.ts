@@ -13,6 +13,7 @@ import { CustomRadioGroupComponent } from './custom-radio-group/custom-radio-gro
 import { MatRadioModule } from '@angular/material';
 import { MinimalisticButtonComponent } from './minimalistic-button/minimalistic-button.component';
 import { ColorChangeInputBoxComponent } from './color-change-input-box/color-change-input-box.component';
+import { ExpandableDivComponent } from './expandable-div/expandable-div.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ColorChangeInputBoxComponent } from './color-change-input-box/color-cha
         CustomRadioGroupComponent,
         MinimalisticButtonComponent,
         ColorChangeInputBoxComponent,
+        ExpandableDivComponent,
     ],
     exports: [
         RainbowProgressBarComponent,
@@ -41,7 +43,8 @@ import { ColorChangeInputBoxComponent } from './color-change-input-box/color-cha
         CustomTextareaComponent,
         CustomRadioGroupComponent,
         MinimalisticButtonComponent,
-        ColorChangeInputBoxComponent
+        ColorChangeInputBoxComponent,
+        ExpandableDivComponent
     ]
 })
 export class SharedComponentsModule { }

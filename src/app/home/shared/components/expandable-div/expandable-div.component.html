@@ -1,0 +1,25 @@
+<!-- <span class='topLevel' >
+    <div class='heading' (click)='expandContract()'>
+        <div>{{indvTopDataPoints}}</div>
+        <div>
+            <div id='th3' *ngIf="!expandedIndex" class='headingIcon'> <i class="material-icons">expand_more</i></div>
+            <div id='th3' *ngIf="expandedIndex" class='headingIcon'> <i class="material-icons">expand_less</i></div>
+        </div>
+    </div>
+    <div *ngIf="expandedIndex">
+        <ng-content></ng-content>
+    </div>
+</span> -->
+
+<div [ngStyle]='getStyleSheet()' [ngClass]='getClass()'>
+    <div class='container' (click)='expandContract()'>
+        <div class='heading'>{{heading}}</div>
+        <div class='headingIcon'>
+            <div id='th3' *ngIf="!expandedIndex"> <i class="material-icons">expand_more</i></div>
+            <div id='th3' *ngIf="expandedIndex"> <i class="material-icons">expand_less</i></div>
+        </div>
+    </div>
+    <div *ngIf="expandedIndex">
+        <ng-content></ng-content>
+    </div>
+</div>
