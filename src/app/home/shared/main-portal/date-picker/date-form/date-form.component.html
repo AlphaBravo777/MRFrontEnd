@@ -11,16 +11,6 @@
             </tr>
             <tr>
                 <td class='title'>Shift: </td>
-                <!-- <td class='radio'>
-                    <label>
-                        <input type="radio" formControlName="shift" value="A">
-                        <span class="input_text">A &nbsp;</span>
-                    </label>
-                    <label>
-                        <input type="radio" formControlName="shift" value="B">
-                        <span class="input_text">B</span>
-                    </label>
-                </td> -->
                 <td class='selectBox'>
                     <select dir="rtl" formControlName="shift">
                         <option *ngFor="let shift of shifts" [ngValue]="shift.shiftName">{{shift.shiftName}}</option>
@@ -44,5 +34,4 @@
             </tr>
         </table>
     </form>
-    <!-- {{ dateForm.value | json }} -->
 </app-box-shadow-container>

@@ -8,10 +8,11 @@ import { IOrderDetails,
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';
-import { map, take, tap } from 'rxjs/operators';
+import { map, take, tap, single } from 'rxjs/operators';
 import { IProductOrderDetails,
     ff_createProductDetailsObjectForDB,
     IProductOrderDBDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IOrderproductamountsmicroserviceSetNode } from './interfaces/order-backend-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -41,16 +42,17 @@ export class InsertOrderApiService {
                             node{
                                 rowid
                                 id
-                                productid{
-                                    productid
-                                    rowid
-                                }
                                 productMRid
                                 amount
                                 status
                                 lastModified
                                 userid
                                 packageWeight
+                                productid{
+                                    id
+                                    productid
+                                    rowid
+                                }
                             }
                         }
                     }
@@ -118,8 +120,17 @@ export class InsertOrderApiService {
     }
 
     private consolidateAccountsData(data): IOrderDetails[] {
-        // console.log('Raw data of search orders = ', data);
         if (data.length > 0) {
+
+            // First check if the property exists before trying to access it.
+            const packagingShipping = (product: IOrderproductamountsmicroserviceSetNode) => {
+                if (product.node.productid.packagingShipping) {
+                    return product.node.productid.packagingShipping.packagingWeight;
+                } else {
+                    return 0;
+                }
+            };
+
             const currentOrders: IOrderDetails[] = [];
             for (let order = 0; order < data.length; order++) {
                 const products: IProductOrderDetails[] = [];
@@ -137,7 +148,7 @@ export class InsertOrderApiService {
                         orderDetailsid: null,
                         lugSize: null,
                         rankingInGroup: null,
-                        packagingShippingWeight: productEdge[prod].node.productid.packagingShipping.packagingWeight || 0,
+                        packagingShippingWeight: packagingShipping(productEdge[prod]) || 0,
                         unitsPerMaxShippingWeight: productEdge[prod].node.productid.unitsPerMaxShippingWeight,
                     };
                     products.push(singleGroup);

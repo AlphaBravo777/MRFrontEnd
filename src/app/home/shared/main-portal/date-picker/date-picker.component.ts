@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { IDate } from './date-picker-service/date-interface';
 import { GetDate$Service } from './date-picker-service/get-date$.service';
 import { Subscription } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, take } from 'rxjs/operators';
 
 
 @Component({
@@ -19,24 +19,16 @@ export class DatePickerComponent implements OnInit, OnDestroy {
     picker: Date;
     showDateForm;
 
-    constructor(private fb: FormBuilder, private getDate$Service: GetDate$Service) {
-        // this.getDate$Service.inputLongDate(new Date());
-    }
+    constructor(private fb: FormBuilder, private getDate$Service: GetDate$Service) {}
 
     ngOnInit() {
         this.subscription = this.getDate$Service.inputLongDate(new Date()).pipe(
+            take(1),
             switchMap(() => this.getDate$Service.currentDatePackage$),
             tap(data => this.currentWorkingDate = data),
             tap(() => this.populateDate())
         ).subscribe();
     }
-
-    // ngOnInit() {
-    //     this.subscription = this.getDate$Service.currentDatePackage$.subscribe(data => {
-    //         this.currentWorkingDate = data;
-    //         this.populateDate();
-    //     });
-    // }
 
     populateDate() {
         this.dateForm = this.fb.group({
@@ -58,7 +50,9 @@ export class DatePickerComponent implements OnInit, OnDestroy {
     getLongDate(date: Date) {
         date = new Date(date.valueOf() + (120 * 60000));
         this.dateForm.value.longDate = date;
-        this.getDate$Service.inputLongDate(this.dateForm.value.longDate).subscribe();
+        this.getDate$Service.inputLongDate(this.dateForm.value.longDate).pipe(
+            take(1),
+        ).subscribe();
     }
 
     getBlockDate(date: IDate) {

@@ -42,7 +42,7 @@ class IOrderProductAmountsBackend {
     productid: IProductBackend;
 }
 
-class IOrderproductamountsmicroserviceSetNode {
+export class IOrderproductamountsmicroserviceSetNode {
     node: IOrderProductAmountsBackend;
 }
 

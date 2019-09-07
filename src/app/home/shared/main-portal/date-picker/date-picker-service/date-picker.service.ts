@@ -22,7 +22,19 @@ export class DatePickerService {
         this.getTime();
         return this.getOrCreateTimeStampData().pipe(
         );
+    }
 
+    inputLongDate2(longDate: Date): Observable<IDate> {
+        const packageDate: IDate = {
+            id: null,
+            longDate: longDate,
+            shift: 'Day',
+            time: 'Day'
+        };
+        this.returnShortDate(packageDate);
+        this.returnBlockDate(packageDate);
+        console.log('CURRENT DATEPACKAGE: ', packageDate);
+        return this.getOrCreateTimeStampData2(packageDate).pipe();
     }
 
     inputBlockDate(datePackage: IDate): Observable<any> {
@@ -47,6 +59,21 @@ export class DatePickerService {
         const yearStart = new Date(Date.UTC(longDate.getUTCFullYear(), 0, 1));
         this.datePackage.week = Math.ceil((((longDate - yearStart.valueOf()) / 86400000) + 1) / 7);
         this.datePackage.year = longDate.getUTCFullYear();
+    }
+
+    private returnBlockDate(packageDate: IDate) {  // This is of the new generation date functions
+        let longDate: any = packageDate.longDate; // Do not modify original longdate
+        longDate = new Date(Date.UTC(longDate.getFullYear(), longDate.getMonth(), longDate.getDate()));
+        let dayNumber = longDate.getUTCDay();
+        if (dayNumber === 0) {
+            dayNumber = 7;
+        }
+        packageDate.weekDay = dayNumber;
+        longDate.setUTCDate(longDate.getUTCDate() + 4 - (longDate.getUTCDay() || 7));
+        const yearStart = new Date(Date.UTC(longDate.getUTCFullYear(), 0, 1));
+        packageDate.week = Math.ceil((((longDate - yearStart.valueOf()) / 86400000) + 1) / 7);
+        packageDate.year = longDate.getUTCFullYear();
+
     }
 
     getWeekNumber(dateVar: any) {
@@ -108,6 +135,23 @@ export class DatePickerService {
             mmm = '0' + mm;
         } else { mmm = mm.toString(); }
         this.datePackage.shortDate = yyyy + '-' + mmm + '-' + ddd;
+    }
+
+    private returnShortDate(packageDate: IDate) {  // This is of the new generation date functions
+        const longDate = packageDate.longDate; // Do not modify original longdate
+        packageDate.stringDay = longDate.toString().split(' ')[0];
+        const dd = longDate.getDate();  // Gets the day number of the date, meaning "12"
+        const mm = longDate.getMonth() + 1; // Gets the month number of the date, meaning "9" and adds +1 because January = 0!
+        const yyyy = longDate.getFullYear(); // Gets the year number of the date, meaning "2017"
+        let ddd = '0';
+        let mmm = '0';
+        if (dd < 10) {  // Adds a "0" to days < 10 to make sure the number is "03" and not "3"
+        ddd = '0' + dd;
+        } else { ddd = dd.toString(); }
+        if (mm < 10) {   // Adds a "0" to months < 10 to make sure the number is "03" and not "3"
+            mmm = '0' + mm;
+        } else { mmm = mm.toString(); }
+        packageDate.shortDate = yyyy + '-' + mmm + '-' + ddd;
     }
 
     longToShortDate(date) {
@@ -185,11 +229,6 @@ export class DatePickerService {
                     switchMap(() => this.getOrCreateTimeStampData())
                     );
                 }
-                // if (data.nodeID === undefined) {
-                //     this.datePickerApiService.createTimeStampID(this.datePackage).subscribe();
-                //     this.getOrCreateTimeStampData().subscribe();
-                //     return;
-                // }
                 return of(data);
             }),
             tap((data) => console.log('There is a timestampID and it is', data)),
@@ -200,6 +239,36 @@ export class DatePickerService {
             })
         );
     }
+
+    getOrCreateTimeStampData2(packageDate: IDate): Observable<IDate> {
+        console.log(' ##################### getOrCreateTimeStampData2 is running ##############');
+        return this.datePickerApiService.getTimeData(packageDate.time).pipe(
+            tap(time => {
+                packageDate.timeID = time.id;
+                packageDate.timeHalfStock = time.selectiveDelete;
+            }),
+            concatMap(() => this.datePickerApiService.getWeekDayData(packageDate.weekDay)),
+            tap(weekDay => {
+                packageDate.weekDayID = weekDay.id;
+                packageDate.weekDayName = weekDay.weekDayNames;
+            }),
+            switchMap(() => this.datePickerApiService.getTimeStampIDs(packageDate)),
+            concatMap(date => {
+                if (date.nodeID === undefined) {
+                    return this.datePickerApiService.createTimeStampID(packageDate).pipe(
+                        switchMap(data => this.datePickerApiService.getTimeStampIDs(packageDate)),
+                    );
+                } else {
+                    return of(date);
+                }
+            }),
+            map(date => {
+                packageDate.id = date.id;
+                packageDate.nodeID = date.nodeID;
+                return packageDate;
+            })
+        );
+    }
 }
-// If there is not a timeStampID then: {nodeID: undefined, id: undefined}
+
 

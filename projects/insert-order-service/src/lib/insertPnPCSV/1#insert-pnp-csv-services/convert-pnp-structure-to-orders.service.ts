@@ -194,7 +194,9 @@ export class ConvertPnpStructureToOrdersService {
                 batchRanking: 1,
                 amount: pnpVendorOrder[prod].quantity,
                 orderDetailsid: null,
-                userid: JSON.parse(localStorage.getItem('userID'))
+                userid: JSON.parse(localStorage.getItem('userID')),
+                packagingShippingWeight: null,
+                unitsPerMaxShippingWeight: null
             };
             pnpProductsArray.push(newPnPProductObj);
         }

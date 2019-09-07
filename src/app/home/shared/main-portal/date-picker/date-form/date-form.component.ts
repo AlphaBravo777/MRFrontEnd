@@ -17,7 +17,7 @@ export class DateFormComponent implements OnInit {
     @Output() dateChange: EventEmitter<any> = new EventEmitter<any>();
     dateForm: FormGroup;
     stockTimes: string;
-    shifts: string[];
+    shifts: any[];
     subscription: Subscription;
 
     ngOnInit() {
