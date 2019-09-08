@@ -27,7 +27,8 @@ export class OrderService {
     currentOrdersNotInserted$ = this.ordersNotInserted.asObservable();
     ordersNotInsertedArray: IOrderDetails[] = [];
 
-    insertNewOrder(orders: IOrderDetails[]): Observable<any> {
+
+    insertNewOrderAndProducts(orders: IOrderDetails[]): Observable<any> {
         console.log('Bravo(c) = ', JSON.parse(JSON.stringify(orders)));
         let products: IProductOrderDetails[];
         return from(orders).pipe(
@@ -49,6 +50,14 @@ export class OrderService {
         products.forEach(product => product.orderDetailsid = orderDetails.orderid);
         return this.insertOrderApiService.enterProductAmounts(products).pipe(
             tap(response => console.log('Bravo(b) = ', response)),
+        );
+    }
+
+    changeOrderDetails(orders: IOrderDetails[]): Observable<IOrderDetails> {
+        console.log('Bravo(c) = ', JSON.parse(JSON.stringify(orders)));
+        return from(orders).pipe(
+            tap(order => order.orders = null),
+            concatMap(order => this.insertOrderApiService.enterNewOrderDetails(order)),
         );
     }
 

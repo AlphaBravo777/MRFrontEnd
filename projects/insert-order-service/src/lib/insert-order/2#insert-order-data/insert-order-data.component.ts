@@ -55,7 +55,7 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
         console.log('Order to insert = ', orders);
         orders[0].routeid = orders[1].routeid;
         orders[0].routeName = orders[1].routeName;
-        this.orderService.insertNewOrder([orders[0]]).pipe(
+        this.orderService.insertNewOrderAndProducts([orders[0]]).pipe(
             take(1),
             tap(response => {
                 if ('error' in response) {

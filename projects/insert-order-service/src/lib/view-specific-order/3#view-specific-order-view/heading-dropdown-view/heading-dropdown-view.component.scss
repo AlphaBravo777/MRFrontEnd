@@ -1,4 +1,21 @@
 .bottomHeadings {
     text-align: center;
+}
 
+.datePicked {
+    font-weight: bold;
+}
+
+.routePicked {
+    margin: 0 auto;
+    text-align: left;
+    max-width: 500px;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .routePicked {
+        text-align: left;
+        width: 60%
+    }
 }

@@ -68,7 +68,7 @@ export class InsertPnpCsvService {
                                 ordersNotInserted.push(order);
                                 return of(' ---------- Order was already inserted ----------- ');
                             } else {
-                                return this.insertOrderService.insertNewOrder([order]);
+                                return this.insertOrderService.insertNewOrderAndProducts([order]);
                                 // return of(' ---------- Order was NOT inserted ----------- ');
                             }
                         }),

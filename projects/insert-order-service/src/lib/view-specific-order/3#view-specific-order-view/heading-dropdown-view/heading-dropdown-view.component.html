@@ -3,9 +3,34 @@
         <div>The total route weight = {{totalRouteWeight}} kg</div>
         <div>The total route weight with crates included = {{totalRouteWeightWithCrates}} kg</div>
     </h3>
-    <div>
-        <mat-datepicker touchUi #picker></mat-datepicker>
-        <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
-        <input type="hidden" [matDatepicker]="picker" (dateChange)="getLongDate($event.value)">
-    </div>
+    <form [formGroup]="routeForm" (ngSubmit)='changeRouteOrdersDetail()'>
+        <span>Pick New Date: </span>
+        <span>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+            <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+            <input type="hidden" [matDatepicker]="picker" (dateChange)="getLongDate($event.value)">
+        </span>
+        <span class='datePicked' *ngIf='dateToChangeToo'> New date: {{dateToChangeToo.stringDay}} {{dateToChangeToo.shortDate}}</span>
+        <div class='routePicked'>
+            <app-float-label-input-box
+                class='inputBox'
+                [placeHolderText]='"Type new route that you want to use"'
+                [inputFormControl]='routeForm.get("routeName")'
+                [caption]='"New Route"'
+                [controlPath]='["routeName"]'
+                (userInput)='userRouteSelection($event)'>
+            </app-float-label-input-box>
+            <table *ngIf='refinedRoutesArray && refinedRoutesArray.length > 0'>
+                <tbody>
+                    <tr *ngFor='let route of refinedRoutesArray; let i=index'>
+                        <app-minimalistic-button>
+                            <td class='routesList' (click)='routeSelection(refinedRoutesArray[i])'>{{route.routeName}}</td>
+                        </app-minimalistic-button>
+                    </tr>
+                </tbody>
+            </table>
+            <button class='meatriteButton niceButton' type="submit" >Change Route</button>
+        </div>
+    </form>
 </div>
+

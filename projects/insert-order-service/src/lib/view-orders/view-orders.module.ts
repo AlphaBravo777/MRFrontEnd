@@ -11,6 +11,7 @@ import { ViewSpecificOrderViewComponent } from '../view-specific-order/3#view-sp
 import { HeadingDropdownViewComponent
     } from '../view-specific-order/3#view-specific-order-view/heading-dropdown-view/heading-dropdown-view.component';
 import { MaterialConfigModule } from 'src/app/material-config/material-config.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -18,14 +19,15 @@ import { MaterialConfigModule } from 'src/app/material-config/material-config.mo
         ViewOrderMainViewComponent,
         ViewSpecificOrderDataComponent,
         ViewSpecificOrderViewComponent,
-        HeadingDropdownViewComponent
+        HeadingDropdownViewComponent,
     ],
     imports: [
         CommonModule,
         ViewOrdersRoutingModule,
         SharedComponentsModule,
         CustomMaterialModule,
-        MaterialConfigModule
+        MaterialConfigModule,
+        ReactiveFormsModule
     ]
 })
 export class ViewOrdersModule {}

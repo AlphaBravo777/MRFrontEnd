@@ -13,7 +13,8 @@ import { CustomMaterialModule } from 'src/app/home/shared/dropdown-table/custom-
 import { SharedComponentsModule } from 'src/app/home/shared/components/shared-components.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputBoxFocusDirective } from './1#insert-order-services/input-box-focus.directive';
-import { AmountUnitSelectionComponent } from './3#insert-order-main-view/2#route-view/amount-unit-selection/amount-unit-selection.component';
+import { AmountUnitSelectionComponent
+    } from './3#insert-order-main-view/2#route-view/amount-unit-selection/amount-unit-selection.component';
 
 @NgModule({
     declarations: [

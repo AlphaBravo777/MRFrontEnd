@@ -8,7 +8,7 @@ import { IOrderDetails,
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';
-import { map, take, tap, single } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { IProductOrderDetails,
     ff_createProductDetailsObjectForDB,
     IProductOrderDBDetails } from 'src/app/home/shared/services/productServices/products-interface';

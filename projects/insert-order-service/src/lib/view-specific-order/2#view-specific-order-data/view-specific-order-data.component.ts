@@ -3,9 +3,10 @@ import { Subscription } from 'rxjs';
 import { ViewSpecificOrderService } from '../1#view-specific-order-services/view-specific-order.service';
 import { tap, concatMap } from 'rxjs/operators';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
-import { IProductOrderDetails, IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
+import { IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
 import { ViewOrderData$Service } from '../../view-orders/1#view-order-services/view-order-data$.service';
 import { IViewRoutesData } from '../../view-orders/1#view-order-services/view-order-interface';
+
 
 @Component({
     selector: 'mr-insert-view-specific-order-data',
@@ -32,8 +33,7 @@ export class ViewSpecificOrderDataComponent implements OnInit, OnDestroy {
             tap(orders => this.uniqueProductsDetails = this.viewSpecificOrderService.getUniqueProductDetails(orders)),
             tap(() => console.log('Here is the uniqueProductsDetails: ', this.uniqueProductsDetails)),
             concatMap(() => this.viewOrderData$Service.currentPickedRoute$),
-            tap(currentRoute => this.currentRoute = currentRoute)
-
+            tap(currentRoute => this.currentRoute = currentRoute),
         ).subscribe();
     }
 
