@@ -10,6 +10,11 @@ const mainPortalRoutes: Routes = [
         component: MainPortalComponent,
         children: [
             {
+                path: 'landing-page',
+                loadChildren: () => import('./user-landing-page/user-landing-page.module').then(m => m.UserLandingPageModule),
+                canActivate: [AuthGuard],
+            },
+            {
                 path: 'admin',
                 loadChildren: '../../features/admin/admin.module#AdminModule',
                 canActivate: [AuthGuard],
@@ -49,11 +54,6 @@ const mainPortalRoutes: Routes = [
                 loadChildren: '../../features/factory/dispatch/dispatch.module#DispatchModule',
                 canActivate: [AuthGuard],
             },
-            // {
-            //     path: 'checklists',
-            //     loadChildren: '../../features/office/checklists/checklists.module#ChecklistsModule',
-            //     canActivate: [AuthGuard],
-            // },
         ]
     }
 ];

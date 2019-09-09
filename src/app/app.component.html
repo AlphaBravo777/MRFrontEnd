@@ -1,2 +1,13 @@
 <app-home></app-home>
 <ng-http-loader spinner="sk-wave"></ng-http-loader>
+
+<!-- Requests filtering by URL, HTTP method or HTTP headers
+You can filter the HTTP requests that shouldn't be caught by the interceptor by providing an array of regex patterns:
+
+<ng-http-loader [filteredUrlPatterns]="['\\d', '[a-zA-Z]', 'my-api']"></ng-http-loader>
+You can filter the HTTP requests by providing an array of HTTP methods (case insensitive):
+
+<ng-http-loader [filteredMethods]="['gEt', 'POST', 'PuT']"></ng-http-loader>
+You can also filter the HTTP requests by providing an array of HTTP headers (case insensitive):
+
+<ng-http-loader [filteredHeaders]="['hEaDeR', 'AnoTheR-HeAdEr']"></ng-http-loader> -->

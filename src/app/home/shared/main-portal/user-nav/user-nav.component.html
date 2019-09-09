@@ -3,11 +3,6 @@
         <ng-template [ngxPermissionsOnly]="['factory-supervisor', 'Lshape-leader', 'shift-supervisor', 'admin']">
             <a routerLink="../stock/menu" routerLinkActive="active"><button class='niceButton meatriteButton'>Stock</button></a>
         </ng-template>
-
-        <!-- <ng-template [ngxPermissionsOnly]="['shift-supervisor','factory-supervisor','Lshape-leader', 'admin']">
-            <a routerLink="../L-shape" routerLinkActive="active"><button class='niceButton meatriteButton'>L-Shape</button></a>
-        </ng-template> -->
-
         <ng-template [ngxPermissionsOnly]="['shift-supervisor','factory-supervisor','Lshape-leader', 'admin']">
             <a routerLink="../factory/menu" routerLinkActive="active"><button class='niceButton meatriteButton'>Factory</button></a>
         </ng-template>
@@ -16,19 +11,5 @@
             <a routerLink="../admin-office/menu" routerLinkActive="active"><button class='niceButton meatriteButton'>Admin
                     Office</button></a>
         </ng-template>
-        <!-- <ng-template [ngxPermissionsOnly]="['admin-office', 'dispatch']">
-            <a routerLink="../dispatch/menu" routerLinkActive="active"><button class='niceButton meatriteButton'>Dispatch</button></a>
-        </ng-template> -->
-        <!-- <ng-template [ngxPermissionsOnly]="['admin-office','factory-supervisor', 'admin', 'shift-supervisor']">
-                <a routerLink="../checklists/menu" routerLinkActive="active"><button class='niceButton meatriteButton'>Checklists
-                    </button></a>
-        </ng-template> -->
-
-        <!-- <ng-template [ngxPermissionsOnly]="['admin']">
-            <a routerLink="../admin" routerLinkActive="active"><button class='niceButton meatriteButton'>Admin</button></a>
-        </ng-template>
-        <ng-template [ngxPermissionsOnly]="['admin']">
-            <a routerLink="../admin" routerLinkActive="active"><button class='niceButton meatriteButton'>Register User</button></a>
-        </ng-template> -->
     </nav>
 </div>

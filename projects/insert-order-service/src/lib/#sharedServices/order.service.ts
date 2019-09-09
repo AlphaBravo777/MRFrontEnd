@@ -84,8 +84,6 @@ export class OrderService {
         );
     }
 
-
-
     getProductListToPickFromForAccount(account: IAccountDetails): Observable<IProductDetails[]> {
         return this.productSharedAPIService.getProductsOfProductGroup(account.productGroupid.ID).pipe(
             take(1),

@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MainPortalComponent } from './main-portal.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { UserNavMenuBarComponent } from './user-nav-menu-bar/user-nav-menu-bar.component';
-import { UserEntryComponent } from '../user-entry/user-entry.component';
+import { UserEntryComponent } from './user-entry/user-entry.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
     MatDatepicker,

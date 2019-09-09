@@ -9,7 +9,7 @@ import { CustomMaterialModule } from '../dropdown-table/custom-material.module';
 import { MainPortalComponent } from './main-portal.component';
 import { UserNavMenuBarComponent } from './user-nav-menu-bar/user-nav-menu-bar.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
-import { UserEntryComponent } from '../user-entry/user-entry.component';
+import { UserEntryComponent } from './user-entry/user-entry.component';
 import { DateFormComponent } from './date-picker/date-form/date-form.component';
 
 @NgModule({

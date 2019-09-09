@@ -12,7 +12,4 @@ export class MainPortalComponent implements OnInit {
   ngOnInit() {
   }
 
-// TODO: Make main portal and try and make it lazy loading
-// TODO: Get datepicker to load code from items that are subscribed to it every time date it picked
-
 }

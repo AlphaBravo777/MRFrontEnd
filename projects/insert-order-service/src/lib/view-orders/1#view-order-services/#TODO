@@ -10,9 +10,6 @@
     ☐ Show the pnp order total as percentage against other totals
     ☐ Have an option to print out a route, so when you click print route, it will print all the orders in the route
 
-☐ Bug report
-    ✔ Check why orders that are read in on Sunday, is showing on the Monday of the wrong week. @done(19-08-30 15:47)
-
 ☐  Views
     ☐ Main view
         ✔ Summary view (Just for a routeName, and a weight @done(19-09-05 12:15)
@@ -22,3 +19,8 @@
             ☐ Click on route to edit it.
         ☐ View that shows the totals for all the routes of the week
         ☐ Allow view to show at opening screen
+
+☐ Bug report
+    ✔ Check why orders that are read in on Sunday, is showing on the Monday of the wrong week. @done(19-08-30 15:47)
+
+
