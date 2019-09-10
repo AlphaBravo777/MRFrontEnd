@@ -1,0 +1,14 @@
+<app-main-outside-container>
+    <div *ngIf="data ; then showBlock1; else notShowBlock"></div>
+    <ng-template #showBlock1>
+        <div *ngIf="data.length > 0; then showBlock2; else notShowBlock"></div>
+    </ng-template>
+    <ng-template #showBlock2>
+        <ng-content>
+
+        </ng-content>
+    </ng-template>
+    <ng-template #notShowBlock>
+        <span>{{noDataMessage}}</span>
+    </ng-template>
+</app-main-outside-container>

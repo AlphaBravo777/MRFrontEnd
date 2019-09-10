@@ -36,7 +36,7 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
     }
 
     gatherIndividualRouteData() {
-        console.log('I should be running more towards the end');
+        console.log('I should be running more towards the end where I could pre-fetch product data');
     }
 
     ngOnDestroy() {

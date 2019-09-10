@@ -18,7 +18,13 @@
             ☐ Here we should be able to change the routeName, as well as the date that the route must go out
             ☐ Click on route to edit it.
         ☐ View that shows the totals for all the routes of the week
+            ☐ First get all the timeStampid's for the current week nr, where shift = 4 and time = 10
+                ☐ Try and make it so that if you need to get a day early or late, that it would be able to do
+            ☐ Then get all the routes for the timestamp ids, maybe get a bear minimum amount of data
+            ☐ Turn each day into a route, and do the products underneat it.
+            ☐ Maybe try and do the routes as you go along, load a day at a time and insert it into the table
         ☐ Allow view to show at opening screen
+
 
 ☐ Bug report
     ✔ Check why orders that are read in on Sunday, is showing on the Monday of the wrong week. @done(19-08-30 15:47)

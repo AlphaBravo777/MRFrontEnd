@@ -22,4 +22,9 @@ export class ViewOrderMainViewComponent implements OnInit {
         this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-specific-order']);
     }
 
+    orderForWeekSelected(route: IViewRoutesData) {
+        console.log('Weekly orders will now be running', route);
+        this.router.navigate(['/main/admin-office/insertOrderService/entry/view-weekly-orders']);
+    }
+
 }

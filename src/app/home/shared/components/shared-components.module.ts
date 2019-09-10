@@ -15,6 +15,7 @@ import { MinimalisticButtonComponent } from './minimalistic-button/minimalistic-
 import { ColorChangeInputBoxComponent } from './color-change-input-box/color-change-input-box.component';
 import { ExpandableDivComponent } from './expandable-div/expandable-div.component';
 import { MainOutsideContainerComponent } from './main-outside-container/main-outside-container.component';
+import { IsDataAvailableComponent } from './is-data-available/is-data-available.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { MainOutsideContainerComponent } from './main-outside-container/main-out
         ColorChangeInputBoxComponent,
         ExpandableDivComponent,
         MainOutsideContainerComponent,
+        IsDataAvailableComponent,
     ],
     exports: [
         RainbowProgressBarComponent,
@@ -47,7 +49,8 @@ import { MainOutsideContainerComponent } from './main-outside-container/main-out
         MinimalisticButtonComponent,
         ColorChangeInputBoxComponent,
         ExpandableDivComponent,
-        MainOutsideContainerComponent
+        MainOutsideContainerComponent,
+        IsDataAvailableComponent
     ]
 })
 export class SharedComponentsModule { }

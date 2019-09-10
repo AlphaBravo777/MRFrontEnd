@@ -83,7 +83,7 @@ export class SpecificRouteTableService {
         for (let row = 1; row < numberOfProducts + 1; row++) {
             for (let col = 0; col < numberOfOrders; col++) {
                 this.table.rows[row].appendChild(this.createRowColmDivSpanValue(
-                    'td', 'prodAmounts', undefined, undefined, '0').children[0]);
+                    'td', 'prodAmounts', undefined, undefined, '').children[0]);
             }
         }
     }
