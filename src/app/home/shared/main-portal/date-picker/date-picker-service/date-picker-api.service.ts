@@ -5,12 +5,28 @@ import { map } from 'rxjs/operators';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { UrlsService } from 'src/app/home/core/urls.service';
 import { IDate } from './date-interface';
+import { IOrderDBDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/order-service-Interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatePickerApiService {
 
+    GET_ALL_DATE_IDS_FOR_WEEK_NO = gql`
+    query getRoutesForWeekNr($weekNr:Float, $year:Float, $time:ID) {
+        nodeTimestamp(week:$weekNr, year:$year, time:$time){
+            edges{
+                node{
+                    rowid
+                    weekDay{
+                        weekDayNumber
+                        weekDayNames
+                        weekDayRanking
+                    }
+                }
+            }
+        }
+    }`;
 
     constructor(private http: HttpClient, private urlService: UrlsService, private apollo: Apollo) { }
 
@@ -141,6 +157,35 @@ export class DatePickerApiService {
             flattendData.push(singleData);
         }
         return flattendData;
+    }
+
+
+    getAllDatePackagesForGivenWeekNR(weekNr: number = 0.1,
+        year: number = 0.1, time: string = 'U3RvY2tUYWtpbmdUaW1lc1R5cGU6MTA='): Observable<any> {
+        console.log(weekNr, year);
+        return this.apollo
+            .watchQuery({
+                variables: {weekNr: weekNr, year: year, time: time},
+                query: this.GET_ALL_DATE_IDS_FOR_WEEK_NO
+            })
+            .valueChanges.pipe(map(result =>
+                this.consolidateAllDatePackagesForGivenWeekNR(result.data['nodeTimestamp'].edges)));
+    }
+
+    private consolidateAllDatePackagesForGivenWeekNR(data): IDate[] {
+        const datePackages: IDate[] = [];
+        if (data) {
+            for (let index = 0; index < data.length; index++) {
+                const date: IDate = {
+                    id: data[index].node.rowid,
+                    weekDayName: data[index].node.weekDay.weekDayNames,
+                    weekDay: data[index].node.weekDay.weekDayNumber,
+                    weekDayRank: data[index].node.weekDay.weekDayRanking,
+                };
+                datePackages.push(date);
+            }
+        }
+        return datePackages;
     }
 
 

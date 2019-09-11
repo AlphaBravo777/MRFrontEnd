@@ -63,7 +63,9 @@ export class ProductSharedApiService {
                 batchRanking: data[array].node.productid.batchranking,
                 packageWeight: data[array].node.productid.packageweight,
                 productonhold: data[array].node.productid.productonhold,
-                rankingInGroup: data[array].node.productid.rankingInGroup
+                rankingInGroup: data[array].node.productid.rankingInGroup,
+                packagingShippingWeight: null,
+                unitsPerMaxShippingWeight: null
             };
         flattendData.push(singleData);
         }

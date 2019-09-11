@@ -37,7 +37,7 @@ export class DatePickerComponent implements OnInit, OnDestroy {
             weekDay: this.currentWorkingDate.weekDay,
             month: this.currentWorkingDate.month,
             monthDay: this.currentWorkingDate.monthDay,
-            stringDay: this.currentWorkingDate.stringDay,
+            weekDayName: this.currentWorkingDate.weekDayName,
             shift: this.currentWorkingDate.shift,
             time: this.currentWorkingDate.time,
             shortDate: this.currentWorkingDate.shortDate,

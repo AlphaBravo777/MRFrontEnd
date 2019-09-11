@@ -171,6 +171,8 @@ export class InsertOrderApiService {
                     parentAccountid: data[order].node.accountid || null,
                     orderTotalAmount: data[order].node.orderTotalAmount || null,
                     orders: products,
+                    franchiseRanking: null,
+                    rankingInFranchise: null
                 };
                 currentOrders.push(singleOrder);
             }

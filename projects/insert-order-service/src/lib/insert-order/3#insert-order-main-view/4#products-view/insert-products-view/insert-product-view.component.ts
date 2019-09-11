@@ -70,6 +70,8 @@ export class InsertProductViewComponent implements OnInit {
             lugSize: null,
             packageWeight: null,
             rankingInGroup: null,
+            packagingShippingWeight: null,
+            unitsPerMaxShippingWeight: null
         };
         this.insertFormChangesService.removeAnyOrderedProductsFromAvailableList();
         this.insertFormChangesService.addAvailableProductToOrderedProducts(product);

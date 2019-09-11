@@ -8,9 +8,9 @@ export class IDate {
     weekDay?: number;
     weekDayID?: string;
     weekDayName?: string;
+    weekDayRank?: number;
     month?: number;
     monthDay?: number;
-    stringDay?: string;
     shift?: string;
     time?: string;
     timeID?: string;

@@ -159,6 +159,8 @@ export class OrderGraphqlApiService {
                 parentAccountid: null,
                 orders: products,
                 orderTotalAmount: data.edges[order].node.orderTotalAmount,
+                franchiseRanking: null,
+                rankingInFranchise: null
             };
             orders.push(singleOrder);
         }

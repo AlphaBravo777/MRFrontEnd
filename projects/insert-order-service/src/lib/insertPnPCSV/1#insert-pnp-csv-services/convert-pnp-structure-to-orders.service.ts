@@ -167,6 +167,8 @@ export class ConvertPnpStructureToOrdersService {
             routeName: 'PnP LongMeadow DC',
             franchiseid: 2,
             productGroupid: null,
+            franchiseRanking: null,
+            rankingInFranchise: null
         };
         const pnpOrder: IOrderDetails = Object.assign({
             orderid: null,

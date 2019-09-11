@@ -87,7 +87,9 @@ export class InsertOrderApiService {
                 routeName: null,
                 routeid: null,
                 franchiseid: null,
-                productGroupid: null
+                productGroupid: null,
+                franchiseRanking: null,
+                rankingInFranchise: null
             };
             singleData.accountid = data[array].node.rowid;
             singleData.accountID = data[array].node.id;

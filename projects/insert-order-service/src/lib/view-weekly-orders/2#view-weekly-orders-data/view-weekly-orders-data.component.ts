@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IOrderDBDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
+import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { ViewWeeklyOrdersService } from '../1#view-weekly-orders-services/view-weekly-orders.service';
 import { tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'mr-insert-view-weekly-orders-data',
@@ -10,7 +11,8 @@ import { tap } from 'rxjs/operators';
 })
 export class ViewWeeklyOrdersDataComponent implements OnInit {
 
-    weeklyOrdersByDay: IOrderDBDetails[] = [];
+    weeklyOrdersByDay: IOrderDetails[] = [];
+    subscription: Subscription;
 
     constructor(private viewWeeklyOrdersService: ViewWeeklyOrdersService) {}
 
@@ -19,8 +21,9 @@ export class ViewWeeklyOrdersDataComponent implements OnInit {
     }
 
     getWeeklyOrdersData() {
-        this.viewWeeklyOrdersService.getWeeklyOrders().pipe(
-            tap(orders => this.weeklyOrdersByDay = orders)
+        this.subscription = this.viewWeeklyOrdersService.getWeeklyOrders().pipe(
+            tap(orders => this.weeklyOrdersByDay = orders),
+            tap(() => console.log('This is the finals ', this.weeklyOrdersByDay))
         ).subscribe();
     }
 }

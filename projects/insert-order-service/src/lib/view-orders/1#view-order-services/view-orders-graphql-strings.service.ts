@@ -30,6 +30,7 @@ export class ViewOrdersGraphqlStringsService {
                                     rowid
                                     unitsPerMaxShippingWeight
                                     packagingShipping{
+                                        id
                                         packagingWeight
                                         }
                                     packaging{
@@ -45,6 +46,7 @@ export class ViewOrdersGraphqlStringsService {
             }
         }
     }`;
+
 
 
     constructor() {}

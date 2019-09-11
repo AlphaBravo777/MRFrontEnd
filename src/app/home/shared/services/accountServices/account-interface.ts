@@ -14,6 +14,8 @@ export class IAccountDetails {
     productGroupid: IProductGroupName;
     franchiseid: number;
     franchiseName?: string;
+    franchiseRanking: number;
+    rankingInFranchise: number;
 }
 
 

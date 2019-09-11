@@ -80,7 +80,9 @@ export class PnpSharedApiService {
                     rankingInGroup: dataProducts[prod].node.productid.rankingInGroup,
                     lugSize: calculateLugSize(dataProducts[prod].node.productid.packaging.rowid),
                     orderDetailsid: null,
-                    userid: null
+                    userid: null,
+                    packagingShippingWeight: null,
+                    unitsPerMaxShippingWeight: null
                 };
                 flattenProducts.push(singleProduct);
             }
@@ -106,6 +108,8 @@ export class PnpSharedApiService {
                 timeStampid: null,
                 userid: null,
                 orderTotalAmount: null,
+                franchiseRanking: null,
+                rankingInFranchise: null,
                 orders: consolidateProducts(data[array].node.orderproductamountsSet.edges),
             };
             flattendData.push(singleData);
@@ -150,7 +154,9 @@ export class PnpSharedApiService {
                 proddescription: data[array].node.proddescription,
                 rankingInGroup: data[array].node.rankingInGroup,
                 productonhold: data[array].node.productonhold,
-                lugSize: null
+                lugSize: null,
+                packagingShippingWeight: null,
+                unitsPerMaxShippingWeight: null,
                 };
                 flattendData.push(singleData);
             }

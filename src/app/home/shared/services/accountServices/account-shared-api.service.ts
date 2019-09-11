@@ -77,7 +77,9 @@ export class AccountSharedApiService {
                 franchiseName: data[array].node.franchise.franchiseName,
                 productGroupid: singleGroup,
                 childAccount: [],
-                parentAccountid: null
+                parentAccountid: null,
+                franchiseRanking: null,
+                rankingInFranchise: null
             };
             flattendData.push(singleData);
         }

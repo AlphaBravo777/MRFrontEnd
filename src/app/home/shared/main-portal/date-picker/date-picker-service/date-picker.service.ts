@@ -121,7 +121,7 @@ export class DatePickerService {
 
     getShortDate(longDate: Date) {
         // console.log('--- ', longDate, longDate.getDate());
-        this.datePackage.stringDay = longDate.toString().split(' ')[0];
+        this.datePackage.weekDayName = longDate.toString().split(' ')[0];
         const dd = longDate.getDate();  // Gets the day number of the date, meaning "12"
         const mm = longDate.getMonth() + 1; // Gets the month number of the date, meaning "9" and adds +1 because January = 0!
         const yyyy = longDate.getFullYear(); // Gets the year number of the date, meaning "2017"
@@ -139,7 +139,7 @@ export class DatePickerService {
 
     private returnShortDate(packageDate: IDate) {  // This is of the new generation date functions
         const longDate = packageDate.longDate; // Do not modify original longdate
-        packageDate.stringDay = longDate.toString().split(' ')[0];
+        packageDate.weekDayName = longDate.toString().split(' ')[0];
         const dd = longDate.getDate();  // Gets the day number of the date, meaning "12"
         const mm = longDate.getMonth() + 1; // Gets the month number of the date, meaning "9" and adds +1 because January = 0!
         const yyyy = longDate.getFullYear(); // Gets the year number of the date, meaning "2017"
@@ -268,6 +268,10 @@ export class DatePickerService {
                 return packageDate;
             })
         );
+    }
+
+    getAllDatePackagesForGivenWeekNR(datePackage: IDate): Observable<IDate[]> {
+        return this.datePickerApiService.getAllDatePackagesForGivenWeekNR(datePackage.week, datePackage.year).pipe();
     }
 }
 

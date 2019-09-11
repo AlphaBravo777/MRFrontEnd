@@ -34,7 +34,7 @@ export class GetDate$Service {
         );
     }
 
-    getAllDatePackagesForGivenWeekNR(weeknr: number): Observable<IDate[]> {
-        return null;
+    getAllDatePackagesForGivenWeekNR(datePackage: IDate): Observable<IDate[]> {
+        return this.datePickerService.getAllDatePackagesForGivenWeekNR(datePackage);
     }
 }

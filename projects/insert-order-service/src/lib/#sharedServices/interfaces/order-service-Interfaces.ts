@@ -29,6 +29,12 @@ export class IOrderDBDetails extends IAccountDetails {
 
 }
 
+export class IWeeklyOrdersDetails {
+    weekDayName: string;
+    weekDayRank: number;
+    orders: IOrderDetails[];
+}
+
 // This is the factory that changes the return from our backend interface to our frontend interface
 export function ff_CreateOrderDetailsObjFromDBObj(obj: IOrderDBDetails): IOrderDetails {
     const order: IOrderDetails = {
@@ -49,7 +55,10 @@ export function ff_CreateOrderDetailsObjFromDBObj(obj: IOrderDBDetails): IOrderD
         orderNumber: obj.orderNumber,
         userid: obj.userid,
         productGroupid: null,
-        orderTotalAmount: null
+        orderTotalAmount: null,
+        franchiseRanking: null,
+        rankingInFranchise: null
+
     };
     return order;
 }
@@ -72,7 +81,9 @@ export function ff_createOrderDetailsObjectForDB(obj: IOrderDetails): IOrderDBDe
         orderDate: obj.orderDate,
         orderNumber: obj.orderNumber,
         userid: obj.userid,
-        productGroupid: null
+        productGroupid: null,
+        franchiseRanking: null,
+        rankingInFranchise: null
     };
     return order;
 }
