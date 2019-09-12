@@ -26,7 +26,6 @@ export class ViewWeeklyOrdersService {
     }
 
     itterateOverDates(datePackages: IDate[]): Observable<any> {
-        const totalAmountOfWeeklyOrders: IOrderDetails[] = [];
         return of({}).pipe(
             tap(() => console.log('The datepackages are: ', datePackages)),
             switchMap(() => from(datePackages).pipe(
@@ -37,7 +36,6 @@ export class ViewWeeklyOrdersService {
     }
 
     getOrdersForDate(datePackage: IDate): Observable<any> {
-        // const totalAmountOfWeeklyOrders: IOrderDetails[] = [];
         this.totalAmountOfWeeklyOrders = [];
         console.log('DatePackage is running', datePackage);
         const queryString = this.viewOrdersGraphQlStringsService.GET_MEDIUM_DATA_FOR_SPECIFIC_ROUTE;
