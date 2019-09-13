@@ -12,6 +12,7 @@
 
 ☐  Views
     ☐ Main view
+        ✔ !!!! Route totals are wrong by about 2-3 kgs a time. The total is not the same as the total of all the product totals counted together @done(19-09-13 12:24)
         ✔ Summary view (Just for a routeName, and a weight @done(19-09-05 12:15)
         ✔ Product view. This is to show all the routes, with the total products for each, as well as overall total @done(19-09-06 08:29)
         ✔ Specific route view that shows the route with all the shops and products in it. @done(19-09-05 12:15)
