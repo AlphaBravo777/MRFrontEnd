@@ -24,7 +24,7 @@
             ☐ Then get all the routes for the timestamp ids, maybe get a bear minimum amount of data
             ☐ Turn each day into a route, and do the products underneat it.
             ☐ Maybe try and do the routes as you go along, load a day at a time and insert it into the table
-        ☐ Allow view to show at opening screen
+        ✔ Allow view to show at opening screen @done(19-09-14 08:02)
 
 
 ☐ Bug report
