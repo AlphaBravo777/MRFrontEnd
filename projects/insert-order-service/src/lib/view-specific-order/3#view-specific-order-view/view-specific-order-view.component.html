@@ -3,7 +3,9 @@
         <app-expandable-div
             [heading]='currentRoute.routeName'
             [className]='"class1"'>
-            <mr-insert-heading-dropdown-view>
+            <mr-insert-heading-dropdown-view
+            [totalRouteWeight]='totalRouteWeight'
+            [totalRouteWeightWithCrates]='totalRouteWeightWithCrates'>
             </mr-insert-heading-dropdown-view>
         </app-expandable-div>
     </div>

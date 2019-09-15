@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { take, tap } from 'rxjs/operators';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
@@ -14,6 +14,8 @@ import { OrderService } from '../../../#sharedServices/order.service';
 })
 export class HeadingDropdownViewComponent implements OnInit, OnDestroy {
 
+    @Input() totalRouteWeight: number;
+    @Input() totalRouteWeightWithCrates: number;
     dateToChangeToo: IDate;
     routeForm: FormGroup;
     subscription: Subscription;
@@ -73,7 +75,7 @@ export class HeadingDropdownViewComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         if (this.subscription) {
-            this.subscription.unsubscribe()
+            this.subscription.unsubscribe();
         }
     }
 
