@@ -31,7 +31,7 @@ export class ViewSpecificOrderDataComponent implements OnInit, OnDestroy {
         this.subscription = this.viewSpecificOrderService.getViewSpecificOrderInitialData().pipe(
             tap(orders => this.orders = orders),
             tap(orders => this.uniqueProductsDetails = this.viewSpecificOrderService.getUniqueProductDetails(orders)),
-            tap(() => console.log('Here is the uniqueProductsDetails: ', this.uniqueProductsDetails)),
+            // tap(() => console.log('Here is the uniqueProductsDetails: ', this.uniqueProductsDetails)),
             concatMap(() => this.viewOrderData$Service.currentPickedRoute$),
             tap(currentRoute => this.currentRoute = currentRoute),
         ).subscribe();

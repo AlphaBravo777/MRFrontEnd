@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ViewOrderData$Service } from '../../view-orders/1#view-order-services/view-order-data$.service';
 import { Observable, combineLatest, of } from 'rxjs';
-import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
+import { IOrderDetails, IWeeklyOrdersDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
-import { switchMap, tap, map, concatMap } from 'rxjs/operators';
+import { tap, map, concatMap, switchMap } from 'rxjs/operators';
 import { OrderService } from '../../#sharedServices/order.service';
 import { IViewRoutesData } from '../../view-orders/1#view-order-services/view-order-interface';
 import { ViewOrdersGraphqlStringsService } from '../../view-orders/1#view-order-services/view-orders-graphql-strings.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
+import { ViewWeeklyOrdersService } from './view-weekly-orders.service';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,8 @@ export class ViewSpecificOrderService {
     constructor(private viewOrderData$Service: ViewOrderData$Service,
         private getDateService: GetDate$Service,
         private orderService: OrderService,
-        private viewOrdersGraphQlStringsService: ViewOrdersGraphqlStringsService) {}
+        private viewOrdersGraphQlStringsService: ViewOrdersGraphqlStringsService,
+        private viewWeeklyOrdersService: ViewWeeklyOrdersService) {}
 
     getViewSpecificOrderInitialData(): Observable<IOrderDetails[]> {
         const queryString = this.viewOrdersGraphQlStringsService.GET_MEDIUM_DATA_FOR_SPECIFIC_ROUTE;
@@ -27,9 +29,14 @@ export class ViewSpecificOrderService {
         const selectedRoute$: Observable<IViewRoutesData> = this.viewOrderData$Service.currentPickedRoute$;
         return combineLatest([datePackage$, selectedRoute$]).pipe(
             concatMap(data => this.orderService.searchForOrdersMain(undefined, <IDate>data[0], <number>data[1].routeid, queryString).pipe(
-                concatMap(orders => {
-                    if (data[1].routeid) {
+                switchMap(orders => {
+                    if (data[1].routeid >= 1) {
                         return of(orders);
+                    } else if (data[1].routeid === 0.1) {
+                        console.log('THIS IS THE TOTAL FOR THE WHOLE WEEK');
+                        return this.viewWeeklyOrdersService.getWeeklyOrders().pipe(
+                            map(weeklyOrders => this.consolidateWeeklyOrdersIntoOne(weeklyOrders)),
+                        );
                     } else {
                         console.log('There was NO route ID');
                         return this.viewOrderData$Service.currentDailyRoute$.pipe(
@@ -38,7 +45,6 @@ export class ViewSpecificOrderService {
                     }
                 }),
             )),
-            tap(orders => console.log('Orders = ', orders))
         );
     }
 
@@ -62,7 +68,7 @@ export class ViewSpecificOrderService {
                 }
             });
         });
-        console.log('ALPHA = ', uniqueProductDetails);
+        // console.log('ALPHA = ', uniqueProductDetails);
         return uniqueProductDetails;
     }
 
@@ -83,6 +89,27 @@ export class ViewSpecificOrderService {
         });
         console.log('The routeids = ', routeids);
         return newOrders;
+    }
+
+    private consolidateWeeklyOrdersIntoOne(weeklyOrders: IWeeklyOrdersDetails[]): IOrderDetails[] {
+        console.log('* * ALPHA * * ', weeklyOrders);
+        if (weeklyOrders) {
+            const changeableWeeklyOrders = JSON.parse(JSON.stringify(weeklyOrders));
+            const newWeeklyOrders: IOrderDetails[] = [];
+            changeableWeeklyOrders.forEach(weekDay => {
+                if (weekDay.orders.length > 0) {
+                    const dailyOrder: IOrderDetails = weekDay.orders[weekDay.orders.length - 1];
+                    dailyOrder.commonName = weekDay.weekDayName;
+                    weekDay.orders.pop();
+                    while (weekDay.orders.length > 0) {
+                        const currentOrder: IOrderDetails = weekDay.orders.pop();
+                        dailyOrder.orders.push.apply(dailyOrder.orders, currentOrder.orders);
+                    }
+                    newWeeklyOrders.push(dailyOrder);
+                }
+            });
+            return newWeeklyOrders;
+        }
     }
 
     calculateRouteWeightWithAndWithoutWeight(uniqueProductsDetails: Set<IUniqueProductTotals>): Array<any> {

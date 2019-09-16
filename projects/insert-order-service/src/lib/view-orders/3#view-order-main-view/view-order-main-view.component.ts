@@ -23,8 +23,10 @@ export class ViewOrderMainViewComponent implements OnInit {
     }
 
     orderForWeekSelected(route: IViewRoutesData) {
-        console.log('Weekly orders will now be running', route);
-        this.router.navigate(['/main/admin-office/insertOrderService/entry/view-weekly-orders']);
+        this.viewOrderData$Service.setPickedRoute(route);
+        this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-specific-order']);
+        // console.log('Weekly orders will now be running', route);
+        // this.router.navigate(['/main/admin-office/insertOrderService/entry/view-weekly-orders']);
     }
 
 }

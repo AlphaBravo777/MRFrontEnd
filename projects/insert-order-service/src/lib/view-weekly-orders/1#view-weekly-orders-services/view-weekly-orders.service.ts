@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, of, from } from 'rxjs';
 import { IOrderDetails, IWeeklyOrdersDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
-import { concatMap, switchMap, tap, flatMap } from 'rxjs/operators';
+import { concatMap, switchMap, tap, flatMap, map } from 'rxjs/operators';
 import { ViewOrdersGraphqlStringsService } from '../../view-orders/1#view-order-services/view-orders-graphql-strings.service';
 import { OrderService } from '../../#sharedServices/order.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
+import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +17,8 @@ export class ViewWeeklyOrdersService {
 
     constructor(private getDateService: GetDate$Service,
         private viewOrdersGraphQlStringsService: ViewOrdersGraphqlStringsService,
-        private orderService: OrderService) {}
+        private orderService: OrderService,
+        private toolbox: ToolboxGroupService) {}
 
     getWeeklyOrders(): Observable<IOrderDetails[]> {
         return this.getDateService.currentDatePackage$.pipe(
@@ -46,7 +48,8 @@ export class ViewWeeklyOrdersService {
                 weekDayName: datePackage.weekDayName, weekDayRank: datePackage.weekDayRank, orders: orders
             })),
             tap(orders => console.log('The totalAmountOfWeeklyOrders orders are: ', this.totalAmountOfWeeklyOrders)),
-            );
+            map(() => this.toolbox.sorting(this.totalAmountOfWeeklyOrders, 'weekDayRank'))
+        );
     }
 
 
