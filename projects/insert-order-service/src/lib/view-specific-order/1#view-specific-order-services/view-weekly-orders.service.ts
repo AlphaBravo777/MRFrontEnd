@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, from, forkJoin, combineLatest } from 'rxjs';
-import { IOrderDetails, IWeeklyOrdersDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
+import { Observable, combineLatest } from 'rxjs';
+import { IWeeklyOrdersDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
-import { concatMap, switchMap, tap, flatMap, map } from 'rxjs/operators';
+import { concatMap, tap, map } from 'rxjs/operators';
 import { ViewOrdersGraphqlStringsService } from '../../view-orders/1#view-order-services/view-orders-graphql-strings.service';
 import { OrderService } from '../../#sharedServices/order.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';

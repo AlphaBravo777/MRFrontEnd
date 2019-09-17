@@ -47,6 +47,7 @@ export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
             this.viewSpecificOrderService.calculateRouteWeightWithAndWithoutWeight(this.uniqueProductsDetails);
         this.totalRouteWeight = returnedWeights[0];
         this.totalRouteWeightWithCrates = returnedWeights[1];
+        this.specificRouteTable.insertTotalRouteWeight(this.totalRouteWeight);
     }
 
     dropDownTableState(event, key) {

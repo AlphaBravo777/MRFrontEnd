@@ -8,9 +8,9 @@ import { IUniqueProductsDetails, IUniqueProductTotals } from 'src/app/home/share
 })
 export class SpecificRouteTableService {
     renderer: Renderer2;
-    table;
-    shopDictionary: Object = {};
-    maxShopNameLength = 0;
+    private table;
+    private shopDictionary: Object = {};
+    private maxShopNameLength = 0;
 
     constructor() {}
 
@@ -134,6 +134,14 @@ export class SpecificRouteTableService {
                 'td', undefined, 'weightTotals2', undefined, uniqueProductsDetails[key].totalWeight).children[0]);
             }
         }
+    }
+
+    insertTotalRouteWeight(totalRouteWeight) {
+        console.log('Table weigth rows: ', this.table.rows[this.table.rows.length - 1]);
+        this.table.rows[this.table.rows.length - 1].appendChild(this.createRowColmDivSpanValue(
+            'td', 'weightTotals', undefined, undefined, '_').children[0]);
+        this.table.rows[this.table.rows.length - 1].appendChild(this.createRowColmDivSpanValue(
+            'td', 'weightTotals', undefined, undefined, totalRouteWeight).children[0]);
     }
 
 }

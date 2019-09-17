@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
+import { IOrderDetails, IOrderDBDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { ConvertPnpCsvDataFactoryService } from './convert-pnp-csv-data-factory.service';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 import { ConvertPnpStructureToOrdersService } from './convert-pnp-structure-to-orders.service';
@@ -58,8 +58,9 @@ export class InsertPnpCsvService {
         reader.onload = e => {
             const pnpOrders: IOrderDetails[] = this.loadHandler(e);
             of({}).pipe(
-                concatMap(() => from(pnpOrders).pipe(
-                    take(pnpOrders.length),
+                map(() => this.removeUnqualifiedPnPOrders(pnpOrders)),
+                concatMap((validPnPOrders) => from(validPnPOrders).pipe(
+                    take(validPnPOrders.length),
                     concatMap(order => this.insertOrderTimeStampid(order).pipe(
                         concatMap(orderWithTimeStamp => this.insertOrderService.searchForOrder(
                             {id: orderWithTimeStamp.timeStampid}, orderWithTimeStamp.accountid)),
@@ -78,6 +79,10 @@ export class InsertPnpCsvService {
                 ))
             ).subscribe();
         };
+    }
+
+    removeUnqualifiedPnPOrders(pnpOrders: IOrderDetails[]): IOrderDetails[] {
+        return pnpOrders.filter(order => order.accountid !== null);
     }
 
     checkIfReturningOrdersHasSameOrderNumber(returningOrder: IOrderDetails[], orderToInsert: IOrderDetails): boolean {

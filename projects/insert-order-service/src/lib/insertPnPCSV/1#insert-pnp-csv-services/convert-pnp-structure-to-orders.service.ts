@@ -77,6 +77,9 @@ export class ConvertPnpStructureToOrdersService {
                         deliveryDateAtDC:
                             this.calculateDcDeliveryDate(vendorFirstOrderDetail.deliveryDate, this.coastalDelieveryDateModifier)};
                 }
+            default:
+                    return {accountid: null, commonName: null, parrentAccountid: null,
+                    orderNumber: '', deliveryDateAtDC: null};
         }
     }
 
