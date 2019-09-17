@@ -6,6 +6,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { CustomMaterialModule } from 'src/app/home/shared/dropdown-table/custom-material.module';
 import { InsertOrderModule } from './insert-order/insert-order.module';
+import { SharedComponentsModule } from 'src/app/home/shared/components/shared-components.module';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { InsertOrderModule } from './insert-order/insert-order.module';
         InsertOrderServiceRoutingModule,
         CommonModule,
         CustomMaterialModule,
+        SharedComponentsModule
 
     ],
     exports: []

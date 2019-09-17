@@ -1,0 +1,47 @@
+@import 'src/stylesColors.scss';
+
+.mainGridComponent {
+    display: grid;
+    grid-gap: 4px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, auto));
+}
+
+.viewOrders {
+    // height: 150px;
+    justify-content: center;
+
+}
+
+.insertOrders {
+    // height: 150px;
+    justify-content: center;
+
+}
+
+.insertPnPCSVOrders {
+    // height: 150px;
+    justify-content: center;
+
+}
+
+.outsideMinimalistic {
+    display: grid;
+    background: $mainColorPlusOne;
+}
+
+.insideMinimalistic {
+    // margin: 6px;
+    display: grid;
+    grid-gap: 4px;
+
+}
+
+img {
+    width: 100%
+}
+
+.heading {
+    justify-self: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}

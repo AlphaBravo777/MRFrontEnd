@@ -1,3 +1,38 @@
-<a routerLink="../view-orders/view-order" routerLinkActive="active"><button class='niceButton meatriteButton'>View Orders</button></a>
+<app-main-outside-container>
+    <div class='mainGridComponent'>
+        <div class='viewOrders'>
+            <app-minimalistic-button class='outsideMinimalistic'>
+                <app-minimalistic-button class='insideMinimalistic' (click)='ordersLoadingToday()'>
+                    <div class='image'><img alt="Meatrite Logo" src="assets/images/loadingOrders.png"></div>
+                    <div class='heading'>Orders Loading Today</div>
+                </app-minimalistic-button>
+                <app-minimalistic-button class='insideMinimalistic' (click)='ordersDeliveringToday()'>
+                    <div class='image'><img alt="Meatrite Logo" src="assets/images/deliveringOrders.png"></div>
+                    <div class='heading'>Orders Delivering Today</div>
+                </app-minimalistic-button>
+            </app-minimalistic-button>
+        </div>
+        <div class='insertOrders'>
+            <app-minimalistic-button class='outsideMinimalistic'>
+                <app-minimalistic-button class='insideMinimalistic' (click)='ordersInsert()'>
+                    <div class='image'><img alt="Meatrite Logo" src="assets/images/insertOrders.png"></div>
+                    <div class='heading'>Insert Orders</div>
+                </app-minimalistic-button>
+            </app-minimalistic-button>
+        </div>
+        <div class='insertPnPCSVOrders'>
+            <app-minimalistic-button class='outsideMinimalistic'>
+                <app-minimalistic-button class='insideMinimalistic' (click)='ordersPnPCSVFileInsert()'>
+                    <div class='image'><img alt="Meatrite Logo" src="assets/images/insertPnPCSVFile.png"></div>
+                    <div class='heading'>Insert Orders</div>
+                </app-minimalistic-button>
+            </app-minimalistic-button>
+        </div>
+    </div>
+</app-main-outside-container>
+
+
+<!-- <a routerLink="../view-orders/view-order" routerLinkActive="active"><button class='niceButton meatriteButton'>View Orders</button></a>
 <a routerLink="../insert-order" routerLinkActive="active"><button class='niceButton meatriteButton'>Insert Orders</button></a>
-<a routerLink="../insertPnPCSV" routerLinkActive="active"><button class='niceButton meatriteButton'>Add PnP CSV Orders</button></a>
+<a routerLink="../insertPnPCSV" routerLinkActive="active"><button class='niceButton meatriteButton'>Add PnP CSV Orders</button></a> -->
+
