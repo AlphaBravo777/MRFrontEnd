@@ -9,9 +9,9 @@
     ✔ Let user click on a route, and then get the rest of the data for the route, like all the shops etc. @done(19-09-02 16:51)
     ☐ Show the pnp order total as percentage against other totals
     ☐ Have an option to print out a route, so when you click print route, it will print all the orders in the route
-    ☐ Create way to show different orders on different days (Show today order to load, and not routes going out)
+    ✔ Create way to show different orders on different days (Show today order to load, and not routes going out) @done(19-09-18 12:36)
     ☐ Load big data in the background without showing the loading sign
-
+    ☐ Add the date to the orders you are viewing, if you are viewing delivery, show the date, if you are viewing loading show date
 
 ☐  Views
     ☐ Main view

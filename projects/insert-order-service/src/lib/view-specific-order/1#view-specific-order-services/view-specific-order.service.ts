@@ -3,7 +3,7 @@ import { ViewOrderData$Service } from '../../view-orders/1#view-order-services/v
 import { Observable, combineLatest, of } from 'rxjs';
 import { IOrderDetails, IWeeklyOrdersDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
-import { tap, map, concatMap, switchMap } from 'rxjs/operators';
+import { map, concatMap, switchMap } from 'rxjs/operators';
 import { OrderService } from '../../#sharedServices/order.service';
 import { IViewRoutesData } from '../../view-orders/1#view-order-services/view-order-interface';
 import { ViewOrdersGraphqlStringsService } from '../../view-orders/1#view-order-services/view-orders-graphql-strings.service';
@@ -24,27 +24,40 @@ export class ViewSpecificOrderService {
         private viewWeeklyOrdersService: ViewWeeklyOrdersService) {}
 
     getViewSpecificOrderInitialData(): Observable<IOrderDetails[]> {
-        const queryString = this.viewOrdersGraphQlStringsService.GET_MEDIUM_DATA_FOR_SPECIFIC_ROUTE;
         const datePackage$ = this.getDateService.currentDatePackage$;
+        const specificRouteDatePackage$ = this.viewOrderData$Service.currentDatePackageForSpecificRoute$;
         const selectedRoute$: Observable<IViewRoutesData> = this.viewOrderData$Service.currentPickedRoute$;
-        return combineLatest([datePackage$, selectedRoute$]).pipe(
-            concatMap(data => this.orderService.searchForOrdersMain(undefined, <IDate>data[0], <number>data[1].routeid, queryString).pipe(
-                switchMap(orders => {
-                    if (data[1].routeid >= 1) {
-                        return of(orders);
-                    } else if (data[1].routeid === 0.1) {
-                        console.log('THIS IS THE TOTAL FOR THE WHOLE WEEK');
-                        return this.viewWeeklyOrdersService.getWeeklyOrders().pipe(
-                            map(weeklyOrders => this.consolidateWeeklyOrdersIntoOne(weeklyOrders)),
-                        );
-                    } else {
-                        console.log('There was NO route ID');
-                        return this.viewOrderData$Service.currentDailyRoute$.pipe(
-                            map(dailyRoutes => this.consolidateRouteOrdersIntoOne(orders, dailyRoutes))
-                        );
-                    }
-                }),
-            )),
+        return combineLatest([datePackage$, selectedRoute$, specificRouteDatePackage$]).pipe(
+            concatMap(data => {
+                if (data[2]) {
+                    console.log('- - - - - - - There WAS A specific route order data package');
+                    return this.searchForSpecificOrder(<IDate>data[2], <IViewRoutesData>data[1]).pipe();
+                } else {
+                    console.log('- - - - - - - There was no specific route order data package');
+                    return this.searchForSpecificOrder(<IDate>data[0], <IViewRoutesData>data[1]).pipe();
+                }
+            }),
+        );
+    }
+
+    searchForSpecificOrder(datePackage: IDate, route: IViewRoutesData): Observable<IOrderDetails[]> {
+        const queryString = this.viewOrdersGraphQlStringsService.GET_MEDIUM_DATA_FOR_SPECIFIC_ROUTE;
+        return this.orderService.searchForOrdersMain(undefined, datePackage, route.routeid, queryString).pipe(
+            switchMap(orders => {
+                if (route.routeid >= 1) {
+                    return of(orders);
+                } else if (route.routeid === 0.1) {
+                    console.log('THIS IS THE TOTAL FOR THE WHOLE WEEK');
+                    return this.viewWeeklyOrdersService.getWeeklyOrders().pipe(
+                        map(weeklyOrders => this.consolidateWeeklyOrdersIntoOne(weeklyOrders)),
+                    );
+                } else {
+                    console.log('There was NO route ID');
+                    return this.viewOrderData$Service.currentDailyRoute$.pipe(
+                        map(dailyRoutes => this.consolidateRouteOrdersIntoOne(orders, dailyRoutes))
+                    );
+                }
+            }),
         );
     }
 

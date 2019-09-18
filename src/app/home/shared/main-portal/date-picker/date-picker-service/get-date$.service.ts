@@ -34,6 +34,12 @@ export class GetDate$Service {
         );
     }
 
+    getDatePackageForCurrentDateMinusPlusDays(daysToAdd: number): Observable<IDate> {
+        const longDate =  new Date(new Date().setDate(new Date().getDate() + daysToAdd));
+        console.log('* * * * New date = ', longDate);
+        return this.getDatePackageForGivenLongDate(longDate).pipe();
+    }
+
     getAllDatePackagesForGivenWeekNR(datePackage: IDate): Observable<IDate[]> {
         return this.datePickerService.getAllDatePackagesForGivenWeekNR(datePackage);
     }

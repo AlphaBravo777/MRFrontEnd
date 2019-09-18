@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IViewRoutesData } from '../1#view-order-services/view-order-interface';
 import { ViewOrderData$Service } from '../1#view-order-services/view-order-data$.service';
 import { Router } from '@angular/router';
+import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 
 @Component({
     selector: 'mr-insert-view-order-main-view',
@@ -12,6 +13,7 @@ export class ViewOrderMainViewComponent implements OnInit {
 
     @Input() smallRoutesForDay: IViewRoutesData[];
     @Input() totalWeightForTheDay: number;
+    @Input() currentDisplayingDate: IDate;
 
     constructor(private viewOrderData$Service: ViewOrderData$Service, private router: Router) {}
 

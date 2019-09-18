@@ -1,17 +1,10 @@
-<app-box-shadow-container>
-    <div *ngIf="orders ; then showBlock1; else notShowBlock"></div>
-    <ng-template #showBlock1>
-        <div *ngIf="orders.length > 0; then showBlock2; else notShowBlock"></div>
-    </ng-template>
-    <ng-template #showBlock2>
-        <mr-insert-view-specific-order-view
+<app-is-data-available
+    [noDataMessage]='"There are no orders available, or you must select a route again"'
+    [data]='orders'>
+    <mr-insert-view-specific-order-view
         *ngIf='orders'
         [orders]='orders'
         [currentRoute]='currentRoute'
         [uniqueProductsDetails]='uniqueProductsDetails'>
-        </mr-insert-view-specific-order-view>
-    </ng-template>
-    <ng-template #notShowBlock>
-        <span>There are no orders available, or you must select a route again</span>
-    </ng-template>
-</app-box-shadow-container>
+    </mr-insert-view-specific-order-view>
+</app-is-data-available>

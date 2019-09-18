@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
+import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
+import { take, tap } from 'rxjs/operators';
+import { ViewOrderData$Service } from '../view-orders/1#view-order-services/view-order-data$.service';
 
 @Component({
     selector: 'mr-insert-menu',
@@ -8,12 +12,23 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-    constructor(private router: Router) {}
+    loadingOrdersDateDifference = 1;
 
-    ngOnInit() {}
+    constructor(private router: Router,
+        private getDateService: GetDate$Service,
+        private viewOrdersDataService: ViewOrderData$Service) {}
+
+    ngOnInit() {
+        this.viewOrdersDataService.setSpecificRouteDatePackage(null);
+    }
 
     ordersLoadingToday() {
         console.log('We are loading today');
+        this.getDateService.getDatePackageForCurrentDateMinusPlusDays(this.loadingOrdersDateDifference).pipe(
+            take(1),
+            tap(datePackage => this.viewOrdersDataService.setSpecificRouteDatePackage(datePackage)),
+            tap(() => this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-order']))
+        ).subscribe();
         // this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-order']);
     }
 

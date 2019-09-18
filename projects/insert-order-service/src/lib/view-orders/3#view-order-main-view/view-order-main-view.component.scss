@@ -12,6 +12,12 @@ table {
     border-spacing: 0 6px;
 }
 
+caption {
+    .topLine {
+        white-space: nowrap
+    }
+}
+
 thead {
     tr th {
         padding: 7px;

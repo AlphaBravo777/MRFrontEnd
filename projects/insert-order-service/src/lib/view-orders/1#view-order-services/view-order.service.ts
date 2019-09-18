@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IViewRoutesData } from './view-order-interface';
 import { InsertOrderData$Service } from '../../insert-order/1#insert-order-services/insert-order-data$.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
@@ -25,7 +25,15 @@ export class ViewOrderService {
     getViewOrderInitialData(): Observable<IViewRoutesData[]> {
         return this.insertOrderData$Service.currentRoutes$.pipe(
             tap(routes => this.currentRoutes = routes),
-            concatMap(() => this.getDateService.currentDatePackage$),
+            concatMap(() => this.viewOrderData$Service.currentDatePackageForSpecificRoute$),
+            concatMap(datePackage => {
+                if (datePackage) {
+                    return of(datePackage);
+                } else {
+                    return this.getDateService.currentDatePackage$;
+                }
+            }),
+            // concatMap(() => this.getDateService.currentDatePackage$),
             switchMap(datePackage => this.getRoutesForDatePackage(datePackage)),
             map(orders => this.calculateRoutesAndTotalAmounts(orders)),
             map(routes => this.addRouteNamesToRoutes(routes, this.currentRoutes)),
