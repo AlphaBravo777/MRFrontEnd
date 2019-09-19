@@ -30,14 +30,15 @@
             <tr>
                 <th colspan="3">
                     <app-minimalistic-button>
-                            <div class='viewProducts' (click)='routeSelected({routeid: undefined, routeName: "Daily Routes"})'>View Total Products</div>
+                            <div class='viewProducts'
+                            (click)='routeSelected({routeid: undefined, routeName: "Daily Routes", routeAmountTotal: null, routeAmountPercentage: null})'>View Total Products</div>
                     </app-minimalistic-button>
                 </th>
             </tr>
             <tr>
                 <th colspan="3">
                     <app-minimalistic-button>
-                        <div class='viewProducts' (click)='orderForWeekSelected({routeid: 0.1, routeName: "Weekly Orders"})'>Orders for week</div>
+                        <div class='viewProducts' (click)='orderForWeekSelected({routeid: 0.1, routeName: "Weekly Orders", routeAmountTotal: null, routeAmountPercentage: null})'>Orders for week</div>
                     </app-minimalistic-button>
                 </th>
             </tr>
