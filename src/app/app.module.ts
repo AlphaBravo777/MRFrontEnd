@@ -5,8 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 
-
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TokenInterceptorService } from './home/core/token-interceptor.service';
@@ -28,6 +26,7 @@ import { MaterialConfigModule } from './material-config/material-config.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { FormBuilderTypeSafe } from './home/core/reactive-forms/reactive-forms-helper';
+import { LoadingScreenComponent } from './home/core/loading-screen/loading-screen.component';
 
 @NgModule({
     exports: [
@@ -70,6 +69,7 @@ import { FormBuilderTypeSafe } from './home/core/reactive-forms/reactive-forms-h
     ],
     entryComponents: [
         DialogBoxComponent,
+        LoadingScreenComponent
     ],
     bootstrap: [AppComponent]
 })

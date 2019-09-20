@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoadingScreenComponent } from './home/core/loading-screen/loading-screen.component';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
+    public loadingScreenComponent = LoadingScreenComponent;
 }
 
