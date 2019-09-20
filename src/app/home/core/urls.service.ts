@@ -21,7 +21,7 @@ export class UrlsService {
     // backendUrl = this.root + ':8080/';
     // graphqlAddress = this.root + ':8080/graphql/';
 
-    currentVersion = '1.16.5';
+    currentVersion = '1.17.2';
 
 }
 
@@ -33,8 +33,9 @@ export class UrlsService {
     // Added time to dailyReport
     // Added orderInsert module
     // Added hpp pallet calculation module
-// 1.16.5 (Release: 2019/09/19)
+// 1.17.0 (Release: 2019/09/19)
     // Added all the orders modules.
     // DB from factory also runs now from portal DB
     // Admin office starting to use orders module
     // Added login screen menus where you can see the daily report or orders
+    // Upgraded to Ivy

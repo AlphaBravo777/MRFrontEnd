@@ -15,7 +15,7 @@ export class ColorChangeInputBoxComponent implements OnInit {
     @Input() controlPath: string;
     @Input() capitalize: boolean;
     @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
-    @ViewChild('userInput') userInput: ElementRef;
+    @ViewChild('userInput', {static: true}) userInput: ElementRef;
 
     controller: FormControl;
 

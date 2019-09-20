@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    // "rootDir": ".", // Add this line to make Ivy work with Libraries
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

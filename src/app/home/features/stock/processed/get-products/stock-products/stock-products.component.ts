@@ -20,7 +20,7 @@ export class StockProductsComponent implements OnInit {
         private authGuard: AuthGuard
     ) { }
 
-    @ViewChild('submitToDBButton') submitToDBButton;
+    @ViewChild('submitToDBButton', {static: true}) submitToDBButton;
 
     batch: String;
     // productName = 'Select a product';

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
-import { ProductSharedApiService } from 'src/app/home/shared/services/productServices/product-shared-api.service';
 import { OrderService } from '../../#sharedServices/order.service';
 import { InsertFormChangesService } from './insert-form-changes.service';
 import { take, tap, switchMap, delay, map, concatMap } from 'rxjs/operators';
@@ -41,7 +40,7 @@ export class InsertOrderService {
         return this.checkIfAccountHasAnOrder(workingAccount, datePackage).pipe();
     }
 
-    checkIfAccountHasAnOrder(account: IAccountDetails, datePackage: IDate): Observable<IOrderDetails> {
+    checkIfAccountHasAnOrder(account: IAccountDetails, datePackage: IDate): Observable<IOrderDetails|any> {
         console.log('Selected account = ', account, datePackage);
         return this.orderService.getProductListToPickFromForAccount(account).pipe(
             take(1),

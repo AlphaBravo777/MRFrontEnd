@@ -42,7 +42,7 @@ import { FormBuilderTypeSafe } from './home/core/reactive-forms/reactive-forms-h
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
-        NgHttpLoaderModule,
+        NgHttpLoaderModule.forRoot(),
         // UserEntryModule,
         NgxPermissionsModule.forRoot(),
         GraphQLModule,

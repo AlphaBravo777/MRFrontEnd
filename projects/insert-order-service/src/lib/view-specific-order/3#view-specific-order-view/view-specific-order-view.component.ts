@@ -15,7 +15,7 @@ export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
     @Input() orders: IOrderDetails[];
     @Input() uniqueProductsDetails: Set<IUniqueProductTotals>;
     @Input() currentRoute: IViewRoutesData;
-    @ViewChild('tableDiv') tableDiv: ElementRef;
+    @ViewChild('tableDiv', {static: true}) tableDiv: ElementRef;
     totalRouteWeight = 0;
     totalRouteWeightWithCrates = 0;
     table;

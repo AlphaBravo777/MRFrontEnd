@@ -39,7 +39,7 @@ export class PnpMrStockService {
             map(data => {
                 const array = [];
                 for (let arr = 0; arr < data.length; arr++) {
-                    array.push(...data[arr]);
+                    // array.push(...data[arr]);
                 }
                 return array;
             }),

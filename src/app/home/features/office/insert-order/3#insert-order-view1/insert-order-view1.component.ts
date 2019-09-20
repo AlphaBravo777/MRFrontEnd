@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { fromEvent } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
 import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
@@ -18,7 +18,7 @@ export class InsertOrderView1Component implements OnInit {
     @Output() accountSelection: EventEmitter<any> = new EventEmitter<any>();
     @Output() productSelection: EventEmitter<any> = new EventEmitter<any>();
     @Output() orderFormSubmit: EventEmitter<any> = new EventEmitter<any>();
-    @ViewChild('searchBox') searchBox: any;
+    @ViewChild('searchBox', {static: true}) searchBox: any;
 
     constructor() {}
 

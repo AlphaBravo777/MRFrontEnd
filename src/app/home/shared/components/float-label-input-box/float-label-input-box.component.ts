@@ -17,8 +17,8 @@ export class FloatLabelInputBoxComponent implements OnInit {
     @Input() caption: string;
     @Input() controlPath: any;
     @Output() userInput: EventEmitter<any> = new EventEmitter<any>();
-    @ViewChild('searchBox') searchBox: ElementRef;
-    @ViewChild('floatInput') floatInput: ElementRef;
+    @ViewChild('searchBox', {static: true}) searchBox: ElementRef;
+    @ViewChild('floatInput', {static: true}) floatInput: ElementRef;
     subscription: Subscription;
     controller: FormControl;
 
