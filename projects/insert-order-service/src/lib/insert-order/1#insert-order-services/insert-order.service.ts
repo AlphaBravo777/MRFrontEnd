@@ -33,14 +33,14 @@ export class InsertOrderService {
         }
     }
 
-    setNewAccountDetails(workingAccount: IAccountDetails, datePackage: IDate): Observable<any> {
+    private setNewAccountDetails(workingAccount: IAccountDetails, datePackage: IDate): Observable<any> {
         this.insertFormChangesService.resetOrderForm();
         this.insertFormChangesService.insertDatesAndUser(datePackage);
         this.insertFormChangesService.insertAccountDetails(workingAccount);
         return this.checkIfAccountHasAnOrder(workingAccount, datePackage).pipe();
     }
 
-    checkIfAccountHasAnOrder(account: IAccountDetails, datePackage: IDate): Observable<IOrderDetails|any> {
+    private checkIfAccountHasAnOrder(account: IAccountDetails, datePackage: IDate): Observable<IOrderDetails|any> {
         console.log('Selected account = ', account, datePackage);
         return this.orderService.getProductListToPickFromForAccount(account).pipe(
             take(1),

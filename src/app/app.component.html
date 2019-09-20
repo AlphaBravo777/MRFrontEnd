@@ -1,6 +1,7 @@
 <app-home></app-home>
 <!-- <ng-http-loader spinner="sk-wave"></ng-http-loader> -->
-<ng-http-loader [entryComponent]="loadingScreenComponent" ></ng-http-loader>
+<ng-http-loader [entryComponent]="loadingScreenComponent" [filteredHeaders]="['Spinner']"></ng-http-loader>
+<!-- <ng-http-loader [entryComponent]="loadingScreenComponent"></ng-http-loader> -->
 
 <!-- Requests filtering by URL, HTTP method or HTTP headers
 You can filter the HTTP requests that shouldn't be caught by the interceptor by providing an array of regex patterns:

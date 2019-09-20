@@ -21,7 +21,7 @@ export class UrlsService {
     // backendUrl = this.root + ':8080/';
     // graphqlAddress = this.root + ':8080/graphql/';
 
-    currentVersion = '1.17.2';
+    currentVersion = '1.17.3';
 
 }
 
@@ -39,3 +39,4 @@ export class UrlsService {
     // Admin office starting to use orders module
     // Added login screen menus where you can see the daily report or orders
     // Upgraded to Ivy
+// 1.17.3 Added MR loading screen

@@ -3,7 +3,7 @@ import { ViewOrderData$Service } from '../../view-orders/1#view-order-services/v
 import { Observable, combineLatest, of } from 'rxjs';
 import { IOrderDetails, IWeeklyOrdersDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
-import { map, concatMap, switchMap } from 'rxjs/operators';
+import { map, concatMap, switchMap, tap } from 'rxjs/operators';
 import { OrderService } from '../../#sharedServices/order.service';
 import { IViewRoutesData } from '../../view-orders/1#view-order-services/view-order-interface';
 import { ViewOrdersGraphqlStringsService } from '../../view-orders/1#view-order-services/view-orders-graphql-strings.service';

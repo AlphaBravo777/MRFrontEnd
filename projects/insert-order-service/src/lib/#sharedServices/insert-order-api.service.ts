@@ -109,8 +109,10 @@ export class InsertOrderApiService {
     searchForOrder(datePackage: IDate, accountid: number): Observable<IOrderDetails[]> {
         // This may return more than one order, for instance if it is pnp and they have two KZN Delis for one day
         // console.log('Parameters of search orders = ', datePackage.id, accountid);
+        console.log('HEADERS IS RUNNING HERE !!!');
         return this.apollo
             .watchQuery({
+                context: { headers: {'Custom-Header': 'custom' }},
                 variables: { accountid: accountid, timestampid: datePackage.id },
                 query: this.SEARCH_FOR_ORDER_QUERY
             })

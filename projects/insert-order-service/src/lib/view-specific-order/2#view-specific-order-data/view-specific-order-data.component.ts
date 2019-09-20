@@ -6,6 +6,7 @@ import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-In
 import { IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
 import { ViewOrderData$Service } from '../../view-orders/1#view-order-services/view-order-data$.service';
 import { IViewRoutesData } from '../../view-orders/1#view-order-services/view-order-interface';
+import { SpinnerVisibilityService } from 'ng-http-loader';
 
 
 @Component({
@@ -21,19 +22,25 @@ export class ViewSpecificOrderDataComponent implements OnInit, OnDestroy {
     currentRoute: IViewRoutesData;
 
     constructor(private viewSpecificOrderService: ViewSpecificOrderService,
-        private viewOrderData$Service: ViewOrderData$Service) {}
+        private viewOrderData$Service: ViewOrderData$Service,
+        private spinner: SpinnerVisibilityService) {}
 
     ngOnInit() {
+        // this.spinner.show();
+        // this.spinner.hide();
         this.getSelectedOrderData();
+        // this.spinner.hide();
     }
 
     getSelectedOrderData() {
+        // this.spinner.hide();
         this.subscription = this.viewSpecificOrderService.getViewSpecificOrderInitialData().pipe(
             tap(orders => this.orders = orders),
             tap(orders => this.uniqueProductsDetails = this.viewSpecificOrderService.getUniqueProductDetails(orders)),
-            // tap(() => console.log('Here is the uniqueProductsDetails: ', this.uniqueProductsDetails)),
+            tap(() => console.log('Here is the uniqueProductsDetails: ', this.uniqueProductsDetails)),
             concatMap(() => this.viewOrderData$Service.currentPickedRoute$),
             tap(currentRoute => this.currentRoute = currentRoute),
+
         ).subscribe();
     }
 

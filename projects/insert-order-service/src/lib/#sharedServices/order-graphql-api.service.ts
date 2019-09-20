@@ -98,6 +98,7 @@ export class OrderGraphqlApiService {
         console.log('Fox(b) = ', accountid, datePackage.id, routeid, queryString);
         return this.apollo
             .watchQuery<INodeOrderDetailsMicroService>({
+                context: { headers: {'Spinner': 'False' }},
                 variables: { accountid: accountid, timeStampid: datePackage.id, routeid: routeid},
                 query: queryString,
             })
