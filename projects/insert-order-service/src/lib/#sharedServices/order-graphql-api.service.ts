@@ -94,11 +94,11 @@ export class OrderGraphqlApiService {
     constructor(private apollo: Apollo) { }
 
     searchForOrdersMain(accountid: number, datePackage: IDate,
-        routeid: number, queryString = this.MAIN_QUERY_FOR_SEARCHING_ORDERS): Observable<IOrderDetails[]> {
-        console.log('Fox(b) = ', accountid, datePackage.id, routeid, queryString);
+        routeid: number, queryString = this.MAIN_QUERY_FOR_SEARCHING_ORDERS, headers = {}): Observable<IOrderDetails[]> {
+        console.log('Fox(b) = ', accountid, datePackage.id, routeid, queryString, headers);
         return this.apollo
             .watchQuery<INodeOrderDetailsMicroService>({
-                context: { headers: {'Spinner': 'False' }},
+                context: { headers: headers},
                 variables: { accountid: accountid, timeStampid: datePackage.id, routeid: routeid},
                 query: queryString,
             })

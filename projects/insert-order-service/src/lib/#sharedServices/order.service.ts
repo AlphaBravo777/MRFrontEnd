@@ -69,8 +69,9 @@ export class OrderService {
         );
     }
 
-    searchForOrdersMain(accountid: number, datePackage: IDate, routeid: number, queryString: string): Observable<IOrderDetails[]> {
-        return this.orderGraphQlApiService.searchForOrdersMain(accountid, datePackage, routeid, queryString);
+    searchForOrdersMain(accountid: number, datePackage: IDate,
+            routeid: number, queryString: string, headers = {}): Observable<IOrderDetails[]> {
+        return this.orderGraphQlApiService.searchForOrdersMain(accountid, datePackage, routeid, queryString, headers);
     }
 
     setOrdersNotInserted(orders: IOrderDetails[]) {

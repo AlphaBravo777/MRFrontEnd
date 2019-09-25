@@ -41,7 +41,8 @@ export class ViewWeeklyOrdersService {
         this.totalAmountOfWeeklyOrders = [];
         console.log('DatePackage is running', datePackage);
         const queryString = this.viewOrdersGraphQlStringsService.GET_MEDIUM_DATA_FOR_SPECIFIC_ROUTE;
-        return this.orderService.searchForOrdersMain(undefined, datePackage, undefined, queryString).pipe(
+        const header = {'Remove Spinner': 'True' }; // Disable spinner so that you can load in background
+        return this.orderService.searchForOrdersMain(undefined, datePackage, undefined, queryString, header).pipe(
             tap(orders => console.log('The returned orders are: ', orders)),
             // tap(orders => this.totalAmountOfWeeklyOrders.push.apply(this.totalAmountOfWeeklyOrders, orders)),
             tap(orders => this.totalAmountOfWeeklyOrders.push({

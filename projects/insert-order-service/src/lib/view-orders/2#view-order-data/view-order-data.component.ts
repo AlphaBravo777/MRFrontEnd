@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, iif, of } from 'rxjs';
+import { Subscription, iif, of, Observable } from 'rxjs';
 import { ViewOrderService } from '../1#view-order-services/view-order.service';
 import { IViewRoutesData } from '../1#view-order-services/view-order-interface';
 import { tap, concatMap } from 'rxjs/operators';
 import { ViewOrderData$Service } from '../1#view-order-services/view-order-data$.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
+import { ViewWeeklyOrdersService } from '../../view-weekly-orders/1#view-weekly-orders-services/view-weekly-orders.service';
 
 @Component({
     selector: 'mr-insert-view-order-data',
@@ -18,10 +19,12 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
     smallRoutesForDay: IViewRoutesData[];
     totalWeightForTheDay: number;
     currentDisplayingDate: IDate;
+    weeklyOrdersHaveBeenRetrieved = false;
 
     constructor(private viewOrderService: ViewOrderService,
         private viewOrderDataService: ViewOrderData$Service,
-        private getDateService: GetDate$Service) {}
+        private getDateService: GetDate$Service,
+        private viewWeeklyOrdersService: ViewWeeklyOrdersService) {}
 
     ngOnInit() {
         this.gatherAllNeededDataForRouteSummary();
@@ -34,12 +37,20 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
             concatMap(() => this.viewOrderDataService.currentDatePackageForSpecificRoute$),
             concatMap(datePackage => iif(() => Boolean(datePackage), of(datePackage), this.getDateService.currentDatePackage$)),
             tap(datePackage => this.currentDisplayingDate = datePackage),
-            tap(() => this.gatherIndividualRouteData())
+            tap(() => this.gatherSpecificRouteData()),
+            concatMap(() => this.gatherCompleteDataForWeek())
         ).subscribe();
     }
 
-    gatherIndividualRouteData() {
-        console.log('I should be running more towards the end where I could pre-fetch product data');
+    gatherSpecificRouteData() {
+        // This is for if you want to prefetch the data for the specific route selection
+    }
+
+    gatherCompleteDataForWeek(): Observable<any> {
+        return this.viewWeeklyOrdersService.getWeeklyOrders().pipe(
+            // tap(viewOrderDataService)
+            tap(() => this.weeklyOrdersHaveBeenRetrieved = true)
+        );
     }
 
     ngOnDestroy() {

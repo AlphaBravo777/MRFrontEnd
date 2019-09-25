@@ -26,14 +26,10 @@ export class ViewSpecificOrderDataComponent implements OnInit, OnDestroy {
         private spinner: SpinnerVisibilityService) {}
 
     ngOnInit() {
-        // this.spinner.show();
-        // this.spinner.hide();
         this.getSelectedOrderData();
-        // this.spinner.hide();
     }
 
     getSelectedOrderData() {
-        // this.spinner.hide();
         this.subscription = this.viewSpecificOrderService.getViewSpecificOrderInitialData().pipe(
             tap(orders => this.orders = orders),
             tap(orders => this.uniqueProductsDetails = this.viewSpecificOrderService.getUniqueProductDetails(orders)),

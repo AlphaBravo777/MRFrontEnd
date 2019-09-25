@@ -14,6 +14,7 @@ export class ViewOrderMainViewComponent implements OnInit {
     @Input() smallRoutesForDay: IViewRoutesData[];
     @Input() totalWeightForTheDay: number;
     @Input() currentDisplayingDate: IDate;
+    @Input() weeklyOrdersHaveBeenRetrieved = false;
 
     constructor(private viewOrderData$Service: ViewOrderData$Service, private router: Router) {}
 
@@ -25,10 +26,20 @@ export class ViewOrderMainViewComponent implements OnInit {
     }
 
     orderForWeekSelected(route: IViewRoutesData) {
-        this.viewOrderData$Service.setPickedRoute(route);
-        this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-specific-order']);
+        if (this.weeklyOrdersHaveBeenRetrieved) {
+            this.viewOrderData$Service.setPickedRoute(route);
+            this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-specific-order']);
+        }
         // console.log('Weekly orders will now be running', route);
         // this.router.navigate(['/main/admin-office/insertOrderService/entry/view-weekly-orders']);
+    }
+
+    buttonColor(): Object {
+        if (this.weeklyOrdersHaveBeenRetrieved) {
+            return {'background': 'none'};
+        } else {
+            return {'background': 'grey'};
+        }
     }
 
 }

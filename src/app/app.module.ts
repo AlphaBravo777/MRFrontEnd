@@ -25,7 +25,7 @@ import { GraphQLModule } from './graphql.module';
 import { MaterialConfigModule } from './material-config/material-config.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { FormBuilderTypeSafe } from './home/core/reactive-forms/reactive-forms-helper';
+// import { FormBuilderTypeSafe } from './home/core/reactive-forms/reactive-forms-helper';
 import { LoadingScreenComponent } from './home/core/loading-screen/loading-screen.component';
 
 @NgModule({
@@ -60,7 +60,7 @@ import { LoadingScreenComponent } from './home/core/loading-screen/loading-scree
         AuthService,
         UrlsService,
         AlertService,
-        FormBuilderTypeSafe,
+        // FormBuilderTypeSafe,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptorService,

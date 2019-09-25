@@ -14,12 +14,12 @@ export class UrlsService {
 
     mrOrderService = this.root + ':8084/';
 
-    backendUrl = this.root + ':8000/';
-    graphqlAddress = this.root + ':8000/graphql/';
+    // backendUrl = this.root + ':8000/';
+    // graphqlAddress = this.root + ':8000/graphql/';
 
 
-    // backendUrl = this.root + ':8080/';
-    // graphqlAddress = this.root + ':8080/graphql/';
+    backendUrl = this.root + ':8080/';
+    graphqlAddress = this.root + ':8080/graphql/';
 
     currentVersion = '1.17.3';
 
