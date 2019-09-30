@@ -14,7 +14,7 @@ export class ViewOrderMainViewComponent implements OnInit {
     @Input() smallRoutesForDay: IViewRoutesData[];
     @Input() totalWeightForTheDay: number;
     @Input() currentDisplayingDate: IDate;
-    @Input() weeklyOrdersHaveBeenRetrieved = false;
+    @Input() weeklyOrdersHaveBeenRetrieved = true;
 
     constructor(private viewOrderData$Service: ViewOrderData$Service, private router: Router) {}
 

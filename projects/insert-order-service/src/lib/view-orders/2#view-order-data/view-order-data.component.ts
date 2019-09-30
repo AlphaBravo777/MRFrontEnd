@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, iif, of, Observable } from 'rxjs';
 import { ViewOrderService } from '../1#view-order-services/view-order.service';
 import { IViewRoutesData } from '../1#view-order-services/view-order-interface';
-import { tap, concatMap } from 'rxjs/operators';
+import { tap, concatMap, switchMap } from 'rxjs/operators';
 import { ViewOrderData$Service } from '../1#view-order-services/view-order-data$.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
@@ -19,7 +19,7 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
     smallRoutesForDay: IViewRoutesData[];
     totalWeightForTheDay: number;
     currentDisplayingDate: IDate;
-    weeklyOrdersHaveBeenRetrieved = false;
+    weeklyOrdersHaveBeenRetrieved = true;
 
     constructor(private viewOrderService: ViewOrderService,
         private viewOrderDataService: ViewOrderData$Service,
@@ -38,7 +38,7 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
             concatMap(datePackage => iif(() => Boolean(datePackage), of(datePackage), this.getDateService.currentDatePackage$)),
             tap(datePackage => this.currentDisplayingDate = datePackage),
             tap(() => this.gatherSpecificRouteData()),
-            concatMap(() => this.gatherCompleteDataForWeek())
+            // switchMap(() => this.gatherCompleteDataForWeek())
         ).subscribe();
     }
 
@@ -47,7 +47,8 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
     }
 
     gatherCompleteDataForWeek(): Observable<any> {
-        return this.viewWeeklyOrdersService.getWeeklyOrders().pipe(
+        return of({}).pipe(
+            switchMap(() => this.viewWeeklyOrdersService.getWeeklyOrders()),
             // tap(viewOrderDataService)
             tap(() => this.weeklyOrdersHaveBeenRetrieved = true)
         );

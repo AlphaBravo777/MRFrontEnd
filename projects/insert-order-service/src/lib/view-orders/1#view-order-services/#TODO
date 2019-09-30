@@ -32,5 +32,7 @@
 
 ☐ Bug report
     ✔ Check why orders that are read in on Sunday, is showing on the Monday of the wrong week. @done(19-08-30 15:47)
+    ☐ Loading orders show only the loading orders of the current next day, it does not move along when you change the datePicked
+        ☐ On the otherhand the delivery orders are working just fine
 
 
