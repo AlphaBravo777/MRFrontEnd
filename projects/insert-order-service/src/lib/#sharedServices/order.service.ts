@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of, Observable, from, BehaviorSubject } from 'rxjs';
 import { tap, concatMap, take } from 'rxjs/operators';
-import { IOrderDetails } from './interfaces/order-service-Interfaces';
+import { IOrderDetails, IWeeklyOrdersDetails } from './interfaces/order-service-Interfaces';
 import { InsertOrderApiService } from './insert-order-api.service';
 import { IProductOrderDetails, IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
@@ -101,6 +101,10 @@ export class OrderService {
 
     getAllRoutes(): Observable<IRoute[]> {
         return this.routesSharedAPIService.getAllRoutes();
+    }
+
+    getWeeklyOrders(datePackage: IDate): Observable<IWeeklyOrdersDetails[]> {
+        return this.orderGraphQlApiService.getWeeklyOrders(datePackage);
     }
 
 }

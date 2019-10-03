@@ -90,12 +90,14 @@ export class SpecificRouteTableService {
 
     private insertProductValues(orders: IOrderDetails[], uniqueProducts: Set<IUniqueProductTotals>) {
         for (let order = 0; order < orders.length; order++) {
+            console.log('Delta (insertProductValues) = ', orders[order]);
             const shopNumber = this.shopDictionary[orders[order].orderid];
             for (let prod = 0; prod < orders[order].orders.length; prod++) {
-                const prodNumber = uniqueProducts[orders[order].orders[prod].productid].rowNumber;
-                const currentTableValue = Number(this.table.rows[prodNumber].cells[shopNumber].children[0].children[0].innerHTML);
-                this.table.rows[prodNumber].cells[shopNumber].children[0].children[0].innerHTML =
+                const prodRowNumber = uniqueProducts[orders[order].orders[prod].productid].rowNumber;
+                const currentTableValue = Number(this.table.rows[prodRowNumber].cells[shopNumber].children[0].children[0].innerHTML);
+                this.table.rows[prodRowNumber].cells[shopNumber].children[0].children[0].innerHTML =
                     currentTableValue + orders[order].orders[prod].amount;
+                console.log(currentTableValue, orders[order].orders[prod].amount);
             }
         }
     }

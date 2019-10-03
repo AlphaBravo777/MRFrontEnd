@@ -6,7 +6,7 @@ import { tap, concatMap, switchMap } from 'rxjs/operators';
 import { ViewOrderData$Service } from '../1#view-order-services/view-order-data$.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
-import { ViewWeeklyOrdersService } from '../../view-weekly-orders/1#view-weekly-orders-services/view-weekly-orders.service';
+// import { ViewWeeklyOrdersService } from '../../view-weekly-orders/1#view-weekly-orders-services/view-weekly-orders.service';
 
 @Component({
     selector: 'mr-insert-view-order-data',
@@ -23,8 +23,7 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
 
     constructor(private viewOrderService: ViewOrderService,
         private viewOrderDataService: ViewOrderData$Service,
-        private getDateService: GetDate$Service,
-        private viewWeeklyOrdersService: ViewWeeklyOrdersService) {}
+        private getDateService: GetDate$Service) {}
 
     ngOnInit() {
         this.gatherAllNeededDataForRouteSummary();
@@ -48,9 +47,9 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
 
     gatherCompleteDataForWeek(): Observable<any> {
         return of({}).pipe(
-            switchMap(() => this.viewWeeklyOrdersService.getWeeklyOrders()),
-            // tap(viewOrderDataService)
-            tap(() => this.weeklyOrdersHaveBeenRetrieved = true)
+            // switchMap(() => this.viewWeeklyOrdersService.getWeeklyOrders()),
+            // // tap(viewOrderDataService)
+            // tap(() => this.weeklyOrdersHaveBeenRetrieved = true)
         );
     }
 

@@ -29,11 +29,11 @@ export class IOrderDBDetails extends IAccountDetails {
 
 }
 
-export class IWeeklyOrdersDetails {
-    weekDayName: string;
-    weekDayRank: number;
-    orders: IOrderDetails[];
-}
+// export class IWeeklyOrdersDetails {
+//     weekDayName: string;
+//     weekDayRank: number;
+//     orders: IOrderDetails[];
+// }
 
 // This is the factory that changes the return from our backend interface to our frontend interface
 export function ff_CreateOrderDetailsObjFromDBObj(obj: IOrderDBDetails): IOrderDetails {
@@ -90,4 +90,14 @@ export function ff_createOrderDetailsObjectForDB(obj: IOrderDetails): IOrderDBDe
 
 export class IInserOrderErrors {
     error: string;
+}
+
+export class IWeeklyOrdersDetails {
+    weekDayNumber: number;
+    weekDayName: string;
+    weekDayRanking: number;
+    productid: number;
+    packageWeight: number;
+    productMRid: string;
+    productTotalAmount: number;
 }

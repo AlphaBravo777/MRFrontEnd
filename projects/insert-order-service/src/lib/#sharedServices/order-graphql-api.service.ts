@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IOrderDetails } from './interfaces/order-service-Interfaces';
+import { IOrderDetails, IWeeklyOrdersDetails } from './interfaces/order-service-Interfaces';
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';
@@ -86,6 +86,29 @@ export class OrderGraphqlApiService {
                 id
                 orderTotalAmount
                 routeid
+                }
+            }
+        }
+    }`;
+
+    public QUERY_FOR_GETTING_WEEKLY_DATA = gql`
+    query getWeeklyOrders($weekNr:Float){
+        nodeWeeklyOrdersMicroService(weekNum:$weekNr){
+            edges{
+                node{
+                    timeStampid{
+                        weekDay{
+                            weekDayNumber
+                            weekDayNames
+                            weekDayRanking
+                        }
+                    }
+                    productid{
+                        rowid
+                        packageweight
+                        productid
+                    }
+                    productTotalAmount
                 }
             }
         }
@@ -183,4 +206,37 @@ export class OrderGraphqlApiService {
                 map(result => this.consolidateDailyOrders(result.data['nodeOrderDetailsMicroService'])));
     }
 
+    getWeeklyOrders(datePackage: IDate): Observable<IWeeklyOrdersDetails[]> {
+        if (datePackage.id === null) {  // Do this, else if datePackage === null EVERY order will be returned
+            datePackage.id = 0;
+        }
+        return this.apollo
+            .watchQuery<INodeOrderDetailsMicroService>({
+                variables: { timeStampid: datePackage.id },
+                query: this.QUERY_FOR_GETTING_WEEKLY_DATA,
+            })
+            .valueChanges.pipe(
+                map(result => this.consolidateWeeklyOrders(result.data['nodeWeeklyOrdersMicroService'].edges)));
+    }
+
+    private consolidateWeeklyOrders(data): IWeeklyOrdersDetails[] {
+        // console.log('ALPHA (consolidateWeeklyOrders) = ', data);
+        if (data.length > 0) {
+            const weeklyProducts: IWeeklyOrdersDetails[] = [];
+            for (let prod = 0; prod < data.length; prod++) {
+                const weeklyProduct: IWeeklyOrdersDetails = {
+                    packageWeight: data[prod].node.productid.packageweight,
+                    productMRid: data[prod].node.productid.productid,
+                    productid: data[prod].node.productid.rowid,
+                    productTotalAmount: data[prod].node.productTotalAmount,
+                    weekDayName: data[prod].node.timeStampid.weekDay.weekDayNames,
+                    weekDayNumber: data[prod].node.timeStampid.weekDay.weekDayNumber,
+                    weekDayRanking: data[prod].node.timeStampid.weekDay.weekDayRanking,
+                };
+                weeklyProducts.push(weeklyProduct);
+            }
+            console.log('ALPHA (consolidateWeeklyOrders) = ', weeklyProducts);
+            return weeklyProducts;
+        }
+    }
 }
