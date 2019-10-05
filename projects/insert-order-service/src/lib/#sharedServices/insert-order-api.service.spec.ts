@@ -2,10 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { InsertOrderApiService } from './insert-order-api.service';
+import { ApolloTestingModule } from 'apollo-angular/testing';
 
 describe('InsertOrderApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [ HttpClientTestingModule]
+    imports: [ HttpClientTestingModule, ApolloTestingModule ]
   }));
 
   it('should be created', () => {

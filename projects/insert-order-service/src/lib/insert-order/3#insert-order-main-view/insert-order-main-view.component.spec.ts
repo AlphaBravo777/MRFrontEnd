@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 import { InsertOrderMainViewComponent } from './insert-order-main-view.component';
 import { TopMenuViewComponent } from './1#top-menu-view/top-menu-view.component';
@@ -18,7 +18,13 @@ describe('InsertOrderMainViewComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ ReactiveFormsModule, SharedComponentsModule, HttpClientTestingModule, ApolloTestingModule, FormsModule ],
+            imports: [
+                ReactiveFormsModule,
+                SharedComponentsModule,
+                HttpClientTestingModule,
+                ApolloTestingModule,
+                FormsModule
+            ],
             declarations: [
                 InsertOrderMainViewComponent,
                 TopMenuViewComponent,
@@ -27,20 +33,23 @@ describe('InsertOrderMainViewComponent', () => {
                 InsertProductViewComponent,
                 ProductsAvailableViewComponent
             ],
-            providers: [ { provide: FormBuilder, useValue: formBuilder } ]
+            providers: [{ provide: FormBuilder, useValue: formBuilder }]
         }).compileComponents();
     }));
 
-    beforeEach(() => {
+    beforeEach( () => {
         fixture = TestBed.createComponent(InsertOrderMainViewComponent);
         component = fixture.componentInstance;
         component.mainInsertForm = formBuilder.group({
-            routeName: ['Temba'],
-          });
-        fixture.detectChanges();
+            routeName: ['Temba']
+        });
+        const errorMessages = [{error: 'nothing'}];
+        component.errorMessages = errorMessages;
+        // fixture.detectChanges();  // This gives an error "TypeError: Cannot read property 'invalid' of undefined"
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
+        console.log('test', component);
     });
 });

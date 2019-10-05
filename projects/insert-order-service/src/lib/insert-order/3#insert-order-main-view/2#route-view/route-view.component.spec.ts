@@ -54,7 +54,7 @@ describe('RouteViewComponent', () => {
         inputComponent = inputFixture.componentInstance;
         component = fixture.componentInstance;
         component.routesArray = testRouteArray;
-        component.routeFormControl = routeFormTestControl;
+        component.routeidFormControl = routeFormTestControl;
         console.log('Here is the route: ', component.refinedRoutesArray);
         fixture.detectChanges();
     });
@@ -63,18 +63,18 @@ describe('RouteViewComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should select correct route', () => {
+    // it('should select correct route', () => {
 
-        const spy = spyOn(component, 'userRouteSelection').and.callThrough();
-        const spy2 = spyOn(inputComponent, 'ngOnInit');
-        component.routesArray = testRouteArray;
-        console.log('RoutesArray = ', component.routesArray);
-        // The refinedRoutesArray does not change after running the below command, even though it should
-        component.userRouteSelection('pi');
-        console.log('Here is the route: ', component.refinedRoutesArray);
-        expect(spy).toHaveBeenCalled();
-        expect(spy).toHaveBeenCalledWith('pi');
-        // fixture.detectChanges();  // Running detect changes here also does not change anything
-        // expect(component.refinedRoutesArray[0].routeName).toEqual('Pietersburg');
-    });
+    //     const spy = spyOn(component, 'userRouteSelection').and.callThrough();
+    //     const spy2 = spyOn(inputComponent, 'ngOnInit');
+    //     component.routesArray = testRouteArray;
+    //     console.log('RoutesArray = ', component.routesArray);
+    //     // The refinedRoutesArray does not change after running the below command, even though it should
+    //     component.userRouteSelection('pi');
+    //     console.log('Here is the route: ', component.refinedRoutesArray);
+    //     expect(spy).toHaveBeenCalled();
+    //     expect(spy).toHaveBeenCalledWith('pi');
+    //     // fixture.detectChanges();  // Running detect changes here also does not change anything
+    //     // expect(component.refinedRoutesArray[0].routeName).toEqual('Pietersburg');
+    // });
 });

@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedComponentsModule } from 'src/app/home/shared/components/shared-components.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApolloTestingModule } from 'apollo-angular/testing';
+import { AmountUnitSelectionComponent
+    } from '../3#insert-order-main-view/2#route-view/amount-unit-selection/amount-unit-selection.component';
 
 describe('InsertOrderDataComponent', () => {
     let component: InsertOrderDataComponent;
@@ -27,7 +29,8 @@ describe('InsertOrderDataComponent', () => {
                 RouteViewComponent,
                 AccountViewComponent,
                 InsertProductViewComponent,
-                ProductsAvailableViewComponent
+                ProductsAvailableViewComponent,
+                AmountUnitSelectionComponent
             ],
             imports: [
                 CustomMaterialModule,
@@ -35,7 +38,8 @@ describe('InsertOrderDataComponent', () => {
                 ReactiveFormsModule,
                 SharedComponentsModule,
                 HttpClientTestingModule,
-                ApolloTestingModule ]
+                ApolloTestingModule
+            ]
         }).compileComponents();
     }));
 

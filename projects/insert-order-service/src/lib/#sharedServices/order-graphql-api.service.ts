@@ -130,8 +130,8 @@ export class OrderGraphqlApiService {
     }
 
     private consolidateDailyOrders(data: INodeOrderDetailsMicroService): IOrderDetails[] {
-        const defaultValues: INodeOrderDetailsMicroService = getDefaultINodeOrderDetailsMicroService();
-        console.log('DEFAULT VALUES: ', defaultValues);
+        // const defaultValues: INodeOrderDetailsMicroService = getDefaultINodeOrderDetailsMicroService();
+        // console.log('DEFAULT VALUES: ', defaultValues);
 
         function calculateLugSize(containerid) {
             if (containerid === 7) {
@@ -212,7 +212,7 @@ export class OrderGraphqlApiService {
         }
         return this.apollo
             .watchQuery<INodeOrderDetailsMicroService>({
-                variables: { timeStampid: datePackage.id },
+                variables: { weekNr: datePackage.week },
                 query: this.QUERY_FOR_GETTING_WEEKLY_DATA,
             })
             .valueChanges.pipe(
