@@ -6,7 +6,6 @@ import { tap, concatMap, switchMap } from 'rxjs/operators';
 import { ViewOrderData$Service } from '../1#view-order-services/view-order-data$.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
-// import { ViewWeeklyOrdersService } from '../../view-weekly-orders/1#view-weekly-orders-services/view-weekly-orders.service';
 
 @Component({
     selector: 'mr-insert-view-order-data',
@@ -27,6 +26,7 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.gatherAllNeededDataForRouteSummary();
+        this.testingModule();
     }
 
     gatherAllNeededDataForRouteSummary() {
@@ -51,6 +51,10 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
             // // tap(viewOrderDataService)
             // tap(() => this.weeklyOrdersHaveBeenRetrieved = true)
         );
+    }
+
+    testingModule() {
+
     }
 
     ngOnDestroy() {
