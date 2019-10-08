@@ -5,20 +5,12 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
 import { UserNavMenuBarComponent } from './user-nav-menu-bar/user-nav-menu-bar.component';
 import { UserEntryComponent } from './user-entry/user-entry.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {
-    MatDatepicker,
-    MatDatepickerToggle,
-    MatDatepickerInput
-} from '@angular/material';
-import {
-    ApolloTestingModule,
-    ApolloTestingController
-} from 'apollo-angular/testing';
+import { MatDatepickerModule } from '@angular/material';
+import { ApolloTestingModule } from 'apollo-angular/testing';
 import { DateFormComponent } from './date-picker/date-form/date-form.component';
 import {
     NgxPermissionsModule,
     NgxPermissionsService,
-    NgxPermissionsDirective,
     USE_PERMISSIONS_STORE,
     NgxPermissionsStore,
     NgxPermissionsConfigurationService,
@@ -45,17 +37,15 @@ describe('MainPortalComponent', () => {
                 RouterTestingModule,
                 CustomMaterialModule,
                 HttpClientTestingModule,
-                ApolloTestingModule
+                ApolloTestingModule,
+                MatDatepickerModule
             ],
             declarations: [
                 MainPortalComponent,
                 DatePickerComponent,
                 UserNavMenuBarComponent,
                 UserEntryComponent,
-                MatDatepicker,
-                MatDatepickerToggle,
                 DateFormComponent,
-                MatDatepickerInput
             ],
             providers: [
                 NgxPermissionsStore,
