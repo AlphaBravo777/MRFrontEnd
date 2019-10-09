@@ -107,4 +107,8 @@ export class OrderService {
         return this.orderGraphQlApiService.getWeeklyOrders(datePackage);
     }
 
+    getAccountFromAccountid(accountid: number): Observable<IAccountDetails> {
+        return this.accountSharedAPIService.getAccountByAccountid(accountid).pipe();
+    }
+
 }

@@ -105,31 +105,7 @@ export class ViewSpecificOrderService {
         return newOrders;
     }
 
-    // private consolidateWeeklyOrdersIntoOne(weeklyOrders: IWeeklyOrdersDetails[]): IOrderDetails[] {
-    //     console.log('* * ALPHA * * ', weeklyOrders);
-    //     if (weeklyOrders) {
-    //         const copyOfWeeklyOrders: IWeeklyOrdersDetails[] = JSON.parse(JSON.stringify(weeklyOrders));
-    //         const newWeeklyOrders: IOrderDetails[] = [];
-    //         copyOfWeeklyOrders.forEach(weekDay => {
-    //             if (weekDay.orders.length > 0) {
-    //                 const dailyOrder: IOrderDetails = weekDay.orders[weekDay.orders.length - 1];
-    //                 let dailyTotalWeight = weekDay.orders[weekDay.orders.length - 1].orderTotalAmount;
-    //                 dailyOrder.commonName = weekDay.weekDayName;
-    //                 weekDay.orders.pop();
-    //                 while (weekDay.orders.length > 0) {
-    //                     const currentOrder: IOrderDetails = weekDay.orders.pop();
-    //                     dailyOrder.orders.push.apply(dailyOrder.orders, currentOrder.orders);
-    //                     dailyTotalWeight += currentOrder.orderTotalAmount;
-    //                 }
-    //                 dailyOrder.orderTotalAmount = dailyTotalWeight;
-    //                 newWeeklyOrders.push(dailyOrder);
-    //             }
-    //         });
-    //         return newWeeklyOrders;
-    //     }
-    // }
-
-    calculateRouteWeightWithAndWithoutWeight(uniqueProductsDetails: Set<IUniqueProductTotals>): Array<any> {
+    calculateRouteWeightWithAndWithoutCrates(uniqueProductsDetails: Set<IUniqueProductTotals>): Array<any> {
         let totalWeight = 0;
         let totalWeightWithCrates = 0;
         for (const key in uniqueProductsDetails) {

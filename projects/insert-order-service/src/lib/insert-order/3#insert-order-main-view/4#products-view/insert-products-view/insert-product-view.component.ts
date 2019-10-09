@@ -56,6 +56,7 @@ export class InsertProductViewComponent implements OnInit {
     }
 
     productMRidInput(value: string, index: number) {
+        value = value.toUpperCase();
         this.productValidationService.checkProductMRidValidation(value, index, this.productsOrderedFormControl);
     }
 

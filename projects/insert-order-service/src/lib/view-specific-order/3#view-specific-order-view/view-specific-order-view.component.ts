@@ -42,9 +42,13 @@ export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
         this.tableDiv.nativeElement.appendChild(this.table);
     }
 
+    onClick(event) {
+        console.log('I am listening2');
+    }
+
     calculateRouteExternalDetails() {
         const returnedWeights: Array<any> =
-            this.viewSpecificOrderService.calculateRouteWeightWithAndWithoutWeight(this.uniqueProductsDetails);
+            this.viewSpecificOrderService.calculateRouteWeightWithAndWithoutCrates(this.uniqueProductsDetails);
         this.totalRouteWeight = returnedWeights[0];
         this.totalRouteWeightWithCrates = returnedWeights[1];
         this.specificRouteTable.insertTotalRouteWeight(this.totalRouteWeight);

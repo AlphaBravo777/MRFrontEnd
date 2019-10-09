@@ -197,6 +197,41 @@
           }
         }
       }
+    },
+    "productService": {
+      "projectType": "library",
+      "root": "projects/product-service",
+      "sourceRoot": "projects/product-service/src",
+      "prefix": "mr-product",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/product-service/tsconfig.lib.json",
+            "project": "projects/product-service/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/product-service/src/test.ts",
+            "tsConfig": "projects/product-service/tsconfig.spec.json",
+            "karmaConfig": "projects/product-service/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/product-service/tsconfig.lib.json",
+              "projects/product-service/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "meatriteFrontEnd",

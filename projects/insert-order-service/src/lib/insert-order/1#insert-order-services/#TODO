@@ -21,6 +21,6 @@
         ☐ and he then enters a product by clicking on its card, you will now have
         ☐ two valid product that are the same (Maybe when he picks the product card, run product checks and make sure
         ☐ product not already inserted before inserting card). Override current product with card, but keep amount
-    ☐ When you have two orders in the db with the same info, two for the same day, then it will insert
-    ☐ You are able to insert the same order twice in the db (But this may just be with the put method)
-    ☐ When you insert a product like MINI, it shows up in the form as MINi, and therefore is not validated
+    ✔ When you have two orders in the db with the same info, two for the same day, then it will insert @done(19-10-08 12:55)
+    ✔ You are able to insert the same order twice in the db (But this may just be with the put method) @done(19-10-08 12:55)
+    ✔ When you insert a product like MINI, it shows up in the form as MINi, and therefore is not validated @done(19-10-08 12:39)

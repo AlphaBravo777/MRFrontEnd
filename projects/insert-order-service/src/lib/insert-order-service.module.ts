@@ -18,7 +18,6 @@ import { SharedComponentsModule } from 'src/app/home/shared/components/shared-co
         CommonModule,
         CustomMaterialModule,
         SharedComponentsModule
-
     ],
     exports: []
 })

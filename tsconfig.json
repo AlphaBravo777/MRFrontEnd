@@ -1,16 +1,16 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    // "rootDir": ".", // Add this line to make Ivy work with Libraries
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "esnext", // add this line to make lazy loaded modules work in Ng8+
+    "module": "esnext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "rootDir": ".",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -31,6 +31,12 @@
       ],
       "insert-order-service/*": [
         "dist/insert-order-service/*"
+      ],
+      "product-service": [
+        "dist/product-service"
+      ],
+      "product-service/*": [
+        "dist/product-service/*"
       ]
     }
   }

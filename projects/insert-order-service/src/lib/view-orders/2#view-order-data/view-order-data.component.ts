@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, iif, of, Observable } from 'rxjs';
 import { ViewOrderService } from '../1#view-order-services/view-order.service';
 import { IViewRoutesData } from '../1#view-order-services/view-order-interface';
-import { tap, concatMap, switchMap } from 'rxjs/operators';
+import { tap, concatMap } from 'rxjs/operators';
 import { ViewOrderData$Service } from '../1#view-order-services/view-order-data$.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';

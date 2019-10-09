@@ -1,6 +1,10 @@
 import { Injectable, Renderer2 } from '@angular/core';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { IUniqueProductsDetails, IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
+import { InsertOrderData$Service } from '../../insert-order/1#insert-order-services/insert-order-data$.service';
+import { OrderService } from '../../#sharedServices/order.service';
+import { take, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -12,7 +16,9 @@ export class SpecificRouteTableService {
     private shopDictionary: Object = {};
     private maxShopNameLength = 0;
 
-    constructor() {}
+    constructor(private insertOrderData$Service: InsertOrderData$Service,
+        private orderService: OrderService,
+        private router: Router) {}
 
     createSpecificRouteTable(orders: IOrderDetails[], uniqueProductsDetails: Set<IUniqueProductTotals>) {
         this.maxShopNameLength = 0;
@@ -57,11 +63,24 @@ export class SpecificRouteTableService {
         orders.forEach(order => {
             tr.appendChild(this.createRowColmDivSpanValue(
                 'th', 'shopNames', undefined, undefined, order.commonName).children[0]);
+            tr.children[counter].onclick = () => { this.onClick(order.accountid);};
             this.shopDictionary[order.orderid] = counter;
             counter += 1;
             this.maxShopNameLength = order.commonName.length > this.maxShopNameLength ? order.commonName.length : this.maxShopNameLength;
         });
         this.table.appendChild(tr);
+    }
+
+    onClick(accountid) {
+        if (accountid !== null) {
+            // this.insertOrderData$Service.setWorkingAccount();
+            this.orderService.getAccountFromAccountid(accountid).pipe(
+                take(1),
+                tap(account => console.log('The account = ', account)),
+                tap(account => this.insertOrderData$Service.setWorkingAccount(account)),
+                tap(() => this.router.navigate(['/main/admin-office/insertOrderService/entry/insert-order']))
+            ).subscribe();
+        }
     }
 
     private insertUniqueProductsColumn(uniqueProductsDetails: Set<IUniqueProductTotals>) {
@@ -90,14 +109,12 @@ export class SpecificRouteTableService {
 
     private insertProductValues(orders: IOrderDetails[], uniqueProducts: Set<IUniqueProductTotals>) {
         for (let order = 0; order < orders.length; order++) {
-            console.log('Delta (insertProductValues) = ', orders[order]);
             const shopNumber = this.shopDictionary[orders[order].orderid];
             for (let prod = 0; prod < orders[order].orders.length; prod++) {
                 const prodRowNumber = uniqueProducts[orders[order].orders[prod].productid].rowNumber;
                 const currentTableValue = Number(this.table.rows[prodRowNumber].cells[shopNumber].children[0].children[0].innerHTML);
                 this.table.rows[prodRowNumber].cells[shopNumber].children[0].children[0].innerHTML =
                     currentTableValue + orders[order].orders[prod].amount;
-                console.log(currentTableValue, orders[order].orders[prod].amount);
             }
         }
     }
