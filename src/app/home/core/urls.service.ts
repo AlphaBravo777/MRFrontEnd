@@ -21,7 +21,7 @@ export class UrlsService {
     backendUrl = this.root + ':8080/';
     graphqlAddress = this.root + ':8080/graphql/';
 
-    currentVersion = '1.17.3';
+    currentVersion = '1.17.6';
 
 }
 
@@ -39,4 +39,10 @@ export class UrlsService {
     // Admin office starting to use orders module
     // Added login screen menus where you can see the daily report or orders
     // Upgraded to Ivy
-// 1.17.3 Added MR loading screen
+// 1.17.3 (Release 2019/10/08)
+    // Added MR loading screen
+    // Changed week total to new API
+// 1.17.4 (Release 2019/10/08)
+    // Without Ivy (Ivy makes some shared components not show up)
+// 1.17.5 (Release 2019/10/08)
+    // Fix bug where insert order product ending with a letter is seen as lowercase
