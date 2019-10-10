@@ -35,6 +35,9 @@ export class HeadingDropdownViewComponent implements OnInit, OnDestroy {
         this.getDate$Service.getDatePackageForGivenLongDate(date).pipe(
             take(1),
             tap(newDate => this.dateToChangeToo = newDate),
+            // Here we must add the code that will change the date of all the orders in the route
+            // You do not have to get all the orders and change them, just give through the route name and date,
+            // and then filter and change server side
         ).subscribe();
     }
 
@@ -71,6 +74,9 @@ export class HeadingDropdownViewComponent implements OnInit, OnDestroy {
 
     changeRouteOrdersDetail() {
         console.log('Route will now be changed');
+        // Create the code that will change the route name for all the orders
+        // You do not have to get all the orders and change them, just give through the route name and date,
+        // and then filter and change server side
     }
 
     ngOnDestroy() {
