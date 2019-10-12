@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UlpDailyReportComponent } from './ulp-daily-report.component';
+import { ExpandableDivComponent } from '../../../components/expandable-div/expandable-div.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('UlpDailyReportComponent', () => {
   let component: UlpDailyReportComponent;
@@ -8,7 +10,8 @@ describe('UlpDailyReportComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UlpDailyReportComponent ]
+      declarations: [ UlpDailyReportComponent, ExpandableDivComponent ],
+      imports: [ RouterTestingModule ]
     })
     .compileComponents();
   }));
