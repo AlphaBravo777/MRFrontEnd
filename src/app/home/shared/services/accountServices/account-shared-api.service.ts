@@ -42,6 +42,32 @@ export class AccountSharedApiService {
         }
     `;
 
+    public SEARCH_ACCOUNTIDS_QUERY = gql`
+    query getAccountidDetails($accountid:Int){
+        getAccountMicroService(id:$accountid){
+            rowid
+            id
+            accountMRid
+            commonName
+            accountName
+            franchise{
+                rowid
+                id
+                franchiseName
+            }
+            productGroupid{
+                rowid
+                id
+                groupname
+            }
+            routeid{
+                rowid
+                id
+                routeName
+            }
+        }
+    }`;
+
     constructor(private apollo: Apollo) {}
 
     searchAccountsOrCommonNames(accountMRid: string = '', commonName: string= ''): Observable<IAccountDetails[]> {
@@ -52,38 +78,53 @@ export class AccountSharedApiService {
                 query: this.SEARCH_ACCOUNTS_MRID_OR_COMMONNAMES_QUERY
             })
             .valueChanges.pipe(
-                // take(1),
                 map(result => this.consolidateAccountsData(result.data['nodeAccountNameMicroService'].edges)));
     }
 
     private consolidateAccountsData(data): IAccountDetails[] {
-        console.log('Here is the account data: ', data);
+        // console.log('Here is the account data: ', data);
         const flattendData: IAccountDetails[] = [];
         for (let array = 0; array < data.length; ++array) {
-            const singleGroup: IProductGroupName = {
-                id: data[array].node.productGroupid.rowid,
-                ID: data[array].node.productGroupid.id,
-                groupName: data[array].node.productGroupid.groupname
-            };
-            const singleData: IAccountDetails = {
-                accountid: data[array].node.rowid,
-                accountID: data[array].node.id,
-                accountMRid: data[array].node.accountMRid,
-                accountName: data[array].node.accountName,
-                commonName: data[array].node.commonName,
-                routeid: data[array].node.routeid.id,
-                routeName: data[array].node.routeid.routeName,
-                franchiseid: data[array].node.franchise.rowid,
-                franchiseName: data[array].node.franchise.franchiseName,
-                productGroupid: singleGroup,
-                childAccount: [],
-                parentAccountid: null,
-                franchiseRanking: null,
-                rankingInFranchise: null
-            };
-            flattendData.push(singleData);
+            flattendData.push(this.singleAccountObject(data[array].node));
         }
-        console.log('Charlie(b) ', flattendData);
+        // console.log('Charlie(b) ', flattendData);
         return flattendData;
     }
+
+    private singleAccountObject(account): IAccountDetails {
+        console.log('Here is the account data: ', account);
+        const singleGroup: IProductGroupName = {
+            id: account.productGroupid.rowid,
+            ID: account.productGroupid.id,
+            groupName: account.productGroupid.groupname
+        };
+        const singleAccount: IAccountDetails = {
+            accountid: account.rowid,
+            accountID: account.id,
+            accountMRid: account.accountMRid,
+            accountName: account.accountName,
+            commonName: account.commonName,
+            routeid: account.routeid.id,
+            routeName: account.routeid.routeName,
+            franchiseid: account.franchise.rowid,
+            franchiseName: account.franchise.franchiseName,
+            productGroupid: singleGroup,
+            childAccount: [],
+            parentAccountid: null,
+            franchiseRanking: null,
+            rankingInFranchise: null
+        };
+        return singleAccount;
+    }
+
+    getAccountByAccountid(accountid: number): Observable<IAccountDetails> {
+        return this.apollo
+            .watchQuery({
+                variables: { accountid: accountid },
+                query: this.SEARCH_ACCOUNTIDS_QUERY
+            })
+            .valueChanges.pipe(
+                map(result => this.singleAccountObject(result.data['getAccountMicroService'])));
+    }
+
 }
