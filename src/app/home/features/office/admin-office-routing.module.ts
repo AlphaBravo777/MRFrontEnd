@@ -36,6 +36,10 @@ const officeRoutes: Routes = [
             {
                 path: 'insertOrderService',
                 loadChildren: () => import('projects/insert-order-service/src/public_api').then(m => m.InsertOrderServiceModule)
+            },
+            {
+                path: 'productService',
+                loadChildren: () => import('projects/product-service/src/public-api').then(m => m.ProductServiceModule)
             }
         ]
     }
