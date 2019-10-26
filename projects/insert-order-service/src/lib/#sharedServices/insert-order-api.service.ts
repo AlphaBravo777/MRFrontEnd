@@ -4,7 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { IOrderDetails,
     IOrderDBDetails,
     ff_createOrderDetailsObjectForDB,
-    ff_CreateOrderDetailsObjFromDBObj } from './interfaces/order-service-Interfaces';
+    ff_CreateOrderDetailsObjFromDBObj,
+    IInserOrderErrors} from './interfaces/order-service-Interfaces';
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';
@@ -13,6 +14,7 @@ import { IProductOrderDetails,
     ff_createProductDetailsObjectForDB,
     IProductOrderDBDetails } from 'src/app/home/shared/services/productServices/products-interface';
 import { IOrderproductamountsmicroserviceSetNode } from './interfaces/order-backend-interfaces';
+import { IViewRoutesData } from '../view-orders/1#view-order-services/view-order-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -104,6 +106,12 @@ export class InsertOrderApiService {
 
     deleteOrder(orderid: number) {
         return this.http.delete<any>(this.orderServiceUrl + 'orders/deleteOrder/' + orderid);
+    }
+
+    updateRouteDate(route: IViewRoutesData, currentDatePackage: IDate, newDatePackage: IDate): Observable<IInserOrderErrors> {
+        console.log('Updating now');
+        return this.http.put<IInserOrderErrors>(this.orderServiceUrl + 'orders/updateRouteDate/',
+        {routeid: route.routeid, currentTimeStampid: currentDatePackage.id, newTimeStampid: newDatePackage.id });
     }
 
     searchForOrder(datePackage: IDate, accountid: number): Observable<IOrderDetails[]> {

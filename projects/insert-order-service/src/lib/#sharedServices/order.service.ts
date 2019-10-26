@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of, Observable, from, BehaviorSubject } from 'rxjs';
 import { tap, concatMap, take } from 'rxjs/operators';
-import { IOrderDetails, IWeeklyOrdersDetails } from './interfaces/order-service-Interfaces';
+import { IOrderDetails, IWeeklyOrdersDetails, IInserOrderErrors } from './interfaces/order-service-Interfaces';
 import { InsertOrderApiService } from './insert-order-api.service';
 import { IProductOrderDetails, IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
@@ -11,6 +11,7 @@ import { AccountSharedApiService } from 'src/app/home/shared/services/accountSer
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { RoutesSharedApiService } from 'src/app/home/shared/services/routesServices/routes-shared-api.service';
 import { OrderGraphqlApiService } from './order-graphql-api.service';
+import { IViewRoutesData } from '../view-orders/1#view-order-services/view-order-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -109,6 +110,11 @@ export class OrderService {
 
     getAccountFromAccountid(accountid: number): Observable<IAccountDetails> {
         return this.accountSharedAPIService.getAccountByAccountid(accountid).pipe();
+    }
+
+    updateRouteDate(route: IViewRoutesData, currentDatePackage: IDate, newDatePackage: IDate): Observable<IInserOrderErrors> {
+        console.log('The route change data = ', route, currentDatePackage);
+        return this.insertOrderApiService.updateRouteDate(route, currentDatePackage, newDatePackage);
     }
 
 }
