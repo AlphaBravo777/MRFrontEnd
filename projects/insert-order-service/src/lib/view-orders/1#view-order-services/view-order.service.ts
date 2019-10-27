@@ -24,6 +24,8 @@ export class ViewOrderService {
 
     getViewOrderInitialData(): Observable<IViewRoutesData[]> {
         return this.insertOrderData$Service.currentRoutes$.pipe(
+            // extract the getRoutesData service here out of the data, and go look for the routes, and when it returns and it is
+            // empty then just call it again, until it returns data
             tap(routes => this.currentRoutes = routes),
             concatMap(() => this.viewOrderData$Service.currentDatePackageForSpecificRoute$),
             concatMap(datePackage => {
