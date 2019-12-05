@@ -37,6 +37,18 @@
       ],
       "product-service/*": [
         "dist/product-service/*"
+      ],
+      "accounts": [
+        "dist/accounts"
+      ],
+      "accounts/*": [
+        "dist/accounts/*"
+      ],
+      "accounts-service": [
+        "dist/accounts-service"
+      ],
+      "accounts-service/*": [
+        "dist/accounts-service/*"
       ]
     }
   }

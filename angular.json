@@ -232,6 +232,41 @@
           }
         }
       }
+    },
+    "accounts-service": {
+      "projectType": "library",
+      "root": "projects/accounts-service",
+      "sourceRoot": "projects/accounts-service/src",
+      "prefix": "acc-lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/accounts-service/tsconfig.lib.json",
+            "project": "projects/accounts-service/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/accounts-service/src/test.ts",
+            "tsConfig": "projects/accounts-service/tsconfig.spec.json",
+            "karmaConfig": "projects/accounts-service/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/accounts-service/tsconfig.lib.json",
+              "projects/accounts-service/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "meatriteFrontEnd",
