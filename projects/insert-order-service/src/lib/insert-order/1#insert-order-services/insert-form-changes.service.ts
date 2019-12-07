@@ -99,6 +99,7 @@ export class InsertFormChangesService {
         console.log('The route = ', route);
         this.insertOrderDetails(order);
         this.insertRouteDetails(route);
+
         order.orders.forEach(product => this.addProductToOrdersAndRemoveFromAvailableList(product));
     }
 
@@ -131,6 +132,7 @@ export class InsertFormChangesService {
 
     private addProductToOrdersAndRemoveFromAvailableList(product: IProductOrderDetails) {
         const productListToPickFromArray: IProductDetails[] = this.orderForm.controls['productListToPickFrom'].value;
+        console.log('PRODUCTS ARE: ', JSON.parse(JSON.stringify(productListToPickFromArray)));
         const productFromProductList = productListToPickFromArray.find(prod => product.productid === prod.productid);
         this.insertFormService.insertProductOrderFields(productFromProductList, product.amountid, product.amount);
         this.removeProductFromAvailableList(productFromProductList);

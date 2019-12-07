@@ -41,6 +41,7 @@ export class InsertFormService {
     }
 
     insertProductOrderFields(product: IProductDetails, amountid: number, amount: number) {
+        // console.log('PRODUCTS ARE: ', JSON.parse(JSON.stringify(product)));
         const control = <FormArray>this.insertForm.controls.orders;
         const orderProduct = this.productFields(product);
         orderProduct.addControl('amountid', this.fb.control(amountid));
@@ -59,6 +60,7 @@ export class InsertFormService {
     }
 
     private productFields(product: IProductDetails) {
+            // console.log('PRODUCT IS: ', JSON.parse(JSON.stringify(product)));
             return this.fb.group({
                 productMRid: [product.productMRid,
                     [Validators.required, Validators.minLength(1)]],

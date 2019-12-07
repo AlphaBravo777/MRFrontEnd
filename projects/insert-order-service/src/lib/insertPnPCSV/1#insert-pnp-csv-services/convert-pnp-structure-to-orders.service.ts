@@ -151,6 +151,12 @@ export class ConvertPnpStructureToOrdersService {
             case 'PSV1':
                 return {productid: 124, unitWeight: 1, lugSize: 1, rankingInGroup: 7,
                 proddescription: 'PnP Deli Smoke Vienna 1kg'};
+            case 'PSV2':
+                return {productid: 59, unitWeight: 2, lugSize: 1, rankingInGroup: 8,
+                proddescription: 'PnP No Name Smoke Vienna 2 kg'};
+            case 'PSSV2':
+                return {productid: 58, unitWeight: 2, lugSize: 1, rankingInGroup: 9,
+                proddescription: 'PnP No Name Smokie 2 kg'};
             default:
                 return {productid: null, unitWeight: null, lugSize: null, rankingInGroup: null,
                 proddescription: 'undefined'} ;

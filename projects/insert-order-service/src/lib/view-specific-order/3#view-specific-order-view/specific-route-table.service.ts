@@ -63,7 +63,7 @@ export class SpecificRouteTableService {
         orders.forEach(order => {
             tr.appendChild(this.createRowColmDivSpanValue(
                 'th', 'shopNames', undefined, undefined, order.commonName).children[0]);
-            tr.children[counter].onclick = () => { this.onClick(order.accountid);};
+            tr.children[counter].onclick = () => { this.onClick(order.accountid); };
             this.shopDictionary[order.orderid] = counter;
             counter += 1;
             this.maxShopNameLength = order.commonName.length > this.maxShopNameLength ? order.commonName.length : this.maxShopNameLength;
