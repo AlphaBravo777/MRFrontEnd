@@ -157,6 +157,12 @@ export class ConvertPnpStructureToOrdersService {
             case 'PSSV2':
                 return {productid: 58, unitWeight: 2, lugSize: 1, rankingInGroup: 9,
                 proddescription: 'PnP No Name Smokie 2 kg'};
+            case 'PHP2.5':
+                return {productid: 61, unitWeight: 2.5, lugSize: 2, rankingInGroup: 10,
+                proddescription: 'PnP Hamper Pack 2.5 kg'};
+            case 'SS500NN':
+                return {productid: 140, unitWeight: 0.5, lugSize: 1, rankingInGroup: 11,
+                proddescription: 'PnP No Name Smokies 500 g (Vacuum)'};
             default:
                 return {productid: null, unitWeight: null, lugSize: null, rankingInGroup: null,
                 proddescription: 'undefined'} ;

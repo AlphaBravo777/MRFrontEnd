@@ -22,6 +22,10 @@ export class ConvertPnpCsvDataFactoryService {
                 return 'SV500NN';
             case 'NNB006':
                 return 'RV500NN';
+            case 'NNB007':
+                return 'SS500NN';
+            case 'NNB008':
+                return 'PHP2.5';
             case 'PVP3.0':
                 return 'PVP3';
             default:

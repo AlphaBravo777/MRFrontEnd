@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
-import { take, tap } from 'rxjs/operators';
+import { take, tap, concatMap, switchMap, finalize } from 'rxjs/operators';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { Subscription } from 'rxjs';
 import { OrderService } from '../../../#sharedServices/order.service';
+import { IViewRoutesData } from '../../../view-orders/1#view-order-services/view-order-interface';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'mr-insert-heading-dropdown-view',
@@ -16,14 +18,16 @@ export class HeadingDropdownViewComponent implements OnInit, OnDestroy {
 
     @Input() totalRouteWeight: number;
     @Input() totalRouteWeightWithCrates: number;
+    @Input() currentRoute: IViewRoutesData;
     dateToChangeToo: IDate;
     routeForm: FormGroup;
     subscription: Subscription;
+    subscription2: Subscription;
     totalRoutes: IRoute[];
     refinedRoutesArray: IRoute[];
 
     constructor(private getDate$Service: GetDate$Service, private fb: FormBuilder,
-        private orderService: OrderService) {}
+        private orderService: OrderService, private router: Router) {}
 
     ngOnInit() {
         this.getTotalRoutes();
@@ -32,9 +36,16 @@ export class HeadingDropdownViewComponent implements OnInit, OnDestroy {
 
     getLongDate(date: Date) {
         date = new Date(date.valueOf() + (120 * 60000));
-        this.getDate$Service.getDatePackageForGivenLongDate(date).pipe(
+        this.subscription2 = this.getDate$Service.getDatePackageForGivenLongDate(date).pipe(
             take(1),
             tap(newDate => this.dateToChangeToo = newDate),
+            switchMap(() => this.getDate$Service.currentDatePackage$.pipe(
+                take(1)
+            )),
+            switchMap(currentDate => this.orderService.updateRouteDate(this.currentRoute, currentDate, this.dateToChangeToo)),
+            tap(result => console.log('Return data = ', result)),
+            finalize(() => this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-order']))
+            // tap(() => this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-order']))
             // Here we must add the code that will change the date of all the orders in the route
             // You do not have to get all the orders and change them, just give through the route name and date,
             // and then filter and change server side
@@ -82,6 +93,9 @@ export class HeadingDropdownViewComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
+        }
+        if (this.subscription2) {
+            this.subscription2.unsubscribe();
         }
     }
 
