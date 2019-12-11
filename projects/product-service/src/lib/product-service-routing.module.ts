@@ -17,9 +17,9 @@ const productServiceRoutes: Routes = [
                 component: MenuComponent
             },
             // {
-            //     path: 'insert-order',
-            //     component: InsertOrderDataComponent
-            // },
+            //     path: 'view-weekly-orders',
+            //     loadChildren: () => import('./view-weekly-orders/view-weekly-orders.module').then(m => m.ViewWeeklyOrdersModule)
+            // }
             // {
             //     path: 'insertPnPCSV',
             //     component: InsertPnpCsvDataComponent
@@ -28,10 +28,7 @@ const productServiceRoutes: Routes = [
             //     path: 'view-orders',
             //     loadChildren: () => import('./view-orders/view-orders.module').then(m => m.ViewOrdersModule)
             // },
-            // {
-            //     path: 'view-weekly-orders',
-            //     loadChildren: () => import('./view-weekly-orders/view-weekly-orders.module').then(m => m.ViewWeeklyOrdersModule)
-            // }
+
         ]
     }
 ];

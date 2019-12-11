@@ -33,7 +33,6 @@ export class PnpPalletsService {
     }
 
     calculateTotalPalletsForRegions(orders: IOrderDetails[]): IPnPRegions[] {
-        // This needs to be refractored so that we know what a region consists of...
         // accountID does not exists
         const regions: IPnPRegions[] = [];
 
@@ -74,7 +73,7 @@ export class PnpPalletsService {
                 }
             }
         }
-        console.log('Regions = ', regions);
+        console.log('Regions = ', orders);
         return regions;
     }
 
