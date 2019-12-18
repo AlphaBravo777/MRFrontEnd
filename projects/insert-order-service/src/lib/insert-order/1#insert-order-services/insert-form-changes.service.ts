@@ -114,7 +114,7 @@ export class InsertFormChangesService {
         let a = 0;
         for (const control of orderedProducts['controls']) {
             const productFromProductList: IProductDetails = productListToPickFromArray.find((prod) =>
-                control.value.productMRid === prod.productMRid);
+                control.value.productMRid.toUpperCase() === prod.productMRid);
             if (productFromProductList) {
                 const tempRemovedProduct = this.removeProductFromAvailableList(productFromProductList);
                 const removedProduct: IProductOrderDetails = Object.assign(
@@ -127,6 +127,15 @@ export class InsertFormChangesService {
                 control.setValue(removedProduct);
             }
             a += 1;
+        }
+    }
+
+    makeSureAllMRProductidsAreUpperCase() {
+        const orderedProducts = <FormArray>this.orderForm.controls.orders;
+        for (const control of orderedProducts['controls']) {
+            const placeholderProduct: IProductOrderDetails = Object.assign(control.value);
+            placeholderProduct.productMRid = placeholderProduct.productMRid.toUpperCase();
+            control.setValue(placeholderProduct);
         }
     }
 
