@@ -30,6 +30,7 @@ export class InsertOrderMainViewComponent implements OnInit {
 
     finalChecksBeforeInsertingOrder() {
         this.insertFormChangesService.removeAnyOrderedProductsFromAvailableList();
+        this.insertFormChangesService.makeSureAllMRProductidsAreUpperCase();
         this.insertOrderService.changeAmountMeasurementToUnitsIfCurrentlyKgs(this.mainInsertForm, this.routeForm);
         this.orderToInsert.emit([this.mainInsertForm.value, this.routeForm.value]);
     }
