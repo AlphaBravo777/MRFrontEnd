@@ -40,10 +40,13 @@ export class ColorChangeInputBoxComponent implements OnInit {
     }
 
     valueChanged(value: string) {
-        if (this.capitalize && value) {
-            this.renderer.setProperty(this.userInput.nativeElement, 'value', value.toUpperCase());
+        let value2;
+        value2 = JSON.parse(JSON.stringify(value));
+        if (this.capitalize && value2) {
+            value2 = JSON.parse(JSON.stringify(value2.toUpperCase()));
+            this.renderer.setProperty(this.userInput.nativeElement, 'value', value2.toUpperCase());
         }
-        this.valueChange.emit(value);
+        this.valueChange.emit(value2);
     }
 
 }
