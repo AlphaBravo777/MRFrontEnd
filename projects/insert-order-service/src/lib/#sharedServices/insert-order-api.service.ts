@@ -109,9 +109,10 @@ export class InsertOrderApiService {
     }
 
     updateRouteDate(route: IViewRoutesData, currentDatePackage: IDate, newDatePackage: IDate): Observable<IInserOrderErrors> {
-        console.log('Updating now');
-        return this.http.put<IInserOrderErrors>(this.orderServiceUrl + 'orders/updateRouteDate/',
-        {routeid: route.routeid, currentTimeStampid: currentDatePackage.id, newTimeStampid: newDatePackage.id });
+        const routeUpdateData = {routeid: route.routeid, currentTimeStampid: currentDatePackage.id, newTimeStampid: newDatePackage.id };
+        console.log('Updating now', routeUpdateData);
+        return this.http.put<IInserOrderErrors>(this.orderServiceUrl + 'orders/updateRouteDate/', routeUpdateData);
+        // curl -X POST -H "Content-Type: application/vnd.kafka.json.v2+json" -H "Accept: application/vnd.kafka.v2+json" --data '{"records":[{"value":{"foo":"bar"}}]}' "http://192.168.2.27:8082/topics/jsontest"
     }
 
     searchForOrder(datePackage: IDate, accountid: number): Observable<IOrderDetails[]> {
