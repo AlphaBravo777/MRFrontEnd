@@ -45,10 +45,6 @@ export class HeadingDropdownViewComponent implements OnInit, OnDestroy {
             switchMap(currentDate => this.orderService.updateRouteDate(this.currentRoute, currentDate, this.dateToChangeToo)),
             tap(result => console.log('Return data = ', result)),
             finalize(() => this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-order']))
-            // tap(() => this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-order']))
-            // Here we must add the code that will change the date of all the orders in the route
-            // You do not have to get all the orders and change them, just give through the route name and date,
-            // and then filter and change server side
         ).subscribe();
     }
 
