@@ -126,6 +126,8 @@ export class SpecificRouteTableService {
             'td', 'divTotals1', undefined, undefined, 'TOTALS').children[0]);
         orders.forEach(order => {
             totals.appendChild(this.createRowColmDivSpanValue(
+                //  There is an error here that is popping up for route "Rust/Brits"
+                //  This ended up happening if you have no products for a given order
                 'td', 'weightTotals', undefined, undefined, (order.orderTotalAmount).toString()).children[0]);
         });
         this.table.appendChild(totals);
