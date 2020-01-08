@@ -26,7 +26,9 @@ export class OrderService {
 
     private ordersNotInserted = new BehaviorSubject<IOrderDetails[]>([]);
     currentOrdersNotInserted$ = this.ordersNotInserted.asObservable();
-    ordersNotInsertedArray: IOrderDetails[] = [];
+    private unknownProducts = new BehaviorSubject<IProductOrderDetails[]>([]);
+    currentUnknownProducts$ = this.unknownProducts.asObservable();
+    // ordersNotInsertedArray: IOrderDetails[] = [];
 
 
     insertNewOrderAndProducts(orders: IOrderDetails[]): Observable<any> {
@@ -78,6 +80,11 @@ export class OrderService {
     setOrdersNotInserted(orders: IOrderDetails[]) {
         // this is just data and not api services, so should be refractured into a data$ service
         this.ordersNotInserted.next(orders);
+    }
+
+    setUnknownProducts(products: IProductOrderDetails[]) {
+        // this is just data and not api services, so should be refractured into a data$ service
+        this.unknownProducts.next(products);
     }
 
     deleteProductFromOrder(amountid: number) {
