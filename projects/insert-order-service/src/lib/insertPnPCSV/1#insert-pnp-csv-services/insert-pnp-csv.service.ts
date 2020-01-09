@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { IOrderDetails, IOrderDBDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
+import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { ConvertPnpCsvDataFactoryService } from './convert-pnp-csv-data-factory.service';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 import { ConvertPnpStructureToOrdersService } from './convert-pnp-structure-to-orders.service';
 import { OrderService } from '../../#sharedServices/order.service';
 import { Observable, from, of, interval } from 'rxjs';
-import { take, concatMap, tap, map, mergeMap, switchMap, flatMap } from 'rxjs/operators';
+import { take, concatMap, tap, map } from 'rxjs/operators';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
 import { IPnPCSVData, IPnPCSVFormat } from '../../#sharedServices/interfaces/pnp-csv-interface';
+import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +17,7 @@ import { IPnPCSVData, IPnPCSVFormat } from '../../#sharedServices/interfaces/pnp
 export class InsertPnpCsvService {
 
     deliveryDaysChecked = {};
+    unknownProducts: IProductOrderDetails[] = [];
 
     constructor(private convertPnPCVDataFactoryService: ConvertPnpCsvDataFactoryService,
         private convertPnPStructureToOrderService: ConvertPnpStructureToOrdersService,
@@ -46,7 +48,10 @@ export class InsertPnpCsvService {
         const groupedOrders: Array<IPnPCSVData[]> = this.toolBox.multipleGroupByArray(pnpJSON,
             (item: IPnPCSVData) => [item.PONumber]);
         groupedOrders.forEach(vendor => {
-            mrPnPOrders.push(this.convertPnPStructureToOrderService.factoryConvertPnPDataToOrders(vendor));
+            const orderAndUnknownProducts: [IOrderDetails, IProductOrderDetails[]] =
+            this.convertPnPStructureToOrderService.factoryConvertPnPDataToOrders(vendor);
+            mrPnPOrders.push(orderAndUnknownProducts[0]);
+            this.unknownProducts.push.apply(this.unknownProducts, orderAndUnknownProducts[1]);
         });
         return mrPnPOrders;
     }
@@ -75,6 +80,7 @@ export class InsertPnpCsvService {
                         }),
                         tap(message => console.log(message)),
                         tap(() => this.insertOrderService.setOrdersNotInserted(ordersNotInserted)),
+                        tap(() => this.insertOrderService.setUnknownProducts(this.unknownProducts)),
                     ))
                 ))
             ).subscribe();
