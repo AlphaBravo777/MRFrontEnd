@@ -15,6 +15,7 @@ export class ConvertPnpStructureToOrdersService {
     coastalDelieveryDateModifier = 2;
     inlandDeliveryDateModifier = 1;
     deliveryDateAtDC: Date;
+    unknownProducts: IProductOrderDetails[] = [];
 
     private calculateDcDeliveryDate(currentDate, days) {
         const longDate = this.datePickerService.shortToLongDate(currentDate);
@@ -165,7 +166,7 @@ export class ConvertPnpStructureToOrdersService {
                 proddescription: 'PnP No Name Smokies 500 g (Vacuum)'};
             default:
                 return {productid: null, unitWeight: null, lugSize: null, rankingInGroup: null,
-                proddescription: 'undefined'} ;
+                proddescription: null} ;
         }
     }
 
@@ -199,7 +200,7 @@ export class ConvertPnpStructureToOrdersService {
     }
 
     private createPnPProductsFactory(pnpVendorOrder: IPnPCSVData[]): IProductOrderDetails[] {
-        const pnpProductsArray = [];
+        const pnpProductsArray: IProductOrderDetails[] = [];
         for (let prod = 0; prod < pnpVendorOrder.length; prod++) {
             const productDetail = this.createPnPProduct(pnpVendorOrder[prod]);
             const newPnPProductObj: IProductOrderDetails = {
@@ -215,15 +216,21 @@ export class ConvertPnpStructureToOrdersService {
                 packagingShippingWeight: null,
                 unitsPerMaxShippingWeight: null
             };
-            pnpProductsArray.push(newPnPProductObj);
+            if (newPnPProductObj.productid === null) {
+                console.log('unknownProduct === ', newPnPProductObj);
+                this.unknownProducts.push(newPnPProductObj);
+            } else {
+                pnpProductsArray.push(newPnPProductObj);
+            }
         }
         console.log('createPnPProducts =', pnpProductsArray);
         return pnpProductsArray;
     }
 
-    factoryConvertPnPDataToOrders(pnpVendorOrder: IPnPCSVData[]) {
+    factoryConvertPnPDataToOrders(pnpVendorOrder: IPnPCSVData[]): [IOrderDetails, IProductOrderDetails[]] {
+        this.unknownProducts = [];
         const pnpProducts: IProductOrderDetails[]  = this.createPnPProductsFactory(pnpVendorOrder);
         const pnpOrder: IOrderDetails = this.createPnPOrderFactory(pnpVendorOrder, pnpProducts);
-        return pnpOrder;
+        return [pnpOrder, this.unknownProducts];
     }
 }
