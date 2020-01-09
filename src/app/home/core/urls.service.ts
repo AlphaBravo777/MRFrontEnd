@@ -14,14 +14,21 @@ export class UrlsService {
 
     mrOrderService = this.root + ':8084/';
 
+    // -----------------
+    // Production Server
+    // -----------------
+
     // backendUrl = this.root + ':8000/';
     // graphqlAddress = this.root + ':8000/graphql/';
 
+    // ------------------
+    // Development Server
+    // ------------------
 
     backendUrl = this.root + ':8080/';
     graphqlAddress = this.root + ':8080/graphql/';
 
-    currentVersion = '1.17.6';
+    currentVersion = '2.0.1';
 
 }
 
@@ -46,3 +53,4 @@ export class UrlsService {
     // Without Ivy (Ivy makes some shared components not show up)
 // 1.17.5 (Release 2019/10/08)
     // Fix bug where insert order product ending with a letter is seen as lowercase
+// 2.0.0 (Release 2020/01/06)
