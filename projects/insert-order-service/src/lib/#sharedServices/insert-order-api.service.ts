@@ -9,7 +9,7 @@ import { IOrderDetails,
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';
-import { map, take, tap } from 'rxjs/operators';
+import { map, take, tap, concatMap } from 'rxjs/operators';
 import { IProductOrderDetails,
     ff_createProductDetailsObjectForDB,
     IProductOrderDBDetails } from 'src/app/home/shared/services/productServices/products-interface';
@@ -75,9 +75,10 @@ export class InsertOrderApiService {
         return this.http.put<any>(this.orderServiceUrl + 'orders/insertNewOrderDetails/', orderDetailsBackend).pipe(
             tap(response => console.log('This is the responce now', JSON.parse(JSON.stringify(response)))),
             map(response => ff_CreateOrderDetailsObjFromDBObj(response)),
-            tap(response => console.log('This is the response now', response))
+            tap(response => console.log('This is the response now', response)),
+            //  --------------  Kafka Implementation --------------------
+            // concatMap(() => this.http.put<any>(this.orderServiceUrl + 'orders/insertKafkaNewOrderDetails/', orderDetailsBackend))
       );
-        // return null;
     }
 
     enterProductAmounts(productAmounts: IProductOrderDetails[]): Observable<any> {
