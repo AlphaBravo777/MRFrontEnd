@@ -1,6 +1,12 @@
 <app-box-shadow-container>
     <mr-insert-insert-pnp-csv-view (fileSelected)="fileSelected($event)">
     </mr-insert-insert-pnp-csv-view>
+    <div *ngIf="unknownProducts.length > 0">
+        <p class='unknown'><b>No matching productid found for the following products and they were not inserted</b></p>
+        <div *ngFor="let product of unknownProducts">
+            <span>PnP Product id: {{ product.productMRid }}</span>
+        </div>
+    </div>
     <div *ngIf="ordersNotInserted.length > 0">
         <p><b>The following orders were already inserted:</b></p>
         <div *ngFor="let order of ordersNotInserted">
