@@ -3,6 +3,8 @@ import { InsertPnpCsvService } from '../1#insert-pnp-csv-services/insert-pnp-csv
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { OrderService } from '../../#sharedServices/order.service';
 import { Subscription } from 'rxjs';
+import { tap, concatMap } from 'rxjs/operators';
+import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
 
 
 @Component({
@@ -17,13 +19,16 @@ export class InsertPnpCsvDataComponent implements OnInit, OnDestroy {
 
     selectedCSVFile = null;
     pnpOrders: IOrderDetails[];
-    ordersNotInserted = [];
+    ordersNotInserted: IOrderDetails[] = [];
+    unknownProducts: IProductOrderDetails[];
     subscription: Subscription;
 
     ngOnInit() {
-        this.subscription = this.insertOrderService.currentOrdersNotInserted$.subscribe(data =>
-            this.ordersNotInserted = data
-        );
+        this.subscription = this.insertOrderService.currentOrdersNotInserted$.pipe(
+            tap(orders => this.ordersNotInserted = orders),
+            concatMap(() => this.insertOrderService.currentUnknownProducts$),
+            tap(unknownProducts => this.unknownProducts = unknownProducts)
+        ).subscribe();
     }
 
     fileSelected(file) {
