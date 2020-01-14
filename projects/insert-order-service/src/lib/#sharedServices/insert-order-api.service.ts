@@ -6,7 +6,7 @@ import { IOrderDetails,
     ff_createOrderDetailsObjectForDB,
     ff_CreateOrderDetailsObjFromDBObj,
     IInserOrderErrors} from './interfaces/order-service-Interfaces';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { map, take, tap, concatMap } from 'rxjs/operators';
@@ -191,6 +191,13 @@ export class InsertOrderApiService {
             return currentOrders;
         }
 
+    }
+
+    sendOrderDetailsToKafka(order: IOrderDetails): Observable<IOrderDetails> {
+        return this.http.post<any>( this.urlService.sagaCoordinatorMS + 'testmodule/kafkaTestEndpoint/', order).pipe(
+            tap(response => console.log('The kafka response = ', response)),
+            map(() => order)
+        );
     }
 
 }
