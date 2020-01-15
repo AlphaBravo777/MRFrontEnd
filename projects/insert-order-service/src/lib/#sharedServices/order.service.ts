@@ -35,6 +35,7 @@ export class OrderService {
         console.log('Bravo(c) = ', JSON.parse(JSON.stringify(orders)));
         let products: IProductOrderDetails[];
         return from(orders).pipe(
+            concatMap(order => this.insertOrderApiService.sendOrderDetailsToKafka(order)),
             tap(order => products = JSON.parse(JSON.stringify(order.orders))),
             tap(order => order.orders = null),
             concatMap(order => this.insertOrderApiService.enterNewOrderDetails(order)),
