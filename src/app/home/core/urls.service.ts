@@ -7,12 +7,11 @@ export class UrlsService {
 
   constructor() { }
 
-    // root = 'http://127.0.0.1'; // This is home development server
-    // root = 'http://192.168.2.24'; // This is meatrite live test server
     root = 'http://192.168.2.25'; // This is meatrite live test server
-    // root = 'http://192.168.45.2'; // This is meatrite development server
-
     mrOrderService = this.root + ':8084/';
+
+    dockerServer = 'http://192.168.2.27';
+    sagaCoordinatorMS = this.dockerServer + ':8070/';
 
     // -----------------
     // Production Server
@@ -54,3 +53,28 @@ export class UrlsService {
 // 1.17.5 (Release 2019/10/08)
     // Fix bug where insert order product ending with a letter is seen as lowercase
 // 2.0.0 (Release 2020/01/06)
+    // Updated frontend so that orders can be read in using lower or uppercase
+    // Got the factory on the same sheet as the office
+// 2.0.1 (Release 2020/01/14)
+    // Added api that sends all orders to kafka so long to start getting a record of orders
+
+
+// -------------------------------------------------------------------------
+// - - - - - - Workflow to change version numbers on frontend server - - - -
+// -------------------------------------------------------------------------
+
+// Updating Frontend to server
+//      Make sure all ip's are correct  (Database server (192.168.2.25) and GraphQL (:8000/))
+// 	    Change Version number
+// 	    Run ng build --prod   (or for current servers: ng build --prod --build-optimizer --aot )
+// 	    On production pc go to \\192.168.2.25\Factory share\meatriteFrontEnd and paste files there
+// 	    Server directory ->  /var/www/frontend.com/public_html/  // This is where you put the server files (Or in frontend2.com)
+// 	    Delete old  files (some files get a new name each time, and won’t be replaced, so they will become more and more if not deleted)
+// 	    Copy static files to server
+// 	    Go to etc/apache/sites-available/ and in 000-default.conf you must flip the current production version to the new one.
+            // Do not change the port number, rather change the folder from "frontend" to "frontend2" or vice-versa.
+
+// Logs:
+//      In the django/meatriteApi folder under logs are all the server logs, the 'error.logs' have the same output as a django dev server…
+
+// Restart Apache2 server  sudo service apache2 restart
