@@ -19,6 +19,8 @@ export class InsertOrderMainViewComponent implements OnInit {
     @Input() errorMessages: IInserOrderErrors[];
     @Output() orderToInsert: EventEmitter<[IOrderDetails, IRoute]> = new EventEmitter<[IOrderDetails, IRoute]>();
 
+    returnForm;
+
     constructor(private insertFormChangesService: InsertFormChangesService,
         private insertOrderService: InsertOrderService) {}
 
@@ -32,6 +34,8 @@ export class InsertOrderMainViewComponent implements OnInit {
         this.insertFormChangesService.removeAnyOrderedProductsFromAvailableList();
         this.insertFormChangesService.makeSureAllMRProductidsAreUpperCase();
         this.insertOrderService.changeAmountMeasurementToUnitsIfCurrentlyKgs(this.mainInsertForm, this.routeForm);
-        this.orderToInsert.emit([this.mainInsertForm.value, this.routeForm.value]);
+        this.returnForm = this.mainInsertForm.value;
+        this.returnForm.productListToPickFrom = null;
+        this.orderToInsert.emit([this.returnForm, this.routeForm.value]);
     }
 }
