@@ -27,7 +27,7 @@ export class UrlsService {
     backendUrl = this.root + ':8080/';
     graphqlAddress = this.root + ':8080/graphql/';
 
-    currentVersion = '2.0.1';
+    currentVersion = '2.0.2';
 
 }
 
@@ -57,6 +57,7 @@ export class UrlsService {
     // Got the factory on the same sheet as the office
 // 2.0.1 (Release 2020/01/14)
     // Added api that sends all orders to kafka so long to start getting a record of orders
+    // Changed orders input to use small and uppercase letters
 
 
 // -------------------------------------------------------------------------
