@@ -51,6 +51,7 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
         ).subscribe();
     }
 
+    // Gets called from template
     insertOrderIntoDB(orders: [IOrderDetails, IRoute]) {
         console.log('Order to insert = ', orders);
         orders[0].routeid = orders[1].routeid;
