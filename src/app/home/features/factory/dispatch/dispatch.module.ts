@@ -10,6 +10,7 @@ import { PnpPalletsView2Component } from './dispatch-pnp-pallets/3b#pnp-pallets-
 import { PnpPalletsRegionsComponent } from './dispatch-pnp-pallets/4#pnp-pallets-regions/pnp-pallets-regions.component';
 import { PnpPalletsSummaryComponent } from './dispatch-pnp-pallets/5#pnp-pallets-summary/pnp-pallets-summary.component';
 import { PnpPalletsOrderMatrixComponent } from './dispatch-pnp-pallets/6#pnp-pallets-order-matrix/pnp-pallets-order-matrix.component';
+import { HppPalletsDataComponent } from './dispatch-hpp-pallets/2#hpp-pallets-data/hpp-pallets-data.component';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { PnpPalletsOrderMatrixComponent } from './dispatch-pnp-pallets/6#pnp-pal
         PnpPalletsRegionsComponent,
         PnpPalletsSummaryComponent,
         PnpPalletsOrderMatrixComponent,
+        HppPalletsDataComponent,
     ],
     imports: [
         CommonModule,
