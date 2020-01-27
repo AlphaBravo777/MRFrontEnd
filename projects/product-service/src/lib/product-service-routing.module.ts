@@ -16,10 +16,10 @@ const productServiceRoutes: Routes = [
                 path: 'menu',
                 component: MenuComponent
             },
-            // {
-            //     path: 'view-weekly-orders',
-            //     loadChildren: () => import('./view-weekly-orders/view-weekly-orders.module').then(m => m.ViewWeeklyOrdersModule)
-            // }
+            {
+                path: 'create-item',
+                loadChildren: () => import('./insert-product/insert-product.module').then(m => m.InsertProductModule)
+            }
             // {
             //     path: 'insertPnPCSV',
             //     component: InsertPnpCsvDataComponent
