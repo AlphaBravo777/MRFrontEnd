@@ -1,0 +1,11 @@
+<div class="inputBoxDiv">
+    <mat-form-field>
+        <mat-label>{{label}}</mat-label>
+        <input class="inputBox" matInput type="text" [formControl]='inputField' (keyup)='searchData()' placeholder='{{placeholder}}'>
+    </mat-form-field>
+</div>
+<div *ngIf='filteredData'>
+    <div *ngFor='let dataPoint of filteredData; let i=index'>
+        <div (click)='valuePicked(dataPoint)'>{{dataPoint.name}}</div>
+    </div>
+</div>
