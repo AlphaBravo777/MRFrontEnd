@@ -1,0 +1,12 @@
+@import 'src/stylesColors.scss';
+
+.grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.lightInputBox {
+    background-color: $mainColorMinusTwo;
+    width: fit-content;
+}
