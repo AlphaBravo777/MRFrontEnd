@@ -1,0 +1,45 @@
+@import 'src/stylesColors.scss';
+
+.leftColumn {
+    border: medium solid $mainColorPlusOne;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.rightColumn {
+    border: medium solid $mainColorPlusOne;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+h3 {
+    margin: 5px;
+}
+
+.outsideContainer {
+    padding: 10px;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+}
+
+.mat-form-field {
+    width: 100%;
+    max-width: 400px;
+
+}
+
+.itemid {
+    mat-form-field {
+        max-width: 150px;
+    }
+}
+
+.itemName {
+    width: 400px;
+    display: inline-block;
+ }
