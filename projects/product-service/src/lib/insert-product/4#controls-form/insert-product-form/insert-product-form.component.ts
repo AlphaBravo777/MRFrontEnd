@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@ng-stack/forms';
-import { IItem } from '../../../#shared-services/interfaces/item';
+import { IItem, IItemBasic } from '../../../#shared-services/interfaces/item';
+import { IMeasuringUnit, IPackaging, IItemVendor } from '../../../#shared-services/interfaces/auxiliary';
 
 @Component({
   selector: 'mr-product-insert-product-form',
@@ -8,6 +9,11 @@ import { IItem } from '../../../#shared-services/interfaces/item';
   styleUrls: ['./insert-product-form.component.scss']
 })
 export class InsertProductFormComponent implements OnInit {
+
+    @Input() itemsBasic: IItemBasic[];
+    @Input() measureUnits: IMeasuringUnit[];
+    @Input() packagings: IPackaging[];
+    @Input() itemVendors: IItemVendor[];
 
     public mainItemForm: FormGroup<IItem> = new FormGroup<IItem>({
         identification: new FormControl(''),

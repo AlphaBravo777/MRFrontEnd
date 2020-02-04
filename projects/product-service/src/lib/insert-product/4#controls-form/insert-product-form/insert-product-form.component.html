@@ -2,7 +2,10 @@
     <form [formGroup]="mainItemForm" (ngSubmit)="onSubmit()">
         <div class='grid'>
             <app-box-shadow-container class="lightInputBox">
-                <mr-product-product-form-name formControlName="identification"></mr-product-product-form-name>
+                <mr-product-product-form-name 
+                    formControlName="identification"
+                    [itemsBasic]='itemsBasic'>
+                </mr-product-product-form-name>
             </app-box-shadow-container>
 
             <app-box-shadow-container class="lightInputBox">
@@ -10,23 +13,35 @@
             </app-box-shadow-container>
 
             <app-box-shadow-container class="lightInputBox">
-                <mr-product-product-form-size formControlName="size"></mr-product-product-form-size>
+                <mr-product-product-form-size 
+                    formControlName="size"
+                    [measureUnits]='measureUnits'></mr-product-product-form-size>
             </app-box-shadow-container>
 
             <app-box-shadow-container class="lightInputBox">
-                <mr-product-product-form-packaging formControlName="packaging"></mr-product-product-form-packaging>
+                <mr-product-product-form-packaging 
+                    formControlName="packaging"
+                    [packagings]='packagings'></mr-product-product-form-packaging>
             </app-box-shadow-container>
 
             <app-box-shadow-container class="lightInputBox">
-                <mr-product-product-form-vendor formControlName="vendor"></mr-product-product-form-vendor>
+                <mr-product-product-form-vendor 
+                    formControlName="vendor"
+                    [itemVendors]='itemVendors'></mr-product-product-form-vendor>
             </app-box-shadow-container>
 
             <app-box-shadow-container class="lightInputBox">
-                <mr-product-product-form-price formControlName="pricing"></mr-product-product-form-price>
+                <mr-product-product-form-price 
+                    formControlName="pricing"
+                    [itemsBasic]='itemsBasic'>
+                    </mr-product-product-form-price>
             </app-box-shadow-container>
     
             <app-box-shadow-container class="lightInputBox">
-                <mr-product-product-form-building-blocks formControlName="buildingBlocks"></mr-product-product-form-building-blocks>
+                <mr-product-product-form-building-blocks 
+                    formControlName="buildingBlocks" 
+                    [itemsBasic]='itemsBasic'>
+            </mr-product-product-form-building-blocks>
             </app-box-shadow-container>
         </div>
         <button class="niceButton meatriteButton" type="submit"  [disabled]="mainItemForm.invalid">Insert Item</button>
