@@ -1,0 +1,29 @@
+<h3>Ingredients/Building Blocks</h3>
+<div class="outsideContainer">
+    <ng-container [formGroup]="buildingBlocks">
+        <div *ngFor='let buildingBlock of buildingBlocks.controls; let i=index'>
+            <ng-container [formGroup]="buildingBlock">
+                <span class="buildingBlockName">
+                    <app-filter-input
+                        [fullData]='itemsBasic'
+                        [nameField]='"itemName"'
+                        [idField]='"itemid"'
+                        [valueInput]=''
+                        [placeholder]='"Type to search for item"'
+                        [label]='"Select ingredient/buildingblock:"'
+                        (selectedValue)='insertSelectedItem($event, i)'>
+                    </app-filter-input>
+                </span>
+                <span class="activeAndSize itemid">
+                    <mat-form-field class="itemName">
+                        <input matInput formControlName="quantity" type="number" placeholder="Quantity">
+                    </mat-form-field>
+                </span>
+                <span class='cancel' (click)='deleteBuildingBlock(i)'>
+                    <img class='cancelImg' alt="Cancel" src="assets/images/delete.png">
+                </span>
+            </ng-container>
+        </div>
+        <button class="niceButton meatriteButton" type="button" (click)='addItemToBuildingBlocks()'>Add Buildingblock</button>
+    </ng-container>
+</div>
