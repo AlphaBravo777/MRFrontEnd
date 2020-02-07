@@ -1,0 +1,79 @@
+<div [formGroup]='itemGroupWithID' class="outerContainer">
+    <table style="text-align: left;">
+        <thead>
+            <tr>
+                <th >Group Code</th>
+                <th>Department</th>
+                <th>Category</th>
+                <th>Group</th>
+                <th>Rank in Group</th>
+            </tr>
+        </thead>
+        <tbody *ngIf='itemGroupWithID.length > 0'>
+            <tr *ngFor='let group of itemGroupWithID.controls; let i=index'>
+                <ng-container [formGroup]="group">
+                    <td>
+                        <span class="itemCode">
+                            <mat-form-field>
+                                <input matInput formControlName="itemCode" autocomplete="off" type="text">
+                            </mat-form-field>
+                        </span>
+                    </td>
+                    <td class=tdClass>
+                        <span [formGroup]="group.get('departmentData')" class="itemPackaging activeAndSize">
+                            <mat-form-field>
+                                <mat-select matNativeControl required formControlName="departmentid">
+                                    <mat-option *ngFor="let department of departmentGroupingsArray[i]" 
+                                        [value]="department.departmentid" 
+                                        (click)='departmentSelection(department, i)'>
+                                        {{department.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </span>
+                    </td>
+                    <td class=tdClass>
+                        <span [formGroup]="group.get('categoryData')" class="itemPackaging activeAndSize">
+                            <mat-form-field>
+                                <mat-select matNativeControl required formControlName="categoryid">
+                                    <mat-option *ngFor="let category of categories[i]" 
+                                        [value]="category.categoryid" 
+                                        (click)='categorySelection(category, i)'>
+                                        {{category.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </span>
+                    </td>
+                    <td class=tdClass>
+                        <span [formGroup]="group.get('groupData')" class="itemPackaging activeAndSize">
+                            <mat-form-field>
+                                <mat-select matNativeControl required formControlName="groupid">
+                                    <mat-option *ngFor="let group of groups[i]" 
+                                        [value]="group.groupid" 
+                                        (click)='groupSelection(group, i)'>
+                                        {{group.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="activeAndSize itemid">
+                            <mat-form-field class="itemName">
+                                <input matInput formControlName="rankInGroup" type="number" placeholder="Rank">
+                            </mat-form-field>
+                        </span>
+                    </td>
+                    <td>
+                        <span class='cancel' (click)='deleteDepartment(i)'>
+                            <img class='cancelImg' alt="Cancel" src="assets/images/delete.png">
+                        </span>
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="niceButton meatriteButton" type="button" (click)='addDepartment()'>Add Department</button>
+</div>

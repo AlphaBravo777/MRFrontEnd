@@ -1,0 +1,29 @@
+@import 'src/stylesColors.scss';
+
+.itemCode {
+    mat-form-field {
+        width: 100px;
+        border-top-width: 0px;
+        // .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+        //     padding: 0px;
+        // }
+    }
+}
+
+.cancel {
+    img {
+        height: 15px;
+        padding-left: 10px;
+    }
+}
+
+.itemid {
+    mat-form-field {
+        padding-left: 10px;
+        max-width: 100px;
+    }
+}
+
+.tdClass {
+    padding-bottom: 6px;
+}
