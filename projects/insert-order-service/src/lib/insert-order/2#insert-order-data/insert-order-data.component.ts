@@ -46,8 +46,7 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
             concatMap(() => combineLatest([datePackage$, currentWorkingAccount$])),
             tap(data => console.log('---- COMBINELATEST HAVE CHANGED ----' , data)),
             tap(data => this.datePackage = <IDate>data[0]),
-            switchMap(data => this.insertOrderService.datePackageOrAccountChanged(
-                <IAccountDetails>data[1], this.datePackage))
+            switchMap(data => this.insertOrderService.datePackageOrAccountChanged(<IAccountDetails>data[1], this.datePackage))
         ).subscribe();
     }
 
