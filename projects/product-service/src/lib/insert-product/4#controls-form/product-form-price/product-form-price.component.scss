@@ -1,0 +1,32 @@
+@import 'src/stylesColors.scss';
+
+h3 {
+    margin: 5px;
+}
+
+.noArrows::-webkit-outer-spin-button,
+.noArrows::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+.outsideContainer {
+    border: medium solid $mainColorPlusOne;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+}
+
+.itemPrice {
+    .mat-form-field {
+        max-width: 100px;
+    }
+}
+
+.calculatedPriceItemid {
+    min-width: 400px;
+}

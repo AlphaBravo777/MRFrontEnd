@@ -1,0 +1,34 @@
+<h3>Price Information</h3>
+<div class="outsideContainer">
+    <ng-container [formGroup]="pricing">
+        <div>
+            <span>
+                R
+            </span>
+            <span class="itemPrice">
+                <mat-form-field>
+                    <input class="noArrows" matInput formControlName="price" type="number" placeholder="Item Price">
+                </mat-form-field>
+            </span>
+        </div>
+        <div class="calculatedPriceItemid">
+            <app-filter-input
+                [fullData]='itemsBasic'
+                [nameField]='"itemName"'
+                [idField]='"itemid"'
+                [valueInput]=''
+                [placeholder]='"Type to search for item"'
+                [label]='"Item to calculate price by (if any):"'
+                (value)='calculatedPriceItemValue($event)'
+                (selectedValue)='calculatedPriceItemValue($event)'>
+            </app-filter-input>
+        </div>
+        <div>
+            <span class="calculatedPriceModifier">
+                <mat-form-field>
+                    <input class="noArrows" matInput formControlName="calculatedPriceModifier" type="number" placeholder="Modifier">
+                </mat-form-field>
+            </span>
+        </div>
+    </ng-container>
+</div>
