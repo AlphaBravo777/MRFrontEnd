@@ -1,0 +1,15 @@
+<h3>Packaging</h3>
+<div class="outsideContainer">
+    <ng-container [formGroup]="packaging">
+        <span class="units">
+            <mat-form-field>
+                <mat-label>Packaging</mat-label>
+                <mat-select matNativeControl required formControlName="packagingid">
+                    <mat-option *ngFor="let package of packagings" [value]="package.packagingid" (click)=selection(package.packaging)>
+                    {{package.packaging}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </span>
+    </ng-container>
+</div>
