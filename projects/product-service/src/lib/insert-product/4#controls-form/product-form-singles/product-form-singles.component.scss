@@ -1,0 +1,14 @@
+@import 'src/stylesColors.scss';
+
+h3 {
+    margin: 5px;
+}
+
+
+.outsideContainer {
+    border: medium solid $mainColorPlusOne;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+    min-height: 150px;
+}
