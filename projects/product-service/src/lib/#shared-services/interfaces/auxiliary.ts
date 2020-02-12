@@ -4,18 +4,18 @@ export class IPackaging {
     weight: number;
 }
 
-
-
 export class IDepartment {
     departmentid: number;
     name: string;
     rankingInDepartment: number;
+    categories: ICategory[];
 }
 
 export class ICategory {
     categoryid: number;
     name: string;
     rankingInCategory: number;
+    groups: IGroup[];
 }
 
 export class IGroup {
@@ -24,3 +24,15 @@ export class IGroup {
     rankingInGroup: number;
 }
 
+export class IItemVendor {
+    vendor: string;
+    vendorid: number;
+}
+
+export class IMeasuringUnit {
+    unitid: number;
+    unit: string;
+    convertionToMainUnitAmount: number;
+    mianUnit: string;
+    mainUnitid: number;
+}
