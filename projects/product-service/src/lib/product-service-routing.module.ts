@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EntryComponent } from './#entry/entry.component';
 import { MenuComponent } from './#menu/menu.component';
+import { SmallStockTakeComponent } from './product-small-stocktake/small-stock-take/small-stock-take.component';
 
 const productServiceRoutes: Routes = [
     {
@@ -19,6 +20,10 @@ const productServiceRoutes: Routes = [
             {
                 path: 'create-item',
                 loadChildren: () => import('./insert-product/insert-product.module').then(m => m.InsertProductModule)
+            },
+            {
+                path: 'stock-take',
+                component: SmallStockTakeComponent
             }
             // {
             //     path: 'insertPnPCSV',
