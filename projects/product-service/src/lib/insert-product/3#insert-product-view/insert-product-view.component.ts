@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IItemBasic } from '../../#shared-services/interfaces/item';
-import { IMeasuringUnit, IPackaging, IItemVendor } from '../../#shared-services/interfaces/auxiliary';
+import { IMeasuringUnit, IPackaging, IItemVendor, IDepartment } from '../../#shared-services/interfaces/auxiliary';
 
 @Component({
     selector: 'mr-product-insert-product-view',
@@ -13,6 +13,7 @@ export class InsertProductViewComponent implements OnInit {
     @Input() measureUnits: IMeasuringUnit[];
     @Input() packagings: IPackaging[];
     @Input() itemVendors: IItemVendor[];
+    @Input() departmentGroupings: IDepartment[];
 
     constructor() { }
 

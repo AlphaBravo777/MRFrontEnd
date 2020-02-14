@@ -16,11 +16,11 @@ export class InsertProductDataComponent implements OnInit, OnDestroy {
 
     itemsBasic: IItemBasic[];
     packagings: IPackaging[];
-    departments: IDepartment;
-    categories: ICategory;
-    groups: IGroup;
+    departmentGroupings: IDepartment[];
+    // categories: ICategory;
+    // groups: IGroup;
     measureUnits: IMeasuringUnit[];
-    itemVendors: IItemVendor;
+    itemVendors: IItemVendor[];
 
     constructor(private productService: ProductService) { }
 
@@ -37,6 +37,8 @@ export class InsertProductDataComponent implements OnInit, OnDestroy {
             tap(packaging => this.packagings = packaging),
             concatMap(() => this.productService.getItemVendors()),
             tap(vendors => this.itemVendors = vendors),
+            concatMap(() => this.productService.getAllGroupings()),
+            tap(groupings => this.departmentGroupings = groupings),
         );
     }
 
