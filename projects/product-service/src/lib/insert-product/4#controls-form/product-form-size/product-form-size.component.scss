@@ -1,0 +1,26 @@
+@import 'src/stylesColors.scss';
+
+h3 {
+    margin: 5px;
+}
+
+
+.outsideContainer {
+    border: medium solid $mainColorPlusOne;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+    // min-height: 150px;
+}
+
+.itemid {
+    mat-form-field {
+        padding-left: 10px;
+        max-width: 100px;
+    }
+}
+
+.units {
+    padding-left: 10px;
+    max-width: 100px;
+}

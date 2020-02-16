@@ -1,0 +1,20 @@
+<h3>Item Size</h3>
+<div class="outsideContainer">
+    <ng-container [formGroup]="size">
+        <span class="activeAndSize itemid">
+            <mat-form-field class="itemName">
+                <input matInput formControlName="size" type="number" placeholder="Size">
+            </mat-form-field>
+        </span>
+        <span class="units">
+            <mat-form-field>
+                <mat-label>Unit</mat-label>
+                <mat-select matNativeControl required formControlName="unitid">
+                    <mat-option *ngFor="let unit of measureUnits" [value]="unit.unitid" (click)=selection(unit.unit)>
+                    {{unit.unit}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </span>
+    </ng-container>
+</div>
