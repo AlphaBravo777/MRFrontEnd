@@ -1,46 +1,21 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-
-// 1. Our defined form models
-interface FavoriteAnimals {
-    favoriteCat: string;
-    favoriteDog: string;
-}
-interface MyFormModel {
-    firstName: string;
-    lastName: string;
-    email: string;
-    favoriteAnimals: FavoriteAnimals;
-}
-
-export type FormModel<T> = { [P in keyof T]: [T[P], any?] };
+import { IItemBackend, factory_createBackendItemFromForm } from '../../#shared-services/interfaces/backend-item.interface';
+import { IItemForm, IItemName, IItemGroup } from '../../#shared-services/interfaces/item';
+import { ProductApiService } from '../../#shared-services/product-api.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
+
 export class InsertProductService {
 
-    form: FormModel<MyFormModel> = this.initForm();
+    constructor(private productApiService: ProductApiService) {}
 
-    constructor(
-        private formBuilder: FormBuilder
-    ) { }
-
-    private initForm(): FormModel<MyFormModel> {
-
-        // 3. define the form and its components
-        const subForm: FormModel<FavoriteAnimals> = {
-            favoriteCat: [''],
-            favoriteDog: [''],
-        };
-        const form: FormModel<MyFormModel> = {
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]],
-            favoriteAnimals: this.formBuilder.group(subForm)
-        };
-
-        // 4. return the form with the defintion intiialised
-        return this.formBuilder.group(form);
+    insertOrUpdateItem(item: IItemForm): Observable<any> {
+        const backendItem: IItemBackend = factory_createBackendItemFromForm(item);
+        console.log('Form submit details = ', backendItem);
+        return this.productApiService.insertOrUpdateItem(backendItem);
     }
+
 }
