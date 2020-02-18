@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormControl, FormArray } from '@ng-stack/forms';
-import { IItem, IItemBasic } from '../../../#shared-services/interfaces/item';
-import { IMeasuringUnit, IPackaging, IItemVendor } from '../../../#shared-services/interfaces/auxiliary';
+import { FormGroup, FormControl } from '@ng-stack/forms';
+import { IItemForm, IItemBasic, IItemFormString } from '../../../#shared-services/interfaces/item';
+import { IMeasuringUnit, IPackaging, IItemVendor, IDepartment } from '../../../#shared-services/interfaces/auxiliary';
+import { InsertProductService } from '../../1#insert-product-services/insert-product.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'mr-product-insert-product-form',
@@ -14,24 +16,29 @@ export class InsertProductFormComponent implements OnInit {
     @Input() measureUnits: IMeasuringUnit[];
     @Input() packagings: IPackaging[];
     @Input() itemVendors: IItemVendor[];
+    @Input() departmentGroupings: IDepartment[];
 
-    public mainItemForm: FormGroup<IItem> = new FormGroup<IItem>({
+    public mainItemForm: FormGroup<IItemFormString> = new FormGroup<IItemFormString>({
         identification: new FormControl(''),
         pricing: new FormControl(''),
         singleInfo: new FormControl(''),
-        size: new FormControl(null),
+        size: new FormControl(''),
         buildingBlocks: new FormControl(''),
         vendor: new FormControl(''),
         packaging: new FormControl(''),
     });
 
-    constructor() { }
+    constructor(private insertProductService: InsertProductService) { }
 
     ngOnInit() {
     }
 
     onSubmit() {
         console.log('Val: ', this.mainItemForm.value);
+        const mainItemFormValue: unknown = this.mainItemForm.value;
+        this.insertProductService.insertOrUpdateItem(<IItemForm>mainItemFormValue).pipe(
+            take(1),
+        ).subscribe();
     }
 
 }

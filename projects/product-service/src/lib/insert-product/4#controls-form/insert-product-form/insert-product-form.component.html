@@ -4,12 +4,15 @@
             <app-box-shadow-container class="lightInputBox">
                 <mr-product-product-form-name 
                     formControlName="identification"
-                    [itemsBasic]='itemsBasic'>
+                    [itemsBasic]='itemsBasic'
+                    [departmentGroupings]='departmentGroupings'>
                 </mr-product-product-form-name>
             </app-box-shadow-container>
 
             <app-box-shadow-container class="lightInputBox">
-                <mr-product-product-form-singles formControlName="singleInfo"></mr-product-product-form-singles>
+                <mr-product-product-form-singles 
+                    formControlName="singleInfo"
+                    [runComponent]='"Component should be running"'></mr-product-product-form-singles>
             </app-box-shadow-container>
 
             <app-box-shadow-container class="lightInputBox">
