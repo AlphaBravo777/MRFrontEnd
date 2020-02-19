@@ -1,0 +1,41 @@
+<app-box-shadow-container class='outsideContainer'>
+    <h3>Scan stock and create CSV file</h3>
+    <form [formGroup]="stockTakeForm">
+        <table class="box">
+            <thead>
+                <tr>
+                    <th>Itemid</th>
+                    <th>Barcode</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody #input1 *ngIf='stockTakeForm.get("smallStockTakeArray").length > 0'>
+                <tr *ngFor='let record of stockTakeForm.get("smallStockTakeArray").controls; let i=index'>
+                    <ng-container [formGroup]="record">
+                        <td><input mrProductSmallStockFocus formControlName="itemid"></td>
+                        <td><input mrProductSmallStockFocus formControlName="barcode" (keyup)='inputBoxValueChanged(i)'></td>
+                        <td><input formControlName="quantity"></td>
+                    </ng-container>
+                </tr>
+            </tbody>
+        <!-- <div #input1 *ngIf='stockTakeForm.get("smallStockTakeArray").length > 0'>
+            <div  *ngFor='let record of stockTakeForm.get("smallStockTakeArray").controls; let i=index'>
+                <ng-container [formGroup]="record">
+                    <span><input mrProductSmallStockFocus formControlName="itemid"></span>
+                    <span><input mrProductSmallStockFocus formControlName="barcode" (keyup)='inputBoxValueChanged(i)'></span>
+                    <span><input formControlName="quantity"></span>
+                </ng-container>
+            </div>
+        </div> -->
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <button class="niceButton meatriteButton" type="button"  (click)='addEmptyRecord()'>New Item</button>
+                        <button class="niceButton meatriteButton" type="button"  [disabled]="stockTakeForm.invalid" (click)='submit()'>Create file</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <!-- <pre>{{stockTakeForm.value | json}}</pre> -->
+    </form>
+</app-box-shadow-container>
