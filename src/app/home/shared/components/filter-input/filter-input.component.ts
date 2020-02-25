@@ -2,11 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ToolboxGroupService } from '../../services/toolbox/toolbox-group.service';
 
-export class IFilterInputStructure {
-    id: number;
-    value: string;
-}
-
 @Component({
     selector: 'app-filter-input',
     templateUrl: './filter-input.component.html',
@@ -14,16 +9,17 @@ export class IFilterInputStructure {
 })
 export class FilterInputComponent implements OnInit {
 
-    @Input() fullData: IFilterInputStructure[];
+    @Input() fullData: [];
     @Input() nameField: string;
     @Input() idField: string;
     @Input() valueInput: string;
     @Input() placeholder: string;
     @Input() label: string;
-    @Output() value: EventEmitter<IFilterInputStructure> = new EventEmitter<IFilterInputStructure>();
-    private filteredData: IFilterInputStructure[] = [];
+    @Output() value: EventEmitter<any> = new EventEmitter<any>();
+    @Output() selectedValue: EventEmitter<any> = new EventEmitter<any>();
+    filteredData: any[] = [];
 
-    private  inputField: FormControl = new FormControl('');
+    inputField: FormControl = new FormControl('');
 
     constructor(private toolbox: ToolboxGroupService) { }
 
@@ -31,7 +27,7 @@ export class FilterInputComponent implements OnInit {
         this.inputField.setValue(this.valueInput);
     }
 
-    private searchData() {
+    searchData() {
         const value = this.inputField.value;
         this.filteredData = [];
         const listOfSearchTerms = value.trim().split(' ');
@@ -43,13 +39,18 @@ export class FilterInputComponent implements OnInit {
                 }
             }
         }
-        const result = this.toolbox.searchWordsInPhrase('Alpha Bravo Charlie', listOfSearchTerms);
     }
 
-    private valuePicked(value: IFilterInputStructure) {
-        this.value.emit(value);
+    valueSelected(value) {
+        this.selectedValue.emit(value);
         this.filteredData = [];
         this.inputField.setValue(value[this.nameField]);
+    }
+
+    currentValue() {
+        const value = this.inputField.value;
+        const emitVal = {[this.nameField]: value, [this.idField]: null};
+        this.value.emit(emitVal);
     }
 
 }
