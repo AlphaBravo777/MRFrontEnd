@@ -10,7 +10,18 @@ import {
     providedIn: 'root'
 })
 export class ToolboxGroupService {
+
     constructor() {}
+
+    searchWordsInPhrase(string: string, searchTerms: string[]): boolean {
+        for (let index = 0; index < searchTerms.length; index++) {
+            const element = searchTerms[index];
+            if (!string.toLowerCase().includes(element.toLowerCase())) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     groupByArray(dataArray, key) {
         return dataArray.reduce(function(rv, x) {
