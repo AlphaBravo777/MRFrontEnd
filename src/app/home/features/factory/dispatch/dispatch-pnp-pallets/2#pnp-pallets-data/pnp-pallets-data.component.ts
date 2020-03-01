@@ -41,13 +41,13 @@ export class PnpPalletsDataComponent implements OnInit, OnDestroy {
                 if (datePackage.id === null) {
                     return of([]);
                 } else {
-                    return this.workingDate(datePackage);
+                    return this.getPnPOrdersForDate(datePackage);
                 }
             })
         ).subscribe();
     }
 
-    workingDate(datePackage: IDate): Observable<any> {
+    getPnPOrdersForDate(datePackage: IDate): Observable<any> {
         // return this.pnpPalletService.getPnPOrderForDateGiven(datePackage).pipe(
         return this.pnpPalletService.searchForOrdersMain(undefined, datePackage, 18).pipe(
             tap(data => console.log('The data of the pnp Order = ', data)),
