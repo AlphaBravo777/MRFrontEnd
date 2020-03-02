@@ -16,6 +16,8 @@ import { ColorChangeInputBoxComponent } from './color-change-input-box/color-cha
 import { ExpandableDivComponent } from './expandable-div/expandable-div.component';
 import { MainOutsideContainerComponent } from './main-outside-container/main-outside-container.component';
 import { IsDataAvailableComponent } from './is-data-available/is-data-available.component';
+import { FilterInputComponent } from './filter-input/filter-input.component';
+import { MaterialConfigModule } from 'src/app/material-config/material-config.module';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { IsDataAvailableComponent } from './is-data-available/is-data-available.
         CommonModule,
         ReactiveFormsModule,
         MatRadioModule,
+        MaterialConfigModule,
     ],
     declarations: [
         RainbowProgressBarComponent,
@@ -37,6 +40,7 @@ import { IsDataAvailableComponent } from './is-data-available/is-data-available.
         ExpandableDivComponent,
         MainOutsideContainerComponent,
         IsDataAvailableComponent,
+        FilterInputComponent,
     ],
     exports: [
         RainbowProgressBarComponent,
@@ -50,7 +54,8 @@ import { IsDataAvailableComponent } from './is-data-available/is-data-available.
         ColorChangeInputBoxComponent,
         ExpandableDivComponent,
         MainOutsideContainerComponent,
-        IsDataAvailableComponent
+        IsDataAvailableComponent,
+        FilterInputComponent
     ]
 })
 export class SharedComponentsModule { }
