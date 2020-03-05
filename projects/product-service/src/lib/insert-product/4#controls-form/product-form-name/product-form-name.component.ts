@@ -1,10 +1,11 @@
-import { Component, OnInit, forwardRef } from '@angular/core';
+import { Component, OnInit, forwardRef, Input } from '@angular/core';
 import {
     ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS,
     Validator, Validators, AbstractControl, ValidationErrors
 } from '@angular/forms';
 import { FormGroup, FormControl, FormArray } from '@ng-stack/forms';
 import { IItemName, IItemBasic } from '../../../#shared-services/interfaces/item';
+import { IDepartment } from '../../../#shared-services/interfaces/auxiliary';
 
 @Component({
     selector: 'mr-product-product-form-name',
@@ -26,20 +27,8 @@ import { IItemName, IItemBasic } from '../../../#shared-services/interfaces/item
 
 export class ProductFormNameComponent implements OnInit, ControlValueAccessor, Validator {
 
-    private items: IItemBasic[] = [
-        {
-            itemid: 123,
-            itemName: 'Chicken Vienna Alpha'
-        },
-        {
-            itemid: 124,
-            itemName: 'Skaap Bout Alpha'
-        },
-        {
-            itemid: 125,
-            itemName: 'SV Emultion Alpha'
-        }
-    ];
+    @Input() itemsBasic: IItemBasic[];
+    @Input() departmentGroupings: IDepartment[];
 
     public identification: FormGroup<IItemName> = new FormGroup<IItemName>(
         {
@@ -76,14 +65,15 @@ export class ProductFormNameComponent implements OnInit, ControlValueAccessor, V
         }
 
         insertSelectedItem(value: IItemBasic) {
-            console.log('Triggered');
             this.identification.get('name').setValue(value.itemName);
             this.identification.get('itemid').setValue(value.itemid);
         }
 
         valueChanged(value) {
-            console.log('Triggered 2');
-            this.identification.get('name').setValue(value);
+            this.identification.get('name').setValue(value.itemName);
             this.identification.get('itemid').setValue(null);
+        }
+        changeItemName(value) {
+            this.identification.get('name').setValue(value);
         }
     }

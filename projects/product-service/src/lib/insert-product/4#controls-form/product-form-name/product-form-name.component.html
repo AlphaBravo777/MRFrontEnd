@@ -8,14 +8,10 @@
                         <input matInput formControlName="itemid" type="number" placeholder="Item id (Auto created)" readonly>
                     </mat-form-field>
                 </div>
-                <!-- <div class="activeAndSize">
-                    <mat-form-field class="itemName">
-                        <input matInput formControlName="name" autocomplete="off" type="text" placeholder="Full name/description of item">
-                    </mat-form-field>
-                </div> -->
+
                 <span class="itemName">
                     <app-filter-input
-                        [fullData]='items'
+                        [fullData]='itemsBasic'
                         [nameField]='"itemName"'
                         [idField]='"itemid"'
                         [valueInput]=''
@@ -25,10 +21,25 @@
                         (selectedValue)='insertSelectedItem($event)'>
                     </app-filter-input>
                 </span>
+
+                <div *ngIf='identification.get("itemid").value' class="itemName">
+                    <div class="itemName">
+                        <mat-form-field class="itemName">
+                            <input matInput formControlName="name" type="text" placeholder="Change Name">
+                        </mat-form-field>
+                    </div>
+                </div>
             </div>
+
             <div class='rightColumn'>
-                <mr-product-product-form-groups formControlName="itemGroupWithID"></mr-product-product-form-groups>
+                <mr-product-product-form-groups
+                    *ngIf='departmentGroupings' 
+                    formControlName="itemGroupWithID"
+                    [departmentGroupings]='departmentGroupings'>
+                </mr-product-product-form-groups
+                >
             </div>
+
         </div>
     </ng-container>
 </div>
