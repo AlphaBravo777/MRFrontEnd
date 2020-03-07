@@ -3,7 +3,7 @@ import { ViewOrderData$Service } from '../../view-orders/1#view-order-services/v
 import { Observable, combineLatest, of } from 'rxjs';
 import { IOrderDetails, IWeeklyOrdersDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
-import { map, concatMap, switchMap, tap } from 'rxjs/operators';
+import { map, concatMap, switchMap, tap, take } from 'rxjs/operators';
 import { OrderService } from '../../#sharedServices/order.service';
 import { IViewRoutesData } from '../../view-orders/1#view-order-services/view-order-interface';
 import { ViewOrdersGraphqlStringsService } from '../../view-orders/1#view-order-services/view-orders-graphql-strings.service';
@@ -11,6 +11,7 @@ import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-s
 import { IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { ViewWeeklyOrdersService } from './view-weekly-orders.service';
+import { ViewSpecificOrderApiService } from './view-specific-order-api.service';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,8 @@ export class ViewSpecificOrderService {
         private getDateService: GetDate$Service,
         private orderService: OrderService,
         private viewOrdersGraphQlStringsService: ViewOrdersGraphqlStringsService,
-        private viewWeeklyOrdersService: ViewWeeklyOrdersService) {}
+        private viewWeeklyOrdersService: ViewWeeklyOrdersService,
+        private viewSpecificOrderApiService: ViewSpecificOrderApiService) {}
 
     getViewSpecificOrderInitialData(): Observable<IOrderDetails[]> {
         const datePackage$ = this.getDateService.currentDatePackage$;
@@ -47,12 +49,12 @@ export class ViewSpecificOrderService {
             switchMap(orders => {
                 if (route.routeid >= 1) {
                     return of(orders);
-                } else if (route.routeid === 0.1) {
+                } else if (route.routeid === 0.1) { // When the user selected the "Weekly orders" button
                     console.log('THIS IS THE TOTAL FOR THE WHOLE WEEK');
                     return this.viewWeeklyOrdersService.getWeeklyOrders().pipe(
                         // map(weeklyOrders => this.consolidateWeeklyOrdersIntoOne(weeklyOrders)),
                     );
-                } else {
+                } else { // When the user selected the "View total products" button
                     console.log('There was NO route ID');
                     return this.viewOrderData$Service.currentDailyRoute$.pipe(
                         map(dailyRoutes => this.consolidateRouteOrdersIntoOne(orders, dailyRoutes))
@@ -115,6 +117,23 @@ export class ViewSpecificOrderService {
             }
         }
         return [totalWeight, totalWeightWithCrates];
+    }
+
+    refreshWeeklyOrdersCache(): Observable<any> {
+        return this.getDateService.currentDatePackage$.pipe(
+            take(1),
+            map((datePackage => this.changeMondayWeekNumber(datePackage))),
+            tap((datePackage) => console.log('Current date package = ', datePackage)),
+            concatMap(datePackage => this.viewSpecificOrderApiService.refreshWeeklyOrdersCache(datePackage))
+        );
+    }
+
+    changeMondayWeekNumber(datePackage: IDate) {
+        if (datePackage.weekDay === 1) {
+            datePackage.week -= 1;
+            return datePackage;
+        }
+        return datePackage;
     }
 
 }
