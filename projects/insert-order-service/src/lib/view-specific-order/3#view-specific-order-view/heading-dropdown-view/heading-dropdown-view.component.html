@@ -34,7 +34,7 @@
         </form>
 </div>
 <div class='bottomHeadings' *ngIf="currentRoute.routeid === 0.1">
-    <a routerLink="../../admin-office/daily-report/report-main" routerLinkActive="active"><button class='niceButton meatriteButton'>Refresh Weekly Orders</button></a>
+    <button class='niceButton meatriteButton' (click)='refreshWeeklyOrders()'>Refresh Weekly Orders</button>
 </div>
 
 <!-- <app-main-outside-container>

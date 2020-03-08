@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { OrderService } from '../../../#sharedServices/order.service';
 import { IViewRoutesData } from '../../../view-orders/1#view-order-services/view-order-interface';
 import { Router } from '@angular/router';
+import { ViewSpecificOrderService } from '../../1#view-specific-order-services/view-specific-order.service';
 
 @Component({
     selector: 'mr-insert-heading-dropdown-view',
@@ -23,11 +24,16 @@ export class HeadingDropdownViewComponent implements OnInit, OnDestroy {
     routeForm: FormGroup;
     subscription: Subscription;
     subscription2: Subscription;
+    subscription3: Subscription;
     totalRoutes: IRoute[];
     refinedRoutesArray: IRoute[];
 
-    constructor(private getDate$Service: GetDate$Service, private fb: FormBuilder,
-        private orderService: OrderService, private router: Router) {}
+    constructor(private getDate$Service: GetDate$Service,
+        private fb: FormBuilder,
+        private orderService: OrderService,
+        private router: Router,
+        private viewSpecificOrderService: ViewSpecificOrderService,
+        ) {}
 
     ngOnInit() {
         this.getTotalRoutes();
@@ -86,12 +92,24 @@ export class HeadingDropdownViewComponent implements OnInit, OnDestroy {
         // and then filter and change server side
     }
 
+    refreshWeeklyOrders() {
+        console.log('Weekly orders will now be refreshed');
+        this.subscription3 = this.viewSpecificOrderService.refreshWeeklyOrdersCache().pipe(
+            take(1),
+            tap(response => console.log('The response = ', response)),
+            finalize(() => this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-specific-order']))
+        ).subscribe();
+    }
+
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
         if (this.subscription2) {
             this.subscription2.unsubscribe();
+        }
+        if (this.subscription3) {
+            this.subscription3.unsubscribe();
         }
     }
 
