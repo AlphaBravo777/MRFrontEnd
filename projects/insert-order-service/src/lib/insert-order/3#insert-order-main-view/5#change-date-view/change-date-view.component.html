@@ -1,0 +1,9 @@
+<div class='datePicker'>
+    <span>Pick New Date: </span>
+    <span>
+        <mat-datepicker touchUi #picker></mat-datepicker>
+        <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+        <input type="hidden" [matDatepicker]="picker" (dateChange)="getLongDate($event.value)">
+    </span>
+    <span class='datePicked' *ngIf='dateToChangeToo'> New date: {{dateToChangeToo.stringDay}} {{dateToChangeToo.shortDate}}</span>
+</div>
