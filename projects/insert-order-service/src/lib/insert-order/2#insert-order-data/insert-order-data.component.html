@@ -14,6 +14,12 @@
                     </mr-insert-route-view>
                     <mr-insert-amount-unit-selection>
                     </mr-insert-amount-unit-selection>
+                    <mr-insert-change-date-view
+                        *ngIf='mainInsertForm.get("orderid").value'
+                        [mainInsertForm]='mainInsertForm'
+                        [routeForm]='routeForm'
+                        (orderToInsert)='insertOrderIntoDB($event)'>
+                    </mr-insert-change-date-view>
                 </form>
             </div>
         </mr-insert-insert-order-main-view>
