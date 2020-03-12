@@ -156,6 +156,7 @@ export class SmallStockTakeComponent implements OnInit, OnDestroy {
         // console.log('We will be submitting now', this.stockTakeForm.get('smallStockTakeArray').value);
         this.createAndSendFiles(this.stockTakeForm.get('smallStockTakeArray').value);
         localStorage.removeItem('butcheryStocktake');
+        // this.ngOnInit();
     }
 
     ngOnDestroy() {
