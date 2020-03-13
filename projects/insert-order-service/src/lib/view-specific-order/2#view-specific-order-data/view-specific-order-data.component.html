@@ -1,10 +1,12 @@
-<app-is-data-available
+<!-- <app-is-data-available
     [noDataMessage]='"There are no orders available, or you must select a route again"'
-    [data]='orders'>
+    [data]='orders'> -->
+<app-main-outside-container>
     <mr-insert-view-specific-order-view
         *ngIf='orders'
         [orders]='orders'
         [currentRoute]='currentRoute'
         [uniqueProductsDetails]='uniqueProductsDetails'>
     </mr-insert-view-specific-order-view>
-</app-is-data-available>
+</app-main-outside-container>
+<!-- </app-is-data-available> -->

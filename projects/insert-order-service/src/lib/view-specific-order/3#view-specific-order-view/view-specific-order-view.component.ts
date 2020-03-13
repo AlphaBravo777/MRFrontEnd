@@ -30,6 +30,7 @@ export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+        console.log('The current route = ', this.currentRoute);
         this.insertSpecificRouteTable();
         this.calculateRouteExternalDetails();
     }
