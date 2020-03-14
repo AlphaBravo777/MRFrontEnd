@@ -69,6 +69,7 @@ export class InsertOrderApiService {
     private stockUrl = this.urlService.backendUrl + 'office/';
     private orderServiceUrl = this.urlService.mrOrderService;
 
+    // Enters the main order details
     enterNewOrderDetails(orderDetails: IOrderDetails): Observable<IOrderDetails> {
         const orderDetailsBackend: IOrderDBDetails = ff_createOrderDetailsObjectForDB(orderDetails);
         console.log('Backend object: ', orderDetailsBackend);
@@ -81,6 +82,7 @@ export class InsertOrderApiService {
       );
     }
 
+    // Enter the products and all their amounts, after the order details were inserted
     enterProductAmounts(productAmounts: IProductOrderDetails[]): Observable<any> {
         const productDetailsBackend: IProductOrderDBDetails[] = [];
         productAmounts.forEach(product => productDetailsBackend.push(ff_createProductDetailsObjectForDB(product)));
