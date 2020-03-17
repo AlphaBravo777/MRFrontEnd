@@ -4,7 +4,7 @@ import {
     Validator, Validators, AbstractControl, ValidationErrors
 } from '@angular/forms';
 import { FormGroup, FormControl, FormArray } from '@ng-stack/forms';
-import { IItemBuildingBlocks, IItem, IItemBasic } from '../../../#shared-services/interfaces/item';
+import { IItemFormBuildingBlocks, IItemForm, IItemBasic } from '../../../#shared-services/interfaces/item';
 
 @Component({
   selector: 'mr-product-product-form-building-blocks',
@@ -28,15 +28,15 @@ export class ProductFormBuildingBlocksComponent implements OnInit, ControlValueA
 
     @Input() itemsBasic: IItemBasic[];
 
-    public buildingBlocks: FormArray<IItemBuildingBlocks> = new FormArray<IItemBuildingBlocks>([]);
+    public buildingBlocks: FormArray<IItemFormBuildingBlocks> = new FormArray<IItemFormBuildingBlocks>([]);
 
     constructor() { }
 
     ngOnInit() {
     }
 
-    private createBuildingBlock(): FormGroup<IItemBuildingBlocks> {
-        return new FormGroup<IItemBuildingBlocks>({
+    private createBuildingBlock(): FormGroup<IItemFormBuildingBlocks> {
+        return new FormGroup<IItemFormBuildingBlocks>({
             buildingblockName: new FormControl(''),
             buildingblockid: new FormControl(null),
             quantity: new FormControl(null)
