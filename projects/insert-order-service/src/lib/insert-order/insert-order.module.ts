@@ -15,6 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InputBoxFocusDirective } from './1#insert-order-services/input-box-focus.directive';
 import { AmountUnitSelectionComponent
     } from './3#insert-order-main-view/2#route-view/amount-unit-selection/amount-unit-selection.component';
+import { ChangeDateViewComponent } from './3#insert-order-main-view/5#change-date-view/change-date-view.component';
+import { MaterialConfigModule } from 'src/app/material-config/material-config.module';
 
 @NgModule({
     declarations: [
@@ -27,13 +29,15 @@ import { AmountUnitSelectionComponent
         InsertOrderDataComponent,
         ProductHistoryComponent,
         InputBoxFocusDirective,
-        AmountUnitSelectionComponent
+        AmountUnitSelectionComponent,
+        ChangeDateViewComponent
     ],
     imports: [
         CommonModule,
         CustomMaterialModule,
         SharedComponentsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MaterialConfigModule
     ]
 })
 export class InsertOrderModule {}
