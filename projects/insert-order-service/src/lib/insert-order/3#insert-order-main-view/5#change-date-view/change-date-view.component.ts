@@ -6,6 +6,8 @@ import { take, tap } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { IOrderDetails } from '../../../#sharedServices/interfaces/order-service-Interfaces';
+import { InsertFormChangesService } from '../../1#insert-order-services/insert-form-changes.service';
+import { InsertOrderService } from '../../1#insert-order-services/insert-order.service';
 
 @Component({
     selector: 'mr-insert-change-date-view',
@@ -19,7 +21,8 @@ export class ChangeDateViewComponent implements OnInit {
     // When a date is chosen immdetiatly update the order, change the date timestamp and send it to the "update" link
     // After this send the orderid again to the data service, so that it triggers an order reload action up the chain
 
-    constructor(private getDate$Service: GetDate$Service) { }
+    constructor(private getDate$Service: GetDate$Service, private insertFormChangesService: InsertFormChangesService,
+        private insertOrderService: InsertOrderService) {}
 
     @Input() mainInsertForm: FormGroup;
     @Input() routeForm: FormGroup;
@@ -39,6 +42,16 @@ export class ChangeDateViewComponent implements OnInit {
         this.mainInsertForm.get('timeStampID').setValue(newDate.timeStampID);
     }
 
+    finalChecksBeforeInsertingOrder() {
+        let returnForm;
+        this.insertFormChangesService.removeAnyOrderedProductsFromAvailableList();
+        this.insertFormChangesService.makeSureAllMRProductidsAreUpperCase();
+        this.insertOrderService.changeAmountMeasurementToUnitsIfCurrentlyKgs(this.mainInsertForm, this.routeForm);
+        returnForm = this.mainInsertForm.value;
+        returnForm.productListToPickFrom = null;
+        this.orderToInsert.emit([returnForm, this.routeForm.value]);
+    }
+
     getLongDate(date: Date) {
         date = new Date(date.valueOf() + (120 * 60000));
         console.log(date);
@@ -46,7 +59,7 @@ export class ChangeDateViewComponent implements OnInit {
             take(1),
             tap(newDate => this.dateToChangeToo = newDate),
             tap(newDate => this.setTimeStampid(newDate)),
-            // finalize(() => this.orderToInsert.emit([this.returnForm, this.routeForm.value]))
+            tap(() => this.finalChecksBeforeInsertingOrder()),
             // finalize(() => this.setAccountId to the same account id to reload)
         ).subscribe();
     }
