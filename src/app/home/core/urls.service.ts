@@ -12,6 +12,7 @@ export class UrlsService {
 
     dockerServer = 'http://192.168.2.27';
     sagaCoordinatorMS = this.dockerServer + ':8070/';
+    mrProductService = this.dockerServer + ':8084/';
 
     // -----------------
     // Production Server
@@ -27,7 +28,7 @@ export class UrlsService {
     backendUrl = this.root + ':8080/';
     graphqlAddress = this.root + ':8080/graphql/';
 
-    currentVersion = '2.0.2';
+    currentVersion = '2.0.4';
 
 }
 
@@ -58,6 +59,12 @@ export class UrlsService {
 // 2.0.1 (Release 2020/01/14)
     // Added api that sends all orders to kafka so long to start getting a record of orders
     // Changed orders input to use small and uppercase letters
+// 2.0.2
+    // Added small stock take function where the butchery can do stock take and export an excel sheet that can then be used with
+    // the Smart-IT program
+// 2.0.3
+    // Created way to store data locally when doing small butchery stock take
+    // Added functionality to re-calculate weekly order totals for weeklyOrdersCache
 
 
 // -------------------------------------------------------------------------
@@ -78,4 +85,4 @@ export class UrlsService {
 // Logs:
 //      In the django/meatriteApi folder under logs are all the server logs, the 'error.logs' have the same output as a django dev server…
 
-// Restart Apache2 server  sudo service apache2 restart
+// Restart Apache2 server -> "sudo service apache2 restart"
