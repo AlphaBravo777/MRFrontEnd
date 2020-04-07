@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EntryComponent } from './#entry/entry.component';
 import { MenuComponent } from './#menu/menu.component';
+import { AddAccountDataComponent } from './add-account/2#add-account-data/add-account-data.component';
 
-const insertOrderServiceRoutes: Routes = [
+const accountServiceRoutes: Routes = [
     {
         path: '',
         redirectTo: 'entry/menu',
@@ -17,34 +17,20 @@ const insertOrderServiceRoutes: Routes = [
                 component: MenuComponent
             },
             {
-                path: 'insert-order',
-                component: InsertOrderDataComponent
-            },
-            {
-                path: 'insertPnPCSV',
-                component: InsertPnpCsvDataComponent
-            },
-            {
-                path: 'view-orders',
-                loadChildren: () => import('./view-orders/view-orders.module').then(m => m.ViewOrdersModule)
+                path: 'add-account',
+                component: AddAccountDataComponent
             },
             // {
-            //     path: 'view-weekly-orders',
-            //     loadChildren: () => import('./view-weekly-orders/view-weekly-orders.module').then(m => m.ViewWeeklyOrdersModule)
-            // }
+            //     path: 'view-orders',
+            //     loadChildren: () => import('./view-orders/view-orders.module').then(m => m.ViewOrdersModule)
+            // },
         ]
     }
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(insertOrderServiceRoutes)],
+    imports: [RouterModule.forChild(accountServiceRoutes)],
     exports: [RouterModule],
     providers: []
 })
 export class AccountsServiceRoutingModule {}
-export const InsertOrderServiceRoutingComponent = [
-    EntryComponent,
-    MenuComponent,
-    InsertPnpCsvDataComponent,
-    InsertPnpCsvViewComponent
-];
