@@ -137,6 +137,8 @@ export class AccountGraphqlApiService {
 
     private consolidateSingleAccountData(data): IAccountFrontend {
 
+        console.log('Returned accounts: ', data);
+
         function getParentAccountid(parentData) {
             if (!parentData) {
                 return null;
