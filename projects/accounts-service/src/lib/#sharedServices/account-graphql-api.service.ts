@@ -124,7 +124,7 @@ export class AccountGraphqlApiService {
         }
     }
 
-    getSingleAccountData(accountMRid): Observable<IAccountFrontend> {
+    getAllAccountsContainingArgument(accountMRid): Observable<IAccountFrontend[]> {
         return this.apollo
             .watchQuery<any>({
                 // context: { headers: headers},
@@ -132,12 +132,10 @@ export class AccountGraphqlApiService {
                 query: this.GET_SINGLE_ACCOUNT_QUERY,
             })
             .valueChanges.pipe(
-                map(result => this.consolidateSingleAccountData(result.data['nodeAccountNameMicroService'].edges)));
+                map(result => this.consolidateAllAccountsContainingArgument(result.data['nodeAccountNameMicroService'].edges)));
     }
 
-    private consolidateSingleAccountData(data): IAccountFrontend {
-
-        console.log('Returned accounts: ', data);
+    private consolidateAllAccountsContainingArgument(data): IAccountFrontend[] {
 
         function getParentAccountid(parentData) {
             if (!parentData) {
@@ -154,26 +152,34 @@ export class AccountGraphqlApiService {
         }
 
         if (data.length > 0) {
-            const account: IAccountFrontend = {
-                accountid: data[0].node.rowid,
-                accountMRid: data[0].node.accountMRid,
-                accountName: data[0].node.accountName,
-                commonName: data[0].node.commonName,
-                parentAccountid: getParentAccountid(data[0].node.parentAccountid),
-                parentAccountMRid: getParentAccountMRid(data[0].node.parentAccountid),
-                routeid: data[0].node.routeid.rowid,
-                routeName: data[0].node.routeid.routeName,
-                productGroupid: data[0].node.productGroupid.rowid,
-                productGroupName: data[0].node.productGroupid.groupname,
-                accountAccessDBid: data[0].node.accountAccessDBid,
-                franchiseid: data[0].node.franchise.rowid,
-                franchiseName: data[0].node.franchise.franchiseName,
-                franchiseRanking: null,
-                rankingInFranchise: null,
-                accountID: null,
-            };
-            return account;
+
+            console.log('Returned accounts: ', data);
+            const accountsArray: IAccountFrontend[] = [];
+
+            for (let acc = 0; acc < data.length; acc++) {
+                const account: IAccountFrontend = {
+                    accountid: data[acc].node.rowid,
+                    accountMRid: data[acc].node.accountMRid,
+                    accountName: data[acc].node.accountName,
+                    commonName: data[acc].node.commonName,
+                    parentAccountid: getParentAccountid(data[acc].node.parentAccountid),
+                    parentAccountMRid: getParentAccountMRid(data[acc].node.parentAccountid),
+                    routeid: data[acc].node.routeid.rowid,
+                    routeName: data[acc].node.routeid.routeName,
+                    productGroupid: data[acc].node.productGroupid.rowid,
+                    productGroupName: data[acc].node.productGroupid.groupname,
+                    accountAccessDBid: data[acc].node.accountAccessDBid,
+                    franchiseid: data[acc].node.franchise.rowid,
+                    franchiseName: data[acc].node.franchise.franchiseName,
+                    franchiseRanking: null,
+                    rankingInFranchise: null,
+                    accountID: null,
+                };
+                accountsArray.push(account);
+            }
+            return accountsArray;
         }
+        return [];
     }
 
 
