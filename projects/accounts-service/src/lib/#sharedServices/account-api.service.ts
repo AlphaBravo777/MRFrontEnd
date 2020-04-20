@@ -3,6 +3,7 @@ import { IAccountBackend } from './interfaces/account-interface';
 import { HttpClient } from '@angular/common/http';
 import { UrlsService } from 'src/app/home/core/urls.service';
 import { Observable } from 'apollo-link';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,9 @@ export class AccountApiService {
 
     submitAccountForm(accountBackend: IAccountBackend) {
         console.log('Backend data is: ', accountBackend);
-        return this.http.post<any>(this.accountServiceUrl + 'orders/insertNewOrderDetails/', accountBackend).pipe();
+        return this.http.put<any>(this.accountServiceUrl + 'accounts/insertOrUpdateAccount/', accountBackend).pipe(
+            tap(acount => console.log('Returned data = ', acount))
+        );
     }
 
 }
