@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { UrlsService } from 'src/app/home/core/urls.service';
 import { Observable } from 'apollo-link';
 import { tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,11 @@ export class AccountApiService {
         return this.http.put<any>(this.accountServiceUrl + 'accounts/insertOrUpdateAccount/', accountBackend).pipe(
             tap(acount => console.log('Returned data = ', acount))
         );
+    }
+
+    deleteAccount(accountid: number) {
+        return this.http.delete<any>(this.accountServiceUrl + 'accounts/deleteAccount/' + accountid);
+        // return of([]);
     }
 
 }
