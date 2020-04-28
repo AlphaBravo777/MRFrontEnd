@@ -1,0 +1,94 @@
+<div class="outsideContainer">
+    <div class="formContainer">
+        <h3 style="text-align:center">Create or Edit account</h3>
+        <form [formGroup]="accountMainForm" (ngSubmit)="submitForm()">
+            <div class="accountMRid">
+                <app-minimalistic-button class="minimalisticButton">
+                    <app-float-label-input-box
+                        class='inputBox'
+                        [placeHolderText]='"New Account id"'
+                        [inputFormControl]='accountMainForm.get("accountMRid")'
+                        [caption]='"Account id"'
+                        [controlPath]='["accountMRid"]'
+                        (userInput)='userAccountidSelection($event)'>
+                    </app-float-label-input-box>
+                </app-minimalistic-button>
+            </div>
+            <div class="commonName">
+                <app-minimalistic-button class="minimalisticButton">
+                    <mat-form-field>
+                        <input matInput formControlName="commonName" autocomplete="off" type="text" placeholder="Account Name" spellcheck="false">
+                    </mat-form-field>
+                    <ng-container *ngIf='totalAccounts.length > 0'>
+                        <div *ngFor="let account of totalAccounts; let i = index">
+                            <div class="accountsArray" (click)="accountSelected(i)">{{account.commonName}}</div>
+                        </div>
+                    </ng-container>
+                </app-minimalistic-button>
+            </div>
+            <!-- <div class="parentAccountMRid">
+                <app-minimalistic-button class="minimalisticButton">
+                    <mat-form-field>
+                        <input matInput formControlName="parentAccountMRid" autocomplete="off" type="text" placeholder="Parent account id (If required)">
+                    </mat-form-field>
+                </app-minimalistic-button>
+            </div> -->
+            <div class="parentAccountMRid">
+                <app-minimalistic-button class="minimalisticButton">
+                    <app-float-label-input-box
+                        class='inputBox'
+                        [placeHolderText]='"Parent Account id"'
+                        [inputFormControl]='accountMainForm.get("parentAccountMRid")'
+                        [caption]='"Parent account"'
+                        [controlPath]='["parentAccountMRid"]'
+                        (userInput)='parentAccountidSelection($event)'>
+                    </app-float-label-input-box>
+                    <ng-container *ngIf='parentAccounts.length > 0'>
+                        <div *ngFor="let parent of parentAccounts; let i = index">
+                            <div class="parentAccountsArray" (click)="parentAccountSelected(i)">{{parent.commonName}}</div>
+                        </div>
+                    </ng-container>
+                </app-minimalistic-button>
+            </div>
+            <div class="units">
+                <app-minimalistic-button class="minimalisticButton">
+                    <mat-form-field>
+                        <mat-label>Franchise</mat-label>
+                        <mat-select matNativeControl formControlName="franchiseid">
+                            <mat-option *ngFor="let franchise of franchises" [value]="franchise.franchiseid" (click)=franchiseSelection(franchise.franchiseid)>
+                            {{franchise.franchiseName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </app-minimalistic-button>
+            </div>
+            <div class="units">
+                <app-minimalistic-button class="minimalisticButton">
+                    <mat-form-field>
+                        <mat-label>Route</mat-label>
+                        <mat-select matNativeControl formControlName="routeid">
+                            <mat-option *ngFor="let route of routes" [value]="route.routeid" (click)=routeSelection(route.routeid)>
+                            {{route.routeName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </app-minimalistic-button>
+            </div>
+            <div class="units">
+                <app-minimalistic-button class="minimalisticButton">
+                    <mat-form-field>
+                        <mat-label>ProductGroupName</mat-label>
+                        <mat-select matNativeControl formControlName="productGroupid">
+                            <mat-option *ngFor="let productGroupName of productGroupNames" [value]="productGroupName.id" (click)=productGroupNameSelection(productGroupName.id)>
+                            {{productGroupName.groupName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </app-minimalistic-button>
+            </div>
+            <button class='meatriteButton niceButton' type="submit" [disabled]='accountMainForm.invalid'>Insert Account</button>
+            <button class='meatriteButton niceButton' type="button" [disabled]='accountMainForm.get("accountid").value === null' (click)="deleteAccount()">Delete Account</button>
+            <pre>{{accountMainForm.value | json}}</pre>
+        </form>
+    </div>
+</div>
