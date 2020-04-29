@@ -13,20 +13,21 @@ export class UrlsService {
     dockerServer = 'http://192.168.2.27';
     sagaCoordinatorMS = this.dockerServer + ':8070/';
     mrProductService = this.dockerServer + ':8084/';
+    mrAccountService = this.root + ':8085/';
 
     // -----------------
     // Production Server
     // -----------------
 
-    // backendUrl = this.root + ':8000/';
-    // graphqlAddress = this.root + ':8000/graphql/';
+    backendUrl = this.root + ':8000/';
+    graphqlAddress = this.root + ':8000/graphql/';
 
     // ------------------
     // Development Server
     // ------------------
 
-    backendUrl = this.root + ':8080/';
-    graphqlAddress = this.root + ':8080/graphql/';
+    // backendUrl = this.root + ':8080/';
+    // graphqlAddress = this.root + ':8080/graphql/';
 
     currentVersion = '2.0.4';
 
@@ -65,6 +66,9 @@ export class UrlsService {
 // 2.0.3
     // Created way to store data locally when doing small butchery stock take
     // Added functionality to re-calculate weekly order totals for weeklyOrdersCache
+// 2.0.4
+    // Created account insert form
+    // Created change routes and dates for route
 
 
 // -------------------------------------------------------------------------

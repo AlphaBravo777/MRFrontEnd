@@ -88,7 +88,7 @@
             </div>
             <button class='meatriteButton niceButton' type="submit" [disabled]='accountMainForm.invalid'>Insert Account</button>
             <button class='meatriteButton niceButton' type="button" [disabled]='accountMainForm.get("accountid").value === null' (click)="deleteAccount()">Delete Account</button>
-            <pre>{{accountMainForm.value | json}}</pre>
+            <!-- <pre>{{accountMainForm.value | json}}</pre> -->
         </form>
     </div>
 </div>
