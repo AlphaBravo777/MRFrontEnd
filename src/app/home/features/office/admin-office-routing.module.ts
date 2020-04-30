@@ -40,6 +40,10 @@ const officeRoutes: Routes = [
             {
                 path: 'productService',
                 loadChildren: () => import('projects/product-service/src/public-api').then(m => m.ProductServiceModule)
+            },
+            {
+                path: 'accountService',
+                loadChildren: () => import('projects/accounts-service/src/public-api').then(m => m.AccountsServiceModule)
             }
         ]
     }
