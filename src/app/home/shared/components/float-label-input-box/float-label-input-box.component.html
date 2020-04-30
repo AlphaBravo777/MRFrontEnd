@@ -1,4 +1,4 @@
-<div class="field">
+<!-- <div class="field">
     <input #floatInput [ngClass]="inputFormControl.valid ? 'green' : 'red'"
         #searchBox
         [formControl]="controller"
@@ -7,4 +7,8 @@
         spellcheck="false"
         autocomplete="off">
     <label #floatLabel (click)='inputSelected()' for="fullname">{{caption}}</label>
-</div>
+</div> -->
+
+<mat-form-field>
+    <input #searchBox matInput [formControl]="controller" autocomplete="off" type="text" placeholder={{placeHolderText}} spellcheck="false">
+</mat-form-field>
