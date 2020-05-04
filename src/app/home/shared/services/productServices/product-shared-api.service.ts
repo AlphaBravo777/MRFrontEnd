@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { IProductDetails } from './products-interface';
+import { IProductDetails, IProductGroupName } from './products-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -29,6 +29,19 @@ export class ProductSharedApiService {
                             batchranking
                             rankingInGroup
                         }
+                    }
+                }
+            }
+        }
+    `;
+
+    ALL_PRODUCTGROUPNAMES_QUERY = gql`
+    query ProductGroupNames{
+        nodeProductgroupnames{
+                edges{
+                    node{
+                        rowid
+                        groupname
                     }
                 }
             }
@@ -71,5 +84,32 @@ export class ProductSharedApiService {
         }
         console.log('Here is the products data: ', flattendData);
         return flattendData;
+    }
+
+    getAllProductGroupNames(): Observable<IProductGroupName[]> {
+        return this.apollo
+            .watchQuery<any>({
+                // context: { headers: headers},
+                // variables: { accountid: accountid, timeStampid: datePackage.id, routeid: routeid},
+                query: this.ALL_PRODUCTGROUPNAMES_QUERY,
+            })
+            .valueChanges.pipe(
+                map(result => this.consolidateProductGroupNames(result.data['nodeProductgroupnames'].edges)));
+    }
+
+    private consolidateProductGroupNames(data): IProductGroupName[] {
+        if (data.length > 0) {
+            const productGroupNameArray: IProductGroupName[] = [];
+            for (let grp = 0; grp < data.length; grp++) {
+                const productGroup: IProductGroupName = {
+                    id: data[grp].node.rowid,
+                    groupName: data[grp].node.groupname,
+                    ID: null
+                };
+                productGroupNameArray.push(productGroup);
+            }
+            console.log('ALPHA (consolidateProductGroupNames) = ', productGroupNameArray);
+            return productGroupNameArray;
+        }
     }
 }
