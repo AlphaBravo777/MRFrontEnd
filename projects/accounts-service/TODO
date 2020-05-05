@@ -1,0 +1,5 @@
+✔ Get data for francises, routes, and productgroups @done(20-04-07 16:52)
+✔ Create insert form with fields needed @done(20-04-17 11:39)
+✔ Create backend API point to send data too @done(20-04-17 11:39)
+✔ Create delete function to remove an account @done(20-04-20 10:12)
+☐ Parent account id not working (Must give a choise to choose parent, and then insert id behind the scenes)

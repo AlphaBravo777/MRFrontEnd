@@ -130,7 +130,7 @@ Dispatch stock take:
         ☐ check what is on the truck with what the stock says, click a checkbox if it is alright, and it will turn green at pre-hpp.
         ☐ Then a stocktake is made at post-hpp, showing what was left the previous day, and everything at pre-hpp that can be picked from (or
         ☐ brought over from pre to post hpp might be a better way of saying it.)
-        ☐ Then when the truck is loaded again, give the same truck laoding screen, but when you pick the route, it gets all the stock that
+        ☐ Then when the truck is loaded again, give the same truck loading screen, but when you pick the route, it gets all the stock that
         ☐ is at hpp, you might have to use a new batch code, as this will be a new truck going from hpp with different products on it.
 
     Create image upload function:
@@ -178,3 +178,12 @@ Make summary Module (Version 2):
             ☐ There might be a problem here due to the fact that if you picked 35 today, and tomorrow you pick another 5,
             ☐ it will say that you picked 40 on day two. So maybe another many-to-many table that saves the timestamp, amount, order, and product.
 
+
+☐ Todo before leaveing
+        ☐ PnP print sheet for hpp must work with normal program and not just loaded program
+        ☐ PnP products where it gets them, can not be hard coded
+        ☐ All the programs that has to get loaded when a server restarts (Microservices)
+        ☐ Create batchgroup form
+        ☐ Create productlist form
+        ☐ Create product containers form
+        ☐ Greate product group list (If necesarry, this will almost not be done again)
