@@ -150,7 +150,7 @@ Add new product module:
         ☐ Product description
         ☐ Type of pacakging
         ☐ Single unit weight
-        ☐ Package unit weight (Shipping  weight)
+        ☐ Package unit weight (Shipping weight)
         ☐ Product on hold
         ☐ Batchgroup (Meaning what batch must be made at the mixer to produce this product - like SV)
         ☐ BatchRanking (This is if you sort all the products made from this batch, where should it rank - like getting all the SV products)
@@ -187,3 +187,4 @@ Make summary Module (Version 2):
         ☐ Create productlist form
         ☐ Create product containers form
         ☐ Greate product group list (If necesarry, this will almost not be done again)
+        ☐ Create a list of orders that WERE inserted at pnp just to show something is happening
