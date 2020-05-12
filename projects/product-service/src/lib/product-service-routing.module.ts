@@ -4,6 +4,7 @@ import { EntryComponent } from './#entry/entry.component';
 import { MenuComponent } from './#menu/menu.component';
 import { SmallStockTakeComponent } from './product-small-stocktake/small-stock-take/small-stock-take.component';
 
+
 const productServiceRoutes: Routes = [
     {
         path: '',
@@ -24,16 +25,11 @@ const productServiceRoutes: Routes = [
             {
                 path: 'stock-take',
                 component: SmallStockTakeComponent
+            },
+            {
+                path: 'create-batch-group',
+                loadChildren: () => import('./insert-batch-group/insert-batch-group.module').then(m => m.InsertBatchGroupModule)
             }
-            // {
-            //     path: 'insertPnPCSV',
-            //     component: InsertPnpCsvDataComponent
-            // },
-            // {
-            //     path: 'view-orders',
-            //     loadChildren: () => import('./view-orders/view-orders.module').then(m => m.ViewOrdersModule)
-            // },
-
         ]
     }
 ];
