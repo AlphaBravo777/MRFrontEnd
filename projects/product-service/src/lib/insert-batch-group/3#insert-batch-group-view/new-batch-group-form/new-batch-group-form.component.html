@@ -1,0 +1,38 @@
+<app-box-shadow-container>
+    <div class="outsideContainer">
+        <div class="formContainer">
+            <h3 style="text-align:center">Create or Edit Batch Group</h3>
+            <form [formGroup]="batchGroupForm" (ngSubmit)="submitForm()">
+                <div class="batchGroupName">
+                    <div>
+                        <mat-form-field>
+                            <input matInput formControlName="batchName" autocomplete="off" type="text" placeholder="Batch Name" spellcheck="false">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <input matInput formControlName="ranking" autocomplete="off" type="number" placeholder="Ranking" spellcheck="false">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <input matInput formControlName="packingListRanking" autocomplete="off" type="number" placeholder="Ranking in packing list" spellcheck="false">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Color Code</mat-label>
+                            <mat-select matNativeControl formControlName="batchColorid">
+                                <mat-option *ngFor="let color of batchColors" [value]="color.colorid" (click)=colorSelection(color.colorid)>
+                                {{color.itemDescription}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <button class='meatriteButton niceButton' type="submit" [disabled]='batchGroupForm.invalid'>Insert Batch Group</button>
+                <pre>{{batchGroupForm.value | json}}</pre>
+            </form>
+        </div>
+    </div>
+</app-box-shadow-container>

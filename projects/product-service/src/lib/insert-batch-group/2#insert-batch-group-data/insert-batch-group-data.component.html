@@ -1,1 +1,7 @@
-<p>insert-batch-group-data works!</p>
+<app-box-shadow-container>
+    <div *ngIf='batchGroupData.length > 0'>
+        <mr-product-insert-batch-group-view
+            [batchGroupData]='batchGroupData'>
+        </mr-product-insert-batch-group-view>
+    </div>
+</app-box-shadow-container>

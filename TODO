@@ -184,6 +184,10 @@ Make summary Module (Version 2):
         ☐ PnP products where it gets them, can not be hard coded
         ☐ All the programs that has to get loaded when a server restarts (Microservices)
         ☐ Create batchgroup form
+            ☐ Get all batch groups
+            ☐ Show in list
+            ☐ Crete button to add batch group that opens small form
+            ☐ Insert batch group and refresh list
         ☐ Create productlist form
         ☐ Create product containers form
         ☐ Greate product group list (If necesarry, this will almost not be done again)

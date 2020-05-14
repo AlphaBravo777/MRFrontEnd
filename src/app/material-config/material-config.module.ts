@@ -17,7 +17,7 @@ import {
     MatRippleModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
 } from '@angular/material';
 
 const matModules = [
@@ -37,7 +37,7 @@ const matModules = [
     MatRippleModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
 ];
 
 @NgModule({

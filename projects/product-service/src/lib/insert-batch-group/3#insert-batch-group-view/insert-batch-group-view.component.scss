@@ -1,0 +1,34 @@
+@import 'src/stylesColors.scss';
+
+.topGridMenu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+
+    h3 {
+        margin-bottom: 0px;
+    }
+
+    span {
+        font-size: 0.8rem;
+    }
+
+    .newButton {
+        justify-self: right;
+        align-self: center;
+    }
+
+}
+
+
+
+table {
+    width: 100%;
+    background: $mainColorMinusOne;
+
+  }
+
+.mat-header-cell {
+    font-size: 18px;
+    font-weight: bold;
+}
