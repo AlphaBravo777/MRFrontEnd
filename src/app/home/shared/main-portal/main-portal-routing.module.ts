@@ -16,12 +16,12 @@ const mainPortalRoutes: Routes = [
             // },
             {
                 path: 'landing-page',
-                loadChildren: './user-landing-page/user-landing-page.module#UserLandingPageModule',
+                loadChildren: () => import('./user-landing-page/user-landing-page.module').then(m => m.UserLandingPageModule),
                 canActivate: [AuthGuard],
             },
             {
                 path: 'admin',
-                loadChildren: '../../features/admin/admin.module#AdminModule',
+                loadChildren: () => import('../../features/admin/admin.module').then(m => m.AdminModule),
                 canActivate: [AuthGuard],
             },
             {
@@ -31,32 +31,32 @@ const mainPortalRoutes: Routes = [
             },
             {
                 path: 'stock',
-                loadChildren: '../../features/stock/stocks.module#StocksModule',
+                loadChildren: () => import('../../features/stock/stocks.module').then(m => m.StocksModule),
                 canActivate: [AuthGuard],
             },
             {
                 path: 'stock-raw',
-                loadChildren: '../../features/stock/raw_material/raw-material.module#RawMaterialModule',
+                loadChildren: () => import('../../features/stock/raw_material/raw-material.module').then(m => m.RawMaterialModule),
                 canActivate: [AuthGuard],
             },
             {
                 path: 'stock-processed',
-                loadChildren: '../../features/stock/processed/processed.module#ProcessedModule',
+                loadChildren: () => import('../../features/stock/processed/processed.module').then(m => m.ProcessedModule),
                 canActivate: [AuthGuard],
             },
             {
                 path: 'admin-office',
-                loadChildren: '../../features/office/admin-office.module#AdminOfficeModule',
+                loadChildren: () => import('../../features/office/admin-office.module').then(m => m.AdminOfficeModule),
                 canActivate: [AuthGuard],
             },
             {
                 path: 'factory',
-                loadChildren: '../../features/factory/factory.module#FactoryModule',
+                loadChildren: () => import('../../features/factory/factory.module').then(m => m.FactoryModule),
                 canActivate: [AuthGuard],
             },
             {
                 path: 'dispatch',
-                loadChildren: '../../features/factory/dispatch/dispatch.module#DispatchModule',
+                loadChildren: () => import('../../features/factory/dispatch/dispatch.module').then(m => m.DispatchModule),
                 canActivate: [AuthGuard],
             },
         ]

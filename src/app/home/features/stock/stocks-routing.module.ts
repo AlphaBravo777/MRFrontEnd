@@ -22,17 +22,17 @@ const stockRoutes: Routes = [
             },
             {
                 path: 'stock-raw',
-                loadChildren: './raw_material/raw-material.module#RawMaterialModule',
+                loadChildren: () => import('./raw_material/raw-material.module').then(m => m.RawMaterialModule),
                 canActivate: [AuthGuard],
             },
             {
                 path: 'stock-processed',
-                loadChildren: './processed/processed.module#ProcessedModule',
+                loadChildren: () => import('./processed/processed.module').then(m => m.ProcessedModule),
                 canActivate: [AuthGuard],
             },
             {
                 path: 'hpp',
-                loadChildren: './hpp/hpp.module#HppModule',
+                loadChildren: () => import('./hpp/hpp.module').then(m => m.HppModule),
                 canActivate: [AuthGuard],
             },
             {

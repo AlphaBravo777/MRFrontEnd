@@ -22,7 +22,7 @@ class ISmallStockTakeForm {
 })
 export class SmallStockTakeComponent implements OnInit, OnDestroy {
 
-    @ViewChild('input1', {static: false}) focus1: ElementRef;
+    @ViewChild('input1') focus1: ElementRef;
     changingBarcodeValue: FormControl = new FormControl(null);
     recordIndex = 0;
     subscription: Subscription;

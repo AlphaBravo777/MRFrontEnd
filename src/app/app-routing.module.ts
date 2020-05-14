@@ -15,7 +15,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'main',
-    loadChildren: './home/shared/main-portal/main-portal.module#MainPortalModule'
+    loadChildren: () => import('./home/shared/main-portal/main-portal.module').then(m => m.MainPortalModule)
   },
 ];
 

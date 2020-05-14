@@ -20,7 +20,7 @@ const productServiceRoutes: Routes = [
             },
             {
                 path: 'create-item',
-                loadChildren: () => import('./insert-product/insert-product.module').then(m => m.InsertProductModule)
+                loadChildren: () => import('./insert-product/insert-product.module').then(m => m.InsertProductModule),
             },
             {
                 path: 'stock-take',
@@ -28,7 +28,7 @@ const productServiceRoutes: Routes = [
             },
             {
                 path: 'create-batch-group',
-                loadChildren: () => import('./insert-batch-group/insert-batch-group.module').then(m => m.InsertBatchGroupModule)
+                loadChildren: () => import('./insert-batch-group/insert-batch-group.module').then(m => m.InsertBatchGroupModule),
             }
         ]
     }

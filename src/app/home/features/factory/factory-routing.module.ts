@@ -16,17 +16,17 @@ const factoryRoutes: Routes = [
             },
             {
                 path: 'high-risk',
-                loadChildren: './high-risk/high-risk.module#HighRiskModule',
+                loadChildren: () => import('./high-risk/high-risk.module').then(m => m.HighRiskModule),
                 canActivate: [AuthGuard],
             },
             {
                 path: 'production-floor',
-                loadChildren: './production-floor/production-floor.module#ProductionFloorModule',
+                loadChildren: () => import('./production-floor/production-floor.module').then(m => m.ProductionFloorModule),
                 canActivate: [AuthGuard],
             },
             {
                 path: 'dispatch',
-                loadChildren: './dispatch/dispatch.module#DispatchModule',
+                loadChildren: () => import('./dispatch/dispatch.module').then(m => m.DispatchModule),
                 canActivate: [AuthGuard],
             },
         ]

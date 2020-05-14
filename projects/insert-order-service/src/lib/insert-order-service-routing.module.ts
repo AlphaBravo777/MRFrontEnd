@@ -29,7 +29,7 @@ const insertOrderServiceRoutes: Routes = [
             },
             {
                 path: 'view-orders',
-                loadChildren: () => import('./view-orders/view-orders.module').then(m => m.ViewOrdersModule)
+                loadChildren: () => import('./view-orders/view-orders.module').then(m => m.ViewOrdersModule),
             },
             // {
             //     path: 'view-weekly-orders',

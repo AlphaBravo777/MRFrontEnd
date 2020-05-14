@@ -22,7 +22,7 @@ const dispatchRoutes: Routes = [
             },
             {
                 path: 'summary',
-                loadChildren: './hpp-summary/hpp-summary.module#HppSummaryModule',
+                loadChildren: () => import('./hpp-summary/hpp-summary.module').then(m => m.HppSummaryModule),
             },
             {
                 path: 'pre_post_transfer',

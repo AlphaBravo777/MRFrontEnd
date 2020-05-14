@@ -38,6 +38,12 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -140,7 +146,12 @@
             "tsConfig": "projects/user-service/tsconfig.lib.json",
             "project": "projects/user-service/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/user-service/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -175,7 +186,12 @@
             "tsConfig": "projects/insert-order-service/tsconfig.lib.json",
             "project": "projects/insert-order-service/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/insert-order-service/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -210,7 +226,12 @@
             "tsConfig": "projects/product-service/tsconfig.lib.json",
             "project": "projects/product-service/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/product-service/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -245,7 +266,12 @@
             "tsConfig": "projects/accounts-service/tsconfig.lib.json",
             "project": "projects/accounts-service/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/accounts-service/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -272,7 +298,7 @@
   "defaultProject": "meatriteFrontEnd",
   "schematics": {
     "@schematics/angular:component": {
-      "styleext": "scss"
+      "style": "scss"
     },
     "@nrwl/angular:application": {
       "unitTestRunner": "jest",

@@ -18,7 +18,7 @@ const dispatchRoutes: Routes = [
             },
             {
                 path: 'load-trucks',
-                loadChildren: './dispatch-load-trucks/dispatch-load-trucks.module#DispatchLoadTrucksModule',
+                loadChildren: () => import('./dispatch-load-trucks/dispatch-load-trucks.module').then(m => m.DispatchLoadTrucksModule),
             },
             {
                 path: 'pnp-pallets',

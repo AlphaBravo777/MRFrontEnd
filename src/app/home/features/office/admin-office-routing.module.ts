@@ -15,23 +15,23 @@ const officeRoutes: Routes = [
             },
             {
                 path: 'clients',
-                loadChildren: './add-client/add-client.module#AddClientModule',
+                loadChildren: () => import('./add-client/add-client.module').then(m => m.AddClientModule),
             },
             {
                 path: 'orders',
-                loadChildren: './insert-order/client-orders.module#ClientOrderModule',
+                loadChildren: () => import('./insert-order/client-orders.module').then(m => m.ClientOrderModule),
             },
             {
                 path: 'daily-report',
-                loadChildren: './daily-report/daily-report.module#DailyReportModule',
+                loadChildren: () => import('./daily-report/daily-report.module').then(m => m.DailyReportModule),
             },
             {
                 path: 'checklists',
-                loadChildren: './checklists/checklists.module#ChecklistsModule',
+                loadChildren: () => import('./checklists/checklists.module').then(m => m.ChecklistsModule),
             },
             {
                 path: 'checklists',
-                loadChildren: './checklists/checklists.module#ChecklistsModule',
+                loadChildren: () => import('./checklists/checklists.module').then(m => m.ChecklistsModule),
             },
             {
                 path: 'insertOrderService',
