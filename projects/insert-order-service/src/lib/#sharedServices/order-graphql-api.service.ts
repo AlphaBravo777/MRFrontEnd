@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { IOrderDetails, IWeeklyOrdersDetails } from './interfaces/order-service-Interfaces';
 import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
-import { Apollo, gql } from 'apollo-angular-boost';
+import { Apollo, gql, DocumentNode } from 'apollo-angular-boost';
 import { map } from 'rxjs/operators';
 import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
 import { INodeOrderDetailsMicroService,
     IOrderproductamountsmicroserviceSet,
-    getDefaultINodeOrderDetailsMicroService } from './interfaces/order-backend-interfaces';
+    } from './interfaces/order-backend-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -116,8 +116,11 @@ export class OrderGraphqlApiService {
 
     constructor(private apollo: Apollo) { }
 
-    searchForOrdersMain(accountid: number, datePackage: IDate,
-        routeid: number, queryString = this.MAIN_QUERY_FOR_SEARCHING_ORDERS, headers = {}): Observable<IOrderDetails[]> {
+    searchForOrdersMain(accountid: number,
+        datePackage: IDate,
+        routeid: number,
+        queryString: DocumentNode = this.MAIN_QUERY_FOR_SEARCHING_ORDERS,
+        headers = {}): Observable<IOrderDetails[]> {
         console.log('Fox(b) = ', accountid, datePackage.id, routeid, queryString, headers);
         return this.apollo
             .watchQuery<INodeOrderDetailsMicroService>({
