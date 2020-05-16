@@ -1,48 +1,65 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-    MatMenuModule,
-    MatListModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatExpansionModule,
-    MatDialogModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatSelectModule,
-} from '@angular/material';
-
-const matModules = [
-    MatMenuModule,
-    MatListModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatExpansionModule,
-    MatDialogModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatSelectModule,
-];
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatRippleModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
-    imports: [matModules, CommonModule],
-    exports: [matModules],
+    imports: [
+        CommonModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatListModule,
+        MatIconModule,
+        MatInputModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatDatepickerModule,
+        MatRadioModule,
+        MatRippleModule,
+        MatCheckboxModule,
+        MatNativeDateModule
+
+    ],
+    exports: [
+        MatSelectModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatListModule,
+        MatIconModule,
+        MatInputModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatDatepickerModule,
+        MatRadioModule,
+        MatRippleModule,
+        MatCheckboxModule,
+        MatNativeDateModule
+
+    ],
     declarations: []
 })
 export class MaterialConfigModule {}
