@@ -10,7 +10,6 @@ import { CustomInputBoxComponent } from './custom-input-box/custom-input-box.com
 import { FloatLabelInputBoxComponent } from './float-label-input-box/float-label-input-box.component';
 import { CustomTextareaComponent } from './custom-textarea/custom-textarea.component';
 import { CustomRadioGroupComponent } from './custom-radio-group/custom-radio-group.component';
-import { MatRadioModule } from '@angular/material';
 import { MinimalisticButtonComponent } from './minimalistic-button/minimalistic-button.component';
 import { ColorChangeInputBoxComponent } from './color-change-input-box/color-change-input-box.component';
 import { ExpandableDivComponent } from './expandable-div/expandable-div.component';
@@ -24,7 +23,6 @@ import { MaterialConfigModule } from 'src/app/material-config/material-config.mo
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        MatRadioModule,
         MaterialConfigModule,
     ],
     declarations: [
