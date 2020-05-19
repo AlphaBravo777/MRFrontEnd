@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { DialogBoxComponent } from './dialog-box.component';
 import { StockAPIService } from '../../features/stock/stock-services/stock-api.service';
 import { Router } from '@angular/router';
