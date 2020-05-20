@@ -12,6 +12,7 @@ import { IRoute } from 'src/app/home/shared/services/routesServices/routes-inter
 import { RoutesSharedApiService } from 'src/app/home/shared/services/routesServices/routes-shared-api.service';
 import { OrderGraphqlApiService } from './order-graphql-api.service';
 import { IViewRoutesData } from '../view-orders/1#view-order-services/view-order-interface';
+import { DocumentNode } from 'graphql';
 
 @Injectable({
     providedIn: 'root'
@@ -74,7 +75,7 @@ export class OrderService {
     }
 
     searchForOrdersMain(accountid: number, datePackage: IDate,
-            routeid: number, queryString: string, headers = {}): Observable<IOrderDetails[]> {
+            routeid: number, queryString: DocumentNode, headers = {}): Observable<IOrderDetails[]> {
         return this.orderGraphQlApiService.searchForOrdersMain(accountid, datePackage, routeid, queryString, headers);
     }
 
