@@ -207,7 +207,7 @@ export class DatePickerService {
     }
 
     getOrCreateTimeStampData(): Observable<IDate> {
-        console.log(' ##################### getOrCreateTimeStampData is running ##############');
+        // console.log(' ##################### getOrCreateTimeStampData is running ##############');
         const getWeekDayData$ = this.datePickerApiService.getWeekDayData(this.datePackage.weekDay);
         const getTimeData$ = this.datePickerApiService.getTimeData(this.datePackage.time);
         return getTimeData$.pipe(
@@ -241,7 +241,7 @@ export class DatePickerService {
     }
 
     getOrCreateTimeStampData2(packageDate: IDate): Observable<IDate> {
-        console.log(' ##################### getOrCreateTimeStampData2 is running ##############');
+        // console.log(' ##################### getOrCreateTimeStampData2 is running ##############');
         return this.datePickerApiService.getTimeData(packageDate.time).pipe(
             tap(time => {
                 packageDate.timeID = time.id;
