@@ -195,15 +195,15 @@ export class InsertOrderApiService {
 
     }
 
-    sendOrderDetailsToKafka(order: IOrderDetails): Observable<IOrderDetails> {
-        return this.http.post<any>( this.urlService.sagaCoordinatorMS + 'testmodule/kafkaTestEndpoint/', order).pipe(
-            tap(response => console.log('The kafka response = ', response)),
-            map(() => order),
-            catchError(error => {
-                console.log('The error = ', error);
-                return of(order);
-            })
-        );
-    }
+    // sendOrderDetailsToKafka(order: IOrderDetails): Observable<IOrderDetails> {
+    //     return this.http.post<any>( this.urlService.sagaCoordinatorMS + 'testmodule/kafkaTestEndpoint/', order).pipe(
+    //         tap(response => console.log('The kafka response = ', response)),
+    //         map(() => order),
+    //         catchError(error => {
+    //             console.log('The error = ', error);
+    //             return of(order);
+    //         })
+    //     );
+    // }
 
 }

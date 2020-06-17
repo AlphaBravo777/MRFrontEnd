@@ -9,11 +9,12 @@ export class UrlsService {
 
     root = 'http://192.168.2.25'; // This is meatrite live test server
     mrOrderService = this.root + ':8084/';
+    mrAccountService = this.root + ':8085/';
 
     dockerServer = 'http://192.168.2.27';
     sagaCoordinatorMS = this.dockerServer + ':8070/';
     mrProductService = this.dockerServer + ':8084/';
-    mrAccountService = this.root + ':8085/';
+
 
     // -----------------
     // Production Server

@@ -1,8 +1,8 @@
 <div class="login-page">
   <div class="form">
     <form class="login-form">
-      <input [(ngModel)]="loginUserData.username" name="username" type="text" placeholder="username"/>
-      <input [(ngModel)]="loginUserData.password" name="password" type="password" placeholder="password"/>
+      <input [(ngModel)]="loginUserData.username" name="username" type="text" placeholder="username" autocomplete=""/>
+      <input [(ngModel)]="loginUserData.password" name="password" type="password" placeholder="password" autocomplete=""/>
       <button (click)="loginUser()">login</button>
     </form>
   </div>

@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { UrlsService } from 'src/app/home/core/urls.service';
 import { IDate } from './date-interface';
-import { IOrderDBDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/order-service-Interfaces';
 
 @Injectable({
   providedIn: 'root'
