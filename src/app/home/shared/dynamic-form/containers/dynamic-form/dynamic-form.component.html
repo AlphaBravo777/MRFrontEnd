@@ -1,4 +1,0 @@
-<form class="dynamic-form" [formGroup]="form" (ngSubmit)="submitted.emit(form.value)">
-    <ng-container *ngFor="let field of formControls;" appDynamicField [config]="field" [group]="form">
-    </ng-container>
-</form>
