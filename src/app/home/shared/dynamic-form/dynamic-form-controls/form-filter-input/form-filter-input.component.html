@@ -1,0 +1,19 @@
+<div class="field" [formGroup]="group">
+    <mat-form-field appearance="outline">
+        <mat-label>{{config.label}}</mat-label>
+        <input matInput type="text" placeholder={{config.placeholder}} [formControlName]="config.formControlName" spellcheck="false"
+            [ngClass]="group.get(config.formControlName).valid ? 'green' : 'alert'" placeholder={{config.placeholder}}>
+        <mat-icon matSuffix>{{config.icon.iconName}}</mat-icon>
+        <mat-hint *ngIf="group.get(config.formControlName).errors">
+            <span *ngIf="group.get(config.formControlName).errors.notUnique">Value is not unique</span>
+        </mat-hint>
+    </mat-form-field>
+    <ng-container *ngIf='filteredSearchData.length > 0'>
+        <div class='filteredData'>
+            <p style="font-weight: bold;">Similar categories</p>
+            <div *ngFor="let result of filteredSearchData; let i = index">
+                <div class="filteredSearchData">{{result.categoryName}}</div>
+            </div>
+        </div>
+    </ng-container>
+</div>
