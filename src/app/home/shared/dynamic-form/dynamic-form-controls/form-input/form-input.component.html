@@ -1,0 +1,18 @@
+<div class="field" [formGroup]="group">
+    <mat-form-field appearance="outline">
+        <mat-label>{{config.label}}</mat-label>
+        <input matInput type="text" placeholder={{config.placeholder}} [formControlName]="config.formControlName" spellcheck="false"
+            [ngClass]="group.get(config.formControlName).valid ? 'green' : 'alert'" placeholder={{config.placeholder}}>
+        <mat-icon matSuffix>{{config.icon.iconName}}</mat-icon>
+        <!-- <mat-hint *ngIf="submitted && loginForm.get('username').errors">
+            <span *ngIf="loginForm.get('username').errors.required">First Name is required</span>
+        </mat-hint> -->
+    </mat-form-field>
+</div>
+
+<!-- <div class="field" [formGroup]="group">
+    <input type="text" id="config.name" [ngClass]="group.get(config.name).valid ? 'green' : 'red'" placeholder={{config.placeholder}}
+        [formControlName]="config.name" spellcheck="false" />
+    <label for="config.name">{{config.label}}</label>
+</div> -->
+
