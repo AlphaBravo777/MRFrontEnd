@@ -23,6 +23,7 @@ export class AccountApiService {
     }
 
     deleteAccount(accountid: number) {
+        console.log('deleting account: ', accountid);
         return this.http.delete<any>(this.accountServiceUrl + 'accounts/deleteAccount/' + accountid);
         // return of([]);
     }

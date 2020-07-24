@@ -17,10 +17,6 @@ const dispatchRoutes: Routes = [
                 // canActivate: [AuthGuard],
             },
             {
-                path: 'load-trucks',
-                loadChildren: () => import('./dispatch-load-trucks/dispatch-load-trucks.module').then(m => m.DispatchLoadTrucksModule),
-            },
-            {
                 path: 'pnp-pallets',
                 component: PnpPalletsDataComponent,
             },

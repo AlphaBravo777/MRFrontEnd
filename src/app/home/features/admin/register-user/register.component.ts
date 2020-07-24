@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../admin-services/auth.service';
+import { IUser } from '../admin-services/user.interface';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private auth: AuthService, private router: Router ) { }
 
-  registerUserData = {username: '', password1: '', password2: '', email: ''};
+  registerUserData = {username: '', password1: '', password2: '', email: '', };
   registered = false;
   buttonTitle = 'Create User';
   errorMessage;
@@ -23,7 +24,6 @@ export class RegisterComponent implements OnInit {
     this.auth.registerUser(this.registerUserData)
       .subscribe(
         res =>  {
-          console.log(res);
           this.registered = true;
           this.buttonTitle = 'User Created';
         //   localStorage.setItem('token', res.token);

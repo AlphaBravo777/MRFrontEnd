@@ -15,9 +15,8 @@ export class FactoryComponent implements OnInit {
 
     constructor(private permissionsService: NgxPermissionsService,
         private http: HttpClient,
-        private _urlService: UrlsService) { }
+        private urlService: UrlsService) { }
 
-    private test = this._urlService.backendUrl + 'api/test/';
     private data = [];
 
     ngOnInit(): void {
@@ -25,7 +24,7 @@ export class FactoryComponent implements OnInit {
 
         // this.permissionsService.loadPermissions(perm);
 
-        this.http.get<any>(this.test).subscribe((groups) => {
+        this.http.get<any>(this.urlService.permissionsUrl).subscribe((groups) => {
              for (const key of Object.keys(groups.groups)) {
                  // console.log(this.data[0][key].name);
                  this.data.push(groups.groups[key].name);

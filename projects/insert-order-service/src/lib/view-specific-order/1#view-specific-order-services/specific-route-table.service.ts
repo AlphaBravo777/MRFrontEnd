@@ -122,8 +122,10 @@ export class SpecificRouteTableService {
     private insertShopTotalWeightAmount(orders: IOrderDetails[]) {
         const totals = this.renderer.createElement('tr');
         this.renderer.addClass(totals, 'routeTotals1');
+        // Set the cell at the bottom that says "TOTALS"
         totals.appendChild(this.createRowColmDivSpanValue(
             'td', 'divTotals1', undefined, undefined, 'TOTALS').children[0]);
+        // Set the rest of the cells where each have their shop totals
         orders.forEach(order => {
             totals.appendChild(this.createRowColmDivSpanValue(
                 //  There is an error here that is popping up for route "Rust/Brits"

@@ -12,7 +12,6 @@ import { UrlsService } from './home/core/urls.service';
 import { AuthService } from './home/features/admin/admin-services/auth.service';
 import { AuthGuard } from './home/features/admin/admin-services/auth.guard';
 import { WebsiteModule } from './home/website/website.module';
-// import { UserEntryModule } from './home/shared/user-entry/user-entry.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { HomeComponent } from './home/home.component';
 import { WebsiteComponent } from './home/website/website.component';
@@ -25,14 +24,12 @@ import { GraphQLModule } from './graphql.module';
 import { MaterialConfigModule } from './material-config/material-config.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-// import { FormBuilderTypeSafe } from './home/core/reactive-forms/reactive-forms-helper';
 import { LoadingScreenComponent } from './home/core/loading-screen/loading-screen.component';
 
 @NgModule({
     exports: [
     ],
     imports: [
-        // Each module has to import it's own dependencies. You can not inherit it from other modules.
         BrowserModule,
         BrowserAnimationsModule,
         MaterialConfigModule,
@@ -42,7 +39,6 @@ import { LoadingScreenComponent } from './home/core/loading-screen/loading-scree
         AppRoutingModule,
         HttpClientModule,
         NgHttpLoaderModule.forRoot(),
-        // UserEntryModule,
         NgxPermissionsModule.forRoot(),
         GraphQLModule,
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
@@ -60,7 +56,6 @@ import { LoadingScreenComponent } from './home/core/loading-screen/loading-scree
         AuthService,
         UrlsService,
         AlertService,
-        // FormBuilderTypeSafe,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptorService,

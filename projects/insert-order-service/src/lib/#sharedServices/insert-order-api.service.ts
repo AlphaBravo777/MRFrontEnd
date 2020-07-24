@@ -22,7 +22,7 @@ import { IViewRoutesData } from '../view-orders/1#view-order-services/view-order
 export class InsertOrderApiService {
 
     public SEARCH_FOR_ORDER_QUERY = gql`
-    query searchForOrder($accountid:Float, $timestampid:Float){
+    query searchForOrder($accountid:Int, $timestampid:Int){
         nodeOrderDetailsMicroService(timeStampid:$timestampid, accountid:$accountid){
             edges{
                 node{
@@ -66,7 +66,7 @@ export class InsertOrderApiService {
 
     constructor(private urlService: UrlsService, private http: HttpClient, private apollo: Apollo) { }
 
-    private stockUrl = this.urlService.backendUrl + 'office/';
+    private stockUrl = this.urlService.monolithBackendUrl + 'office/';
     private orderServiceUrl = this.urlService.mrOrderService;
 
     // Enters the main order details
@@ -133,6 +133,7 @@ export class InsertOrderApiService {
     }
 
     private consolidateAccountsData(data): IOrderDetails[] {
+        console.log('The raw returning order = ', data);
         if (data.length > 0) {
 
             // First check if the property exists before trying to access it.

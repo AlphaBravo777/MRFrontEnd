@@ -16,7 +16,7 @@ import { INodeOrderDetailsMicroService,
 export class OrderGraphqlApiService {
 
     public MAIN_QUERY_FOR_SEARCHING_ORDERS = gql`
-    query searchForOrder($accountid:Float, $timeStampid:Float, $routeid: Float){
+    query searchForOrder($accountid:Int, $timeStampid:Int, $routeid: Int){
         nodeOrderDetailsMicroService(timeStampid:$timeStampid, accountid:$accountid, routeid: $routeid){
             edges{
                 node{
@@ -79,7 +79,7 @@ export class OrderGraphqlApiService {
     }`;
 
     public QUERY_FOR_GETTING_MINIMAL_ROUTE_DATA_FOR_DATE = gql`
-    query getOrderRoutesForDay($timeStampid: Float) {
+    query getOrderRoutesForDay($timeStampid: Int) {
         nodeOrderDetailsMicroService(timeStampid:$timeStampid){
         edges{
             node{
@@ -92,7 +92,7 @@ export class OrderGraphqlApiService {
     }`;
 
     public QUERY_FOR_GETTING_WEEKLY_DATA = gql`
-    query getWeeklyOrders($weekNr:Float){
+    query getWeeklyOrders($weekNr:Int){
         nodeWeeklyOrdersMicroService(weekNum:$weekNr){
             edges{
                 node{
@@ -223,7 +223,6 @@ export class OrderGraphqlApiService {
     }
 
     private consolidateWeeklyOrders(data): IWeeklyOrdersDetails[] {
-        // console.log('ALPHA (consolidateWeeklyOrders) = ', data);
         if (data.length > 0) {
             const weeklyProducts: IWeeklyOrdersDetails[] = [];
             for (let prod = 0; prod < data.length; prod++) {
