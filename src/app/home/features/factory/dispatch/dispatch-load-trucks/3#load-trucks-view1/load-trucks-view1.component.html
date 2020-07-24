@@ -1,7 +1,0 @@
-<label>Select Route</label>
-<select #selectedCategory>
-    <option *ngFor='let route of dailyRoutes' [value]='route.routeid'>
-        {{ route.routeName }}
-    </option>
-</select>
-<button (click)='getDataForRouteFunc(selectedCategory.value)'>Select Route</button>
