@@ -25,6 +25,8 @@ export class OrderService {
         private orderGraphQlApiService: OrderGraphqlApiService
         ) {}
 
+    private ordersInserted = new BehaviorSubject<IOrderDetails[]>([]);
+    currentOrdersInserted$ = this.ordersInserted.asObservable();
     private ordersNotInserted = new BehaviorSubject<IOrderDetails[]>([]);
     currentOrdersNotInserted$ = this.ordersNotInserted.asObservable();
     private unknownProducts = new BehaviorSubject<IProductOrderDetails[]>([]);
@@ -82,6 +84,11 @@ export class OrderService {
     setOrdersNotInserted(orders: IOrderDetails[]) {
         // this is just data and not api services, so should be refractured into a data$ service
         this.ordersNotInserted.next(orders);
+    }
+
+    setOrdersInserted(orders: IOrderDetails[]) {
+        // this is just data and not api services, so should be refractured into a data$ service
+        this.ordersInserted.next(orders);
     }
 
     setUnknownProducts(products: IProductOrderDetails[]) {

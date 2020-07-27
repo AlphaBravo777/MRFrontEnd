@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IOrderDetails, IWeeklyOrdersDetails } from './interfaces/order-service-Interfaces';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { Apollo, gql, DocumentNode } from 'apollo-angular-boost';
 import { map } from 'rxjs/operators';
@@ -210,9 +210,10 @@ export class OrderGraphqlApiService {
     }
 
     getWeeklyOrders(datePackage: IDate): Observable<IWeeklyOrdersDetails[]> {
-        if (datePackage.id === null) {  // Do this, else if datePackage === null EVERY order will be returned
-            datePackage.id = 0;
-        }
+        // if (datePackage.id === null) {  // Do this, else if datePackage === null EVERY order will be returned
+        //     return of([]);
+        // }
+        console.log('getweeklyOrders date package = ', datePackage);
         return this.apollo
             .watchQuery<INodeOrderDetailsMicroService>({
                 variables: { weekNr: datePackage.week },

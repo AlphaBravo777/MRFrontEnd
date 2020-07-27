@@ -58,6 +58,7 @@ export class InsertPnpCsvService {
 
     fileSelected(file) {
         const ordersNotInserted: IOrderDetails[] = [];
+        const ordersInserted: IOrderDetails[] = [];
         const reader = new FileReader();
         reader.readAsText(file.target.files[0]);
         reader.onload = e => {
@@ -74,12 +75,14 @@ export class InsertPnpCsvService {
                                 ordersNotInserted.push(order);
                                 return of(' ---------- Order was already inserted ----------- ');
                             } else {
+                                ordersInserted.push(order);
                                 return this.insertOrderService.insertNewOrderAndProducts([order]);
                                 // return of(' ---------- Order was NOT inserted ----------- ');
                             }
                         }),
                         tap(message => console.log(message)),
                         tap(() => this.insertOrderService.setOrdersNotInserted(ordersNotInserted)),
+                        tap(() => this.insertOrderService.setOrdersInserted(ordersInserted)),
                         tap(() => this.insertOrderService.setUnknownProducts(this.unknownProducts)),
                     ))
                 ))
