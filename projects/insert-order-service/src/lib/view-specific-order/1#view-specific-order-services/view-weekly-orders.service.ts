@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, iif, of } from 'rxjs';
 import { IWeeklyOrdersDetails, IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
-import { concatMap, tap, map } from 'rxjs/operators';
+import { concatMap, tap, map, switchMap } from 'rxjs/operators';
 import { ViewOrdersGraphqlStringsService } from '../../view-orders/1#view-order-services/view-orders-graphql-strings.service';
 import { OrderService } from '../../#sharedServices/order.service';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
@@ -20,7 +20,12 @@ export class ViewWeeklyOrdersService {
 
     getWeeklyOrders(): Observable<IOrderDetails[]> {
         return this.getDateService.currentDatePackage$.pipe(
-            concatMap(datePackage => this.orderService.getWeeklyOrders(datePackage)),
+            tap(datePackage => console.log('Current testing date package = ', datePackage)),
+            switchMap(datePackage => iif(() =>
+                datePackage.id === null,
+                of([]),
+                this.orderService.getWeeklyOrders(datePackage))
+            ),
             // Turn weeklyOrders onto orders that can be send through to specificOrderComponent
             map(weeklyOrders => this.turnWeeklyOrdersIntoOrders(weeklyOrders))
         );

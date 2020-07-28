@@ -7,8 +7,14 @@
             <span>PnP Product id: {{ product.productMRid }}</span>
         </div>
     </div>
+    <div *ngIf="ordersInserted.length > 0">
+        <p class='inserted'>The following orders were inserted:</p>
+        <div *ngFor="let order of ordersInserted">
+            PO Number: {{ order.orderNumber }}, Name: {{ order.commonName }}
+        </div>
+    </div>
     <div *ngIf="ordersNotInserted.length > 0">
-        <p><b>The following orders were already inserted:</b></p>
+        <p class='notInserted'>The following orders were ALREADY inserted and was skipped:</p>
         <div *ngFor="let order of ordersNotInserted">
             PO Number: {{ order.orderNumber }}, Name: {{ order.commonName }}
         </div>

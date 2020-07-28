@@ -20,6 +20,7 @@ export class InsertPnpCsvDataComponent implements OnInit, OnDestroy {
     selectedCSVFile = null;
     pnpOrders: IOrderDetails[];
     ordersNotInserted: IOrderDetails[] = [];
+    ordersInserted: IOrderDetails[] = [];
     unknownProducts: IProductOrderDetails[];
     subscription: Subscription;
 
@@ -27,7 +28,9 @@ export class InsertPnpCsvDataComponent implements OnInit, OnDestroy {
         this.subscription = this.insertOrderService.currentOrdersNotInserted$.pipe(
             tap(orders => this.ordersNotInserted = orders),
             concatMap(() => this.insertOrderService.currentUnknownProducts$),
-            tap(unknownProducts => this.unknownProducts = unknownProducts)
+            tap(unknownProducts => this.unknownProducts = unknownProducts),
+            concatMap(() => this.insertOrderService.currentOrdersInserted$),
+            tap(ordersInserted => this.ordersInserted = ordersInserted),
         ).subscribe();
     }
 

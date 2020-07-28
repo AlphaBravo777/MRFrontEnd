@@ -84,7 +84,7 @@ export class ViewSpecificOrderService {
                 }
             });
         });
-        // console.log('ALPHA = ', uniqueProductDetails);
+        console.log('ALPHA (getUniqueProductDetails) = ', JSON.parse(JSON.stringify(uniqueProductDetails)));
         return uniqueProductDetails;
     }
 
@@ -135,5 +135,7 @@ export class ViewSpecificOrderService {
         }
         return datePackage;
     }
+
+
 
 }
