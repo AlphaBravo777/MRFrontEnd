@@ -17,7 +17,13 @@ export class ProcStockApiService {
         private http: HttpClient,
         private urlService: UrlsService) { }
 
-    private stockUrl = this.urlService.backendUrl + 'stock/';
+    enterAllProcessedProductsIntoDB(timeAndData) {
+        return this.http.post<any>(this.urlService.enterProcessedStock, timeAndData);
+    }
+
+    enterNewContainerRankingsIntoDB(changedContainers) {
+        return this.http.post<any>(this.urlService.enterProductAmountsUrl, changedContainers);
+    }
 
     getGraphQLProcContainers(): Observable<any> {
         return this.apollo
@@ -198,14 +204,6 @@ export class ProcStockApiService {
                 `,
             })
             .valueChanges.pipe(map(result => result.data['nodeSettingsdb'].edges[0].node.value2));
-    }
-
-    enterAllProcessedProductsIntoDB(timeAndData) {
-        return this.http.post<any>(this.stockUrl + 'procStock/update/', timeAndData);
-    }
-
-    enterNewContainerRankingsIntoDB(changedContainers) {
-        return this.http.post<any>(this.stockUrl + 'containerRankings/update/', changedContainers);
     }
 
 }
