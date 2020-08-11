@@ -7,12 +7,7 @@ import { MainOutsideContainerComponent } from 'src/app/home/shared/components/ma
 import { ExpandableDivComponent } from 'src/app/home/shared/components/expandable-div/expandable-div.component';
 import { HeadingDropdownViewComponent } from '../3#view-specific-order-view/heading-dropdown-view/heading-dropdown-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-    MatDatepicker,
-    MatDatepickerToggle,
-    MatDatepickerInput,
-    MatDatepickerModule
-} from '@angular/material';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FloatLabelInputBoxComponent } from 'src/app/home/shared/components/float-label-input-box/float-label-input-box.component';
 import { MinimalisticButtonComponent } from 'src/app/home/shared/components/minimalistic-button/minimalistic-button.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';

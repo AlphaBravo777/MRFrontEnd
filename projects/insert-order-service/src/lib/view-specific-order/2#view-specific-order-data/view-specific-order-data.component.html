@@ -3,7 +3,7 @@
     [data]='orders'> -->
 <app-main-outside-container>
     <mr-insert-view-specific-order-view
-        *ngIf='orders'
+        *ngIf='orders.length > 0'
         [orders]='orders'
         [currentRoute]='currentRoute'
         [uniqueProductsDetails]='uniqueProductsDetails'>

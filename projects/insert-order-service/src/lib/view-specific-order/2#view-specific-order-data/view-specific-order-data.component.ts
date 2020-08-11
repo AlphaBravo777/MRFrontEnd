@@ -17,7 +17,7 @@ import { SpinnerVisibilityService } from 'ng-http-loader';
 export class ViewSpecificOrderDataComponent implements OnInit, OnDestroy {
 
     subscription: Subscription;
-    orders: IOrderDetails[];
+    orders: IOrderDetails[] = [];
     uniqueProductsDetails: Set<IUniqueProductTotals>;
     currentRoute: IViewRoutesData;
 
@@ -34,6 +34,7 @@ export class ViewSpecificOrderDataComponent implements OnInit, OnDestroy {
             tap(orders => this.orders = orders),
             tap(orders => this.uniqueProductsDetails = this.viewSpecificOrderService.getUniqueProductDetails(orders)),
             tap(() => console.log('Here is the uniqueProductsDetails: ', this.uniqueProductsDetails)),
+            // tap(() => this.productsTableArray = this.viewSpecificOrderService.createTableArray(this.orders, this.uniqueProductsDetails)),
             concatMap(() => this.viewOrderData$Service.currentPickedRoute$),
             tap(currentRoute => this.currentRoute = currentRoute),
 
