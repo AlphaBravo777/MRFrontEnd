@@ -25,7 +25,7 @@ export class ViewOrdersGraphqlStringsService {
                                 rowid
                                 amount
                                 packageWeight
-                                productid{
+                                productNode{
                                     id
                                     rowid
                                     unitsPerMaxShippingWeight

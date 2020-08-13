@@ -2,11 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AmountUnitSelectionComponent } from './amount-unit-selection.component';
 import { CustomRadioGroupComponent } from 'src/app/home/shared/components/custom-radio-group/custom-radio-group.component';
-import {
-    MatRadioButton,
-    MatRadioGroup,
-    MatRipple
-} from '@angular/material';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatRippleModule } from '@angular/material/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -19,13 +16,12 @@ describe('AmountUnitSelectionComponent', () => {
             declarations: [
                 AmountUnitSelectionComponent,
                 CustomRadioGroupComponent,
-                MatRadioButton,
-                MatRadioGroup,
-                MatRipple
             ],
             imports: [
                 HttpClientTestingModule,
                 ReactiveFormsModule,
+                MatRadioModule,
+                MatRippleModule
             ]
         }).compileComponents();
     }));
