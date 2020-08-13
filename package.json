@@ -35,6 +35,7 @@
     "apollo-link-context": "^1.0.20",
     "core-js": "^2.6.11",
     "d3-fetch": "^1.1.2",
+    "exceljs": "^4.1.1",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "material-design-icons": "^3.0.1",

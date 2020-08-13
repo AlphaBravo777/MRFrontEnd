@@ -38,7 +38,7 @@ export class OrderGraphqlApiService {
                             node{
                                 id
                                 rowid
-                                productid {
+                                productNode {
                                     id
                                     rowid
                                     proddescription
@@ -103,7 +103,7 @@ export class OrderGraphqlApiService {
                             weekDayRanking
                         }
                     }
-                    productid{
+                    productNode{
                         rowid
                         packageweight
                         productid
@@ -152,7 +152,7 @@ export class OrderGraphqlApiService {
                 const productData: IOrderproductamountsmicroserviceSet = data.edges[order].node.orderproductamountsmicroserviceSet;
                 for (let prod = 0; prod < productData.edges.length; ++prod) {
                     const singleGroup: IProductOrderDetails = {
-                        productid: productData.edges[prod].node.productid.rowid,
+                        productid: productData.edges[prod].node.productNode.rowid,
                         productMRid: productData.edges[prod].node.productMRid,
                         amountid: productData.edges[prod].node.rowid,
                         amount: productData.edges[prod].node.amount,
@@ -161,10 +161,10 @@ export class OrderGraphqlApiService {
                         userid: productData.edges[prod].node.userid,
                         packageWeight: productData.edges[prod].node.packageWeight || null,
                         orderDetailsid: productData.edges[prod].node.rowid,
-                        lugSize: calculateLugSize(productData.edges[prod].node.productid.packaging.rowid),
-                        rankingInGroup: productData.edges[prod].node.productid.rankingInGroup,
-                        packagingShippingWeight: productData.edges[prod].node.productid.packagingShipping.packagingWeight || 0,
-                        unitsPerMaxShippingWeight: productData.edges[prod].node.productid.unitsPerMaxShippingWeight,
+                        lugSize: calculateLugSize(productData.edges[prod].node.productNode.packaging.rowid),
+                        rankingInGroup: productData.edges[prod].node.productNode.rankingInGroup,
+                        packagingShippingWeight: productData.edges[prod].node.productNode.packagingShipping.packagingWeight || 0,
+                        unitsPerMaxShippingWeight: productData.edges[prod].node.productNode.unitsPerMaxShippingWeight,
                     };
                     products.push(singleGroup);
                 }
@@ -228,9 +228,9 @@ export class OrderGraphqlApiService {
             const weeklyProducts: IWeeklyOrdersDetails[] = [];
             for (let prod = 0; prod < data.length; prod++) {
                 const weeklyProduct: IWeeklyOrdersDetails = {
-                    packageWeight: data[prod].node.productid.packageweight,
-                    productMRid: data[prod].node.productid.productid,
-                    productid: data[prod].node.productid.rowid,
+                    packageWeight: data[prod].node.productNode.packageweight,
+                    productMRid: data[prod].node.productNode.productid,
+                    productid: data[prod].node.productNode.rowid,
                     productTotalAmount: data[prod].node.productTotalAmount,
                     weekDayName: data[prod].node.timeStampid.weekDay.weekDayNames,
                     weekDayNumber: data[prod].node.timeStampid.weekDay.weekDayNumber,

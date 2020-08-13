@@ -50,7 +50,7 @@ export class InsertOrderApiService {
                                 lastModified
                                 userid
                                 packageWeight
-                                productid{
+                                productNode{
                                     id
                                     productid
                                     rowid
@@ -138,8 +138,8 @@ export class InsertOrderApiService {
 
             // First check if the property exists before trying to access it.
             const packagingShipping = (product: IOrderproductamountsmicroserviceSetNode) => {
-                if (product.node.productid.packagingShipping) {
-                    return product.node.productid.packagingShipping.packagingWeight;
+                if (product.node.productNode.packagingShipping) {
+                    return product.node.productNode.packagingShipping.packagingWeight;
                 } else {
                     return 0;
                 }
@@ -151,7 +151,7 @@ export class InsertOrderApiService {
                 const productEdge = data[order].node.orderproductamountsmicroserviceSet.edges;
                 for (let prod = 0; prod < productEdge.length; ++prod) {
                     const singleGroup: IProductOrderDetails = {
-                        productid: productEdge[prod].node.productid.rowid || null,
+                        productid: productEdge[prod].node.productNode.rowid || null,
                         productMRid: productEdge[prod].node.productMRid || null,
                         amountid: productEdge[prod].node.rowid || null,
                         amount: productEdge[prod].node.amount || null,
@@ -163,7 +163,7 @@ export class InsertOrderApiService {
                         lugSize: null,
                         rankingInGroup: null,
                         packagingShippingWeight: packagingShipping(productEdge[prod]) || 0,
-                        unitsPerMaxShippingWeight: productEdge[prod].node.productid.unitsPerMaxShippingWeight,
+                        unitsPerMaxShippingWeight: productEdge[prod].node.productNode.unitsPerMaxShippingWeight,
                     };
                     products.push(singleGroup);
                 }

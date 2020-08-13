@@ -39,7 +39,7 @@ class IOrderProductAmountsBackend {
     lastModified: string;
     userid: number;
     packageWeight: number;
-    productid: IProductBackend;
+    productNode: IProductBackend;
 }
 
 export class IOrderproductamountsmicroserviceSetNode {
@@ -112,7 +112,7 @@ export function getDefaultINodeOrderDetailsMicroService(): INodeOrderDetailsMicr
         lastModified: null,
         packageWeight: null,
         productMRid: null,
-        productid: productBackend,
+        productNode: productBackend,
         rowid: null,
         status: null,
         userid: null
