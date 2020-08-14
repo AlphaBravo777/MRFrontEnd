@@ -5,19 +5,7 @@ import { InsertOrderData$Service } from '../../insert-order/1#insert-order-servi
 import { OrderService } from '../../#sharedServices/order.service';
 import { take, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
-class ITableValue {
-    accountid: number;
-    value: string;
-    classDivString: string;
-    classSpanString: string;
-}
-
-class IRow {
-    colmString: string;
-    classColmString: string;
-    element: ITableValue[];
-}
+import { IRow } from './table.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -27,27 +15,26 @@ export class SpecificRouteTableService {
     private table: HTMLTableElement;
     // private shopDictionary: Object = {};
     // private maxShopNameLength = 0;
-    productsTableArray: IRow[] = [];
+    // productsTableArray: IRow[] = [];
 
     constructor(private insertOrderData$Service: InsertOrderData$Service,
         private orderService: OrderService,
         private router: Router) {}
 
-    createSpecificRouteTable2(orders: IOrderDetails[], uniqueProductsDetails: Set<IUniqueProductTotals>): [HTMLTableElement, number] {
-        this.productsTableArray = this.createTableArray(orders, uniqueProductsDetails);
+    createSpecificRouteTable2(productsTableArray: IRow[]): HTMLTableElement {
         this.table = <HTMLTableElement> this.renderer.createElement('table');
         this.renderer.addClass(this.table, 'mainTable');
         const headingtr = this.renderer.createElement('tr');
         let counter = 0;
-        for (const element of this.productsTableArray[0].element) {
+        for (const element of productsTableArray[0].element) {
             headingtr.appendChild(this.createRowColmDivSpanValue(
-                this.productsTableArray[0].colmString, this.productsTableArray[0].classColmString, element.classDivString, element.classSpanString, element.value).children[0]);
+                productsTableArray[0].colmString, productsTableArray[0].classColmString, element.classDivString, element.classSpanString, element.value).children[0]);
             headingtr.children[counter].onclick = () => { this.onClick(element.accountid); };
             counter ++;
         }
         this.table.appendChild(headingtr);
 
-        for (const row of this.productsTableArray.slice(1)) {
+        for (const row of productsTableArray.slice(1)) {
             const prodtr = this.renderer.createElement('tr');
             for (const element of row.element) {
                 prodtr.appendChild(this.createRowColmDivSpanValue(
@@ -56,8 +43,7 @@ export class SpecificRouteTableService {
                 }
         this.table.appendChild(prodtr);
         }
-
-        return [this.table, this.calculateLongestHeading()];
+        return this.table;
     }
 
     createTableArray(orders: IOrderDetails[], uniqueProductsDetails: Set<IUniqueProductTotals>): IRow[] {
@@ -138,9 +124,9 @@ export class SpecificRouteTableService {
         return tableArray;
     }
 
-    private calculateLongestHeading() {
+    calculateLongestHeading(productsTableArray: IRow[]): number {
         let longestLength = 0;
-        for (const heading of this.productsTableArray[0].element) {
+        for (const heading of productsTableArray[0].element) {
             longestLength = heading.value.length > longestLength ? heading.value.length : longestLength;
         }
         return longestLength;
