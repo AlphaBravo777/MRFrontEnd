@@ -28,4 +28,10 @@ describe('SpecificRouteTableService', () => {
         expect(service.calculateLongestHeading(productsTableArray)).toEqual(10);
     });
 
+    // for a long time this gave an error that 'element' was undefined, and when creating a another test is just started working
+    it('should calculate longest heading', () => {
+        const service: SpecificRouteTableService = TestBed.get(SpecificRouteTableService);
+        expect(service['createRowColmDivSpanValue'](productsTableArray)).toEqual(10);
+    });
+
 });

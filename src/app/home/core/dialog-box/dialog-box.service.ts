@@ -74,7 +74,7 @@ export class DialogBoxService {
             panelClass: 'my-centered-dialog',
             disableClose: false
         });
-        this.dialogRef.componentInstance.confirmMessage = 'The password is wrong (Is Caps-Lock on?) or the time have expired';
+        this.dialogRef.componentInstance.confirmMessage = 'The password is wrong (Is Caps-Lock on?) or the time have expired | Also please make sure you are on the right version';
         this.dialogRef.componentInstance.dialogtype = 'noPassword';
 
         this.dialogRef.afterClosed().subscribe(result => {

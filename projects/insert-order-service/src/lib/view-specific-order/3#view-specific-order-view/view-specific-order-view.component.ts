@@ -18,8 +18,8 @@ export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
     @ViewChild('tableDiv', {static: true}) tableDiv: ElementRef;
     totalRouteWeight = 0;
     totalRouteWeightWithCrates = 0;
-    table;
-    maxShopNumber = 0;
+    table: HTMLTableElement;
+    maxShopLength = 0;
 
     constructor(
         private specificRouteTable: SpecificRouteTableService,
@@ -32,27 +32,18 @@ export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         console.log('The current route = ', this.currentRoute);
         this.insertSpecificRouteTable();
-        this.calculateRouteExternalDetails();
     }
 
     insertSpecificRouteTable() {
-        const returnTable = this.specificRouteTable.createSpecificRouteTable(
-            this.orders, this.uniqueProductsDetails);
-        this.table = returnTable[0];
-        this.maxShopNumber = returnTable[1];
+        const returnTableArray = this.specificRouteTable.createTableArray(this.orders, this.uniqueProductsDetails);
+        const returnTable = this.specificRouteTable.createSpecificRouteTable2(returnTableArray);
+        this.table = returnTable;
+        this.maxShopLength = this.specificRouteTable.calculateLongestHeading(returnTableArray);
         this.tableDiv.nativeElement.appendChild(this.table);
     }
 
     onClick(event) {
         console.log('I am listening2');
-    }
-
-    calculateRouteExternalDetails() {
-        const returnedWeights: Array<any> =
-            this.viewSpecificOrderService.calculateRouteWeightWithAndWithoutCrates(this.uniqueProductsDetails);
-        this.totalRouteWeight = returnedWeights[0];
-        this.totalRouteWeightWithCrates = returnedWeights[1];
-        this.specificRouteTable.insertTotalRouteWeight(this.totalRouteWeight);
     }
 
     dropDownTableState(event, key) {
@@ -61,6 +52,6 @@ export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         console.log('Here is the element: ', this.tableDiv.nativeElement);
-        this.tableDiv.nativeElement.children[0].children[0].style.height = Math.max(this.maxShopNumber * 9.5, 190) + 'px';
+        this.tableDiv.nativeElement.children[0].children[0].style.height = Math.max(this.maxShopLength * 9.5, 190) + 'px';
     }
 }

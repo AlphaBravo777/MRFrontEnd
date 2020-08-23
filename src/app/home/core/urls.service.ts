@@ -7,89 +7,40 @@ export class UrlsService {
 
   constructor() { }
 
-    // root = 'http://192.168.2.25'; // This is meatrite live test server
-    // monolithBackendUrl = this.root + ':8000/';
-
-    root = 'http://192.168.2.27';
-    monolithBackendUrl = this.root + ':8011/';
-
     // -----------------------------------------------------------------------------------------------------------------------
-    // Production (25) Server (Old Server)
+    // Development Server (Localhost)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    // mediaUrl = this.monolithBackendUrl + 'media/';
-    // graphqlAddress = this.root + ':8000/graphql/';
-    // mrOrderService = this.root + ':8084/';
-    // dockerServer = 'http://192.168.2.27';
-    // sagaCoordinatorMS = this.dockerServer + ':8070/';
-    // mrProductService = this.dockerServer + ':8084/';
-    // mrAccountService = this.root + ':8085/';
 
-    // // - USER -
-    //     loginUrl = this.monolithBackendUrl + 'api/rest-auth/login/';
-    //     verifyTokenUrl = this.monolithBackendUrl + 'api/api-token-verify/';
-    //     registerUrl = this.monolithBackendUrl + 'api/rest-auth/registration/';
-    //     permissionsUrl = this.monolithBackendUrl + 'api/test/';
-
-    // - PRODUCTS -
-            productsUrl = this.monolithBackendUrl + 'api/products/';
-            getProductContainersUrl = this.productsUrl + 'containers/'; // First Meatrite stocktake app
-            deleteProcessedStock = this.productsUrl + 'delete/'; // First Meatrite stocktake app
-            getProcessedStockContainersToDeleteUrl = this.productsUrl + 'delete/containers/half'; // First Meatrite stocktake app
-            updateProcessedStockContainerDeleteUrl = this.productsUrl + 'delete/containerUpdate/'; // First Meatrite stocktake app
-            checkConnectionWithDelete = this.productsUrl + 'testDelete/'; // First Meatrite stocktake app
-            enterAllProcessedProducts = this.productsUrl + 'input/'; // First Meatrite stocktake app
-            // getStockTimes = this.productsUrl + 'getStockTimes/'; // Timestamp app
-
-    // - OFFICE -
-    private officeUrl = this.monolithBackendUrl + 'office/'; //
-
-        // - CHECKLIST -
-        private checklistUrl = this.officeUrl + 'checklists/'; // !!!!!!!!!!!!!  // Old url that is not really used
-            enterNewChecklistUrl = this.checklistUrl + 'enterNew/'; // Old checklist url that is not really used
-
-        // - REPORT -
-        // private reportUrl = this.officeUrl + 'report/';
-        //     enterNewReportUrl = this.reportUrl + 'enterNew/'; //
-        //     updateReportUrl = this.reportUrl + 'update/'; //
-        //     insertReportImageUrl = this.reportUrl + 'insertImage/'; //
-        //     deleteReportUrl = this.reportUrl + 'deleteReport/'; //
-
-        // - ORDERS -
-        private orderUrl = this.officeUrl + 'orders/';
-            // enterOrderDetailsUrl = this.orderUrl + 'enterDetails/'; // NB This is the enter new orders link
-            enterProductAmountsUrl = this.orderUrl + 'enterProductAmounts/'; // This url seems to just be commented out at the backend
-
-        // // - TIMESTAMP -
-        // private timeStampUrl = this.officeUrl + 'timeStamp';
-        //     getOrCreateWholeDayTimeStampID = this.timeStampUrl + 'wholeDay/';
-
-    // - STOCK -
-    private stockUrl = this.monolithBackendUrl + 'stock/';
-
-        enterProcessedStock = this.stockUrl + 'procStock/update/'; // Old url that is not really used
-        enterContainerRankings = this.stockUrl + 'containerRankings/update/'; // Old url that is not really used
-
-    // // - CORE -
-    // private coreUrl = this.monolithBackendUrl + 'core/';
-    //     getTimeStampIDUrl = this.coreUrl + 'createTimeStampID/';
+    root = 'http://localhost'; // Old meatrite backends
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Production (27) Server (New Docker Server)
     // -----------------------------------------------------------------------------------------------------------------------
 
+    // root = 'http://192.168.2.27';
 
-    mrOrderService = this.root + ':8013/';
-    mrAccountService = this.root + ':8014/';
-    mrProductService = this.root + ':8015/';
+    monolithBackendUrl = this.root + ':8021/';  // Meatrite test server
+
+    mrGatewayService = this.root + ':8010/';
+    mrOrderService = this.root + ':8013/';  // Use gateway service
+    mrAccountService = this.root + ':8014/';  // Use gateway service
+    mrProductService = this.root + ':8015/';  // Use gateway service
+    graphqlAddress = this.root + ':8016/graphql/';
+    mrStocktakeService = this.root + ':8017/';  // Use gateway service
+
     sagaCoordinatorMS = this.root + ':8070/';
     mediaUrl = this.monolithBackendUrl + 'media/';
-    graphqlAddress = this.root + ':8011/graphql/';
+    // graphqlAddress = this.root + ':8011/graphql/';
 
     // - USER -
-        loginUrl = this.monolithBackendUrl + 'user/api-token-auth/';
-        verifyTokenUrl = this.monolithBackendUrl + 'user/api-token-verify/';
-        permissionsUrl = this.monolithBackendUrl + 'user/groups/';
+        private mrUserService = this.mrGatewayService + 'user/';
+        loginUrl = this.mrUserService + 'login/';
+        // loginUrl = this.monolithBackendUrl + 'user/api-token-auth/';
+        verifyTokenUrl = this.mrUserService + 'verify-user/';
+        // verifyTokenUrl = this.monolithBackendUrl + 'user/api-token-verify/';
+        // permissionsUrl = this.monolithBackendUrl + 'user/groups/';
+        permissionsUrl = this.mrUserService + 'groups/';
         registerUrl = this.monolithBackendUrl + 'api/rest-auth/registration/';
 
     // - DAILYREPORT -
@@ -101,13 +52,44 @@ export class UrlsService {
 
     // - TIMESTAMP -
         private timeStampUrl = this.monolithBackendUrl + 'dateTime/';
-            getOrCreateWholeDayTimeStampID = this.timeStampUrl + 'getOrCreateWholeDayTimeStampID/';
             getTimeStampIDUrl = this.timeStampUrl + 'createTimeStampID/';
             getStockTimes = this.timeStampUrl + 'getStockTimes/';
 
     // -----------------------------------------------------------------------------------------------------------------------
-    // Url links for all api calls inside frontend
-    // -----------------------------------------------------------------------------------------------------------------------
+
+    // - PRODUCTS -
+        // Create mrMonolith user that would be unable to access the products table on the mrMonolithService db so that we can see who needs to use those tables
+        // Change getting product ids from the mrMonolithService to the mrProductService
+        // Move the models on the testMono to the old module of the programService
+        // Make sure that now all product references everywhere is to the new ProductService
+        // Go through all the microservices and make sure that there links are also working
+        // Meatrite order entry not working when entering shop code
+        productsUrl = this.monolithBackendUrl + 'api/products/';
+            getProductContainersUrl = this.productsUrl + 'containers/'; // First Meatrite stocktake app
+            deleteProcessedStock = this.productsUrl + 'delete/'; // First Meatrite stocktake app
+            getProcessedStockContainersToDeleteUrl = this.productsUrl + 'delete/containers/half'; // First Meatrite stocktake app
+            updateProcessedStockContainerDeleteUrl = this.productsUrl + 'delete/containerUpdate/'; // First Meatrite stocktake app
+            checkConnectionWithDelete = this.productsUrl + 'testDelete/'; // First Meatrite stocktake app
+            enterAllProcessedProducts = this.productsUrl + 'input/'; // First Meatrite stocktake app
+            // getStockTimes = this.productsUrl + 'getStockTimes/'; // Timestamp app
+
+    // - OFFICE -
+        private officeUrl = this.monolithBackendUrl + 'office/'; //
+
+    // - CHECKLIST -
+        private checklistUrl = this.officeUrl + 'checklists/'; // !!!!!!!!!!!!!  // Old url that is not really used
+            enterNewChecklistUrl = this.checklistUrl + 'enterNew/'; // Old checklist url that is not really used
+
+    // - ORDERS -
+        private orderUrl = this.officeUrl + 'orders/';
+            // enterOrderDetailsUrl = this.orderUrl + 'enterDetails/'; // NB This is the enter new orders link
+            enterProductAmountsUrl = this.orderUrl + 'enterProductAmounts/'; // This url seems to just be commented out at the backend
+
+    // - STOCK -
+        private stockUrl = this.monolithBackendUrl + 'stock/';
+
+        enterProcessedStock = this.stockUrl + 'procStock/update/'; // Old url that is not really used
+        enterContainerRankings = this.stockUrl + 'containerRankings/update/'; // Old url that is not really used
 
 
 
@@ -115,15 +97,9 @@ export class UrlsService {
 
 
 
-    // -----------------------------------------------------------------------------------------------------------------------
-    // Development (25) Server
-    // -----------------------------------------------------------------------------------------------------------------------
-
-    // monolithBackendUrl = this.root + ':8080/';
-    // graphqlAddress = this.root + ':8080/graphql/';
 
 
-    currentVersion = '2.0.5';
+    currentVersion = '2.0.6';
 
 }
 
@@ -165,6 +141,9 @@ export class UrlsService {
     // Created change routes and dates for route
 // 2.0.5
     // Moved the whole backend over to the meatritedocker server
+// 2.0.6
+    // Complete refracturing off the orders totals view components
+    // Now has the shop totals on the top line as well
 
 
 

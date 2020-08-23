@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../admin/admin-services/auth.guard';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { RegisterComponent } from './register-user/register.component';
+import { AdminExcelTestComponent } from './excel-tests/admin-excel-test.component';
 
 const adminRoutes: Routes = [
     {
@@ -17,6 +18,11 @@ const adminRoutes: Routes = [
             {
                 path: 'register-user',
                 component: RegisterComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'excel-tests',
+                component: AdminExcelTestComponent,
                 canActivate: [AuthGuard],
             },
         ]
