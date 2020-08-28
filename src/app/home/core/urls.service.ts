@@ -12,16 +12,15 @@ export class UrlsService {
     // -----------------------------------------------------------------------------------------------------------------------
 
 
-    // root = 'http://localhost'; // Old meatrite backends // -- Changed this line to check login server
+    root = 'http://localhost'; // Old meatrite backends
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Production (27) Server (New Docker Server)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    root = 'http://192.168.2.27'; // -- Changed this line to check login server
+    // root = 'http://192.168.2.27';
 
-    // monolithBackendUrl = this.root + ':8021/';  // Meatrite test server  -- Changed this line to check login server
-    monolithBackendUrl = this.root + ':8011/';  // Meatrite test server  -- Changed this line to check login server
+    monolithBackendUrl = this.root + ':8021/';  // Meatrite test server
 
     mrGatewayService = this.root + ':8010/';
     mrOrderService = this.root + ':8013/';  // Use gateway service
@@ -36,11 +35,11 @@ export class UrlsService {
 
     // - USER -
         private mrUserService = this.mrGatewayService + 'user/';
-        // loginUrl = this.mrUserService + 'login/';   // -- Changed this line to check login server
-        loginUrl = this.monolithBackendUrl + 'user/api-token-auth/';  // -- Changed this line to check login server
-        // verifyTokenUrl = this.mrUserService + 'verify-user/';   // -- Changed this line to check login server
-        verifyTokenUrl = this.monolithBackendUrl + 'user/api-token-verify/';   // -- Changed this line to check login server
-        // permissionsUrl = this.monolithBackendUrl + 'user/groups/';   // -- Changed this line to check login server
+        loginUrl = this.mrUserService + 'login/';
+        // loginUrl = this.monolithBackendUrl + 'user/api-token-auth/';
+        verifyTokenUrl = this.mrUserService + 'verify-user/';
+        // verifyTokenUrl = this.monolithBackendUrl + 'user/api-token-verify/';
+        // permissionsUrl = this.monolithBackendUrl + 'user/groups/';
         permissionsUrl = this.mrUserService + 'groups/';
         registerUrl = this.monolithBackendUrl + 'api/rest-auth/registration/';
 
