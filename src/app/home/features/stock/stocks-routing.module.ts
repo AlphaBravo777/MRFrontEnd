@@ -6,9 +6,6 @@ import { AuthGuard } from '../admin/admin-services/auth.guard';
 import { ProductMaintenanceComponent } from './processed/product-maintenance/product-maintenance.component';
 import { StockMenuComponent } from './$stock-menu/stock-menu.component';
 import { StockEntryComponent } from './$stock-entry/stock-entry.component';
-import { PnpMRStockDataComponent } from './pnp-MR-Stock/2#pnp-MR-Stock-data/pnp-mr-stock-data.component';
-
-
 
 const stockRoutes: Routes = [
     {
@@ -21,18 +18,8 @@ const stockRoutes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'stock-raw',
-                loadChildren: () => import('./raw_material/raw-material.module').then(m => m.RawMaterialModule),
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'stock-processed',
                 loadChildren: () => import('./processed/processed.module').then(m => m.ProcessedModule),
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'hpp',
-                loadChildren: () => import('./hpp/hpp.module').then(m => m.HppModule),
                 canActivate: [AuthGuard],
             },
             {
@@ -42,11 +29,6 @@ const stockRoutes: Routes = [
             {
                 path: 'productMaintenance',
                 component: ProductMaintenanceComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'pnp-Meatrite-Stock',
-                component: PnpMRStockDataComponent,
                 canActivate: [AuthGuard],
             },
         ]

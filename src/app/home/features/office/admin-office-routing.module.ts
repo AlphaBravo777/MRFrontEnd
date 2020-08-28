@@ -13,21 +13,13 @@ const officeRoutes: Routes = [
                 component: AdminOfficeMenuComponent,
                 // canActivate: [AuthGuard],
             },
-            {
-                path: 'clients',
-                loadChildren: () => import('./add-client/add-client.module').then(m => m.AddClientModule),
-            },
-            {
-                path: 'orders',
-                loadChildren: () => import('./insert-order/client-orders.module').then(m => m.ClientOrderModule),
-            },
+            // {
+            //     path: 'orders',
+            //     loadChildren: () => import('./insert-order/client-orders.module').then(m => m.ClientOrderModule),
+            // },
             {
                 path: 'daily-report',
                 loadChildren: () => import('./daily-report/daily-report.module').then(m => m.DailyReportModule),
-            },
-            {
-                path: 'checklists',
-                loadChildren: () => import('./checklists/checklists.module').then(m => m.ChecklistsModule),
             },
             {
                 path: 'checklists',

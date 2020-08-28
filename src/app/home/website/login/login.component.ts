@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../features/admin/admin-services/auth.service';
 import { DialogBoxService } from '../../core/dialog-box/dialog-box.service';
 import { Subscription } from 'rxjs';
+import { IUser, userBackendFactory } from '../../features/admin/admin-services/user.interface';
 
 @Component({
     selector: 'app-login',
@@ -11,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-    loginUserData = {username: '', password: ''};
+    loginUserData: IUser = {username: '', password: '', email: '', firstName: '', id: null, lastName: ''};
     subscription: Subscription;
 
     constructor(
@@ -28,8 +29,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.subscription = this.auth.loginUser(this.loginUserData)
             .subscribe(
                 res => {
+                    console.log('The return information = ', res);
                     localStorage.setItem('token', res.token);
-                    localStorage.setItem('userID', res.user.pk);
+                    if (res.user.id) { // Depends on which authentication backend you are using
+                        localStorage.setItem('userID', res.user.id);
+                    } else {
+                        localStorage.setItem('userID', res.user.pk);
+                    }
                     this.router.navigate(['main/landing-page/entry/menu']);
                 },
                 err => {

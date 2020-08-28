@@ -13,11 +13,9 @@ export class ChecklistAddCheckApiService {
 
     constructor(private urlService: UrlsService, private http: HttpClient, private apollo: Apollo) { }
 
-    private stockUrl = this.urlService.backendUrl + 'office/';
-
     enterNewChecklist(newCheck) {
         console.log('THis is a new checklist', newCheck);
-        return this.http.post<any>(this.stockUrl + 'checklists/enterNew/', newCheck);
+        return this.http.post<any>(this.urlService.enterNewChecklistUrl, newCheck);
     }
 
     getChecklistLevels(): Observable<IChecklistLevels[]> {

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ReportReadApiService } from './report-read-api.service';
 import { Observable } from 'rxjs';
 import { switchMap, tap, map, concatMap } from 'rxjs/operators';
-import { DatePickerApi2Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker-api2.service';
 import { IReadReportPackage, IReadReport, IReadReportImages } from './read-report-interface';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';

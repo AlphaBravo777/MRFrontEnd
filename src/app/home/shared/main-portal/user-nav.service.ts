@@ -7,12 +7,10 @@ import { UrlsService } from '../../core/urls.service';
 })
 export class UserNavService {
 
-    constructor(private http: HttpClient, private _urlService: UrlsService) { }
-
-    private permissions = this._urlService.backendUrl + 'api/test/';
+    constructor(private http: HttpClient, private urlService: UrlsService) { }
 
     getPermissions() {
-        return this.http.get<any>(this.permissions);
+        return this.http.get<any>(this.urlService.permissionsUrl);
     }
 
 }

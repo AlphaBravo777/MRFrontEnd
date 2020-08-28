@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
+import { DynamicFormGraphqlService } from './dynamic-form-graphql.service';
 import { Observable } from 'rxjs';
-import { IFormControl } from './form-control-interface';
-import { DynamicFormApiService } from './dynamic-form-api.service';
-import { take } from 'rxjs/operators';
+import { IFormMain } from './dynamic-form.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DynamicFormService {
 
-    constructor(private dynamicFormApiService: DynamicFormApiService) { }
+    constructor(private dynamicFormGraphqlService: DynamicFormGraphqlService) { }
 
-    getFormControls(formName: string): Observable<IFormControl[]> {
-        return this.dynamicFormApiService.getFormControls(formName).pipe();
-    }
+    getForm(formName): Observable<IFormMain> {
+        return this.dynamicFormGraphqlService.getForm(formName).pipe(
 
-    submitFormData(data) {
-        this.dynamicFormApiService.submitFormData(data).subscribe();
+        );
     }
 }

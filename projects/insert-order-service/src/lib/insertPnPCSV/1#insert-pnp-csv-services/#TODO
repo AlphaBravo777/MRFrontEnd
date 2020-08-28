@@ -7,3 +7,9 @@
     ☐ Once you have pressed the "Insert CSV File" button, you can not use it again before refreshing (You can not use it on the same file
         ☐ but you can use it on a different file. It will be because the value is the same as the previous value (if you pick the same
         ☐ file, and because it did not change, it does nothing. So the solution is the clear the value back to '' after inserting)
+
+
+✔ How to add new pnp product to excel insert list @done(20-08-28 08:18)
+    ☐ If product has different barcode than we do:
+        ☐ Go to 'convert-pnp-csv-data-factory.service' and add it to the 'productCode' list
+    ☐ Go to 'convert-pnp-structure-to-orders.service' and add the product to the 'createPnPProduct' function (Use our product name, and not the pnp name)

@@ -20,8 +20,8 @@ export class AuthService {
     }
 
     isTokenValid() {
-        const a = { 'token': localStorage.getItem('token') };
-        return this.http.post<any>(this.urlService.verifyTokenUrl, a, { observe: 'response' });
+        const token = { 'token': localStorage.getItem('token') };
+        return this.http.post<any>(this.urlService.verifyTokenUrl, token, { observe: 'response' });
     }
 
     getToken() {

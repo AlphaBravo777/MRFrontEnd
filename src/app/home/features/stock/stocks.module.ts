@@ -16,8 +16,6 @@ import { MaterialConfigModule } from '../../../material-config/material-config.m
 import { FilterTimesPipe } from './processed/processed-menu/filter-times.pipe';
 import { StockMenuComponent } from './$stock-menu/stock-menu.component';
 import { StockEntryComponent } from './$stock-entry/stock-entry.component';
-import { PnpMRStockDataComponent } from './pnp-MR-Stock/2#pnp-MR-Stock-data/pnp-mr-stock-data.component';
-import { PnpMrStockView1Component } from './pnp-MR-Stock/3#pnp-MR-Stock-view1/pnp-mr-stock-view1.component';
 import { CustomMaterialModule } from '../../shared/dropdown-table/custom-material.module';
 
 @NgModule({
@@ -43,8 +41,6 @@ import { CustomMaterialModule } from '../../shared/dropdown-table/custom-materia
         FilterTimesPipe,
         StockMenuComponent,
         StockEntryComponent,
-        PnpMRStockDataComponent,
-        PnpMrStockView1Component,
     ],
     providers: []
 })

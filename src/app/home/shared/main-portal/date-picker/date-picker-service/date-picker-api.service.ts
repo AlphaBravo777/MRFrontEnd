@@ -12,7 +12,7 @@ import { IDate } from './date-interface';
 export class DatePickerApiService {
 
     GET_ALL_DATE_IDS_FOR_WEEK_NO = gql`
-    query getRoutesForWeekNr($weekNr:Float, $year:Float, $time:ID) {
+    query getRoutesForWeekNr($weekNr:Int, $year:Int, $time:ID) {
         nodeTimestamp(week:$weekNr, year:$year, time:$time){
             edges{
                 node{
@@ -29,12 +29,12 @@ export class DatePickerApiService {
 
     constructor(private http: HttpClient, private urlService: UrlsService, private apollo: Apollo) { }
 
-    private productsUrl = this.urlService.backendUrl + 'api/products/';
-
     createTimeStampID(timePackage: IDate): Observable<any> {
-        // console.log('--------- createTimeStampID = ', timePackage);
-        const url = this.urlService.backendUrl + 'core/createTimeStampID/';
-        return this.http.post<any>(url, timePackage);
+        return this.http.post<any>(this.urlService.getTimeStampIDUrl, timePackage);
+    }
+
+    getStockTimes() {
+        return this.http.get<any>(this.urlService.getStockTimes);
     }
 
     getTimeStampIDs(data: IDate): Observable<IDate> {
@@ -42,7 +42,7 @@ export class DatePickerApiService {
             .watchQuery({
                 variables: { year: data.year, week: data.week, weekDayID: data.weekDayID, timeID: data.timeID },
                 query: gql`
-                query NodeTimeStamp($year:Float, $week:Float, $weekDayID:ID, $timeID:ID){
+                query NodeTimeStamp($year:Int, $week:Int, $weekDayID:ID, $timeID:ID){
                     nodeTimestamp(year:$year, week:$week, weekDay:$weekDayID, time:$timeID) {
                       edges{
                         node{
@@ -95,12 +95,12 @@ export class DatePickerApiService {
         return data;
     }
 
-    getWeekDayData(weekday): Observable<any> {
+    getWeekDayData(weekday: number): Observable<any> {
         return this.apollo
             .watchQuery({
                 variables: {weekday: weekday},
                 query: gql`
-                query weekDayID($weekday:Float){
+                query weekDayID($weekday:Int){
                     nodeDaysoftheweek(weekDayNumber:$weekday){
                       edges{
                         node{
@@ -117,11 +117,6 @@ export class DatePickerApiService {
 
     refineWeekDayID(data) {
         return data;
-    }
-
-    getStockTimes() {
-        const stockTimeUrl = this.productsUrl + 'getStockTimes/';
-        return this.http.get<any>(stockTimeUrl);
     }
 
     getShifts(): Observable<any[]> {

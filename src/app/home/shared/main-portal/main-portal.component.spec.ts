@@ -5,7 +5,6 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
 import { UserNavMenuBarComponent } from './user-nav-menu-bar/user-nav-menu-bar.component';
 import { UserEntryComponent } from './user-entry/user-entry.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material';
 import { ApolloTestingModule } from 'apollo-angular/testing';
 import { DateFormComponent } from './date-picker/date-form/date-form.component';
 import {
@@ -23,6 +22,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { CustomMaterialModule } from '../dropdown-table/custom-material.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 describe('MainPortalComponent', () => {
     let component: MainPortalComponent;

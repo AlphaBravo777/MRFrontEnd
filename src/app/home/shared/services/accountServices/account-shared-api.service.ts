@@ -26,7 +26,7 @@ export class AccountSharedApiService {
                             id
                             franchiseName
                         }
-                        productGroupid{
+                        productGroupNode{
                             rowid
                             id
                             groupname
@@ -55,7 +55,7 @@ export class AccountSharedApiService {
                 id
                 franchiseName
             }
-            productGroupid{
+            productGroupNode{
                 rowid
                 id
                 groupname
@@ -94,9 +94,9 @@ export class AccountSharedApiService {
     private singleAccountObject(account): IAccountDetails {
         console.log('Here is the account data: ', account);
         const singleGroup: IProductGroupName = {
-            id: account.productGroupid.rowid,
-            ID: account.productGroupid.id,
-            groupName: account.productGroupid.groupname
+            id: account.productGroupNode.rowid,
+            ID: account.productGroupNode.id,
+            groupName: account.productGroupNode.groupname
         };
         const singleAccount: IAccountDetails = {
             accountid: account.rowid,
