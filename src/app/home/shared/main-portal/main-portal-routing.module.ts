@@ -9,11 +9,6 @@ const mainPortalRoutes: Routes = [
         path: '',
         component: MainPortalComponent,
         children: [
-            // {
-            //     path: 'landing-page',
-            //     loadChildren: () => import('./user-landing-page/user-landing-page.module').then(m => m.UserLandingPageModule),
-            //     canActivate: [AuthGuard],
-            // },
             {
                 path: 'landing-page',
                 loadChildren: () => import('./user-landing-page/user-landing-page.module').then(m => m.UserLandingPageModule),
@@ -32,11 +27,6 @@ const mainPortalRoutes: Routes = [
             {
                 path: 'stock',
                 loadChildren: () => import('../../features/stock/stocks.module').then(m => m.StocksModule),
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'stock-raw',
-                loadChildren: () => import('../../features/stock/raw_material/raw-material.module').then(m => m.RawMaterialModule),
                 canActivate: [AuthGuard],
             },
             {

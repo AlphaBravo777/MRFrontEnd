@@ -18,11 +18,8 @@ export class ReportReadApiService {
         private apollo: Apollo,
         private toolBox: ToolboxGroupService) { }
 
-    private stockUrl = this.urlService.backendUrl + 'office/';
-
     deleteReportEntry(id) {
-        const timeUrl = this.stockUrl + 'report/deleteReport/' + id;
-        return this.http.delete<any>(timeUrl);
+        return this.http.delete<any>(this.urlService.deleteReportUrl + id);
     }
 
     getDailyReportMessages(timeStampIDs): Observable<IReadReport[]> {
@@ -47,10 +44,10 @@ export class ReportReadApiService {
                             reply{
                                 rowid
                               }
-                            user{
-                              rowid
-                              id
-                              firstName
+                            userNode{
+                                firstName
+                                rowid
+                                id
                             }
                             messageLevel{
                               levelColor
@@ -88,7 +85,6 @@ export class ReportReadApiService {
             singleData.rowid = data[array].node.rowid;
             singleData.messageID = data[array].node.id;
             singleData.dateCreated = new Date(Date.parse(data[array].node.dateCreated));
-            // console.log(singleData.dateCreated.toLocaleTimeString('en-US', { hour12: false }));
             singleData.message = data[array].node.message;
             if (!data[array].node.reply) {
                 singleData.reply = null;
@@ -100,9 +96,9 @@ export class ReportReadApiService {
                 levelColor: data[array].node.messageLevel.levelColor,
                 levelRank: data[array].node.messageLevel.levelRank
             };
-            singleData.userID = data[array].node.user.id;
-            singleData.userid = data[array].node.user.rowid;
-            singleData.userName = data[array].node.user.firstName;
+            singleData.userID = data[array].node.userNode.id;
+            singleData.userid = data[array].node.userNode.rowid;
+            singleData.userName = data[array].node.userNode.firstName;
             if (data[array].node.reportimagesSet.edges.length === 0) {
                 singleData.images = null;
             } else {
@@ -111,7 +107,7 @@ export class ReportReadApiService {
                     const tempImage = <IReadReportImages>{};
                     tempImage.id = image.node.rowid;
                     tempImage.ID = image.node.id;
-                    tempImage.image = this.urlService.backendUrl + 'media/' + image.node.image;
+                    tempImage.image = this.urlService.mediaUrl + image.node.image;
                     tempImage.name = image.node.name;
                     singleData.images.push(tempImage);
                 });

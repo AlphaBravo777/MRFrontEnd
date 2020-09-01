@@ -14,20 +14,18 @@ export class ReportEntryApiService {
 
     constructor(private urlService: UrlsService, private http: HttpClient, private apollo: Apollo) { }
 
-    private url = this.urlService.backendUrl + 'office/';
-
     enterNewReport(newReport: IInsertNewReportApiInterface) {
-        const updateUrl = this.url + 'report/enterNew/';
+        const updateUrl = this.urlService.enterNewReportUrl;
         return this.http.post<any>(updateUrl, newReport);
     }
 
     updateReport(updateReport: IInsertNewReportApiInterface) {
-        const updateUrl = this.url + 'report/update/' + updateReport.messageid;
+        const updateUrl = this.urlService.updateReportUrl + updateReport.messageid;
         return this.http.put<any>(updateUrl, updateReport);
     }
 
     uploadDailyReportFile(reportId,  file: File) {
-        const uploadReportFileUrl = this.url + 'report/insertImage/';
+        const uploadReportFileUrl = this.urlService.insertReportImageUrl;
         const fd =  new FormData();
         fd.append('name', file.name);
         fd.append('image', file, file.name);

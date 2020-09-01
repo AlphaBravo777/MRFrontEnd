@@ -1,32 +1,54 @@
-import { Directive, Input, ViewContainerRef, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormButtonComponent } from '../controls/form-button/form-button.component';
-import { FormInputComponent } from '../controls/form-input/form-input.component';
-import { FormSelectComponent } from '../controls/form-select/form-select.component';
-import { FormFilterInputComponent } from '../controls/form-filter-input/form-filter-input.component';
 
-const components = {
+
+// import { Field, FieldConfig } from './fieldconfig.interface';
+import { FormButtonComponent } from '../dynamic-form-controls/form-button/form-button.component';
+import { FormInputComponent } from '../dynamic-form-controls/form-input/form-input.component';
+import { FormSelectComponent } from '../dynamic-form-controls/form-select/form-select.component';
+import { IFormField, IFormControlBuilder } from './dynamic-form.interface';
+import { FormFilterInputComponent } from '../dynamic-form-controls/form-filter-input/form-filter-input.component';
+
+const components: { [type: string]: Type<IFormField> } = {
     button: FormButtonComponent,
     input: FormInputComponent,
     select: FormSelectComponent,
-    filterInput: FormFilterInputComponent,
+    filterInput: FormFilterInputComponent
 };
 
 @Directive({
-    selector: '[appDynamicField]'
+    selector: '[libDynamicField]'
 })
-export class DynamicFieldDirective implements OnInit {
+export class DynamicFieldDirective implements OnChanges, OnInit{
 
-    @Input() config;
+    @Input() config: IFormControlBuilder;
     @Input() group: FormGroup;
-    component;
+    // @Input() data1: any;
 
-    constructor(private resolver: ComponentFactoryResolver, private container: ViewContainerRef) { }
+    component: ComponentRef<IFormField>;
+
+    constructor(
+        private resolver: ComponentFactoryResolver,
+        private container: ViewContainerRef
+    ) { }
+
+    ngOnChanges() {
+        if (this.component) {
+            this.component.instance.config = this.config;
+            this.component.instance.group = this.group;
+        }
+    }
 
     ngOnInit() {
-        const component = components[this.config.type];
-        const factory = this.resolver.resolveComponentFactory<any>(component);
-        this.component = this.container.createComponent(factory);
+        if (!components[this.config.control]) {
+            const supportedTypes = Object.keys(components).join(', ');
+            throw new Error(
+                `Trying to use an unsupported type (${this.config.control}).
+                 Supported types: ${supportedTypes}`
+            );
+        }
+        const component = this.resolver.resolveComponentFactory<IFormField>(components[this.config.control]);
+        this.component = this.container.createComponent(component);
         this.component.instance.config = this.config;
         this.component.instance.group = this.group;
     }

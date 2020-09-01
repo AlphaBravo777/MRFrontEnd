@@ -90,7 +90,6 @@ export class ProductSharedApiService {
         return this.apollo
             .watchQuery<any>({
                 // context: { headers: headers},
-                // variables: { accountid: accountid, timeStampid: datePackage.id, routeid: routeid},
                 query: this.ALL_PRODUCTGROUPNAMES_QUERY,
             })
             .valueChanges.pipe(

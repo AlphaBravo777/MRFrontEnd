@@ -15,53 +15,40 @@ export class StockAPIService {
     workingProcStock = 'workingProcStock';
     emptyStockAndContainers = 'emptyStockAndContainers';
 
-    private productsUrl = this.urlService.backendUrl + 'api/products/';
-
     getProducts(): Observable<IProductDetailsStockDepricated[]> {     // Gets all the meatrite products that are active
-        return this.http.get<IProductDetailsStockDepricated[]>(this.productsUrl);
+        return this.http.get<IProductDetailsStockDepricated[]>(this.urlService.productsUrl);
     }
 
-    getTimedStock(time: String): Observable<IRawProcessedStock[]> { // Gets all the stock values for a specifi time
-        const timeUrl = this.productsUrl + time + '/';
-        // console.log(timeUrl);
-        return this.http.get<IRawProcessedStock[]>(timeUrl);
+    getTimedStock(time: String): Observable<IRawProcessedStock[]> { // Gets all the stock values for a specific time
+        return this.http.get<IRawProcessedStock[]>(this.urlService.productsUrl + time + '/');
     }
 
     getProductContainers(): Observable<IProductContainers[]> {  // Gets all the containers that a product can come in
-        const timeUrl = this.productsUrl + 'containers/';
-        // console.log(timeUrl);
-        return this.http.get<IProductContainers[]>(timeUrl);
+        return this.http.get<IProductContainers[]>(this.urlService.getProductContainersUrl);
     }
 
     deleteAllTimeProcessedStock(time: String) {
-        const timeUrl = this.productsUrl + 'delete/' + time;
-        return this.http.delete<any>(timeUrl);
+        return this.http.delete<any>(this.urlService.deleteProcessedStock + time);
     }
 
     getProcessedStockContainersToDelete(): Observable<IProductContainers[]> {
-        const containers = 'half';
-        const containerUrl = this.productsUrl + 'delete/containers/' + containers;
-        return this.http.get<any>(containerUrl);
+        return this.http.get<any>(this.urlService.getProcessedStockContainersToDeleteUrl);
     }
 
     updateProcessedStockContainerDelete(id, updateValue) {
-        const containerUrl = this.productsUrl + 'delete/containerUpdate/' + id;
-        return this.http.put<any>(containerUrl, updateValue);
+        return this.http.put<any>(this.urlService.updateProcessedStockContainerDeleteUrl + id, updateValue);
     }
 
     checkConnectionWithDelete() {   // Does a small delete just to see if the connection is available
-        const timeUrl = this.productsUrl + 'testDelete/';
-        return this.http.delete<any>(timeUrl,  { observe: 'response' });
+        return this.http.delete<any>(this.urlService.checkConnectionWithDelete,  { observe: 'response' });
     }
 
     enterAllProcessedProductsIntoDB(finalArray) {
-        return this.http.post<any>(this.productsUrl + 'input/', finalArray);
+        return this.http.post<any>(this.urlService.enterAllProcessedProducts, finalArray);
     }
 
     getStockTimes() {
-        const stockTimeUrl = this.productsUrl + 'getStockTimes/';
-        return this.http.get<any>(stockTimeUrl);
+        return this.http.get<any>(this.urlService.getStockTimes);
     }
 
-    // An Api returns an array of objects - [{id:1, name:name1}, {id:2, name:name2}, {id:3, name:name3}]
 }

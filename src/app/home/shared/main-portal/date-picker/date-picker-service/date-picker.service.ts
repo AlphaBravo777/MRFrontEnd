@@ -225,7 +225,7 @@ export class DatePickerService {
             switchMap((data) => this.datePickerApiService.getTimeStampIDs(data)),
             switchMap(data => {
                 if (data.nodeID === undefined) {
-                    return this.datePickerApiService.createTimeStampID(this.datePackage).pipe(
+                    return this.datePickerApiService.createTimeStampID(this.datePackage).pipe(   // This can maybe be refractured to getOrCreateTimeStampid
                     switchMap(() => this.getOrCreateTimeStampData())
                     );
                 }
@@ -252,7 +252,7 @@ export class DatePickerService {
                 packageDate.weekDayID = weekDay.id;
                 packageDate.weekDayName = weekDay.weekDayNames;
             }),
-            switchMap(() => this.datePickerApiService.getTimeStampIDs(packageDate)),
+            switchMap(() => this.datePickerApiService.getTimeStampIDs(packageDate)),  // This can maybe be refractured to getOrCreateTimeStampid
             concatMap(date => {
                 if (date.nodeID === undefined) {
                     return this.datePickerApiService.createTimeStampID(packageDate).pipe(

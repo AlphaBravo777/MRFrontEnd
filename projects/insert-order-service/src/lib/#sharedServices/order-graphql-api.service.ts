@@ -152,6 +152,7 @@ export class OrderGraphqlApiService {
                 const productData: IOrderproductamountsmicroserviceSet = data.edges[order].node.orderproductamountsmicroserviceSet;
                 for (let prod = 0; prod < productData.edges.length; ++prod) {
                     const singleGroup: IProductOrderDetails = {
+                        // This line (productid) gives an error when there were two db's and new products were not added to the other db yet (mono and productsMSdb)
                         productid: productData.edges[prod].node.productNode.rowid,
                         productMRid: productData.edges[prod].node.productMRid,
                         amountid: productData.edges[prod].node.rowid,
