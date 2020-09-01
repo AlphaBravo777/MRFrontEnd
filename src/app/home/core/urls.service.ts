@@ -20,7 +20,7 @@ export class UrlsService {
 
     // root = 'http://192.168.2.27';
 
-    monolithBackendUrl = this.root + ':8021/';  // Meatrite test server
+    monolithBackendUrl = this.root + ':8011/';  // Meatrite test server
 
     mrGatewayService = this.root + ':8010/';
     mrOrderService = this.root + ':8013/';  // Use gateway service
@@ -52,8 +52,8 @@ export class UrlsService {
 
     // - TIMESTAMP -
         private timeStampUrl = this.monolithBackendUrl + 'dateTime/';
-            getTimeStampIDUrl = this.timeStampUrl + 'createTimeStampID/';
-            getStockTimes = this.timeStampUrl + 'getStockTimes/';
+            getTimeStampIDUrl = this.timeStampUrl + 'getOrCreateTimeStamp/';
+            getStockTimes = this.timeStampUrl + 'stockTakingTimeMany/';
 
     // -----------------------------------------------------------------------------------------------------------------------
 
