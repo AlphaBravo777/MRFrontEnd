@@ -11,10 +11,8 @@ export class ViewSpecificOrderApiService {
 
     constructor(private urlService: UrlsService, private http: HttpClient) { }
 
-    private orderServiceUrl = this.urlService.mrOrderService;
-
     refreshWeeklyOrdersCache(datePackage: IDate): Observable<any> {
-        return this.http.post<any>(this.orderServiceUrl + 'orders/refreshWeeklyOrdersCash/', datePackage).pipe(
+        return this.http.post<any>(this.urlService.refreshWeeklyOrdersCacheUrl, datePackage).pipe(
         );
     }
 

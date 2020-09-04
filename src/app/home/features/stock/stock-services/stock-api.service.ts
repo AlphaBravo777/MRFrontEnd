@@ -16,11 +16,11 @@ export class StockAPIService {
     emptyStockAndContainers = 'emptyStockAndContainers';
 
     getProducts(): Observable<IProductDetailsStockDepricated[]> {     // Gets all the meatrite products that are active
-        return this.http.get<IProductDetailsStockDepricated[]>(this.urlService.productsUrl);
+        return this.http.get<IProductDetailsStockDepricated[]>(this.urlService.allActiveProducts);
     }
 
     getTimedStock(time: String): Observable<IRawProcessedStock[]> { // Gets all the stock values for a specific time
-        return this.http.get<IRawProcessedStock[]>(this.urlService.productsUrl + time + '/');
+        return this.http.get<IRawProcessedStock[]>(this.urlService.getAllStockForSpecificTime + time + '/');
     }
 
     getProductContainers(): Observable<IProductContainers[]> {  // Gets all the containers that a product can come in

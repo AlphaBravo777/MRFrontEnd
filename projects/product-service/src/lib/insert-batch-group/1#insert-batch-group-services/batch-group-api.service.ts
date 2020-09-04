@@ -9,8 +9,5 @@ export class BatchGroupApiService {
 
     constructor(private urlService: UrlsService, private http: HttpClient) { }
 
-    // private stockUrl = this.urlService.backendUrl + 'office/';
-    // private orderServiceUrl = this.urlService.mrOrderService;
-
 
 }

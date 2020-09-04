@@ -167,7 +167,7 @@ export class ConvertPnpStructureToOrdersService {
             case 'PCP1':
                 return {productid: 141, unitWeight: 1, lugSize: 2, rankingInGroup: 30,
                 proddescription: 'PnP Prem Chicken Polony 1kg'};
-            case 'PCCV-CT':
+            case 'PCV375':
                 return {productid: 152, unitWeight: 0.375, lugSize: 1, rankingInGroup: 31,
                 proddescription: 'PnP Chicken $ Cheese Cocktail Vienna 375g'};
             default:

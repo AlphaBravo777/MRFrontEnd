@@ -28,8 +28,6 @@ export class ConvertPnpCsvDataFactoryService {
                 return 'PHP2.5';
             case 'PVP3.0':
                 return 'PVP3';
-            case '711045':
-                return 'PCCV-CT';
             default:
                 return prod;
         }

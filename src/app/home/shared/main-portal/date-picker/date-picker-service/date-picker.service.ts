@@ -14,6 +14,7 @@ export class DatePickerService {
 
     constructor(private datePickerApiService: DatePickerApiService) { }
 
+    // This is only used by datepicker service
     inputLongDate(longDate: Date): Observable<IDate> {
         this.datePackage.longDate = longDate;
         this.getBlockDate(longDate);
@@ -24,6 +25,8 @@ export class DatePickerService {
         );
     }
 
+    // This service takes a long date, and then returns the timestamp id for that long date
+    // This is quite a high traffic endpoint
     inputLongDate2(longDate: Date): Observable<IDate> {
         const packageDate: IDate = {
             id: null,
@@ -226,7 +229,7 @@ export class DatePickerService {
             switchMap(data => {
                 if (data.nodeID === undefined) {
                     return this.datePickerApiService.createTimeStampID(this.datePackage).pipe(   // This can maybe be refractured to getOrCreateTimeStampid
-                    switchMap(() => this.getOrCreateTimeStampData())
+                        switchMap(() => this.getOrCreateTimeStampData())
                     );
                 }
                 return of(data);

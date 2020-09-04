@@ -13,3 +13,5 @@
     ☐ If product has different barcode than we do:
         ☐ Go to 'convert-pnp-csv-data-factory.service' and add it to the 'productCode' list
     ☐ Go to 'convert-pnp-structure-to-orders.service' and add the product to the 'createPnPProduct' function (Use our product name, and not the pnp name)
+    ☐ Make sure the products are entered into the tbl_productgroups table in every place where it should be. For instance PCV375 had to be inserted into 1,6,10,11 and 14
+        ☐ Else it will not open when you click on a route to add or delete products in the "view-specific-order" menu

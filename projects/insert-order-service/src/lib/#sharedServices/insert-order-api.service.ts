@@ -66,19 +66,16 @@ export class InsertOrderApiService {
 
     constructor(private urlService: UrlsService, private http: HttpClient, private apollo: Apollo) { }
 
-    private stockUrl = this.urlService.monolithBackendUrl + 'office/';
-    private orderServiceUrl = this.urlService.mrOrderService;
-
     // Enters the main order details
     enterNewOrderDetails(orderDetails: IOrderDetails): Observable<IOrderDetails> {
         const orderDetailsBackend: IOrderDBDetails = ff_createOrderDetailsObjectForDB(orderDetails);
         console.log('Backend object: ', orderDetailsBackend);
-        return this.http.put<any>(this.orderServiceUrl + 'orders/insertNewOrderDetails/', orderDetailsBackend).pipe(
+        return this.http.put<any>(this.urlService.insertNewOrderDetailsUrl, orderDetailsBackend).pipe(
             tap(response => console.log('This is the responce now', JSON.parse(JSON.stringify(response)))),
             map(response => ff_CreateOrderDetailsObjFromDBObj(response)),
             tap(response => console.log('This is the response now', response)),
             //  --------------  Kafka Implementation --------------------
-            // concatMap(() => this.http.put<any>(this.orderServiceUrl + 'orders/insertKafkaNewOrderDetails/', orderDetailsBackend))
+            // concatMap(() => this.http.put<any>(this.urlService.insertKafkaNewOrderDetails, orderDetailsBackend))
       );
     }
 
@@ -88,33 +85,21 @@ export class InsertOrderApiService {
         productAmounts.forEach(product => productDetailsBackend.push(ff_createProductDetailsObjectForDB(product)));
         console.log('The products that will be inserted = ', productDetailsBackend);
     //   const productDetailsBackend: IProductOrderDBDetails[] = ff_createProductDetailsObjectForDB(productAmounts)
-        return this.http.put<any>(this.orderServiceUrl + 'orders/insertProductAmounts/', productDetailsBackend);
-    }
-
-    enterNewPnPOrderDetails(newOrderDetails: IOrderDetails) {
-        const dbOrderDetails: IOrderDBDetails = ff_createOrderDetailsObjectForDB(newOrderDetails);
-      //   return of({id: 123});
-        return this.http.post<any>(this.stockUrl + 'orders/enterDetails/', dbOrderDetails);
-    }
-
-    enterPnPProductAmounts(productAmounts) {
-        console.log('The inserted product amounts are', productAmounts);
-      //   return of('Inserted correctly');
-        return this.http.post<any>(this.stockUrl + 'orders/enterProductAmounts/', productAmounts);
+        return this.http.put<any>(this.urlService.insertProductAmounts, productDetailsBackend);
     }
 
     deleteProductFromOrder(amountid: number) {
-        return this.http.delete<any>(this.orderServiceUrl + 'orders/deleteProduct/' + amountid);
+        return this.http.delete<any>(this.urlService.deleteProduct + amountid);
     }
 
     deleteOrder(orderid: number) {
-        return this.http.delete<any>(this.orderServiceUrl + 'orders/deleteOrder/' + orderid);
+        return this.http.delete<any>(this.urlService.deleteOrder + orderid);
     }
 
     updateRouteDate(route: IViewRoutesData, currentDatePackage: IDate, newDatePackage: IDate): Observable<IInserOrderErrors> {
         const routeUpdateData = {routeid: route.routeid, currentTimeStampid: currentDatePackage.id, newTimeStampid: newDatePackage.id };
         console.log('Updating now', routeUpdateData);
-        return this.http.put<IInserOrderErrors>(this.orderServiceUrl + 'orders/updateRouteDate/', routeUpdateData);
+        return this.http.put<IInserOrderErrors>(this.urlService.updateRouteDate, routeUpdateData);
     }
 
     searchForOrder(datePackage: IDate, accountid: number): Observable<IOrderDetails[]> {

@@ -14,6 +14,7 @@ export class GetDate$Service {
 
     constructor(private datePickerService: DatePickerService) {}
 
+    // This is only used by the main datepicker service
     inputLongDate(longDate: Date): Observable<IDate> {
         return this.datePickerService.inputLongDate(longDate).pipe(
             take(1),
@@ -28,16 +29,18 @@ export class GetDate$Service {
             ).subscribe();
     }
 
-    getDatePackageForGivenLongDate(longDate): Observable<IDate> {
-        return this.datePickerService.inputLongDate2(longDate).pipe(
-            take(1),
-        );
-    }
-
+    // This is an api where you can just give a number of days forwards or backwards, and it will return the day id for those days
+    // This is quite a high traffic api point
     getDatePackageForCurrentDateMinusPlusDays(daysToAdd: number): Observable<IDate> {
         const longDate =  new Date(new Date().setDate(new Date().getDate() + daysToAdd));
         console.log('* * * * New date = ', longDate);
         return this.getDatePackageForGivenLongDate(longDate).pipe();
+    }
+
+    getDatePackageForGivenLongDate(longDate): Observable<IDate> {
+        return this.datePickerService.inputLongDate2(longDate).pipe(
+            take(1),
+        );
     }
 
     getAllDatePackagesForGivenWeekNR(datePackage: IDate): Observable<IDate[]> {

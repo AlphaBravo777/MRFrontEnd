@@ -30,6 +30,10 @@ export class DatePickerComponent implements OnInit, OnDestroy {
         ).subscribe();
     }
 
+    getDatePackageForGivenDate(longDate: Date) {
+
+    }
+
     populateDate() {
         this.dateForm = this.fb.group({
             year: this.currentWorkingDate.year,

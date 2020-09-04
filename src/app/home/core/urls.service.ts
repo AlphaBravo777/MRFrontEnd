@@ -23,18 +23,29 @@ export class UrlsService {
     // Links that should work on all servers
     // -----------------------------------------------------------------------------------------------------------------------
 
-        mrGatewayService = this.root + ':8010/';
+        mrGatewayService = this.root + ':8010/'; // Tested
 
-        graphqlAddress = this.mrGatewayService + 'graphql/'; // !!! This will also help with the authentication
-        mediaUrl = this.mrGatewayService + 'media/';  // !!!
-        admin = this.mrGatewayService + 'admin/';  // !!!
+        // == ADMIN ==
+        admin = this.mrGatewayService + 'admin/'; // Tested
+
+        // == MEDIA ==
+        mediaUrl = this.mrGatewayService + 'media/';
+
+        // == GRAPHQL ==
+        graphqlAddress = this.mrGatewayService + 'graphql/'; // Tested
 
         // == USERSERVICE ==
         private mrUserService = this.mrGatewayService + 'user/';
-            loginUrl = this.mrUserService + 'login/';
-            verifyTokenUrl = this.mrUserService + 'verify-user/';
-            permissionsUrl = this.mrUserService + 'groups/';
-            registerUrl = this.mrUserService + 'registration/';  // !!! Not really used
+            loginUrl = this.mrUserService + 'login/'; // Tested
+            verifyTokenUrl = this.mrUserService + 'verify-user/'; // Tested
+            permissionsUrl = this.mrUserService + 'groups/'; // Tested
+            registerUrl = this.mrUserService + 'registration/'; // Not Tested
+
+        // == TIMESTAMP ==
+        private timeStampUrl = this.mrGatewayService + 'dateTime/';  // !!!
+            getTimeStampIDUrl = this.timeStampUrl + 'getOrCreateTimeStamp/';  // !!!
+            // getTimeStampIDUrl = this.timeStampUrl + 'timeStampSingle/';  // !!!
+            getStockTimes = this.timeStampUrl + 'stockTakingTimeMany/';  // Tested
 
         // == DAILYREPORT ==
         private dailyReportUrl = this.mrGatewayService + 'dailyreport/';  // !!!
@@ -43,19 +54,40 @@ export class UrlsService {
             insertReportImageUrl = this.dailyReportUrl + 'insertReportImage/';  // !!!
             deleteReportUrl = this.dailyReportUrl + 'deleteReport/';
 
-        // == TIMESTAMP ==
-        private timeStampUrl = this.mrGatewayService + 'dateTime/';  // !!!
-            getTimeStampIDUrl = this.timeStampUrl + 'getOrCreateTimeStamp/';  // !!!
-            getStockTimes = this.timeStampUrl + 'stockTakingTimeMany/';  // !!!
-
         // == PRODUCTS ==
-        private productsUrl = this.mrGatewayService + 'products/';  // !!!
-            getProductContainersUrl = this.productsUrl + 'containers/'; // First Meatrite stocktake app !!!
-            deleteProcessedStock = this.productsUrl + 'delete/'; // First Meatrite stocktake app !!!
-            getProcessedStockContainersToDeleteUrl = this.productsUrl + 'delete/containers/half'; // First Meatrite stocktake app !!!
-            updateProcessedStockContainerDeleteUrl = this.productsUrl + 'delete/containerUpdate/'; // First Meatrite stocktake app !!!
-            checkConnectionWithDelete = this.productsUrl + 'testDelete/'; // First Meatrite stocktake app !!!
-            enterAllProcessedProducts = this.productsUrl + 'input/'; // First Meatrite stocktake app !!!
+        private productsUrl = this.mrGatewayService + 'products/'; // Not tested
+            getProductContainersUrl = this.productsUrl + 'containers/'; // Not tested
+            deleteProcessedStock = this.productsUrl + 'delete/'; // Not tested
+            getProcessedStockContainersToDeleteUrl = this.productsUrl + 'delete/containers/half'; // Not tested
+            updateProcessedStockContainerDeleteUrl = this.productsUrl + 'delete/containerUpdate/'; // Not tested
+            checkConnectionWithDelete = this.productsUrl + 'testDelete/'; // Not tested
+            enterAllProcessedProducts = this.productsUrl + 'input/'; // Not tested
+            allActiveProducts = this.productsUrl + 'noNewEndpointHereYet/'; // Not tested
+            getAllStockForSpecificTime = this.productsUrl + 'noNewEndpointHereYet/'; // Not tested
+
+        // == OFFICE ==
+        officeUrl = this.mrGatewayService + 'office/'; // !!!
+
+            // == CHECKLIST ==
+            private checklistUrl = this.officeUrl + 'checklists/'; // Not tested
+                enterNewChecklistUrl = this.checklistUrl + 'enterNew/'; // Not tested
+
+        // == ORDERS ==
+        private orderServiceUrl = this.mrGatewayService + 'orders/';
+            insertNewOrderDetailsUrl = this.orderServiceUrl + 'insertNewOrderDetails/'; // Tested
+            insertProductAmounts = this.orderServiceUrl + 'insertProductAmounts/'; // Tested
+            deleteProduct = this.orderServiceUrl + 'deleteProduct/'; // Tested
+            deleteOrder  = this.orderServiceUrl + 'deleteOrder/'; // Tested
+            updateRouteDate = this.orderServiceUrl + 'updateRouteDate/'; // Tested
+            refreshWeeklyOrdersCacheUrl = this.orderServiceUrl + 'refreshWeeklyOrdersCache/'; // Tested
+            insertKafkaNewOrderDetails = this.orderServiceUrl + 'insertKafkaNewOrderDetails/'; // Not tested
+
+        // == STOCKTAKE ==
+        private stockTakeurl = this.mrGatewayService + 'stockTake/'; // Not tested
+
+
+
+
 
 
 
@@ -114,29 +146,22 @@ export class UrlsService {
             // getStockTimes = this.productsUrl + 'getStockTimes/'; // Timestamp app
 
     // - OFFICE -
-        private officeUrl = this.monolithBackendUrl + 'office/'; //
+        // * private officeUrl = this.monolithBackendUrl + 'office/'; //
 
     // - CHECKLIST -
-        private checklistUrl = this.officeUrl + 'checklists/'; // !!!!!!!!!!!!!  // Old url that is not really used
-            enterNewChecklistUrl = this.checklistUrl + 'enterNew/'; // Old checklist url that is not really used
+        // * private checklistUrl = this.officeUrl + 'checklists/'; // !!!!!!!!!!!!!  // Old url that is not really used
+            // * enterNewChecklistUrl = this.checklistUrl + 'enterNew/'; // Old checklist url that is not really used
 
-    // - ORDERS -
-        private orderUrl = this.officeUrl + 'orders/';
-            // enterOrderDetailsUrl = this.orderUrl + 'enterDetails/'; // NB This is the enter new orders link
-            enterProductAmountsUrl = this.orderUrl + 'enterProductAmounts/'; // This url seems to just be commented out at the backend
+    // // * - ORDERS -
+    //     private orderUrl = this.officeUrl + 'orders/'; // Decided not to transfer these urls, cause there is already an orders service
+    //         // enterOrderDetailsUrl = this.orderUrl + 'enterDetails/'; // NB This is the enter new orders link
+    //         enterProductAmountsUrl = this.orderUrl + 'enterProductAmounts/'; // This url seems to just be commented out at the backend
 
-    // - STOCK -
-        private stockUrl = this.monolithBackendUrl + 'stock/';
+    // * - STOCK -
+        // * private stockUrl = this.monolithBackendUrl + 'stock/'; // Not currently in use
 
-        enterProcessedStock = this.stockUrl + 'procStock/update/'; // Old url that is not really used
-        enterContainerRankings = this.stockUrl + 'containerRankings/update/'; // Old url that is not really used
-
-
-
-
-
-
-
+        // * enterProcessedStock = this.stockUrl + 'procStock/update/'; // Old url that is not really used
+        // * enterContainerRankings = this.stockUrl + 'containerRankings/update/'; // Old url that is not really used
 
 
     currentVersion = '2.0.6';
