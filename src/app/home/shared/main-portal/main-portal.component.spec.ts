@@ -23,6 +23,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CustomMaterialModule } from '../dropdown-table/custom-material.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 describe('MainPortalComponent', () => {
     let component: MainPortalComponent;
@@ -38,7 +39,8 @@ describe('MainPortalComponent', () => {
                 CustomMaterialModule,
                 HttpClientTestingModule,
                 ApolloTestingModule,
-                MatDatepickerModule
+                MatDatepickerModule,
+                MatNativeDateModule
             ],
             declarations: [
                 MainPortalComponent,

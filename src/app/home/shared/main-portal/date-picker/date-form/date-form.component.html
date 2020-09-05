@@ -2,19 +2,23 @@
     <form [formGroup]="dateForm" (ngSubmit)=onSubmit()>
         <table>
             <tr>
+                <td class='title'>Year: </td>
+                <td><input class='textBox' type="number" formControlName='year'></td>
+            </tr>
+            <tr>
                 <td class='title'>Week: </td>
-                <td><input class='textBox' formControlName='week'></td>
+                <td><input class='textBox' type="number" formControlName='week'></td>
             </tr>
             <tr>
                 <td class='title'>Day #: </td>
-                <td><input class='textBox' formControlName='weekDay'></td>
+                <td><input class='textBox' type="number" formControlName='weekDay'></td>
             </tr>
             <tr>
                 <td class='title'>Shift: </td>
                 <td class='selectBox'>
                     <select dir="rtl" formControlName="shift">
-                        <option *ngFor="let shift of shifts" [ngValue]="shift.shiftName">{{shift.shiftName}}</option>
-                        <option selected="selected">{{dateForm.get('shift').value}}</option>
+                        <option *ngFor="let shift of shifts" [ngValue]="shift.id">{{shift.shiftName}}</option>
+                        <!-- <option selected="selected">{{dateForm.get('shift').value}}</option> -->
                     </select>
                 </td>
             </tr>
@@ -22,8 +26,8 @@
                 <td class='title'>Time: </td>
                 <td class='selectBox'>
                     <select dir="rtl" formControlName="time">
-                        <option *ngFor="let time of stockTimes" [ngValue]="time.times">{{time.times}}</option>
-                        <option selected="selected">{{dateForm.get('time').value}}</option>
+                        <option *ngFor="let time of stockTimes" [ngValue]="time.id">{{time.times}}</option>
+                        <!-- <option selected="selected">{{dateForm.get('time').value}}</option> -->
                     </select>
                 </td>
             </tr>
@@ -33,5 +37,6 @@
                 </td>
             </tr>
         </table>
+        <pre>{{dateForm.value | json}}</pre>
     </form>
 </app-box-shadow-container>

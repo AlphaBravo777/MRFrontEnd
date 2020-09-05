@@ -29,7 +29,7 @@
             <tr class='dateForm'>
                 <td colspan=8>
                     <div *ngIf='showDateForm'>
-                        <app-date-form [currentWorkingDate]='currentWorkingDate' (dateChange)="getBlockDate($event)"></app-date-form>
+                        <app-date-form [currentWorkingDate]='currentWorkingDate' (dateChange)="receivedBlockDate($event)"></app-date-form>
                     </div>
                 </td>
             </tr>

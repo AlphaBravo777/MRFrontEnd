@@ -18,11 +18,11 @@ export class ProcStockApiService {
         private urlService: UrlsService) { }
 
     enterAllProcessedProductsIntoDB(timeAndData) {
-        return this.http.post<any>(this.urlService.enterProcessedStock, timeAndData);
+        return this.http.post<any>(this.urlService.enterAllProcessedProducts, timeAndData); // Double check rest endpoint, they may have changed
     }
 
     enterNewContainerRankingsIntoDB(changedContainers) {
-        return this.http.post<any>(this.urlService.enterProductAmountsUrl, changedContainers);
+        return this.http.post<any>(this.urlService.enterAllProcessedProducts, changedContainers); // Double check rest endpoint, they may have changed
     }
 
     getGraphQLProcContainers(): Observable<any> {

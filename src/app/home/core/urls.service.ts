@@ -45,6 +45,7 @@ export class UrlsService {
         private timeStampUrl = this.mrGatewayService + 'dateTime/';  // !!!
             getTimeStampIDUrl = this.timeStampUrl + 'getOrCreateTimeStamp/';  // !!!
             // getTimeStampIDUrl = this.timeStampUrl + 'timeStampSingle/';  // !!!
+            getTimeStampidOrCreateNew = this.timeStampUrl + 'getOrCreateTimeStamp/';
             getStockTimes = this.timeStampUrl + 'stockTakingTimeMany/';  // Tested
 
         // == DAILYREPORT ==

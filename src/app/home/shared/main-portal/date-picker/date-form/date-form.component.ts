@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IDate } from '../date-picker-service/date-interface';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { IDate, IDateShift, IDateTime, IBlockDate } from '../date-picker-service/date-interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DatePickerApiService } from '../date-picker-service/date-picker-api.service';
+import { tap, take } from 'rxjs/operators';
+import { DatePickerGraphqlApiService } from '../date-picker-service/date-picker-graphql-api.service';
 
 @Component({
     selector: 'app-date-form',
@@ -11,36 +13,51 @@ import { DatePickerApiService } from '../date-picker-service/date-picker-api.ser
 })
 export class DateFormComponent implements OnInit {
 
-    constructor(private fb: FormBuilder, private datePickerApiService: DatePickerApiService) { }
+    constructor(
+        private fb: FormBuilder,
+        private datePickerGraphqlApiService: DatePickerGraphqlApiService) { }
 
     @Input() currentWorkingDate: IDate;
-    @Output() dateChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output() dateChange: EventEmitter<IBlockDate> = new EventEmitter<IBlockDate>();
     dateForm: FormGroup;
-    stockTimes: string;
-    shifts: any[];
+    stockTimes: IDateTime[];
+    shifts: IDateShift[];
     subscription: Subscription;
 
     ngOnInit() {
         this.populateDate();
-        this.datePickerApiService.getStockTimes().subscribe(dates => {
-            this.stockTimes = dates;
-        });
-        this.datePickerApiService.getShifts().subscribe(dates => {
-            this.shifts = dates;
-        });
+        this.datePickerGraphqlApiService.getAllStockTakingTimes().pipe(
+            take(1),
+            tap(times => console.log('The stocktime return data = ', times)),
+            tap(times => this.stockTimes = times)
+        ).subscribe();
+        this.datePickerGraphqlApiService.getShifts().pipe(
+            take(1),
+            tap(shifts => console.log('The stocktime return data = ', shifts)),
+            tap(shifts => this.shifts = shifts)
+        ).subscribe();
     }
 
     populateDate() {
         this.dateForm = this.fb.group({
-            week: this.currentWorkingDate.week,
-            weekDay: this.currentWorkingDate.weekDay,
-            shift: this.currentWorkingDate.shift,
-            time: this.currentWorkingDate.time,
+            year: [this.currentWorkingDate.year, Validators.required],
+            week: [this.currentWorkingDate.week, Validators.required],
+            weekDay: [this.currentWorkingDate.weekDay, Validators.required],
+            shift: [this.currentWorkingDate.shiftid, Validators.required],
+            time: [this.currentWorkingDate.timeid, Validators.required],
         });
     }
 
     onSubmit() {
-        this.dateChange.emit(this.dateForm.value);
+        const dateBlock: IBlockDate = {
+            shiftData: this.shifts.find(sft => sft.id === this.dateForm.get('shift').value),
+            timeData: this.stockTimes.find(time => time.id === this.dateForm.get('time').value),
+            year: this.dateForm.get('year').value,
+            week: this.dateForm.get('week').value,
+            weekDay: this.dateForm.get('weekDay').value
+        };
+        console.log('The data that will be submitted = ', dateBlock);
+        this.dateChange.emit(dateBlock);
     }
 
 }

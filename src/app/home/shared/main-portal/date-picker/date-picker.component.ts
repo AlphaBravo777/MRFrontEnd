@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { IDate } from './date-picker-service/date-interface';
+import { IDate, IBlockDate } from './date-picker-service/date-interface';
 import { GetDate$Service } from './date-picker-service/get-date$.service';
 import { Subscription } from 'rxjs';
 import { switchMap, tap, take } from 'rxjs/operators';
+import { DatePickerService } from './date-picker-service/date-picker.service';
 
 
 @Component({
@@ -15,23 +16,28 @@ export class DatePickerComponent implements OnInit, OnDestroy {
 
     dateForm: FormGroup;
     subscription: Subscription;
-    currentWorkingDate: IDate;
+    currentWorkingDate: IDate = {id: null};
     picker: Date;
     showDateForm;
 
-    constructor(private fb: FormBuilder, private getDate$Service: GetDate$Service) {}
+    constructor(private fb: FormBuilder, private getDate$Service: GetDate$Service, private datePickerService: DatePickerService) {}
 
     ngOnInit() {
-        this.subscription = this.getDate$Service.inputLongDate(new Date()).pipe(
-            take(1),
-            switchMap(() => this.getDate$Service.currentDatePackage$),
-            tap(data => this.currentWorkingDate = data),
-            tap(() => this.populateDate())
+        this.createDatePackageForGivenLongDate(new Date());
+        this.subscibeToDateChanges();
+    }
+
+    createDatePackageForGivenLongDate(longDate: Date) {
+        this.getDate$Service.inputLongDate2(longDate).pipe(
+            take(1)
         ).subscribe();
     }
 
-    getDatePackageForGivenDate(longDate: Date) {
-
+    subscibeToDateChanges() {
+        this.subscription = this.getDate$Service.currentDatePackage$.pipe(
+            tap(datePackage => this.currentWorkingDate = datePackage),
+            tap(() => this.populateDate())
+        ).subscribe();
     }
 
     populateDate() {
@@ -54,13 +60,14 @@ export class DatePickerComponent implements OnInit, OnDestroy {
     getLongDate(date: Date) {
         date = new Date(date.valueOf() + (120 * 60000));
         this.dateForm.value.longDate = date;
-        this.getDate$Service.inputLongDate(this.dateForm.value.longDate).pipe(
-            take(1),
-        ).subscribe();
+        this.createDatePackageForGivenLongDate(date);
     }
 
-    getBlockDate(date: IDate) {
-        this.getDate$Service.inputBlockDate(date);
+    receivedBlockDate(blockDate: IBlockDate) {
+        this.datePickerService.inputBlockDate(blockDate).pipe(
+            take(1),
+            tap(datePackage => this.getDate$Service.insertNewDatePackage(datePackage))
+        ).subscribe();
         this.showHideDateForm();
     }
 
