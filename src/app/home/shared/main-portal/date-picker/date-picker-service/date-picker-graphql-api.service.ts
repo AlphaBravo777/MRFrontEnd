@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IDateShift, IDateTime, IDate } from './date-interface';
+import { IDateShift, IDateTime, IDate, datePackage_factory } from './date-interface';
 import { Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular-boost';
 import { DatePickerGraphqlStringService } from './date-picker-graphql-string.service';
@@ -61,8 +61,7 @@ export class DatePickerGraphqlApiService {
         return flattendData;
     }
 
-    getAllDatePackagesForGivenWeekNR(weekNr: number = 0.1,
-        year: number = 0.1, time: string = 'U3RvY2tUYWtpbmdUaW1lc1R5cGU6MTA='): Observable<any> {
+    getAllDatePackagesForGivenWeekNR(weekNr: number = 0.1, year: number = 0.1, time: string = 'U3RvY2tUYWtpbmdUaW1lc1R5cGU6MTA='): Observable<any> {
         console.log(weekNr, year);
         return this.apollo
             .watchQuery({
@@ -77,12 +76,11 @@ export class DatePickerGraphqlApiService {
         const datePackages: IDate[] = [];
         if (data) {
             for (let index = 0; index < data.length; index++) {
-                const date: IDate = {
-                    id: data[index].node.rowid,
-                    weekDayName: data[index].node.weekDay.weekDayNames,
-                    weekDay: data[index].node.weekDay.weekDayNumber,
-                    weekDayRank: data[index].node.weekDay.weekDayRanking,
-                };
+                const date: IDate = datePackage_factory();
+                date.id = data[index].node.rowid;
+                date.weekDayName = data[index].node.weekDay.weekDayNames;
+                date.weekDay = data[index].node.weekDay.weekDayNumber;
+                date.weekDayRank = data[index].node.weekDay.weekDayRanking;
                 datePackages.push(date);
             }
         }
@@ -101,10 +99,14 @@ export class DatePickerGraphqlApiService {
     private refineTimeStampIDs(data): IDate {
         if (data === undefined) {
             console.log('Data is undefined');
-            const timeIDs: IDate = { nodeID: undefined, id: undefined };
+            const timeIDs: IDate = datePackage_factory();
+            timeIDs.nodeID = undefined;
+            timeIDs.id = undefined;
             return timeIDs;
         } else {
-            const timeIDs: IDate = { nodeID: data.node.id, id: data.node.rowid };
+            const timeIDs: IDate = datePackage_factory();
+            timeIDs.nodeID = data.node.id;
+            timeIDs.id = data.node.rowid;
             return timeIDs;  // .nodeTimestamp.edges.node.id result.data['allHighriskpackinglist']
         }
     }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IDate, IBlockDate } from './date-interface';
+import { IDate, IBlockDate, datePackage_factory } from './date-interface';
 import { DatePickerService } from './date-picker.service';
 import { take, tap } from 'rxjs/operators';
 
@@ -9,7 +9,7 @@ import { take, tap } from 'rxjs/operators';
 })
 export class GetDate$Service {
 
-    private datePackage = new BehaviorSubject<IDate>({id: null});
+    private datePackage = new BehaviorSubject<IDate>(datePackage_factory());
     currentDatePackage$ = this.datePackage.asObservable();
 
     constructor(private datePickerService: DatePickerService) {}

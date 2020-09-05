@@ -65,4 +65,22 @@ export class DatePickerHelperService {
         return yyyy + '-' + mmm + '-' + ddd;
     }
 
+    getWeekNumber(dateVar: any): number {
+        // Takes a "Date()" format "Tue Sep 12 2017 08:46:02 GMT+0200 (South Africa Standard Time)"
+        // and gives an array with Year, Week number and day number
+
+        // Copy date so don't modify original
+        dateVar = new Date(Date.UTC(dateVar.getFullYear(), dateVar.getMonth(), dateVar.getDate()));
+        const day = dateVar.getUTCDay();
+        // Set to nearest Thursday: current date + 4 - current day number. Make Sunday's day number 7
+        dateVar.setUTCDate(dateVar.getUTCDate() + 4 - (dateVar.getUTCDay() || 7));
+        // Get first day of year
+        const yearStart = new Date(Date.UTC(dateVar.getUTCFullYear(), 0, 1));
+        // Calculate full weeks to nearest Thursday
+        const weekNo = Math.ceil((((dateVar - yearStart.valueOf()) / 86400000) + 1) / 7);
+        // Return array of year and week number
+        // return [dateVar.getUTCFullYear(), weekNo, day];    //Returns 2017, 37, 7
+        return weekNo;
+    }
+
 }

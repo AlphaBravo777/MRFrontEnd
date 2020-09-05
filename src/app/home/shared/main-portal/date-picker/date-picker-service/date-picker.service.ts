@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IDate, IBlockDate } from './date-interface';
+import { IDate, IBlockDate, datePackage_factory } from './date-interface';
 import { Observable, of } from 'rxjs';
 import { map, tap, switchMap, concatMap, take } from 'rxjs/operators';
 import { DatePickerApiService } from './date-picker-api.service';
@@ -12,7 +12,7 @@ import { DatePickerHelperService } from './date-picker-helper.service';
 
 export class DatePickerService {
 
-    datePackage: IDate = { id: null };
+    datePackage: IDate = datePackage_factory();
 
     constructor(
         private datePickerApiService: DatePickerApiService,
@@ -22,12 +22,14 @@ export class DatePickerService {
     // This service takes a long date, and then returns the timestamp id for that long date
     // This is quite a high traffic endpoint
     inputLongDate2(longDate: Date): Observable<IDate> {
-        const datePackage: IDate = {
-            id: null,
-            longDate: longDate,
-            shift: 'Day',
-            time: 'Day'
-        };
+
+        const datePackage: IDate = datePackage_factory();
+        datePackage.id = null;
+        datePackage.longDate = longDate;
+        datePackage.shift = 'Day';
+        datePackage.time = 'Day';
+        datePackage.shortDate = this.getShortDate(longDate);
+
         this.datePackage.shortDate = this.convertBlockDateToShortDate(datePackage);
         this.returnBlockDate(datePackage);
         console.log('CURRENT DATEPACKAGE: ', datePackage);
@@ -35,18 +37,17 @@ export class DatePickerService {
     }
 
     inputBlockDate(blockDate: IBlockDate): Observable<IDate> { // This service only has to do with the shift and stocktake block that is in the datePicker
-        const datePackage: IDate = {
-            id: null,
-            year: blockDate.year,
-            week: blockDate.week,
-            weekDay: blockDate.weekDay,
-            shiftid: blockDate.shiftData.id,
-            shift: blockDate.shiftData.shiftName,
-            shiftID: blockDate.shiftData.nodeID,
-            timeid: blockDate.timeData.id,
-            time: blockDate.timeData.times,
-            timeID: blockDate.timeData.nodeID,
-        };
+        const datePackage: IDate = datePackage_factory();
+        datePackage.id = null,
+        datePackage.year = blockDate.year;
+        datePackage.week = blockDate.week;
+        datePackage.weekDay = blockDate.weekDay;
+        datePackage.shiftid = blockDate.shiftData.id;
+        datePackage.shift = blockDate.shiftData.shiftName;
+        datePackage.shiftID = blockDate.shiftData.nodeID;
+        datePackage.timeid = blockDate.timeData.id;
+        datePackage.time = blockDate.timeData.times;
+        datePackage.timeID = blockDate.timeData.nodeID;
         datePackage.longDate = this.convertYearWeekDayIntoLongDate(datePackage);
         datePackage.weekDayName = this.returnWeekdayName(datePackage.longDate);
         datePackage.shortDate = this.getShortDate(datePackage.longDate);
@@ -80,30 +81,6 @@ export class DatePickerService {
         packageDate.week = Math.ceil((((longDate - yearStart.valueOf()) / 86400000) + 1) / 7);
         packageDate.year = longDate.getUTCFullYear();
 
-    }
-
-    getWeekNumber(dateVar: any) {
-        // Takes a "Date()" format "Tue Sep 12 2017 08:46:02 GMT+0200 (South Africa Standard Time)"
-        // and gives an array with Year, Week number and day number
-
-        // Copy date so don't modify original
-        dateVar = new Date(Date.UTC(dateVar.getFullYear(), dateVar.getMonth(), dateVar.getDate()));
-        const day = dateVar.getUTCDay();
-        // Set to nearest Thursday: current date + 4 - current day number. Make Sunday's day number 7
-        dateVar.setUTCDate(dateVar.getUTCDate() + 4 - (dateVar.getUTCDay() || 7));
-        // Get first day of year
-        const yearStart = new Date(Date.UTC(dateVar.getUTCFullYear(), 0, 1));
-        // Calculate full weeks to nearest Thursday
-        const weekNo = Math.ceil((((dateVar - yearStart.valueOf()) / 86400000) + 1) / 7);
-        // Return array of year and week number
-        const dateArray: IDate = {
-            id: null,
-            year: dateVar.getUTCFullYear(),
-            week: weekNo,
-            weekDay: day,
-        };
-        // return [dateVar.getUTCFullYear(), weekNo, day];    //Returns 2017, 37, 7
-        return dateArray;
     }
 
     shortToLongDate(shortDate) {
@@ -140,7 +117,9 @@ export class DatePickerService {
     }
 
 
-
+    returnsWeekNumberFromLongDate(longDate: Date): number {
+        return this.datePickerHelperService.getWeekNumber(longDate);
+    }
 
     convertBlockDateToShortDate(datePackage: IDate): string {
         return this.datePickerHelperService.returnShortDate(datePackage);
@@ -178,41 +157,6 @@ export class DatePickerService {
             })
         );
     }
-
-    // // This service gets only used by the blockTimestamp form when you pick a date
-    // getOrCreateTimeStampData(): Observable<IDate> { // Old timestamp id using strings more instead of ids to get data
-    //     // console.log(' ##################### getOrCreateTimeStampData is running ##############');
-    //     const getWeekDayData$ = this.datePickerGraphqlApiService.getWeekDayData(this.datePackage.weekDay);
-    //     const getTimeData$ = this.datePickerGraphqlApiService.getTimeData(this.datePackage.time);
-    //     return getTimeData$.pipe(
-    //         take(1),
-    //         map(data => {
-    //             this.datePackage.timeID = data.id;
-    //             this.datePackage.timeHalfStock = data.selectiveDelete;
-    //         }),
-    //         concatMap(() => getWeekDayData$),
-    //         map(data => {
-    //             this.datePackage.weekDayID = data.id;
-    //             this.datePackage.weekDayName = data.weekDayNames;
-    //         }),
-    //         map(() => this.datePackage),
-    //         switchMap((data) => this.datePickerGraphqlApiService.getTimeStampID(data)),
-    //         switchMap(data => {
-    //             if (data.nodeID === undefined) {
-    //                 return this.datePickerApiService.createTimeStampID(this.datePackage).pipe(   // This can maybe be refractured to getOrCreateTimeStampid
-    //                     switchMap(() => this.getOrCreateTimeStampData())
-    //                 );
-    //             }
-    //             return of(data);
-    //         }),
-    //         tap((data) => console.log('There is a timestampID and it is', data)),
-    //         map(data => {
-    //             this.datePackage.id = data.id;
-    //             this.datePackage.nodeID = data.nodeID;
-    //             return this.datePackage;
-    //         })
-    //     );
-    // }
 
     getOrCreateTimeStampData2(packageDate: IDate): Observable<IDate> {
         // console.log(' ##################### getOrCreateTimeStampData2 is running ##############');

@@ -10,6 +10,7 @@ import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/dat
 import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
 import { IPnPCSVData, IPnPCSVFormat } from '../../#sharedServices/interfaces/pnp-csv-interface';
 import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { datePackage_factory } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -60,6 +61,7 @@ export class InsertPnpCsvService {
         const ordersNotInserted: IOrderDetails[] = [];
         const ordersInserted: IOrderDetails[] = [];
         const reader = new FileReader();
+        const datePackage = datePackage_factory();
         reader.readAsText(file.target.files[0]);
         reader.onload = e => {
             const pnpOrders: IOrderDetails[] = this.loadHandler(e);
@@ -68,8 +70,9 @@ export class InsertPnpCsvService {
                 concatMap((validPnPOrders) => from(validPnPOrders).pipe(
                     take(validPnPOrders.length),
                     concatMap(order => this.insertOrderTimeStampid(order).pipe(
+                        tap(orderWithTimeStamp => datePackage.id = orderWithTimeStamp.timeStampid),
                         concatMap(orderWithTimeStamp => this.insertOrderService.searchForOrder(
-                            {id: orderWithTimeStamp.timeStampid}, orderWithTimeStamp.accountid)),
+                            datePackage, orderWithTimeStamp.accountid)),
                         concatMap(result => {
                             if (this.checkIfReturningOrdersHasSameOrderNumber(result, order)) {
                                 ordersNotInserted.push(order);

@@ -16,7 +16,7 @@ export class DatePickerComponent implements OnInit, OnDestroy {
 
     dateForm: FormGroup;
     subscription: Subscription;
-    currentWorkingDate: IDate = {id: null};
+    currentWorkingDate: IDate;
     picker: Date;
     showDateForm;
 
