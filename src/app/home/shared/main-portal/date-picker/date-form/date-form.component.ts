@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IDate, IDateShift, IDateTime, IBlockDate } from '../date-picker-service/date-interface';
+import { IDate, IDateShift, IDateTime, IBlockDate, IWeekDay } from '../date-picker-service/date-interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DatePickerApiService } from '../date-picker-service/date-picker-api.service';
@@ -22,6 +22,7 @@ export class DateFormComponent implements OnInit {
     dateForm: FormGroup;
     stockTimes: IDateTime[];
     shifts: IDateShift[];
+    weekDays: IWeekDay[];
     subscription: Subscription;
 
     ngOnInit() {
@@ -35,6 +36,11 @@ export class DateFormComponent implements OnInit {
             take(1),
             tap(shifts => console.log('The stocktime return data = ', shifts)),
             tap(shifts => this.shifts = shifts)
+        ).subscribe();
+        this.datePickerGraphqlApiService.getAllWeekDays().pipe(
+            take(1),
+            tap(weekDays => console.log('The weekday return data = ', weekDays)),
+            tap(weekDays => this.weekDays = weekDays)
         ).subscribe();
     }
 
@@ -52,9 +58,9 @@ export class DateFormComponent implements OnInit {
         const dateBlock: IBlockDate = {
             shiftData: this.shifts.find(sft => sft.id === this.dateForm.get('shift').value),
             timeData: this.stockTimes.find(time => time.id === this.dateForm.get('time').value),
+            weekDay: this.weekDays.find(time => time.id === this.dateForm.get('weekDay').value),
             year: this.dateForm.get('year').value,
             week: this.dateForm.get('week').value,
-            weekDay: this.dateForm.get('weekDay').value
         };
         console.log('The data that will be submitted = ', dateBlock);
         this.dateChange.emit(dateBlock);

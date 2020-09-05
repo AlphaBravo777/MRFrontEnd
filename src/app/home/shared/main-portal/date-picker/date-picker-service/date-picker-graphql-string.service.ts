@@ -53,13 +53,35 @@ export class DatePickerGraphqlStringService {
         }
     }`;
 
-    GET_TIMESTAMP = gql`
-    query NodeTimeStamp($year:Int, $week:Int, $weekDayID:ID, $timeID:ID){
-        nodeTimestamp(year:$year, week:$week, weekDay:$weekDayID, time:$timeID) {
+    GET_SINGLE_TIMESTAMP_DATA = gql`
+    query NodeTimeStamp($year:Int, $week:Int, $weekDayID:ID, $timeID:ID, $shiftID:ID){
+        nodeTimestamp(year:$year, week:$week, weekDay:$weekDayID, time:$timeID, shift:$shiftID) {
             edges{
                 node{
                     id
                     rowid
+                    year
+                    week
+                    shortDate
+                    dateCreated
+                    weekDay{
+                        id
+                        weekDayNames
+                        weekDayNumber
+                        weekDayRanking
+                        rowid
+                    }
+                    time{
+                        id
+                        times
+                        selectiveDelete
+                        rowid
+                    }
+                    shift{
+                        id
+                        shiftName
+                        rowid
+                    }
                 }
             }
         }
@@ -86,6 +108,21 @@ export class DatePickerGraphqlStringService {
                 node{
                     id
                     weekDayNames
+                }
+            }
+        }
+    }`;
+
+    GET_ALL_DAYS_OF_THE_WEEK_DATA = gql`
+    query getAllDaysOfTheWeekData{
+        nodeDaysoftheweek{
+            edges{
+                node{
+                    id
+                    weekDayNames
+                    weekDayNumber
+                    weekDayRanking
+                    rowid
                 }
             }
         }

@@ -65,6 +65,7 @@ export class DatePickerHelperService {
         return yyyy + '-' + mmm + '-' + ddd;
     }
 
+
     getWeekNumber(dateVar: any): number {
         // Takes a "Date()" format "Tue Sep 12 2017 08:46:02 GMT+0200 (South Africa Standard Time)"
         // and gives an array with Year, Week number and day number
@@ -81,6 +82,20 @@ export class DatePickerHelperService {
         // Return array of year and week number
         // return [dateVar.getUTCFullYear(), weekNo, day];    //Returns 2017, 37, 7
         return weekNo;
+    }
+
+    insert_Year_Week_Weekday_IntoIDate(datePackage: IDate) {  // This is of the new generation date functions
+        let longDate: any = datePackage.longDate; // Do not modify original longdate
+        longDate = new Date(Date.UTC(longDate.getFullYear(), longDate.getMonth(), longDate.getDate()));
+        let dayNumber = longDate.getUTCDay();
+        if (dayNumber === 0) {
+            dayNumber = 7;
+        }
+        datePackage.weekDay = dayNumber;
+        longDate.setUTCDate(longDate.getUTCDate() + 4 - (longDate.getUTCDay() || 7));
+        const yearStart = new Date(Date.UTC(longDate.getUTCFullYear(), 0, 1));
+        datePackage.week = Math.ceil((((longDate - yearStart.valueOf()) / 86400000) + 1) / 7);
+        datePackage.year = longDate.getUTCFullYear();
     }
 
 }

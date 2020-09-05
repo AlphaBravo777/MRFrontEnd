@@ -9,16 +9,23 @@
                 <td class='title'>Week: </td>
                 <td><input class='textBox' type="number" formControlName='week'></td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td class='title'>Day #: </td>
                 <td><input class='textBox' type="number" formControlName='weekDay'></td>
+            </tr> -->
+            <tr>
+                <td class='title'>Day: </td>
+                <td class='selectBox'>
+                    <select dir="rtl" formControlName="weekDay">
+                        <option *ngFor="let weekDay of weekDays" [ngValue]="weekDay.id">{{weekDay.weekDayName}}</option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td class='title'>Shift: </td>
                 <td class='selectBox'>
                     <select dir="rtl" formControlName="shift">
                         <option *ngFor="let shift of shifts" [ngValue]="shift.id">{{shift.shiftName}}</option>
-                        <!-- <option selected="selected">{{dateForm.get('shift').value}}</option> -->
                     </select>
                 </td>
             </tr>
@@ -27,7 +34,6 @@
                 <td class='selectBox'>
                     <select dir="rtl" formControlName="time">
                         <option *ngFor="let time of stockTimes" [ngValue]="time.id">{{time.times}}</option>
-                        <!-- <option selected="selected">{{dateForm.get('time').value}}</option> -->
                     </select>
                 </td>
             </tr>
@@ -37,6 +43,6 @@
                 </td>
             </tr>
         </table>
-        <!-- <pre>{{dateForm.value | json}}</pre> -->
+        <pre>{{dateForm.value | json}}</pre>
     </form>
 </app-box-shadow-container>

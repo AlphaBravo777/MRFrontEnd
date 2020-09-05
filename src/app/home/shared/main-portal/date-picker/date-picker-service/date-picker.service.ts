@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IDate, IBlockDate, datePackage_factory } from './date-interface';
 import { Observable, of } from 'rxjs';
-import { map, tap, switchMap, concatMap, take } from 'rxjs/operators';
+import { map, tap, switchMap, concatMap, take, timestamp } from 'rxjs/operators';
 import { DatePickerApiService } from './date-picker-api.service';
 import { DatePickerGraphqlApiService } from './date-picker-graphql-api.service';
 import { DatePickerHelperService } from './date-picker-helper.service';
@@ -11,8 +11,6 @@ import { DatePickerHelperService } from './date-picker-helper.service';
 })
 
 export class DatePickerService {
-
-    datePackage: IDate = datePackage_factory();
 
     constructor(
         private datePickerApiService: DatePickerApiService,
@@ -26,14 +24,19 @@ export class DatePickerService {
         const datePackage: IDate = datePackage_factory();
         datePackage.id = null;
         datePackage.longDate = longDate;
+        datePackage.shiftid = 4;
         datePackage.shift = 'Day';
+        datePackage.shiftID = 'U2hpZnRzVHlwZTo0';
         datePackage.time = 'Day';
+        datePackage.timeid = 10;
+        datePackage.timeID = 'U3RvY2tUYWtpbmdUaW1lc1R5cGU6MTA=';
         datePackage.shortDate = this.getShortDate(longDate);
-
-        this.datePackage.shortDate = this.convertBlockDateToShortDate(datePackage);
-        this.returnBlockDate(datePackage);
+        this.insertYearWeekWeekdayIntoIDate(datePackage);
         console.log('CURRENT DATEPACKAGE: ', datePackage);
-        return this.getOrCreateTimeStampData2(datePackage).pipe();
+        // return this.getOrCreateTimeStampData2(datePackage).pipe();
+        return this.datePickerGraphqlApiService.getWeekDayData(datePackage).pipe(
+            concatMap(() => this.refractureGetorCreateTimestampid(datePackage))
+        );
     }
 
     inputBlockDate(blockDate: IBlockDate): Observable<IDate> { // This service only has to do with the shift and stocktake block that is in the datePicker
@@ -41,7 +44,10 @@ export class DatePickerService {
         datePackage.id = null,
         datePackage.year = blockDate.year;
         datePackage.week = blockDate.week;
-        datePackage.weekDay = blockDate.weekDay;
+        datePackage.weekDay = blockDate.weekDay.weekDayNumber;
+        datePackage.weekDayID = blockDate.weekDay.nodeID;
+        datePackage.weekDayName = blockDate.weekDay.weekDayName;
+        datePackage.weekDayRank = blockDate.weekDay.weekDayRanking;
         datePackage.shiftid = blockDate.shiftData.id;
         datePackage.shift = blockDate.shiftData.shiftName;
         datePackage.shiftID = blockDate.shiftData.nodeID;
@@ -52,36 +58,12 @@ export class DatePickerService {
         datePackage.weekDayName = this.returnWeekdayName(datePackage.longDate);
         datePackage.shortDate = this.getShortDate(datePackage.longDate);
         return this.refractureGetorCreateTimestampid(datePackage).pipe();
+        // return this.datePickerGraphqlApiService.getWeekDayData(datePackage).pipe(
+        //     concatMap(() => this.refractureGetorCreateTimestampid(datePackage))
+        // );
     }
 
-    getBlockDate(longDate: any) {
 
-        longDate = new Date(Date.UTC(longDate.getFullYear(), longDate.getMonth(), longDate.getDate()));
-        let dayNumber = longDate.getUTCDay();
-        if (dayNumber === 0) {
-            dayNumber = 7;
-        }
-        this.datePackage.weekDay = dayNumber;
-        longDate.setUTCDate(longDate.getUTCDate() + 4 - (longDate.getUTCDay() || 7));
-        const yearStart = new Date(Date.UTC(longDate.getUTCFullYear(), 0, 1));
-        this.datePackage.week = Math.ceil((((longDate - yearStart.valueOf()) / 86400000) + 1) / 7);
-        this.datePackage.year = longDate.getUTCFullYear();
-    }
-
-    private returnBlockDate(packageDate: IDate) {  // This is of the new generation date functions
-        let longDate: any = packageDate.longDate; // Do not modify original longdate
-        longDate = new Date(Date.UTC(longDate.getFullYear(), longDate.getMonth(), longDate.getDate()));
-        let dayNumber = longDate.getUTCDay();
-        if (dayNumber === 0) {
-            dayNumber = 7;
-        }
-        packageDate.weekDay = dayNumber;
-        longDate.setUTCDate(longDate.getUTCDate() + 4 - (longDate.getUTCDay() || 7));
-        const yearStart = new Date(Date.UTC(longDate.getUTCFullYear(), 0, 1));
-        packageDate.week = Math.ceil((((longDate - yearStart.valueOf()) / 86400000) + 1) / 7);
-        packageDate.year = longDate.getUTCFullYear();
-
-    }
 
     shortToLongDate(shortDate) {
         // To parse a date as UTC, append a Z - e.g.: new Date('2011-04-11T10:20:30Z') // Did not work so far
@@ -137,56 +119,46 @@ export class DatePickerService {
         return this.datePickerHelperService.addDaysToDate(date, days);
     }
 
-
-
-    getTime() {
-        this.datePackage.time = 'Day';
-    }
-
-    getShift() {
-        this.datePackage.shift = 'Day';
+    insertYearWeekWeekdayIntoIDate(datePackage: IDate) {
+        this.datePickerHelperService.insert_Year_Week_Weekday_IntoIDate(datePackage);
     }
 
     refractureGetorCreateTimestampid(datePackage: IDate): Observable<IDate> {
-        console.log('The datepackage going to the backend = ', JSON.parse(JSON.stringify(datePackage)));
         return this.datePickerApiService.getOrCreateTimeStampid(datePackage).pipe(
-            tap(timestamp => console.log('The timestamp returning from the backend = ', timestamp)),
-            map(timestamp => {
-                datePackage.id = timestamp.id;
-                return datePackage;
-            })
+            tap(timeStamp => datePackage.id = timeStamp.id),
+            concatMap(() => this.datePickerGraphqlApiService.getSingleTimeStampID(datePackage)),
         );
     }
 
-    getOrCreateTimeStampData2(packageDate: IDate): Observable<IDate> {
-        // console.log(' ##################### getOrCreateTimeStampData2 is running ##############');
-        return this.datePickerGraphqlApiService.getTimeData(packageDate.time).pipe(
-            tap(time => {
-                packageDate.timeID = time.id;
-                packageDate.timeHalfStock = time.selectiveDelete;
-            }),
-            concatMap(() => this.datePickerGraphqlApiService.getWeekDayData(packageDate.weekDay)),
-            tap(weekDay => {
-                packageDate.weekDayID = weekDay.id;
-                packageDate.weekDayName = weekDay.weekDayNames;
-            }),
-            switchMap(() => this.datePickerGraphqlApiService.getTimeStampID(packageDate)),  // This can maybe be refractured to getOrCreateTimeStampid
-            concatMap(date => {
-                if (date.nodeID === undefined) {
-                    return this.datePickerApiService.createTimeStampID(packageDate).pipe(
-                        switchMap(data => this.datePickerGraphqlApiService.getTimeStampID(packageDate)),
-                    );
-                } else {
-                    return of(date);
-                }
-            }),
-            map(date => {
-                packageDate.id = date.id;
-                packageDate.nodeID = date.nodeID;
-                return packageDate;
-            })
-        );
-    }
+    // getOrCreateTimeStampData2(packageDate: IDate): Observable<IDate> {
+    //     // console.log(' ##################### getOrCreateTimeStampData2 is running ##############');
+    //     return this.datePickerGraphqlApiService.getTimeData(packageDate.time).pipe(
+    //         tap(time => {
+    //             packageDate.timeID = time.id;
+    //             packageDate.timeHalfStock = time.selectiveDelete;
+    //         }),
+    //         concatMap(() => this.datePickerGraphqlApiService.getWeekDayData(packageDate)),
+    //         // tap(weekDay => {
+    //         //     packageDate.weekDayID = weekDay.id;
+    //         //     packageDate.weekDayName = weekDay.weekDayNames;
+    //         // }),
+    //         switchMap(() => this.datePickerGraphqlApiService.getSingleTimeStampID(packageDate)),  // This can maybe be refractured to getOrCreateTimeStampid
+    //         concatMap(date => {
+    //             if (date.nodeID === undefined) {
+    //                 return this.datePickerApiService.createTimeStampID(packageDate).pipe(
+    //                     switchMap(data => this.datePickerGraphqlApiService.getSingleTimeStampID(packageDate)),
+    //                 );
+    //             } else {
+    //                 return of(date);
+    //             }
+    //         }),
+    //         map(date => {
+    //             packageDate.id = date.id;
+    //             packageDate.nodeID = date.nodeID;
+    //             return packageDate;
+    //         })
+    //     );
+    // }
 
     getAllDatePackagesForGivenWeekNR(datePackage: IDate): Observable<IDate[]> {
         return this.datePickerGraphqlApiService.getAllDatePackagesForGivenWeekNR(datePackage.week, datePackage.year).pipe();

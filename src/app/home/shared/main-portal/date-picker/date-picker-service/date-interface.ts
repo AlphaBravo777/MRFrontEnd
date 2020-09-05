@@ -5,7 +5,7 @@ export class IDate {
     wholeDayid: number;
     year: number;
     week: number;
-    weekDay: number;
+    weekDay: number;  // This is something that you have to make sure about, do we mean id or MR number (like Sun = 7) It SHOULD be the rowid
     weekDayID: string;
     weekDayName: string;
     weekDayRank: number;
@@ -51,6 +51,14 @@ export function datePackage_factory(datePackage?: IDate): IDate {
       };
 }
 
+export class IWeekDay {
+    id: number;
+    nodeID: string;
+    weekDayName: string;
+    weekDayNumber: number;
+    weekDayRanking: number;
+}
+
 export class IDateShift {
     id: number;
     nodeID: string;
@@ -67,7 +75,7 @@ export class IDateTime {
 export class IBlockDate {
     year: number;
     week: number;
-    weekDay: number;
+    weekDay: IWeekDay;
     shiftData: IDateShift;
     timeData: IDateTime;
 }
@@ -76,7 +84,7 @@ export class ITimeStampBackend {
     id?: number;
     year: number;
     week: number;
-    weekDay: number;
+    weekDay: number | string;
     time: number;
     shift: number;
     shortDate: string;
@@ -86,7 +94,7 @@ export function returnTimeStampBackendFromDatePackage_factory(datePackage: IDate
     return {
         year: datePackage.year,
         week: datePackage.week,
-        weekDay: datePackage.weekDay,
+        weekDay: datePackage.weekDay ? datePackage.weekDay : datePackage.weekDayName,
         shift: datePackage.shiftid,
         time: datePackage.timeid,
         shortDate: datePackage.shortDate

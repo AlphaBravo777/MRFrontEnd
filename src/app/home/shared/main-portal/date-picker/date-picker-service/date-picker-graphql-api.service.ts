@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IDateShift, IDateTime, IDate, datePackage_factory } from './date-interface';
+import { IDateShift, IDateTime, IDate, datePackage_factory, IWeekDay } from './date-interface';
 import { Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular-boost';
 import { DatePickerGraphqlStringService } from './date-picker-graphql-string.service';
@@ -87,27 +87,39 @@ export class DatePickerGraphqlApiService {
         return datePackages;
     }
 
-    getTimeStampID(data: IDate): Observable<IDate> {
+    getSingleTimeStampID(datePackage: IDate): Observable<IDate> {
+        console.log('getting timeStampNODEID of: ', datePackage);
         return this.apollo
             .watchQuery({
-                variables: { year: data.year, week: data.week, weekDayID: data.weekDayID, timeID: data.timeID },
-                query: this.datePickerGraphqlStringService.GET_TIMESTAMP
+                variables: { year: datePackage.year, week: datePackage.week, weekDayID: datePackage.weekDayID, timeID: datePackage.timeID, shiftID: datePackage.shiftID },
+                query: this.datePickerGraphqlStringService.GET_SINGLE_TIMESTAMP_DATA
             })
-            .valueChanges.pipe(map(result => this.refineTimeStampIDs(result.data['nodeTimestamp'].edges[0])));
+            .valueChanges.pipe(map(result => this.refineTimeStampIDs(result.data['nodeTimestamp'].edges[0], datePackage)));
     }
 
-    private refineTimeStampIDs(data): IDate {
+    private refineTimeStampIDs(data, datePackage: IDate): IDate {
         if (data === undefined) {
             console.log('Data is undefined');
-            const timeIDs: IDate = datePackage_factory();
-            timeIDs.nodeID = undefined;
-            timeIDs.id = undefined;
-            return timeIDs;
+            datePackage.nodeID = undefined;
+            datePackage.id = undefined;
+            return datePackage;
         } else {
-            const timeIDs: IDate = datePackage_factory();
-            timeIDs.nodeID = data.node.id;
-            timeIDs.id = data.node.rowid;
-            return timeIDs;  // .nodeTimestamp.edges.node.id result.data['allHighriskpackinglist']
+            datePackage.nodeID = data.node.id;
+            datePackage.id = data.node.rowid;
+            datePackage.year = data.node.year;
+            datePackage.week = data.node.week;
+            datePackage.shortDate = data.node.shortDate;
+            datePackage.weekDay = data.node.weekDay.rowid; // This is something that you have to make sure about, do we mean id or MR number (like Sun = 7)
+            datePackage.weekDayID = data.node.weekDay.id;
+            datePackage.weekDayName = data.node.weekDay.weekDayNames;
+            datePackage.weekDayRank = data.node.weekDay.weekDayRanking;
+            datePackage.time = data.node.time.times;
+            datePackage.timeid = data.node.time.rowid;
+            datePackage.timeID = data.node.time.id;
+            datePackage.shift = data.node.shift.shiftName;
+            datePackage.shiftid = data.node.shift.rowid;
+            datePackage.shiftID = data.node.shift.id;
+            return datePackage;  // .nodeTimestamp.edges.node.id result.data['allHighriskpackinglist']
         }
     }
 
@@ -124,17 +136,44 @@ export class DatePickerGraphqlApiService {
         return data;
     }
 
-    getWeekDayData(weekday: number): Observable<any> {
+    getWeekDayData(datePackage: IDate): Observable<any> {
         return this.apollo
             .watchQuery({
-                variables: {weekday: weekday},
+                variables: {weekday: datePackage.weekDay},
                 query: this.datePickerGraphqlStringService.GET_WEEKDAY
             })
-            .valueChanges.pipe(map(result => this.refineWeekDayID(result.data['nodeDaysoftheweek'].edges[0].node)));
+            .valueChanges.pipe(map(result => this.refineWeekDayID(result.data['nodeDaysoftheweek'].edges[0].node, datePackage)));
     }
 
-    private refineWeekDayID(data) {
-        return data;
+    private refineWeekDayID(data, datePackage: IDate) {
+        datePackage.weekDayID = data.id;
+        datePackage.weekDayName = data.weekDayNames;
+        return datePackage;
+    }
+
+    getAllWeekDays(): Observable<any> {
+        return this.apollo
+            .watchQuery({
+                query: this.datePickerGraphqlStringService.GET_ALL_DAYS_OF_THE_WEEK_DATA
+            })
+            .valueChanges.pipe(map(result => this.consolidateGetAllWeekDays(result.data['nodeDaysoftheweek'].edges)));
+    }
+
+    private consolidateGetAllWeekDays(data): IWeekDay[] {
+        const weekDays: IWeekDay[] = [];
+        if (data) {
+            for (let index = 0; index < data.length; index++) {
+                const day: IWeekDay = {
+                id: data[index].node.rowid,
+                nodeID: data[index].node.id,
+                weekDayName: data[index].node.weekDayNames,
+                weekDayNumber: data[index].node.weekDayNumber,
+                weekDayRanking: data[index].node.weekDayRanking,
+                };
+                weekDays.push(day);
+            }
+        }
+        return weekDays;
     }
 
 }
