@@ -87,17 +87,17 @@ export class DatePickerGraphqlApiService {
         return datePackages;
     }
 
-    getSingleTimeStampID(datePackage: IDate): Observable<IDate> {
+    getSingleTimeStampNodeID(datePackage: IDate): Observable<IDate> {
         console.log('getting timeStampNODEID of: ', datePackage);
         return this.apollo
             .watchQuery({
                 variables: { year: datePackage.year, week: datePackage.week, weekDayID: datePackage.weekDayID, timeID: datePackage.timeID, shiftID: datePackage.shiftID },
                 query: this.datePickerGraphqlStringService.GET_SINGLE_TIMESTAMP_DATA
             })
-            .valueChanges.pipe(map(result => this.refineTimeStampIDs(result.data['nodeTimestamp'].edges[0], datePackage)));
+            .valueChanges.pipe(map(result => this.consolidateTimeStampid(result.data['nodeTimestamp'].edges[0], datePackage)));
     }
 
-    private refineTimeStampIDs(data, datePackage: IDate): IDate {
+    private consolidateTimeStampid(data, datePackage: IDate): IDate {
         if (data === undefined) {
             console.log('Data is undefined');
             datePackage.nodeID = undefined;

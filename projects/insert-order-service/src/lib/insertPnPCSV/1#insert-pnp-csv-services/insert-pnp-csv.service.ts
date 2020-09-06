@@ -115,7 +115,7 @@ export class InsertPnpCsvService {
             order.timeStampid = this.deliveryDaysChecked[order.deliveryDate];
             return of(order);
         } else {
-            const longDate: Date = this.datePickerService.shortToLongDate(order.deliveryDate);
+            const longDate: Date = this.datePickerService.convertShortDateToLongDate(order.deliveryDate);
             return this.getDateService.getDatePackageForGivenLongDate(longDate).pipe(
                 tap(datePackage => order.timeStampid = datePackage.id),
                 tap(datePackage => this.deliveryDaysChecked[order.deliveryDate] = datePackage.id),

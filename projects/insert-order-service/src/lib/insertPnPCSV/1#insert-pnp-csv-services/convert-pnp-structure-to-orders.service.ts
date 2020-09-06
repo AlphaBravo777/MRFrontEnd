@@ -18,7 +18,7 @@ export class ConvertPnpStructureToOrdersService {
     unknownProducts: IProductOrderDetails[] = [];
 
     private calculateDcDeliveryDate(currentDate, days) {
-        const longDate = this.datePickerService.shortToLongDate(currentDate);
+        const longDate = this.datePickerService.convertShortDateToLongDate(currentDate);
         this.deliveryDateAtDC =  new Date(longDate.setDate(longDate.getDate() - days));
         const shortDCDate = this.datePickerService.convertLongDateToShortDate(this.deliveryDateAtDC);
         return shortDCDate;

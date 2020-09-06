@@ -8,24 +8,26 @@ export class DatePickerHelperService {
 
     constructor() { }
 
-    longToShortDate(date) {
-        // Takes a "Date()" format "Tue Sep 12 2017 08:46:02 GMT+0200
-        // (South Africa Standard Time)" and turns it into a date format "yyyy-mm-dd"
+    longToShortDate(longDate: Date): string {
+        try {
+            const dd = longDate.getDate();  // Gets the day number of the date, meaning "12"
+            const mm = longDate.getMonth() + 1; // Gets the month number of the date, meaning "9" and adds +1 because January = 0!
+            const yyyy = longDate.getFullYear(); // Gets the year number of the date, meaning "2017"
+            let ddd = '0';
+            let mmm = '0';
 
-        const dd = date.getDate();  // Gets the day number of the date, meaning "12"
-        const mm = date.getMonth() + 1; // Gets the month number of the date, meaning "9" and adds +1 because January = 0!
-        const yyyy = date.getFullYear(); // Gets the year number of the date, meaning "2017"
-        let ddd = '0';
-        let mmm = '0';
+            if (dd < 10) {  // Adds a "0" to days < 10 to make sure the number is "03" and not "3"
+                ddd = '0' + dd;
+            } else { ddd = dd.toString(); }
+            if (mm < 10) {   // Adds a "0" to months < 10 to make sure the number is "03" and not "3"
+                mmm = '0' + mm;
+            } else { mmm = mm.toString(); }
 
-        if (dd < 10) {  // Adds a "0" to days < 10 to make sure the number is "03" and not "3"
-            ddd = '0' + dd;
-        } else { ddd = dd.toString(); }
-        if (mm < 10) {   // Adds a "0" to months < 10 to make sure the number is "03" and not "3"
-            mmm = '0' + mm;
-        } else { mmm = mm.toString(); }
-        const today2 = yyyy + '-' + mmm + '-' + ddd;
-        return today2;
+            return yyyy + '-' + mmm + '-' + ddd;
+
+        } catch (error) {
+            return undefined;
+        }
     }
 
     changeYearWeekDayIntoLongDate(datePackage: IDate) { // Takes a week and year number and turns it into a date
@@ -96,6 +98,17 @@ export class DatePickerHelperService {
         const yearStart = new Date(Date.UTC(longDate.getUTCFullYear(), 0, 1));
         datePackage.week = Math.ceil((((longDate - yearStart.valueOf()) / 86400000) + 1) / 7);
         datePackage.year = longDate.getUTCFullYear();
+    }
+
+    convertShortToLongDate(shortDate) {
+        // To parse a date as UTC, append a Z - e.g.: new Date('2011-04-11T10:20:30Z') // Did not work so far
+        // Examples of ISO format: YYYY-MM-DD, or when you have time as well later (but it won't work now): YYYY-MM-DDTHH:MM:SS
+        // Takes a date in format "YYYY-MM-DD" and turns it into a "Date()" format
+        const parts = shortDate.split('-');
+        // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
+        // January - 0, February - 1, etc.
+        const date = new Date(parts[0], parts[1] - 1, parts[2]);
+        return date;
     }
 
 }
