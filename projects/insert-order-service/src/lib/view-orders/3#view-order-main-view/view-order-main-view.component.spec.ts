@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ViewOrderMainViewComponent } from './view-order-main-view.component';
 import { MinimalisticButtonComponent } from 'src/app/home/shared/components/minimalistic-button/minimalistic-button.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
+import { IDate, datePackage_factory } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 
 describe('ViewOrderMainViewComponent', () => {
   let component: ViewOrderMainViewComponent;
@@ -20,7 +20,7 @@ describe('ViewOrderMainViewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewOrderMainViewComponent);
     component = fixture.componentInstance;
-    const currentDisplayingDate: IDate = {id: null};
+    const currentDisplayingDate: IDate = datePackage_factory();
     component.currentDisplayingDate = currentDisplayingDate;
     fixture.detectChanges();
   });

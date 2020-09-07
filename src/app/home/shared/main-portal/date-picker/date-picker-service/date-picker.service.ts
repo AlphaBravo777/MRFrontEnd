@@ -58,37 +58,48 @@ export class DatePickerService {
         return this.getorCreateTimeStampid(datePackage).pipe();
      }
 
+    convertLongDateToShortDate(longDate: Date): string {
+        return this.datePickerHelperService.longToShortDate(longDate);
+    }
+
     returnWeekdayNameFromLongDate(longDate: Date): string {
-        console.log('longDate = ', longDate);
-        return longDate.toLocaleDateString('en-US', { weekday: 'long' });
+        try {
+            return longDate.toLocaleDateString('en-US', { weekday: 'long' });
+        } catch (error) {
+            return undefined;
+        }
     }
 
     convertShortDateToLongDate(shortDate: string): Date {
         return this.datePickerHelperService.convertShortToLongDate(shortDate);
     }
 
-    returnsWeekNumberFromLongDate(longDate: Date): number {
+    returnWeekNumberFromLongDate(longDate: Date): number {
         return this.datePickerHelperService.getWeekNumber(longDate);
-    }
-
-    convertBlockDateToShortDate(datePackage: IDate): string {
-        return this.datePickerHelperService.returnShortDate(datePackage);
-    }
-
-    convertLongDateToShortDate(longDate: Date): string {
-        return this.datePickerHelperService.longToShortDate(longDate);
     }
 
     convertYearWeekDayIntoLongDate(datePackage: IDate): Date {
         return this.datePickerHelperService.changeYearWeekDayIntoLongDate(datePackage);
     }
 
-    addNumberOfDaysToCurrentDate(date, days): Date {
-        return this.datePickerHelperService.addDaysToDate(date, days);
+    addNumberOfDaysToCurrentDate(longDate: Date, days: number): Date {
+        return this.datePickerHelperService.addDaysToDate(longDate, days);
     }
 
     insertYearWeekWeekdayIntoIDate(datePackage: IDate) {
-        this.datePickerHelperService.insert_Year_Week_Weekday_IntoIDate(datePackage);
+        this.datePickerHelperService.convertLongDateIntoYearWeekWeekDay(datePackage);
+    }
+
+    getAllDatePackagesForGivenWeekNR(datePackage: IDate): Observable<IDate[]> {
+        // What we can do here is call the function, create a spy that intercepts the backend call, return data that looks like the data that we will get from the backend
+        // (a json string) and then have a look how that data will get parsed. We can in the backend api maybe make a test that does an actual call, and tests the results with
+        // data that we have on record to make sure the backend does not change.
+        // If you test something that makes a backend call and you have a spy returning backend data, then you can do anything with that record and make sure that it returns
+        // the correct data.
+        // https://www.apollographql.com/docs/angular/guides/testing/
+        // https://medium.com/@sergeyfetiskin/testing-apollo-graphql-in-your-angular-application-595f0a04aad3
+        // https://www.geekstrick.com/apollo-client-graphql-testing-angular/
+        return this.datePickerGraphqlApiService.getAllDatePackagesForGivenWeekNR(datePackage.week, datePackage.year).pipe();
     }
 
     getorCreateTimeStampid(datePackage: IDate): Observable<IDate> {
@@ -96,10 +107,6 @@ export class DatePickerService {
             tap(timeStamp => datePackage.id = timeStamp.id),
             concatMap(() => this.datePickerGraphqlApiService.getSingleTimeStampNodeID(datePackage)),
         );
-    }
-
-    getAllDatePackagesForGivenWeekNR(datePackage: IDate): Observable<IDate[]> {
-        return this.datePickerGraphqlApiService.getAllDatePackagesForGivenWeekNR(datePackage.week, datePackage.year).pipe();
     }
 }
 

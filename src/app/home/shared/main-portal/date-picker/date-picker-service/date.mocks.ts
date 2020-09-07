@@ -41,12 +41,68 @@ export class TestStandardInputsSuite {
     static emptyInput = '';
     static stringInput = 'testString';
     static numberInput = 42;
+    static objectInput = {};
 }
 
 export class TestMockDateSuiteB {
 
     longDate1 = new Date('Wed May 29 2019 00:00:00 GMT+0200 (South Africa Standard Time)');
     shortDate1 = '2019-05-29';
-    weekDayString = 'Wednesday';
+    weekDayString1 = 'Wednesday';
+    weekNumber1 = 22;
+    increaseDays1 = 4;
+    increaseDays1_longDate = new Date('Wed June 02 2019 00:00:00 GMT+0200 (South Africa Standard Time)');
+    increaseDays2 = 8;
+    increaseDays2_longDate = new Date('Wed June 06 2019 00:00:00 GMT+0200 (South Africa Standard Time)');
+    decreaseDays1 = -10;
+    decreaseDays1_longDate = new Date('Wed May 19 2019 00:00:00 GMT+0200 (South Africa Standard Time)');
+    datePackage1: IDate = {
+        id : null,
+        nodeID : null,
+        wholeDayID : null,
+        wholeDayid : null,
+        year : 2019,
+        week : 22,
+        weekDay : 3,
+        weekDayID : null,
+        weekDayName : null,
+        weekDayRank : null,
+        month : null,
+        monthDay : null,
+        shift : null,
+        shiftid : null,
+        shiftID : null,
+        time : null,
+        timeid : null,
+        timeID : null,
+        timeHalfStock : null,
+        shortDate : null,
+        longDate : null,
+        timeStampID : null,
+    };
+    datePackage2: IDate = {
+        id : null,
+        nodeID : null,
+        wholeDayID : null,
+        wholeDayid : null,
+        year : null,
+        week : null,
+        weekDay : null,
+        weekDayID : null,
+        weekDayName : null,
+        weekDayRank : null,
+        month : null,
+        monthDay : null,
+        shift : null,
+        shiftid : null,
+        shiftID : null,
+        time : null,
+        timeid : null,
+        timeID : null,
+        timeHalfStock : null,
+        shortDate : null,
+        longDate : null,
+        timeStampID : null,
+    };
 
 }
