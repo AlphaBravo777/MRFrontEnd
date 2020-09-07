@@ -173,6 +173,7 @@ export class DatePickerGraphqlApiService {
                 weekDays.push(day);
             }
         }
+        console.log('The returned weekDay data = ', weekDays);
         return weekDays;
     }
 

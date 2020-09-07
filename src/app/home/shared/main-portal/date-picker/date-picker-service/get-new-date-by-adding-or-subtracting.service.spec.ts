@@ -29,9 +29,7 @@ describe('GetNewDateByAddingOrSubtractingService', () => {
             GetNewDateByAddingOrSubtractingService
         );
         // Here we get a service that we want to use in our test, and we want to intercept it so that we can return a value in its place
-        const getDate$Service: GetDate$Service = TestBed.get(
-            GetDate$Service
-        );
+        const getDate$Service: GetDate$Service = TestBed.get(GetDate$Service);
         // Here we create a spy with the method of the above service that we want to intercept and return data for, and we also say what data we want to return
         const getDate$ServiceSpy = spyOn(getDate$Service, 'getDatePackageForGivenLongDate').and.returnValue(
             of(mockDatePackage)

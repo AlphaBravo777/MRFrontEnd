@@ -9,13 +9,9 @@
                 <td class='title'>Week: </td>
                 <td><input class='textBox' type="number" formControlName='week'></td>
             </tr>
-            <!-- <tr>
-                <td class='title'>Day #: </td>
-                <td><input class='textBox' type="number" formControlName='weekDay'></td>
-            </tr> -->
             <tr>
                 <td class='title'>Day: </td>
-                <td class='selectBox'>
+                <td class='selectBox' *ngIf='weekDays$ | async as weekDays'>
                     <select dir="rtl" formControlName="weekDay">
                         <option *ngFor="let weekDay of weekDays" [ngValue]="weekDay.id">{{weekDay.weekDayName}}</option>
                     </select>
@@ -23,7 +19,7 @@
             </tr>
             <tr>
                 <td class='title'>Shift: </td>
-                <td class='selectBox'>
+                <td class='selectBox' *ngIf='shifts$ | async as shifts'>
                     <select dir="rtl" formControlName="shift">
                         <option *ngFor="let shift of shifts" [ngValue]="shift.id">{{shift.shiftName}}</option>
                     </select>
@@ -31,7 +27,7 @@
             </tr>
             <tr>
                 <td class='title'>Time: </td>
-                <td class='selectBox'>
+                <td class='selectBox' *ngIf='stockTimes$ | async as stockTimes'>
                     <select dir="rtl" formControlName="time">
                         <option *ngFor="let time of stockTimes" [ngValue]="time.id">{{time.times}}</option>
                     </select>

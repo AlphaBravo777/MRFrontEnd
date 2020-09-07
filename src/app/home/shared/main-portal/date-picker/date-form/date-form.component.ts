@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IDate, IDateShift, IDateTime, IBlockDate, IWeekDay } from '../date-picker-service/date-interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { DatePickerApiService } from '../date-picker-service/date-picker-api.service';
 import { tap, take } from 'rxjs/operators';
 import { DatePickerGraphqlApiService } from '../date-picker-service/date-picker-graphql-api.service';
@@ -20,28 +20,19 @@ export class DateFormComponent implements OnInit {
     @Input() currentWorkingDate: IDate;
     @Output() dateChange: EventEmitter<IBlockDate> = new EventEmitter<IBlockDate>();
     dateForm: FormGroup;
+    stockTimes$: Observable<IDateTime[]>;
     stockTimes: IDateTime[];
+    shifts$: Observable<IDateShift[]>;
     shifts: IDateShift[];
+    weekDays$: Observable<IWeekDay[]>;
     weekDays: IWeekDay[];
     subscription: Subscription;
 
     ngOnInit() {
         this.populateDate();
-        this.datePickerGraphqlApiService.getAllStockTakingTimes().pipe(
-            take(1),
-            tap(times => console.log('The stocktime return data = ', times)),
-            tap(times => this.stockTimes = times)
-        ).subscribe();
-        this.datePickerGraphqlApiService.getShifts().pipe(
-            take(1),
-            tap(shifts => console.log('The stocktime return data = ', shifts)),
-            tap(shifts => this.shifts = shifts)
-        ).subscribe();
-        this.datePickerGraphqlApiService.getAllWeekDays().pipe(
-            take(1),
-            tap(weekDays => console.log('The weekday return data = ', weekDays)),
-            tap(weekDays => this.weekDays = weekDays)
-        ).subscribe();
+        this.stockTimes$ = this.datePickerGraphqlApiService.getAllStockTakingTimes();
+        this.shifts$ = this.datePickerGraphqlApiService.getShifts();
+        this.weekDays$ = this.datePickerGraphqlApiService.getAllWeekDays();
     }
 
     populateDate() {

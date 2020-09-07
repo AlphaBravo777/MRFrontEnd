@@ -1,4 +1,4 @@
-import { IDate, datePackage_factory } from './date-interface';
+import { IDate, datePackage_factory, IWeekDay } from './date-interface';
 
 export class ITestInputs {
     testCase: string;
@@ -42,6 +42,33 @@ export class TestStandardInputsSuite {
     static stringInput = 'testString';
     static numberInput = 42;
     static objectInput = {};
+}
+
+export class TestWeekDays {
+
+    weekDayReturnData: IWeekDay[] = [
+        {
+        id: 1,
+        nodeID: 'RGF5c09mVGhlV2Vla1R5cGU6MQ==',
+        weekDayName: 'Monday',
+        weekDayNumber: 1,
+        weekDayRanking: 2,
+        },
+        {
+        id: 2,
+        nodeID: 'RGF5c09mVGhlV2Vla1R5cGU6Mg==',
+        weekDayName: 'Tuesday',
+        weekDayNumber: 2,
+        weekDayRanking: 3,
+        },
+        {
+        id: 3,
+        nodeID: 'RGF5c09mVGhlV2Vla1R5cGU6Mw==',
+        weekDayName: 'Wednesday',
+        weekDayNumber: 3,
+        weekDayRanking: 4,
+        }
+    ];
 }
 
 export class TestMockDateSuiteB {
