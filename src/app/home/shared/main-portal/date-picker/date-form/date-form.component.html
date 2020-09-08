@@ -3,7 +3,7 @@
         <table>
             <tr>
                 <td class='title'>Year: </td>
-                <td><input class='textBox' type="number" formControlName='year'></td>
+                <td><input id="yearInput" class='textBox' type="number" formControlName='year'></td>
             </tr>
             <tr>
                 <td class='title'>Week: </td>
@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <td>
-                    <button type='submit' class='niceButton meatriteButton'>Change</button>
+                    <button type='submit' class='niceButton meatriteButton' [disabled]='dateForm.invalid'>Change</button>
                 </td>
             </tr>
         </table>

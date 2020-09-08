@@ -1,4 +1,4 @@
-import { IDate, datePackage_factory, IWeekDay } from './date-interface';
+import { IDate, datePackage_factory, IWeekDay, IDateShift } from './date-interface';
 
 export class ITestInputs {
     testCase: string;
@@ -44,31 +44,148 @@ export class TestStandardInputsSuite {
     static objectInput = {};
 }
 
-export class TestWeekDays {
+export class DateApiReturnTestData {
 
     weekDayReturnData: IWeekDay[] = [
         {
-        id: 1,
-        nodeID: 'RGF5c09mVGhlV2Vla1R5cGU6MQ==',
-        weekDayName: 'Monday',
-        weekDayNumber: 1,
-        weekDayRanking: 2,
+            id: 1,
+            nodeID: 'RGF5c09mVGhlV2Vla1R5cGU6MQ==',
+            weekDayName: 'Monday',
+            weekDayNumber: 1,
+            weekDayRanking: 2,
         },
         {
-        id: 2,
-        nodeID: 'RGF5c09mVGhlV2Vla1R5cGU6Mg==',
-        weekDayName: 'Tuesday',
-        weekDayNumber: 2,
-        weekDayRanking: 3,
+            id: 2,
+            nodeID: 'RGF5c09mVGhlV2Vla1R5cGU6Mg==',
+            weekDayName: 'Tuesday',
+            weekDayNumber: 2,
+            weekDayRanking: 3,
         },
         {
-        id: 3,
-        nodeID: 'RGF5c09mVGhlV2Vla1R5cGU6Mw==',
-        weekDayName: 'Wednesday',
-        weekDayNumber: 3,
-        weekDayRanking: 4,
+            id: 3,
+            nodeID: 'RGF5c09mVGhlV2Vla1R5cGU6Mw==',
+            weekDayName: 'Wednesday',
+            weekDayNumber: 3,
+            weekDayRanking: 4,
         }
     ];
+    TEST_D = [
+        {
+            id: 'U2hpZnRzVHlwZTox',
+            rowid: 1,
+            shiftName: 'A',
+        },
+        {
+            id: 'U2hpZnRzVHlwZToy',
+            rowid: 2,
+            shiftName: 'B',
+        },
+        {
+            id: 'U2hpZnRzVHlwZToz',
+            rowid: 3,
+            shiftName: 'C',
+        },
+        {
+            id: 'U2hpZnRzVHlwZTo0',
+            rowid: 4,
+            shiftName: 'Day',
+        },
+    ];
+
+    TEST_D2: IDateShift[] = [
+        {
+            nodeID: 'U2hpZnRzVHlwZTox',
+            id: 1,
+            shiftName: 'A',
+        },
+        {
+            nodeID: 'U2hpZnRzVHlwZToy',
+            id: 2,
+            shiftName: 'B',
+        },
+        {
+            nodeID: 'U2hpZnRzVHlwZToz',
+            id: 3,
+            shiftName: 'C',
+        },
+        {
+            nodeID: 'U2hpZnRzVHlwZTo0',
+            id: 4,
+            shiftName: 'Day',
+        },
+    ];
+
+    TEST_S = {
+        'data': {
+            'nodeShifts': {
+                'edges': [
+                    {
+                    'node': this.TEST_D[1]
+                    },
+                    {
+                    'node': this.TEST_D[2]
+                    },
+                    {
+                    'node': this.TEST_D[3]
+                    },
+                    {
+                    'node': this.TEST_D[4]
+                    }
+                ]
+            }
+        }
+    };
+
+    // shiftReturnData: IDateShift[] = [];
+    TEST_DATA = [
+        {
+            id: '1',
+            name: 'Apple',
+        }, {
+            id: '2',
+            name: 'Banana',
+        }
+    ];
+
+    TEST_SEARCH = {
+        'data': {
+            'search': {
+                'edges': [
+                    {
+                        node: this.TEST_DATA[0]
+                    },
+                    {
+                        node: this.TEST_DATA[1]
+                    }
+                ]
+            }
+        }
+    };
+
+    dateAfterUsingDatePicker: IDate = {
+        id: 2217,
+        longDate: new Date('Wed June 02 2019 00:00:00 GMT+0200 (South Africa Standard Time)'),
+        month: null,
+        monthDay: null,
+        nodeID: 'VGltZVN0YW1wVHlwZToyMjE3',
+        shift: 'Day',
+        shiftID: 'U2hpZnRzVHlwZTo0',
+        shiftid: 4,
+        shortDate: '2020-09-07',
+        time: 'Day',
+        timeHalfStock: null,
+        timeID: 'U3RvY2tUYWtpbmdUaW1lc1R5cGU6MTA=',
+        timeStampID: null,
+        timeid: 10,
+        week: 22,
+        weekDay: 1,
+        weekDayID: 'RGF5c09mVGhlV2Vla1R5cGU6MQ==',
+        weekDayName: 'Wednesday',
+        weekDayRank: 3,
+        wholeDayID: null,
+        wholeDayid: null,
+        year: 2019,
+    };
 }
 
 export class TestMockDateSuiteB {
@@ -84,52 +201,52 @@ export class TestMockDateSuiteB {
     decreaseDays1 = -10;
     decreaseDays1_longDate = new Date('Wed May 19 2019 00:00:00 GMT+0200 (South Africa Standard Time)');
     datePackage1: IDate = {
-        id : null,
-        nodeID : null,
-        wholeDayID : null,
-        wholeDayid : null,
-        year : 2019,
-        week : 22,
-        weekDay : 3,
-        weekDayID : null,
-        weekDayName : null,
-        weekDayRank : null,
-        month : null,
-        monthDay : null,
-        shift : null,
-        shiftid : null,
-        shiftID : null,
-        time : null,
-        timeid : null,
-        timeID : null,
-        timeHalfStock : null,
-        shortDate : null,
-        longDate : null,
-        timeStampID : null,
+        id: null,
+        nodeID: null,
+        wholeDayID: null,
+        wholeDayid: null,
+        year: 2019,
+        week: 22,
+        weekDay: 3,
+        weekDayID: null,
+        weekDayName: null,
+        weekDayRank: null,
+        month: null,
+        monthDay: null,
+        shift: null,
+        shiftid: null,
+        shiftID: null,
+        time: null,
+        timeid: null,
+        timeID: null,
+        timeHalfStock: null,
+        shortDate: null,
+        longDate: null,
+        timeStampID: null,
     };
     datePackage2: IDate = {
-        id : null,
-        nodeID : null,
-        wholeDayID : null,
-        wholeDayid : null,
-        year : null,
-        week : null,
-        weekDay : null,
-        weekDayID : null,
-        weekDayName : null,
-        weekDayRank : null,
-        month : null,
-        monthDay : null,
-        shift : null,
-        shiftid : null,
-        shiftID : null,
-        time : null,
-        timeid : null,
-        timeID : null,
-        timeHalfStock : null,
-        shortDate : null,
-        longDate : null,
-        timeStampID : null,
+        id: null,
+        nodeID: null,
+        wholeDayID: null,
+        wholeDayid: null,
+        year: null,
+        week: null,
+        weekDay: null,
+        weekDayID: null,
+        weekDayName: null,
+        weekDayRank: null,
+        month: null,
+        monthDay: null,
+        shift: null,
+        shiftid: null,
+        shiftID: null,
+        time: null,
+        timeid: null,
+        timeID: null,
+        timeHalfStock: null,
+        shortDate: null,
+        longDate: null,
+        timeStampID: null,
     };
 
 }

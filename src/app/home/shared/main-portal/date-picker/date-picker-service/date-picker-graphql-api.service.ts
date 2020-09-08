@@ -3,7 +3,7 @@ import { IDateShift, IDateTime, IDate, datePackage_factory, IWeekDay } from './d
 import { Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular-boost';
 import { DatePickerGraphqlStringService } from './date-picker-graphql-string.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +20,7 @@ export class DatePickerGraphqlApiService {
                 query: this.datePickerGraphqlStringService.GET_ALL_SHIFTS
             })
             .valueChanges.pipe(
+                tap(r => console.log('The shift results are: ', r)),
                 map(result => this.consolidateShifts(result.data['nodeShifts'].edges))
             );
     }

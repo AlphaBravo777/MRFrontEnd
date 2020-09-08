@@ -99,6 +99,8 @@ export class DatePickerService {
         // https://www.apollographql.com/docs/angular/guides/testing/
         // https://medium.com/@sergeyfetiskin/testing-apollo-graphql-in-your-angular-application-595f0a04aad3
         // https://www.geekstrick.com/apollo-client-graphql-testing-angular/
+
+        // https://medium.com/better-programming/testing-http-requests-in-angular-with-httpclienttestingmodule-3880ceac74cf
         return this.datePickerGraphqlApiService.getAllDatePackagesForGivenWeekNR(datePackage.week, datePackage.year).pipe();
     }
 

@@ -36,9 +36,10 @@ export class DateFormComponent implements OnInit {
     }
 
     populateDate() {
+        // These values should be null until there are a value from the observable to add
         this.dateForm = this.fb.group({
-            year: [this.currentWorkingDate.year, Validators.required],
-            week: [this.currentWorkingDate.week, Validators.required],
+            year: [this.currentWorkingDate.year, [Validators.required, Validators.min(1990), , Validators.max(2050)]],
+            week: [this.currentWorkingDate.week, [Validators.required, Validators.min(1), , Validators.max(53)]],
             weekDay: [this.currentWorkingDate.weekDay, Validators.required],
             shift: [this.currentWorkingDate.shiftid, Validators.required],
             time: [this.currentWorkingDate.timeid, Validators.required],
@@ -49,7 +50,7 @@ export class DateFormComponent implements OnInit {
         const dateBlock: IBlockDate = {
             shiftData: this.shifts.find(sft => sft.id === this.dateForm.get('shift').value),
             timeData: this.stockTimes.find(time => time.id === this.dateForm.get('time').value),
-            weekDay: this.weekDays.find(time => time.id === this.dateForm.get('weekDay').value),
+            weekDay: this.weekDays.find(weekD => weekD.id === this.dateForm.get('weekDay').value),
             year: this.dateForm.get('year').value,
             week: this.dateForm.get('week').value,
         };
