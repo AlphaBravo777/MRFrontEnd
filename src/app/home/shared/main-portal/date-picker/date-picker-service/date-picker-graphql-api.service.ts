@@ -20,7 +20,6 @@ export class DatePickerGraphqlApiService {
                 query: this.datePickerGraphqlStringService.GET_ALL_SHIFTS
             })
             .valueChanges.pipe(
-                tap(r => console.log('The shift results are: ', r)),
                 map(result => this.consolidateShifts(result.data['nodeShifts'].edges))
             );
     }

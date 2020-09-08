@@ -15,8 +15,8 @@ describe('DatePickerGraphqlApiService', () => {
         TestBed.configureTestingModule({
             imports: [ApolloTestingModule],
         });
-        service = TestBed.inject(DatePickerGraphqlApiService);
-        stringDocs = TestBed.inject(DatePickerGraphqlStringService);
+        service = TestBed.get(DatePickerGraphqlApiService);
+        stringDocs = TestBed.get(DatePickerGraphqlStringService);
         controller = TestBed.get(ApolloTestingController);
         dateApiReturnTestData = new DateApiReturnTestData();
     });
@@ -26,21 +26,18 @@ describe('DatePickerGraphqlApiService', () => {
     });
 
     it('should be created', () => {
-        expect(service).toBeTruthy();
+        expect(service).toBeDefined();
     });
 
     it('shifts should be fetched', () => {
-        service.getShifts().subscribe(result => {
-            expect(result[3].id).toEqual(0);
-            expect(result).toEqual(dateApiReturnTestData.TEST_D2);
-            console.log('The shifts are ${shifts}');
-            // done();
-          });
-        // const op = controller.expectOne(stringDocs.GET_ALL_SHIFTS);
+        service.getShifts().subscribe(
+            result => {
+                expect(result).toEqual(dateApiReturnTestData.shiftReturnData);
+            },
+            // This is to make sure that you do not have an error and think the top asserts have passed.
+            error => expect(false).toEqual(true)
+        );
         controller.expectOne(stringDocs.GET_ALL_SHIFTS).flush(dateApiReturnTestData.TEST_S);
-
-        // Finally, assert that there are no outstanding operations.
-        controller.verify();
     });
 
 });

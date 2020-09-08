@@ -69,30 +69,47 @@ export class DateApiReturnTestData {
             weekDayRanking: 4,
         }
     ];
-    TEST_D = [
+
+    private TEST_D = [
         {
+            __typename: 'ShiftsTypeEdge',
+            node: {
+            __typename: 'ShiftsType',
             id: 'U2hpZnRzVHlwZTox',
             rowid: 1,
             shiftName: 'A',
+            }
         },
         {
+            __typename: 'ShiftsTypeEdge',
+            node: {
+            __typename: 'ShiftsType',
             id: 'U2hpZnRzVHlwZToy',
             rowid: 2,
             shiftName: 'B',
+            }
         },
         {
+            __typename: 'ShiftsTypeEdge',
+            node: {
+            __typename: 'ShiftsType',
             id: 'U2hpZnRzVHlwZToz',
             rowid: 3,
             shiftName: 'C',
+            }
         },
         {
+            __typename: 'ShiftsTypeEdge',
+            node: {
+            __typename: 'ShiftsType',
             id: 'U2hpZnRzVHlwZTo0',
             rowid: 4,
             shiftName: 'Day',
+            }
         },
     ];
 
-    TEST_D2: IDateShift[] = [
+    shiftReturnData: IDateShift[] = [
         {
             nodeID: 'U2hpZnRzVHlwZTox',
             id: 1,
@@ -116,47 +133,14 @@ export class DateApiReturnTestData {
     ];
 
     TEST_S = {
-        'data': {
-            'nodeShifts': {
-                'edges': [
-                    {
-                    'node': this.TEST_D[1]
-                    },
-                    {
-                    'node': this.TEST_D[2]
-                    },
-                    {
-                    'node': this.TEST_D[3]
-                    },
-                    {
-                    'node': this.TEST_D[4]
-                    }
-                ]
-            }
-        }
-    };
-
-    // shiftReturnData: IDateShift[] = [];
-    TEST_DATA = [
-        {
-            id: '1',
-            name: 'Apple',
-        }, {
-            id: '2',
-            name: 'Banana',
-        }
-    ];
-
-    TEST_SEARCH = {
-        'data': {
-            'search': {
-                'edges': [
-                    {
-                        node: this.TEST_DATA[0]
-                    },
-                    {
-                        node: this.TEST_DATA[1]
-                    }
+        data: {
+            nodeShifts: {
+                __typename: 'ShiftsTypeConnection',
+                edges: [
+                    this.TEST_D[0],
+                    this.TEST_D[1],
+                    this.TEST_D[2],
+                    this.TEST_D[3],
                 ]
             }
         }
