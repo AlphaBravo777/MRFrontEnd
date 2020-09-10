@@ -21,7 +21,7 @@ const adminRoutes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'excel-tests',
+                path: 'backend',
                 component: AdminExcelTestComponent,
                 canActivate: [AuthGuard],
             },

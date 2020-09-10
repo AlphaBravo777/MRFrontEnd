@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class UrlsService {
     // Development Server (Localhost)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    root = 'http://localhost'; // Local Meatrite dev backend servers
+    root = environment.root; // Local Meatrite dev backend servers
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Production (27) Server (New Docker Server)
@@ -23,37 +24,57 @@ export class UrlsService {
     // Links that should work on all servers
     // -----------------------------------------------------------------------------------------------------------------------
 
-        mrGatewayService = this.root + ':8010/'; // Tested
+        mrGatewayService = this.root + environment.mrGatewayService; // Tested
 
         // == ADMIN ==
-        admin = this.mrGatewayService + 'admin/'; // Tested
+        adminUrl = this.mrGatewayService + environment.adminUrl; // Tested
 
         // == MEDIA ==
-        mediaUrl = this.mrGatewayService + 'media/';
+        mediaUrl = this.mrGatewayService + environment.mediaUrl;
 
         // == GRAPHQL ==
-        graphqlAddress = this.mrGatewayService + 'graphql/'; // Tested
+        graphqlAddress = this.mrGatewayService + environment.graphqlAddress; // Tested
 
         // == USERSERVICE ==
-        private mrUserService = this.mrGatewayService + 'user/';
-            loginUrl = this.mrUserService + 'login/'; // Tested
-            verifyTokenUrl = this.mrUserService + 'verify-user/'; // Tested
-            permissionsUrl = this.mrUserService + 'groups/'; // Tested
-            registerUrl = this.mrUserService + 'registration/'; // Not Tested
+        private mrUserService = this.mrGatewayService + environment.mrUserService;
+            loginUrl = this.mrUserService + environment.loginUrl; // Tested
+            verifyTokenUrl = this.mrUserService + environment.verifyTokenUrl; // Tested
+            permissionsUrl = this.mrUserService + environment.permissionsUrl; // Tested
+            registerUrl = this.mrUserService + environment.registerUrl; // Not Tested
 
         // == TIMESTAMP ==
-        private timeStampUrl = this.mrGatewayService + 'dateTime/';  // !!!
-            getTimeStampIDUrl = this.timeStampUrl + 'getOrCreateTimeStamp/';  // !!!
+        private timeStampUrl = this.mrGatewayService + environment.timeStampUrl;  // !!!
+            getTimeStampIDUrl = this.timeStampUrl + environment.getTimeStampIDUrl;  // !!!
             // getTimeStampIDUrl = this.timeStampUrl + 'timeStampSingle/';  // !!!
-            getTimeStampidOrCreateNew = this.timeStampUrl + 'getOrCreateTimeStamp/';
-            getStockTimes = this.timeStampUrl + 'stockTakingTimeMany/';  // Tested
+            getTimeStampidOrCreateNew = this.timeStampUrl + environment.getTimeStampidOrCreateNew;
+            getStockTimes = this.timeStampUrl + environment.getStockTimes;  // Tested
 
         // == DAILYREPORT ==
-        private dailyReportUrl = this.mrGatewayService + 'dailyreport/';  // !!!
-            enterNewReportUrl = this.dailyReportUrl + 'enterNewReport/';  // !!!
-            updateReportUrl = this.dailyReportUrl + 'updateReport/';  // !!!
-            insertReportImageUrl = this.dailyReportUrl + 'insertReportImage/';  // !!!
-            deleteReportUrl = this.dailyReportUrl + 'deleteReport/';
+        private dailyReportUrl = this.mrGatewayService + environment.dailyReportUrl;  // !!!
+            enterNewReportUrl = this.dailyReportUrl + environment.enterNewReportUrl;  // !!!
+            updateReportUrl = this.dailyReportUrl + environment.updateReportUrl;  // !!!
+            insertReportImageUrl = this.dailyReportUrl + environment.insertReportImageUrl;  // !!!
+            deleteReportUrl = this.dailyReportUrl + environment.deleteReportUrl;
+
+        // == OFFICE ==
+        officeUrl = this.mrGatewayService + environment.officeUrl; // !!!
+
+            // == CHECKLIST ==
+            private checklistUrl = this.officeUrl + environment.checklistUrl; // Not tested
+                enterNewChecklistUrl = this.checklistUrl + environment.enterNewChecklistUrl; // Not tested
+
+        // == ORDERS ==
+        private orderServiceUrl = this.mrGatewayService + environment.orderServiceUrl;
+            insertNewOrderDetailsUrl = this.orderServiceUrl + environment.insertNewOrderDetailsUrl; // Tested
+            insertProductAmounts = this.orderServiceUrl + environment.insertProductAmounts; // Tested
+            deleteProduct = this.orderServiceUrl + environment.deleteProduct; // Tested
+            deleteOrder  = this.orderServiceUrl + environment.deleteOrder; // Tested
+            updateRouteDate = this.orderServiceUrl + environment.updateRouteDate; // Tested
+            refreshWeeklyOrdersCacheUrl = this.orderServiceUrl + environment.refreshWeeklyOrdersCacheUrl; // Tested
+            insertKafkaNewOrderDetails = this.orderServiceUrl + environment.insertKafkaNewOrderDetails; // Not tested
+
+        // == STOCKTAKE ==
+        private stockTakeurl = this.mrGatewayService + environment.stockTakeurl; // Not tested
 
         // == PRODUCTS ==
         private productsUrl = this.mrGatewayService + 'products/'; // Not tested
@@ -65,27 +86,6 @@ export class UrlsService {
             enterAllProcessedProducts = this.productsUrl + 'input/'; // Not tested
             allActiveProducts = this.productsUrl + 'noNewEndpointHereYet/'; // Not tested
             getAllStockForSpecificTime = this.productsUrl + 'noNewEndpointHereYet/'; // Not tested
-
-        // == OFFICE ==
-        officeUrl = this.mrGatewayService + 'office/'; // !!!
-
-            // == CHECKLIST ==
-            private checklistUrl = this.officeUrl + 'checklists/'; // Not tested
-                enterNewChecklistUrl = this.checklistUrl + 'enterNew/'; // Not tested
-
-        // == ORDERS ==
-        private orderServiceUrl = this.mrGatewayService + 'orders/';
-            insertNewOrderDetailsUrl = this.orderServiceUrl + 'insertNewOrderDetails/'; // Tested
-            insertProductAmounts = this.orderServiceUrl + 'insertProductAmounts/'; // Tested
-            deleteProduct = this.orderServiceUrl + 'deleteProduct/'; // Tested
-            deleteOrder  = this.orderServiceUrl + 'deleteOrder/'; // Tested
-            updateRouteDate = this.orderServiceUrl + 'updateRouteDate/'; // Tested
-            refreshWeeklyOrdersCacheUrl = this.orderServiceUrl + 'refreshWeeklyOrdersCache/'; // Tested
-            insertKafkaNewOrderDetails = this.orderServiceUrl + 'insertKafkaNewOrderDetails/'; // Not tested
-
-        // == STOCKTAKE ==
-        private stockTakeurl = this.mrGatewayService + 'stockTake/'; // Not tested
-
 
 
 

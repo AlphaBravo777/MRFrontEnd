@@ -3,7 +3,50 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+
+    production: false,
+
+    root: 'http://localhost',
+
+        mrGatewayService: ':8010/',
+
+        adminUrl: 'admin/',
+
+        mediaUrl: 'media/',
+
+        graphqlAddress: 'graphql/',
+
+            mrUserService: 'user/',
+                loginUrl: 'login/',
+                verifyTokenUrl: 'verify-user/',
+                permissionsUrl: 'groups/',
+                registerUrl: 'registration/',
+
+            timeStampUrl: 'dateTime/',
+                getTimeStampIDUrl: 'getOrCreateTimeStamp/',
+                getTimeStampidOrCreateNew: 'getOrCreateTimeStamp/',
+                getStockTimes: 'stockTakingTimeMany/',
+
+            dailyReportUrl: 'dailyreport/',
+                enterNewReportUrl: 'enterNewReport/',
+                updateReportUrl: 'updateReport/',
+                insertReportImageUrl: 'insertReportImage/',
+                deleteReportUrl: 'deleteReport/',
+
+            officeUrl: 'office/',
+                checklistUrl: 'checklists/',
+                    enterNewChecklistUrl: 'enterNew/',
+
+            orderServiceUrl: 'orders/',
+                insertNewOrderDetailsUrl: 'insertNewOrderDetails/',
+                insertProductAmounts: 'insertProductAmounts/',
+                deleteProduct: 'deleteProduct/',
+                deleteOrder: 'deleteOrder/',
+                updateRouteDate: 'updateRouteDate/',
+                refreshWeeklyOrdersCacheUrl: 'refreshWeeklyOrdersCache/',
+                insertKafkaNewOrderDetails: 'insertKafkaNewOrderDetails/',
+
+            stockTakeurl: 'stockTake/'
 };
 
 /*

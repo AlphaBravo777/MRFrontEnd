@@ -1,6 +1,10 @@
 // Protractor configuration file, see link for more information
 // https://github.com/angular/protractor/blob/master/lib/config.ts
 
+// Where to set wether or not Chrome should close after running the tests...
+// C:\Users\MRProgrammeringPC\ownCloud\Programming\Apps\meatriteFrontEnd\node_modules\protractor\built\driverProviders.js
+// Find and Replace return driver.Quit() to return 0
+
 const { SpecReporter } = require('jasmine-spec-reporter');
 
 exports.config = {
