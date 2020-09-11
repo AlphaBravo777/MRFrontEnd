@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { DatePickerGraphqlApiService } from './date-picker-graphql-api.service';
 import { ApolloTestingModule, ApolloTestingController } from 'apollo-angular/testing';
 import { DatePickerGraphqlStringService } from './date-picker-graphql-string.service';
-import { DateApiReturnTestData } from './date.mocks';
+import { DateApiReturnTestData } from 'src/assets/mockData/date.mocks';
 
 describe('DatePickerGraphqlApiService', () => {
     let service: DatePickerGraphqlApiService;

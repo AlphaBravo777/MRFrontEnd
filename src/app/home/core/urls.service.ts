@@ -40,12 +40,10 @@ export class UrlsService {
             loginUrl = this.mrUserService + environment.loginUrl; // Tested
             verifyTokenUrl = this.mrUserService + environment.verifyTokenUrl; // Tested
             permissionsUrl = this.mrUserService + environment.permissionsUrl; // Tested
-            registerUrl = this.mrUserService + environment.registerUrl; // Not Tested
+            registerUrl = this.mrUserService + environment.registerUrl; // NOT Tested
 
         // == TIMESTAMP ==
         private timeStampUrl = this.mrGatewayService + environment.timeStampUrl;  // !!!
-            getTimeStampIDUrl = this.timeStampUrl + environment.getTimeStampIDUrl;  // !!!
-            // getTimeStampIDUrl = this.timeStampUrl + 'timeStampSingle/';  // !!!
             getTimeStampidOrCreateNew = this.timeStampUrl + environment.getTimeStampidOrCreateNew;
             getStockTimes = this.timeStampUrl + environment.getStockTimes;  // Tested
 

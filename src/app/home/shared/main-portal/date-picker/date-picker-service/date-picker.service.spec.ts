@@ -3,7 +3,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { DatePickerService } from './date-picker.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApolloTestingModule } from 'apollo-angular/testing';
-import { TestMockDateSuiteB, ITestInputs, TestStandardInputsSuite } from './date.mocks';
+import { TestMockDateSuiteB, ITestInputs, TestStandardInputsSuite } from 'src/assets/mockData/date.mocks';
 
 describe('DatePickerService', () => {
     beforeEach(() => {

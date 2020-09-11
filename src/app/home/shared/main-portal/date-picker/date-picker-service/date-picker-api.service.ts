@@ -15,7 +15,7 @@ export class DatePickerApiService {
     ) { }
 
     createTimeStampID(timePackage: IDate): Observable<any> {
-        return this.http.post<any>(this.urlService.getTimeStampIDUrl, timePackage);
+        return this.http.post<any>(this.urlService.getTimeStampidOrCreateNew, timePackage);
     }
 
     getStockTimes(): Observable<IDateTime[]> {

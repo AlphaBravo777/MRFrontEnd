@@ -5,7 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApolloTestingModule } from 'apollo-angular/testing';
 import { of } from 'rxjs';
 import { GetDate$Service } from './get-date$.service';
-import { mockDatePackage, mockLongDateGroup1, mockLongDatePlus7DaysMinus3Hours } from './date.mocks';
+import { mockDatePackage, mockLongDateGroup1, mockLongDatePlus7DaysMinus3Hours } from 'src/assets/mockData/date.mocks';
 
 describe('GetNewDateByAddingOrSubtractingService', () => {
     beforeEach(() =>

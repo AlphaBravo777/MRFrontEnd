@@ -6,3 +6,11 @@ export class IAxiomRequestReturn {
     config: {[key: string]: any};
     request: {[key: string]: any};
 }
+
+export class IAxiomErrorReturn {
+    response: IAxiomRequestReturn;
+    config: {[key: string]: any};
+    request: {[key: string]: any};
+    isAxiosError: boolean;
+    toJSON: Function;
+}

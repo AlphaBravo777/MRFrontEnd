@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { environment } from '../../src/environments/environment';
-import { IAxiomRequestReturn } from './e2e.interfaces';
+import { IAxiomRequestReturn, IAxiomErrorReturn } from './e2e.interfaces';
+// import { mockDatePackage } from '../../src/assets/mockData/date.mocks';
 
 describe('Test response for all REST API endpoints', () => {
 
     let TOKEN = 'need token to be set';
+
 
     beforeAll(() => {
         const root = environment.root;
@@ -27,50 +29,123 @@ describe('Test response for all REST API endpoints', () => {
         }
     });
 
-    it('should verify gateway api rest endpoint for post: admin-page', async done => {
+    describe('Test main REST API endpoints', () => {
 
-        const res: IAxiomRequestReturn = await axios.get(environment.adminUrl)
+        it('should verify gateway api rest endpoint for get: admin-page', async done => {
 
-        expect(res.status).toEqual(200);
-        expect(res.data).toBeDefined();
-        done();
-    });
+            const res: IAxiomRequestReturn = await axios.get(environment.adminUrl)
 
-    it('should verify gateway api rest endpoint for post: user-login', async done => {
-
-        const res: IAxiomRequestReturn = await axios.post(environment.mrUserService + environment.loginUrl, {
-            username: 'a',
-            password: 'aaaaaaa1'
+            expect(res.status).toEqual(200);
+            expect(res.data).toBeDefined();
+            done();
         });
-        expect(res.status).toEqual(200);
-        expect(res.data.token).toBeDefined();
-        expect(res.data.user).toBeDefined();
-        expect(res.data.groups).toBeDefined();
-        done();
+
+        it('should verify gateway api rest endpoint for post: graphql', async done => {
+
+            const res: any = await axios.post(environment.graphqlAddress, {
+                "operationName": "Shifts",
+                "variables": {},
+                "query": "query Shifts {\n nodeShifts {\n edges {\n node {\n id\n shiftName\n rowid\n __typename\n}\n __typename\n}\n __typename\n  }\n}\n"
+            })
+            expect(res.status).toEqual(200);
+            expect(res.data.data.nodeShifts).toBeDefined();
+            done();
+        });
+
     });
 
-    it('should verify gateway api rest endpoint for post: token-verify', async done => {
-        const res: IAxiomRequestReturn = await axios.post(environment.mrUserService + environment.verifyTokenUrl, { 'token': TOKEN });
-        expect(res.status).toBe(200);
-        expect(res.data.token).toBeDefined();
-        expect(res.data.user).toBeDefined();
-        expect(res.data.groups).toBeDefined();
-        done();
+    describe('Test mrUserService REST API endpoints', () => {
+
+        it('should verify gateway api rest endpoint for post: user-login', async done => {
+            const res: IAxiomRequestReturn = await axios.post(environment.mrUserService + environment.loginUrl, {
+                username: 'a',
+                password: 'aaaaaaa1'
+            });
+            expect(res.status).toEqual(200);
+            expect(res.data.token).toBeDefined();
+            expect(res.data.user).toBeDefined();
+            expect(res.data.groups).toBeDefined();
+            done();
+        });
+
+        it('should verify gateway api rest endpoint for post: token-verify', async done => {
+            const res: IAxiomRequestReturn = await axios.post(environment.mrUserService + environment.verifyTokenUrl, { 'token': TOKEN });
+            expect(res.status).toBe(200);
+            expect(res.data.token).toBeDefined();
+            expect(res.data.user).toBeDefined();
+            expect(res.data.groups).toBeDefined();
+            done();
+        });
+
+        it('should verify gateway api rest endpoint for get: user-permissions', async done => {
+            const res: IAxiomRequestReturn = await axios.get(environment.mrUserService + environment.permissionsUrl);
+            expect(res.status).toBe(200);
+            expect(res.data.id).toBeDefined();
+            expect(res.data.groups).toBeDefined();
+            done();
+        });
+
     });
 
-    it('should verify gateway api rest endpoint for get: user-permissions', async done => {
-        const res: IAxiomRequestReturn = await axios.get(environment.mrUserService + environment.permissionsUrl);
-        expect(res.status).toBe(200);
-        expect(res.data.id).toBeDefined();
-        expect(res.data.groups).toBeDefined();
-        done();
+    describe('Test mrTimeStampService REST API endpoints', () => {
+        let errors: IAxiomErrorReturn;
+
+        it('should get getTimeStampIDUrl with post request', async done => {
+            const res: any = await axios.post(environment.timeStampUrl + environment.getTimeStampidOrCreateNew, {})
+                .then(response => {
+                })
+                .catch(error => {
+                    errors = error
+                });
+            expect(errors.response.status).toEqual(400);
+            expect(errors.response.data[0]).toBe('Error - There was no data provided');
+            done();
+        });
+
+        it('should get stockTakingTimes with get request', async done => {
+            const res: any = await axios.get(environment.timeStampUrl + environment.getStockTimes);
+            expect(res.status).toEqual(200);
+            expect(res.data.length).toBeGreaterThan(0);
+            done();
+        });
+
     });
 
-    it('should get stockTakingTimes with get request', async done => {
-        const res: any = await axios.get(environment.timeStampUrl + environment.getStockTimes);
-        expect(res.status).toEqual(200);
-        expect(res.data.length).toBeGreaterThan(0);
-        done();
+    describe('Test mrDailyReportService REST API endpoints', () => {
+        let errors: IAxiomErrorReturn;
+
+        it('should return response from enterNewReportUrl with post request', async done => {
+            const res: any = await axios.post(environment.dailyReportUrl + environment.enterNewReportUrl, {test:'Test data that should be rejected'})
+                .then(response => {
+                })
+                .catch(error => {
+                    errors = error
+                });
+            expect(errors.response.status).toEqual(400);
+            expect(errors.response.data.error).toBe('Could not insert new report');
+            done();
+        });
+
+        it('should return response from updateReportUrl with post request', async done => {
+            const res: any = await axios.put(environment.dailyReportUrl + environment.updateReportUrl, {test:'Test data that should be rejected'})
+                .then(response => {
+                    console.log('worked = ', response)
+                })
+                .catch(error => {
+                    errors = error
+                    console.log('failed = ', errors.response)
+                });
+            // expect(errors.response.status).toEqual(400);
+            // expect(errors.response.data[0]).toBe('Error - There was no data provided');
+            done();
+        });
+
+
+        // enterNewReportUrl = this.dailyReportUrl + environment.enterNewReportUrl;  // !!!
+        // updateReportUrl = this.dailyReportUrl + environment.updateReportUrl;  // !!!
+        // insertReportImageUrl = this.dailyReportUrl + environment.insertReportImageUrl;  // !!!
+        // deleteReportUrl = this.dailyReportUrl + environment.deleteReportUrl;
+
     });
 
 });

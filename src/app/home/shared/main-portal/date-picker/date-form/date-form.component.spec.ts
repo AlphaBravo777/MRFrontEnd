@@ -3,9 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DateFormComponent } from './date-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApolloTestingModule, ApolloTestingController } from 'apollo-angular/testing';
-import { IDate, datePackage_factory } from '../date-picker-service/date-interface';
 import { DatePickerGraphqlApiService } from '../date-picker-service/date-picker-graphql-api.service';
-import { DateApiReturnTestData } from '../date-picker-service/date.mocks';
+import { DateApiReturnTestData } from 'src/assets/mockData/date.mocks';
 import { of } from 'rxjs';
 import { DatePickerGraphqlStringService } from '../date-picker-service/date-picker-graphql-string.service';
 

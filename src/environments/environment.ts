@@ -23,11 +23,10 @@ export const environment = {
                 registerUrl: 'registration/',
 
             timeStampUrl: 'dateTime/',
-                getTimeStampIDUrl: 'getOrCreateTimeStamp/',
                 getTimeStampidOrCreateNew: 'getOrCreateTimeStamp/',
                 getStockTimes: 'stockTakingTimeMany/',
 
-            dailyReportUrl: 'dailyreport/',
+            dailyReportUrl: 'dailyReport/',
                 enterNewReportUrl: 'enterNewReport/',
                 updateReportUrl: 'updateReport/',
                 insertReportImageUrl: 'insertReportImage/',
