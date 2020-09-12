@@ -30,60 +30,60 @@ export class UrlsService {
         adminUrl = this.mrGatewayService + environment.adminUrl; // Tested
 
         // == MEDIA ==
-        mediaUrl = this.mrGatewayService + environment.mediaUrl;
+        mediaUrl = this.mrGatewayService + environment.mediaUrl; // !!! This endpoint needs serious attention (Can not see images)
 
         // == GRAPHQL ==
-        graphqlAddress = this.mrGatewayService + environment.graphqlAddress; // Tested
+        graphqlAddress = this.mrGatewayService + environment.graphqlAddress;
 
         // == USERSERVICE ==
         private mrUserService = this.mrGatewayService + environment.mrUserService;
-            loginUrl = this.mrUserService + environment.loginUrl; // Tested
-            verifyTokenUrl = this.mrUserService + environment.verifyTokenUrl; // Tested
-            permissionsUrl = this.mrUserService + environment.permissionsUrl; // Tested
+            loginUrl = this.mrUserService + environment.loginUrl;
+            verifyTokenUrl = this.mrUserService + environment.verifyTokenUrl;
+            permissionsUrl = this.mrUserService + environment.permissionsUrl;
             registerUrl = this.mrUserService + environment.registerUrl; // NOT Tested
 
         // == TIMESTAMP ==
-        private timeStampUrl = this.mrGatewayService + environment.timeStampUrl;  // !!!
+        private timeStampUrl = this.mrGatewayService + environment.timeStampUrl;
             getTimeStampidOrCreateNew = this.timeStampUrl + environment.getTimeStampidOrCreateNew;
-            getStockTimes = this.timeStampUrl + environment.getStockTimes;  // Tested
+            getStockTimes = this.timeStampUrl + environment.getStockTimes;
 
         // == DAILYREPORT ==
-        private dailyReportUrl = this.mrGatewayService + environment.dailyReportUrl;  // !!!
-            enterNewReportUrl = this.dailyReportUrl + environment.enterNewReportUrl;  // !!!
-            updateReportUrl = this.dailyReportUrl + environment.updateReportUrl;  // !!!
-            insertReportImageUrl = this.dailyReportUrl + environment.insertReportImageUrl;  // !!!
+        private dailyReportUrl = this.mrGatewayService + environment.dailyReportUrl;
+            enterNewReportUrl = this.dailyReportUrl + environment.enterNewReportUrl;
+            updateReportUrl = this.dailyReportUrl + environment.updateReportUrl;
+            insertReportImageUrl = this.dailyReportUrl + environment.insertReportImageUrl;
             deleteReportUrl = this.dailyReportUrl + environment.deleteReportUrl;
 
         // == OFFICE ==
-        officeUrl = this.mrGatewayService + environment.officeUrl; // !!!
+        officeUrl = this.mrGatewayService + environment.officeUrl; // NOT Tested
 
             // == CHECKLIST ==
-            private checklistUrl = this.officeUrl + environment.checklistUrl; // Not tested
-                enterNewChecklistUrl = this.checklistUrl + environment.enterNewChecklistUrl; // Not tested
+            private checklistUrl = this.officeUrl + environment.checklistUrl; // NOT Tested
+                enterNewChecklistUrl = this.checklistUrl + environment.enterNewChecklistUrl; // NOT Tested
 
         // == ORDERS ==
         private orderServiceUrl = this.mrGatewayService + environment.orderServiceUrl;
-            insertNewOrderDetailsUrl = this.orderServiceUrl + environment.insertNewOrderDetailsUrl; // Tested
-            insertProductAmounts = this.orderServiceUrl + environment.insertProductAmounts; // Tested
-            deleteProduct = this.orderServiceUrl + environment.deleteProduct; // Tested
-            deleteOrder  = this.orderServiceUrl + environment.deleteOrder; // Tested
-            updateRouteDate = this.orderServiceUrl + environment.updateRouteDate; // Tested
-            refreshWeeklyOrdersCacheUrl = this.orderServiceUrl + environment.refreshWeeklyOrdersCacheUrl; // Tested
-            insertKafkaNewOrderDetails = this.orderServiceUrl + environment.insertKafkaNewOrderDetails; // Not tested
+            insertNewOrderDetailsUrl = this.orderServiceUrl + environment.insertNewOrderDetailsUrl;
+            insertProductAmounts = this.orderServiceUrl + environment.insertProductAmounts;
+            deleteProduct = this.orderServiceUrl + environment.deleteProduct;
+            deleteOrder  = this.orderServiceUrl + environment.deleteOrder;
+            updateRouteDate = this.orderServiceUrl + environment.updateRouteDate;
+            refreshWeeklyOrdersCacheUrl = this.orderServiceUrl + environment.refreshWeeklyOrdersCacheUrl;
+            insertKafkaNewOrderDetails = this.orderServiceUrl + environment.insertKafkaNewOrderDetails; // NOT Tested
 
         // == STOCKTAKE ==
-        private stockTakeurl = this.mrGatewayService + environment.stockTakeurl; // Not tested
+        private stockTakeurl = this.mrGatewayService + environment.stockTakeurl; // NOT Tested
 
         // == PRODUCTS ==
-        private productsUrl = this.mrGatewayService + 'products/'; // Not tested
-            getProductContainersUrl = this.productsUrl + 'containers/'; // Not tested
-            deleteProcessedStock = this.productsUrl + 'delete/'; // Not tested
-            getProcessedStockContainersToDeleteUrl = this.productsUrl + 'delete/containers/half'; // Not tested
-            updateProcessedStockContainerDeleteUrl = this.productsUrl + 'delete/containerUpdate/'; // Not tested
-            checkConnectionWithDelete = this.productsUrl + 'testDelete/'; // Not tested
-            enterAllProcessedProducts = this.productsUrl + 'input/'; // Not tested
-            allActiveProducts = this.productsUrl + 'noNewEndpointHereYet/'; // Not tested
-            getAllStockForSpecificTime = this.productsUrl + 'noNewEndpointHereYet/'; // Not tested
+        private productsUrl = this.mrGatewayService + 'products/'; // NOT Tested
+            getProductContainersUrl = this.productsUrl + 'containers/'; // NOT Tested
+            deleteProcessedStock = this.productsUrl + 'delete/'; // NOT Tested
+            getProcessedStockContainersToDeleteUrl = this.productsUrl + 'delete/containers/half'; // NOT Tested
+            updateProcessedStockContainerDeleteUrl = this.productsUrl + 'delete/containerUpdate/'; // NOT Tested
+            checkConnectionWithDelete = this.productsUrl + 'testDelete/'; // NOT Tested
+            enterAllProcessedProducts = this.productsUrl + 'input/'; // NOT Tested
+            allActiveProducts = this.productsUrl + 'noNewEndpointHereYet/'; // NOT Tested
+            getAllStockForSpecificTime = this.productsUrl + 'noNewEndpointHereYet/'; // NOT Tested
 
 
 

@@ -31,7 +31,7 @@ describe('Test response for all REST API endpoints', () => {
 
     describe('Test main REST API endpoints', () => {
 
-        it('should verify gateway api rest endpoint for get: admin-page', async done => {
+        xit('should verify gateway api rest endpoint for get: admin-page', async done => {
 
             const res: IAxiomRequestReturn = await axios.get(environment.adminUrl)
 
@@ -40,7 +40,7 @@ describe('Test response for all REST API endpoints', () => {
             done();
         });
 
-        it('should verify gateway api rest endpoint for post: graphql', async done => {
+        xit('should verify gateway api rest endpoint for post: graphql', async done => {
 
             const res: any = await axios.post(environment.graphqlAddress, {
                 "operationName": "Shifts",
@@ -52,9 +52,24 @@ describe('Test response for all REST API endpoints', () => {
             done();
         });
 
+        it('should verify gateway api rest endpoint for post: media', async done => {
+
+            const res: any = await axios.post(environment.mediaUrl)
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            // Remove monolith extra urls when all are working ...
+            // expect(res.status).toEqual(200);
+            // expect(res.data.data.nodeShifts).toBeDefined();
+            done();
+        });
+
     });
 
-    describe('Test mrUserService REST API endpoints', () => {
+    xdescribe('Test mrUserService REST API endpoints', () => {
 
         it('should verify gateway api rest endpoint for post: user-login', async done => {
             const res: IAxiomRequestReturn = await axios.post(environment.mrUserService + environment.loginUrl, {
@@ -87,7 +102,7 @@ describe('Test response for all REST API endpoints', () => {
 
     });
 
-    describe('Test mrTimeStampService REST API endpoints', () => {
+    xdescribe('Test mrTimeStampService REST API endpoints', () => {
         let errors: IAxiomErrorReturn;
 
         it('should get getTimeStampIDUrl with post request', async done => {
@@ -111,11 +126,11 @@ describe('Test response for all REST API endpoints', () => {
 
     });
 
-    describe('Test mrDailyReportService REST API endpoints', () => {
+    xdescribe('Test mrDailyReportService REST API endpoints', () => {
         let errors: IAxiomErrorReturn;
 
         it('should return response from enterNewReportUrl with post request', async done => {
-            const res: any = await axios.post(environment.dailyReportUrl + environment.enterNewReportUrl, {test:'Test data that should be rejected'})
+            const res: any = await axios.post(environment.dailyReportUrl + environment.enterNewReportUrl, { test: 'Test data that should be rejected' })
                 .then(response => {
                 })
                 .catch(error => {
@@ -126,25 +141,120 @@ describe('Test response for all REST API endpoints', () => {
             done();
         });
 
-        it('should return response from updateReportUrl with post request', async done => {
-            const res: any = await axios.put(environment.dailyReportUrl + environment.updateReportUrl, {test:'Test data that should be rejected'})
+        it('should return response from updateReportUrl with put request', async done => {
+            const res: any = await axios.put(environment.dailyReportUrl + environment.updateReportUrl + 0)
                 .then(response => {
-                    console.log('worked = ', response)
                 })
                 .catch(error => {
                     errors = error
-                    console.log('failed = ', errors.response)
                 });
-            // expect(errors.response.status).toEqual(400);
-            // expect(errors.response.data[0]).toBe('Error - There was no data provided');
+            expect(errors.response.status).toEqual(400);
+            expect(errors.response.data.error).toBe('Could not find data to update report');
             done();
         });
 
+        it('should return response from deleteReportUrl with delete request', async done => {
+            const res: any = await axios.delete(environment.dailyReportUrl + environment.deleteReportUrl + 0)
+                .then(response => {
+                })
+                .catch(error => {
+                    errors = error
+                });
+            expect(errors.response.status).toEqual(400);
+            expect(errors.response.data.error).toBe('Could not find report id to delete');
+            done();
+        });
 
-        // enterNewReportUrl = this.dailyReportUrl + environment.enterNewReportUrl;  // !!!
-        // updateReportUrl = this.dailyReportUrl + environment.updateReportUrl;  // !!!
-        // insertReportImageUrl = this.dailyReportUrl + environment.insertReportImageUrl;  // !!!
-        // deleteReportUrl = this.dailyReportUrl + environment.deleteReportUrl;
+        it('should return response from insertReportImageUrl with post request', async done => {
+            const res: any = await axios.post(environment.dailyReportUrl + environment.insertReportImageUrl)
+                .then(response => {
+                })
+                .catch(error => {
+                    errors = error
+                });
+            expect(errors.response.status).toEqual(400);
+            expect(errors.response.data.image[0]).toBe('No file was submitted.');
+            done();
+        });
+
+    });
+
+    xdescribe('Test mrOrderService REST API endpoints', () => {
+
+        let errors: IAxiomErrorReturn;
+
+        it('should return response from insertNewOrderDetailsUrl with put request', async done => {
+            const res: any = await axios.put(environment.orderServiceUrl + environment.insertNewOrderDetailsUrl, { test: 'Test data that should be rejected' })
+                .then(response => {
+                })
+                .catch(error => {
+                    errors = error
+                });
+            expect(errors.response.status).toEqual(400);
+            expect(errors.response.data.accountid[0]).toBe('This field is required.');
+            done();
+        });
+
+        it('should return response from insertProductAmounts with put request', async done => {
+            const res: any = await axios.put(environment.orderServiceUrl + environment.insertProductAmounts, { test: 'Test data that should be rejected' })
+                .then(response => {
+                })
+                .catch(error => {
+                    errors = error
+                });
+            expect(errors.response.status).toEqual(400);
+            expect(errors.response.data.non_field_errors[0]).toBe('Invalid data. Expected a dictionary, but got str.');
+            done();
+        });
+
+        it('should return response from deleteOrder with delete request', async done => {
+            const res: any = await axios.delete(environment.orderServiceUrl + environment.deleteOrder + 0)
+                .then(response => {
+                })
+                .catch(error => {
+                    errors = error
+                });
+            expect(errors.response.status).toEqual(400);
+            expect(errors.response.data.error).toBe('Order id not found');
+            done();
+        });
+
+        it('should return response from deleteProduct with delete request', async done => {
+            const res: any = await axios.delete(environment.orderServiceUrl + environment.deleteProduct + 0)
+                .then(response => {
+                })
+                .catch(error => {
+                    errors = error
+                });
+            expect(errors.response.status).toEqual(400);
+            expect(errors.response.data.error).toBe('Product id not found');
+            done();
+        });
+
+        it('should return response from refreshWeeklyOrdersCache with post request', async done => {
+            const res: any = await axios.post(environment.orderServiceUrl + environment.refreshWeeklyOrdersCacheUrl)
+                .then(response => {
+                })
+                .catch(error => {
+                    errors = error
+                });
+            expect(errors.response.status).toEqual(400);
+            expect(errors.response.data.error).toBe('No timestamp id provided');
+            done();
+        });
+
+        it('should return response from UpdateRouteDate with put request', async done => {
+            const res: any = await axios.put(environment.orderServiceUrl + environment.updateRouteDate)
+                .then(response => {
+                })
+                .catch(error => {
+                    errors = error
+                });
+            expect(errors.response.status).toEqual(400);
+            expect(errors.response.data.error).toBe('No update data provided, or no products to update');
+            done();
+        });
+
 
     });
 

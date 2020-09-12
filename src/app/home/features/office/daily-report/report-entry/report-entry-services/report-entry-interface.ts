@@ -5,4 +5,5 @@ export class IInsertNewReportApiInterface {
     messageLevel: IReadReportLevels;
     messageid: number;
     timestampID: number;
+    userid: number;
 }

@@ -39,17 +39,20 @@ export class ReportEntryService {
     enterNewReport(newReportEntry: IInsertNewReportApiInterface, file: File) {
         return this.datepicker.currentDatePackage$.pipe(
             take(1),
-            tap(data => newReportEntry.timestampID = data.id),
+            tap(datePackage => {
+                newReportEntry.timestampID = datePackage.id;
+                newReportEntry.userid = parseInt(localStorage.getItem('userID'), 10);
+            }),
             // tap(() => console.log('newReportEntry with timeStampID = ', file)),
             concatMap(() => this.reportEntryApiService.enterNewReport(newReportEntry)),
             // do something here that will return the id of the message, so that you can post the image to that id.
-            concatMap((data) => {
+            concatMap((reportData) => {
                 if (file) {
-                    console.log('There was a file included', data);
-                    return this.reportEntryApiService.uploadDailyReportFile(data.id, file);
+                    console.log('There was a file included', reportData);
+                    return this.reportEntryApiService.uploadDailyReportFile(reportData.id, file);
                 }
-                console.log('There was NO file included', data);
-                return of(data);
+                console.log('There was NO file included', reportData);
+                return of(reportData);
             }),
             tap(() => this.setCurrentMessageDetails(this.defaultMessage)),
             tap(() => this.router.navigate(['/main/admin-office/daily-report/report-main'])),
