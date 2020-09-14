@@ -30,6 +30,7 @@ export class ReportEntryApiService {
         fd.append('name', file.name);
         fd.append('image', file, file.name);
         fd.append('report', reportId.toString());
+        console.log('The image file that will be uploaded = ', fd)
         return this.http.post<any>(uploadReportFileUrl, fd);
     }
 

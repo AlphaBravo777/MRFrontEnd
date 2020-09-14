@@ -31,7 +31,7 @@ describe('Test response for all REST API endpoints', () => {
 
     describe('Test main REST API endpoints', () => {
 
-        xit('should verify gateway api rest endpoint for get: admin-page', async done => {
+        it('should verify gateway api rest endpoint for get: admin-page', async done => {
 
             const res: IAxiomRequestReturn = await axios.get(environment.adminUrl)
 
@@ -40,7 +40,7 @@ describe('Test response for all REST API endpoints', () => {
             done();
         });
 
-        xit('should verify gateway api rest endpoint for post: graphql', async done => {
+        it('should verify gateway api rest endpoint for post: graphql', async done => {
 
             const res: any = await axios.post(environment.graphqlAddress, {
                 "operationName": "Shifts",
@@ -52,7 +52,7 @@ describe('Test response for all REST API endpoints', () => {
             done();
         });
 
-        it('should verify gateway api rest endpoint for post: media', async done => {
+        xit('should verify gateway api rest endpoint for post: media', async done => {
 
             const res: any = await axios.post(environment.mediaUrl)
                 .then(function (response) {
@@ -69,7 +69,7 @@ describe('Test response for all REST API endpoints', () => {
 
     });
 
-    xdescribe('Test mrUserService REST API endpoints', () => {
+    describe('Test mrUserService REST API endpoints', () => {
 
         it('should verify gateway api rest endpoint for post: user-login', async done => {
             const res: IAxiomRequestReturn = await axios.post(environment.mrUserService + environment.loginUrl, {
@@ -102,7 +102,7 @@ describe('Test response for all REST API endpoints', () => {
 
     });
 
-    xdescribe('Test mrTimeStampService REST API endpoints', () => {
+    describe('Test mrTimeStampService REST API endpoints', () => {
         let errors: IAxiomErrorReturn;
 
         it('should get getTimeStampIDUrl with post request', async done => {
@@ -126,7 +126,7 @@ describe('Test response for all REST API endpoints', () => {
 
     });
 
-    xdescribe('Test mrDailyReportService REST API endpoints', () => {
+    describe('Test mrDailyReportService REST API endpoints', () => {
         let errors: IAxiomErrorReturn;
 
         it('should return response from enterNewReportUrl with post request', async done => {
@@ -179,7 +179,7 @@ describe('Test response for all REST API endpoints', () => {
 
     });
 
-    xdescribe('Test mrOrderService REST API endpoints', () => {
+    describe('Test mrOrderService REST API endpoints', () => {
 
         let errors: IAxiomErrorReturn;
 

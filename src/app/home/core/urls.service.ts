@@ -31,28 +31,29 @@ export class UrlsService {
 
         // == MEDIA ==
         mediaUrl = this.mrGatewayService + environment.mediaUrl; // !!! This endpoint needs serious attention (Can not see images)
+        // For now we would have to use it directly, instead of through the gateway
 
         // == GRAPHQL ==
-        graphqlAddress = this.mrGatewayService + environment.graphqlAddress;
+        graphqlAddress = this.mrGatewayService + environment.graphqlAddress; // Tested
 
         // == USERSERVICE ==
         private mrUserService = this.mrGatewayService + environment.mrUserService;
-            loginUrl = this.mrUserService + environment.loginUrl;
-            verifyTokenUrl = this.mrUserService + environment.verifyTokenUrl;
-            permissionsUrl = this.mrUserService + environment.permissionsUrl;
+            loginUrl = this.mrUserService + environment.loginUrl; // Tested
+            verifyTokenUrl = this.mrUserService + environment.verifyTokenUrl; // Tested
+            permissionsUrl = this.mrUserService + environment.permissionsUrl; // Tested
             registerUrl = this.mrUserService + environment.registerUrl; // NOT Tested
 
         // == TIMESTAMP ==
         private timeStampUrl = this.mrGatewayService + environment.timeStampUrl;
-            getTimeStampidOrCreateNew = this.timeStampUrl + environment.getTimeStampidOrCreateNew;
-            getStockTimes = this.timeStampUrl + environment.getStockTimes;
+            getTimeStampidOrCreateNew = this.timeStampUrl + environment.getTimeStampidOrCreateNew; // Tested
+            getStockTimes = this.timeStampUrl + environment.getStockTimes; // Tested
 
         // == DAILYREPORT ==
         private dailyReportUrl = this.mrGatewayService + environment.dailyReportUrl;
-            enterNewReportUrl = this.dailyReportUrl + environment.enterNewReportUrl;
-            updateReportUrl = this.dailyReportUrl + environment.updateReportUrl;
-            insertReportImageUrl = this.dailyReportUrl + environment.insertReportImageUrl;
-            deleteReportUrl = this.dailyReportUrl + environment.deleteReportUrl;
+            enterNewReportUrl = this.dailyReportUrl + environment.enterNewReportUrl; // Tested
+            updateReportUrl = this.dailyReportUrl + environment.updateReportUrl; // Tested
+            insertReportImageUrl = this.dailyReportUrl + environment.insertReportImageUrl; // Tested
+            deleteReportUrl = this.dailyReportUrl + environment.deleteReportUrl; // Tested
 
         // == OFFICE ==
         officeUrl = this.mrGatewayService + environment.officeUrl; // NOT Tested
@@ -63,12 +64,12 @@ export class UrlsService {
 
         // == ORDERS ==
         private orderServiceUrl = this.mrGatewayService + environment.orderServiceUrl;
-            insertNewOrderDetailsUrl = this.orderServiceUrl + environment.insertNewOrderDetailsUrl;
-            insertProductAmounts = this.orderServiceUrl + environment.insertProductAmounts;
-            deleteProduct = this.orderServiceUrl + environment.deleteProduct;
-            deleteOrder  = this.orderServiceUrl + environment.deleteOrder;
-            updateRouteDate = this.orderServiceUrl + environment.updateRouteDate;
-            refreshWeeklyOrdersCacheUrl = this.orderServiceUrl + environment.refreshWeeklyOrdersCacheUrl;
+            insertNewOrderDetailsUrl = this.orderServiceUrl + environment.insertNewOrderDetailsUrl; // Tested
+            insertProductAmounts = this.orderServiceUrl + environment.insertProductAmounts; // Tested
+            deleteProduct = this.orderServiceUrl + environment.deleteProduct; // Tested
+            deleteOrder  = this.orderServiceUrl + environment.deleteOrder; // Tested
+            updateRouteDate = this.orderServiceUrl + environment.updateRouteDate; // Tested
+            refreshWeeklyOrdersCacheUrl = this.orderServiceUrl + environment.refreshWeeklyOrdersCacheUrl; // Tested
             insertKafkaNewOrderDetails = this.orderServiceUrl + environment.insertKafkaNewOrderDetails; // NOT Tested
 
         // == STOCKTAKE ==
@@ -92,17 +93,12 @@ export class UrlsService {
 
 
 
-    // monolithBackendUrl = this.root + ':8011/';  // Meatrite test server
-
+    monolithBackendUrl = this.root + ':8011/';  // Meatrite test server
     mrOrderService = this.root + ':8013/';  // Use gateway service
     mrAccountService = this.root + ':8014/';  // Use gateway service
     mrProductService = this.root + ':8015/';  // Use gateway service
-    // * graphqlAddress = this.root + ':8016/graphql/'; // Try to see if this will work
     mrStocktakeService = this.root + ':8017/';  // Use gateway service
-
-    sagaCoordinatorMS = this.root + ':8070/';
-    // * mediaUrl = this.monolithBackendUrl + 'media/';
-    // graphqlAddress = this.root + ':8011/graphql/';
+    sagaCoordinatorMS = this.root + ':8070/';  // Use gateway service
 
     // - USER -
         // * private mrUserService = this.mrGatewayService + 'user/';
