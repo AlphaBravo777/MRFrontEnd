@@ -43,6 +43,7 @@ export const environment = {
                 deleteOrder: 'deleteOrder/',
                 updateRouteDate: 'updateRouteDate/',
                 refreshWeeklyOrdersCacheUrl: 'refreshWeeklyOrdersCache/',
+                getAllOrdersForTimeStampid: 'orderForTimeStampidMany/',
                 insertKafkaNewOrderDetails: 'insertKafkaNewOrderDetails/',
 
             stockTakeurl: 'stockTake/'

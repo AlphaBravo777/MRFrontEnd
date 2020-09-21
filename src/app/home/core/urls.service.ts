@@ -70,6 +70,7 @@ export class UrlsService {
             deleteOrder  = this.orderServiceUrl + environment.deleteOrder; // Tested
             updateRouteDate = this.orderServiceUrl + environment.updateRouteDate; // Tested
             refreshWeeklyOrdersCacheUrl = this.orderServiceUrl + environment.refreshWeeklyOrdersCacheUrl; // Tested
+            getAllOrdersForTimeStampid = this.orderServiceUrl + environment.getAllOrdersForTimeStampid; // Excel endpoint
             insertKafkaNewOrderDetails = this.orderServiceUrl + environment.insertKafkaNewOrderDetails; // NOT Tested
 
         // == STOCKTAKE ==

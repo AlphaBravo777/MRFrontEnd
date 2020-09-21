@@ -70,7 +70,7 @@ export class InsertOrderApiService {
     enterNewOrderDetails(orderDetails: IOrderDetails): Observable<IOrderDetails> {
         const orderDetailsBackend: IOrderDBDetails = ff_createOrderDetailsObjectForDB(orderDetails);
         console.log('Backend object: ', orderDetailsBackend);
-        return this.http.put<any>(this.urlService.insertNewOrderDetailsUrl, orderDetailsBackend).pipe(
+        return this.http.post<any>(this.urlService.insertNewOrderDetailsUrl, orderDetailsBackend).pipe(
             tap(response => console.log('This is the responce now', JSON.parse(JSON.stringify(response)))),
             map(response => ff_CreateOrderDetailsObjFromDBObj(response)),
             tap(response => console.log('This is the response now', response)),
@@ -85,7 +85,7 @@ export class InsertOrderApiService {
         productAmounts.forEach(product => productDetailsBackend.push(ff_createProductDetailsObjectForDB(product)));
         console.log('The products that will be inserted = ', productDetailsBackend);
     //   const productDetailsBackend: IProductOrderDBDetails[] = ff_createProductDetailsObjectForDB(productAmounts)
-        return this.http.put<any>(this.urlService.insertProductAmounts, productDetailsBackend);
+        return this.http.post<any>(this.urlService.insertProductAmounts, productDetailsBackend);
     }
 
     deleteProductFromOrder(amountid: number) {

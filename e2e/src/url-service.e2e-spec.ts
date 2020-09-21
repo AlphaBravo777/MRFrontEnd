@@ -165,7 +165,7 @@ describe('Test response for all REST API endpoints', () => {
             done();
         });
 
-        it('should return response from insertReportImageUrl with post request', async done => {
+        xit('should return response from insertReportImageUrl with post request', async done => {
             const res: any = await axios.post(environment.dailyReportUrl + environment.insertReportImageUrl)
                 .then(response => {
                 })
@@ -183,8 +183,8 @@ describe('Test response for all REST API endpoints', () => {
 
         let errors: IAxiomErrorReturn;
 
-        it('should return response from insertNewOrderDetailsUrl with put request', async done => {
-            const res: any = await axios.put(environment.orderServiceUrl + environment.insertNewOrderDetailsUrl, { test: 'Test data that should be rejected' })
+        it('should return response from insertNewOrderDetailsUrl with post request', async done => {
+            const res: any = await axios.post(environment.orderServiceUrl + environment.insertNewOrderDetailsUrl, { test: 'Test data that should be rejected' })
                 .then(response => {
                 })
                 .catch(error => {
@@ -195,8 +195,8 @@ describe('Test response for all REST API endpoints', () => {
             done();
         });
 
-        it('should return response from insertProductAmounts with put request', async done => {
-            const res: any = await axios.put(environment.orderServiceUrl + environment.insertProductAmounts, { test: 'Test data that should be rejected' })
+        it('should return response from insertProductAmounts with post request', async done => {
+            const res: any = await axios.post(environment.orderServiceUrl + environment.insertProductAmounts, { test: 'Insert Product test data that should be rejected' })
                 .then(response => {
                 })
                 .catch(error => {
@@ -252,6 +252,19 @@ describe('Test response for all REST API endpoints', () => {
                 });
             expect(errors.response.status).toEqual(400);
             expect(errors.response.data.error).toBe('No update data provided, or no products to update');
+            done();
+        });
+
+        it('should return response from orderForTimeStampidMany with get request', async done => {
+            const res: any = await axios.get(environment.orderServiceUrl + environment.getAllOrdersForTimeStampid + 0)
+            .then(response => {
+            })
+            .catch(error => {
+                errors = error
+            });
+            console.log('Test', errors.response.data.non_field_errors)
+            expect(errors.response.status).toEqual(400);
+            expect(errors.response.data.error).toBe('The timestampid was not provided or is incorrect');
             done();
         });
 
