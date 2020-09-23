@@ -46,7 +46,10 @@ export const environment = {
                 getAllOrdersForTimeStampid: 'orderForTimeStampidMany/',
                 insertKafkaNewOrderDetails: 'insertKafkaNewOrderDetails/',
 
-            stockTakeurl: 'stockTake/'
+            stockTakeurl: 'stockTake/',
+
+            routeUrl: 'route/',
+                getAllRoutes: 'getAllRoutes/'
 };
 
 /*

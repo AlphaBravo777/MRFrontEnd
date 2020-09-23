@@ -192,3 +192,5 @@ Make summary Module (Version 2):
         ☐ Create product containers form
         ☐ Greate product group list (If necesarry, this will almost not be done again)
         ☐ Create a list of orders that WERE inserted at pnp just to show something is happening
+        ☐ Looks like when adding an order it does not pick up if you add the same product twice, trying to add a product again should give you an error
+        ☐ HUGE BUG WHERE ORDER CACHE DOES NOT FILTER BY YEAR, NEED TO BRING A YEAR COLUMN IN AS WELL
