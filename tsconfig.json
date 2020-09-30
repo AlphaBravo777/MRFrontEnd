@@ -49,6 +49,10 @@
       ],
       "accounts-service/*": [
         "dist/accounts-service/*"
+      ],
+      "stock-take-service": [
+        "dist/stock-take-service/stock-take-service",
+        "dist/stock-take-service"
       ]
     }
   }
