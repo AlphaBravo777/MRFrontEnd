@@ -1,0 +1,9 @@
+<p>production-stock-data works!</p>
+<div class="twain">
+    <div *ngIf="productionStock$ | async as productionStock">
+        {{ productionStock }}
+        <stock-production-stock-view
+            [productionStock]='productionStock'>
+        </stock-production-stock-view>
+    </div>
+</div>
