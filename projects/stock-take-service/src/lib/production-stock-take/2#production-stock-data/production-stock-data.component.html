@@ -1,9 +1,19 @@
 <p>production-stock-data works!</p>
 <div class="twain">
-    <div *ngIf="productionStock$ | async as productionStock">
-        {{ productionStock }}
+    <ng-container *ngIf="productionStock$ | async as productionStock; then dataAvailable; else noData"></ng-container>
+
+    <ng-template #dataAvailable>
         <stock-production-stock-view
             [productionStock]='productionStock'>
         </stock-production-stock-view>
-    </div>
+    </ng-template>
+
+    <ng-template #noData>
+        <p>{{noDataMessage}}</p>
+    </ng-template>
+
+    <p class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </p>
+
 </div>

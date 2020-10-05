@@ -25,8 +25,8 @@ const mainPortalRoutes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'stock',
-                loadChildren: () => import('../../features/stock/stocks.module').then(m => m.StocksModule),
+                path: 'stock-take',
+                loadChildren: () => import('projects/stock-take-service/src/public-api').then(m => m.StockTakeServiceModule),
                 canActivate: [AuthGuard],
             },
             {

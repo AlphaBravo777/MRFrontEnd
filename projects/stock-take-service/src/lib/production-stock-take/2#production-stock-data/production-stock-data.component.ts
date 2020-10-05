@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { ProductionStockMock } from 'src/assets/mockData/stock-take-service/production-data-mocks';
-import { IProductionStock } from '../../#shared-services/production-stock.interface';
+import { IProductionStock, IProductionStockByFactoryArea } from '../../#shared-services/production-stock.interface';
 import { ProductionStockService } from '../1#product-stock-services/production-stock.service';
 
 @Component({
@@ -12,28 +12,28 @@ import { ProductionStockService } from '../1#product-stock-services/production-s
 })
 export class ProductionStockDataComponent implements OnInit {
 
-    productionStock$: Observable<IProductionStock[]>;
-    productionStock: IProductionStock[] = [];
+    productionStock$: Observable<IProductionStockByFactoryArea[]>;
+    productionStock: IProductionStockByFactoryArea[];
+    noDataMessage = "No data found ..."
+    errorMessage: string;
 
     constructor(private productionStockService: ProductionStockService) { }
 
     ngOnInit(): void {
-        this.productionStock$ = this.productionStockService.getAllProducts().pipe(
-            tap(data => this.productionStock = data)
-        );
-        // this.getProductionStock();
-        // const data: IProductionStock = ProductionStockMock.build();
-        // console.log('Here is the data: ', data);
+        this.getProductionStock()
     }
 
-    // getProductionStock() {
-    //     this.productionStock$ = this.productionStockService.getAllProducts();
-    // }
-
-    testOb() {
-        this.productionStock$.subscribe(
-            data => this.productionStock = data
-        )
+    getProductionStock() {
+        this.errorMessage = ''
+        this.productionStock$ = this.productionStockService.getAllProducts().pipe(
+            tap(data => this.productionStock = data),
+            catchError( (err: any) => {
+                // Wait a turn because errorMessage already set once this turn
+                setTimeout(() => this.errorMessage = err.message || err.toString());
+                // return of(this.noDataMessage); // reset message to placeholder
+                return of([]); // reset message to placeholder
+              })
+        );
     }
 
 }
