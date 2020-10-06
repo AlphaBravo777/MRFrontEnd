@@ -13,6 +13,7 @@ export class IProductionStock {
     factoryAreaName: string;  // This might be showers, polony-pulldown-1, L-shape front
     factoryAreaRanking: number;
     factoryAreaProductRanking: number
+    container: string;
 }
 
 export class IProductionStockByFactoryArea {
