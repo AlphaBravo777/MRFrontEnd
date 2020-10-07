@@ -1,0 +1,19 @@
+.buttons {
+    margin: 0 auto;
+    max-width: 768px;
+}
+
+@media print {
+    .content {
+        width: 21cm;
+        height: 29.7cm;
+        margin: 30mm 45mm 30mm 45mm;
+        /* change the margins as you want them to be. */
+    }
+
+    .buttons {
+        visibility: hidden;
+        width: 0px;
+        height: 0px
+    }
+}

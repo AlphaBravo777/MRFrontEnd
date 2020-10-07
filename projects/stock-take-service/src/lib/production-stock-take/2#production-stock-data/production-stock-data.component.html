@@ -1,11 +1,22 @@
-<p>production-stock-data works!</p>
 <div class="twain">
     <ng-container *ngIf="productionStock$ | async as productionStock; then dataAvailable; else noData"></ng-container>
 
     <ng-template #dataAvailable>
-        <stock-production-stock-view
-            [productionStock]='productionStock'>
-        </stock-production-stock-view>
+        <div class='buttons'>
+            <!-- <div><button (click)='generatePDF()' class='niceButton meatriteButton'>Download as PDF</button></div>
+            <div><button (click)='makePDF()' class='niceButton meatriteButton'>Download as PDF2</button></div>
+            <div><button (click)='printPage()' class='niceButton meatriteButton'>Print page</button></div> -->
+        </div>
+        <form [formGroup]="mainStockForm" (ngSubmit)="onSubmit()">
+            <div id='content'>
+                <stock-production-stock-view
+                    [productionStock]='productionStock'
+                    [mainStockForm]='mainStockForm'>
+                </stock-production-stock-view>
+            </div>
+        
+            <pre>{{mainStockForm.value | json}}</pre>
+        </form>
     </ng-template>
 
     <ng-template #noData>

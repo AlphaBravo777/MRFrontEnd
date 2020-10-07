@@ -9,6 +9,8 @@ import { ProductionStockViewComponent } from '../3#production-stock-view/product
 import { MockComponent } from 'ng-mocks';
 
 import { ProductionStockDataComponent } from './production-stock-data.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormArray } from '@ng-stack/forms';
 
 describe('ProductionStockDataComponent', () => {
 
@@ -18,6 +20,7 @@ describe('ProductionStockDataComponent', () => {
     let noDataMessage = "No data found ..."
     let getQuoteSpy: jasmine.Spy;
     let quoteEl: HTMLElement;
+    const mainStockForm = new FormArray<IProductionStockByFactoryArea>([])
 
     // This would be something that we do if our child component is going to become more due to a *ngFor loop in the parent
     // function childComponents(): ProductionStockViewComponent[] {
@@ -44,13 +47,18 @@ describe('ProductionStockDataComponent', () => {
 
         TestBed.configureTestingModule({
             declarations: [ProductionStockDataComponent, MockComponent(ProductionStockViewComponent)],
-
-            providers: [{ provide: ProductionStockService, useValue: twainService }]
+            imports: [ReactiveFormsModule],
+            providers: [
+                { provide: ProductionStockService, useValue: twainService },
+                // { provide: FormBuilder, useValue: formBuilder }
+            
+            ]
         })
             .compileComponents();
 
         fixture = TestBed.createComponent(ProductionStockDataComponent);
         component = fixture.componentInstance;
+        component.mainStockForm = mainStockForm
         quoteEl = fixture.nativeElement.querySelector('.twain');
     });
 
