@@ -1,0 +1,32 @@
+.printContainer {
+    margin: 0 auto;
+    max-width: 700px;
+    background: #ebebeb;
+}
+
+
+/* If the screen size is 751px wide or more */
+@media screen and (min-width: 751px) {
+    .factoryAreas {
+        padding: .4rem 0px;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+}
+
+/* If the screen size is 750px wide or less */
+@media screen and (max-width: 750px) {
+    .factoryAreas {
+        padding: .2rem 0px;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+}
+
+@media print {
+    .factoryAreas {
+        padding: .4rem 0px;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+}

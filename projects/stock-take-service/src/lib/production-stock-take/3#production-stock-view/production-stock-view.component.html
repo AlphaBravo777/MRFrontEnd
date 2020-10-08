@@ -1,5 +1,13 @@
-<div>
-    <div *ngFor='let factoryArea of productionStock'>
-        Factory Area: {{factoryArea.factoryAreaName}}
+<div class='printContainer' *ngIf='mainStockForm'>
+    <div *ngFor='let factoryArea of mainStockForm.controls'>
+        <div class='factoryAreas'>
+            Factory Area: 
+            <span>{{factoryArea.get('factoryAreaName').value}}</span>
+        </div>
+        <div>
+            <stock-stock-items
+                [factoryAreaProducts]='factoryArea.get("factoryAreaProducts")'
+            ></stock-stock-items>
+        </div>
     </div>
 </div>
