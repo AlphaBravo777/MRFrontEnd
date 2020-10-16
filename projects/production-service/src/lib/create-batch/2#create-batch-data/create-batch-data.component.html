@@ -1,0 +1,14 @@
+<div class='center-div'>
+    <div *ngIf='batchFormArray'>
+
+        <form [formGroup]="batchFormArray" (ngSubmit)="onSubmit()">
+            <lib-create-batch-view
+                [batchFormArray]='batchFormArray'
+            ></lib-create-batch-view>
+            <button class='meatriteButton niceButton' type="submit" [disabled]='batchFormArray.invalid'>Insert</button>
+            <button class='meatriteButton niceButton' type="button" (click)=addBatchToArray()>Add Batch</button>
+            <pre>{{batchFormArray.value | json}}</pre>
+        </form>
+    </div>
+</div>
+
