@@ -53,6 +53,10 @@
       "stock-take-service": [
         "dist/stock-take-service/stock-take-service",
         "dist/stock-take-service"
+      ],
+      "production-service": [
+        "dist/production-service/production-service",
+        "dist/production-service"
       ]
     }
   }

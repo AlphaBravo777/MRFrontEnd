@@ -333,6 +333,46 @@
           }
         }
       }
+    },
+    "production-service": {
+      "projectType": "library",
+      "root": "projects/production-service",
+      "sourceRoot": "projects/production-service/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/production-service/tsconfig.lib.json",
+            "project": "projects/production-service/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/production-service/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/production-service/src/test.ts",
+            "tsConfig": "projects/production-service/tsconfig.spec.json",
+            "karmaConfig": "projects/production-service/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/production-service/tsconfig.lib.json",
+              "projects/production-service/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "meatriteFrontEnd",
