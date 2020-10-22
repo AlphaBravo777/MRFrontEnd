@@ -26,6 +26,7 @@
             ],
             "styles": [
               "src/styles.scss",
+              "src/styles-theme.scss",
               "src/stylesBackground.scss",
               "src/stylesColors.scss"
             ],
