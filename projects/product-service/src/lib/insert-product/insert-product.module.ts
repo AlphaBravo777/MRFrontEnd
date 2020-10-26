@@ -2,11 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedComponentsModule } from 'src/app/home/shared/components/shared-components.module';
 import { CustomMaterialModule } from 'src/app/home/shared/dropdown-table/custom-material.module';
-import { TestFormComponent } from './4#controls-form/test-form/test-form.component';
 import { NgStackFormsModule } from '@ng-stack/forms';
-import { MainTestComponent } from './4#controls-form/main-test/main-test.component';
-import { Testleg1Component } from './4#controls-form/testleg1/testleg1.component';
-import { Testleg2Component } from './4#controls-form/testleg2/testleg2.component';
 import { InsertProductRoutingModule } from './insert-product-routing.module';
 import { MaterialConfigModule } from 'src/app/material-config/material-config.module';
 import { InsertProductFormComponent } from './4#controls-form/insert-product-form/insert-product-form.component';
@@ -24,10 +20,6 @@ import { ProductFormPackagingComponent } from './4#controls-form/product-form-pa
 
 @NgModule({
     declarations: [
-        TestFormComponent,
-        MainTestComponent,
-        Testleg1Component,
-        Testleg2Component,
         ProductFormGroupsComponent,
         InsertProductFormComponent,
         InsertProductDataComponent,
