@@ -30,7 +30,7 @@ export class ProductFormSinglesComponent implements OnInit, ControlValueAccessor
 
     public singleInfo: FormGroup<IItemSingleInfo> = new FormGroup<IItemSingleInfo>(
         {
-            active: new FormControl(true),
+            active: new FormControl(!!true),
         });
 
     constructor(private ref: ChangeDetectorRef) { }

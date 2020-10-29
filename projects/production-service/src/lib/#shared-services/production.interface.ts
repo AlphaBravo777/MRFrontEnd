@@ -4,3 +4,10 @@ export class IBatchInfo {
     dayNumber: number;
     year: number;
 }
+
+export class IBatchInfoBackend {
+    id: number;
+    weeknumber: number;
+    year: number;
+    day: number;
+}

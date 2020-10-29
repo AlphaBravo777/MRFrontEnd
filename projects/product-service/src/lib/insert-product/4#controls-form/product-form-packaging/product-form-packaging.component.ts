@@ -3,8 +3,7 @@ import {
     ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS,
     Validator, Validators, AbstractControl, ValidationErrors
 } from '@angular/forms';
-import { FormGroup, FormControl, FormArray } from '@ng-stack/forms';
-import { IItemFormBuildingBlocks, IItemForm, IItemBasic, IItemSize } from '../../../#shared-services/interfaces/item';
+import { FormGroup, FormControl } from '@ng-stack/forms';
 import { IPackaging } from '../../../#shared-services/interfaces/auxiliary';
 
 @Component({
@@ -32,6 +31,7 @@ export class ProductFormPackagingComponent implements OnInit, ControlValueAccess
     public packaging: FormGroup<IPackaging> = new FormGroup<IPackaging>({
         packaging: new FormControl(null),
         packagingid: new FormControl(null),
+        weight: new FormControl(null),
     });
 
     constructor() { }
