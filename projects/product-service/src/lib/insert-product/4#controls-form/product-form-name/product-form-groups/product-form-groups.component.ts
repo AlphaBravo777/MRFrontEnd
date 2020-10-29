@@ -56,6 +56,7 @@ export class ProductFormGroupsComponent implements OnInit, ControlValueAccessor,
                 categoryid: new FormControl(null, [Validators.required]),
                 name: new FormControl('', [Validators.required]),
                 rankingInCategory: new FormControl(null),
+                groups: new FormArray([])
             });
         }
 

@@ -28,6 +28,7 @@ export class AddAccountFormService {
             franchiseName: new FormControl(null),
             franchiseRanking: new FormControl(null),
             rankingInFranchise: new FormControl(null),
+            productGroupName: new FormControl(null),
         });
         return this.accountForm;
     }

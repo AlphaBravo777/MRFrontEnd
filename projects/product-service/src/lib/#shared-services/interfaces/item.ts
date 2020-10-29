@@ -29,7 +29,7 @@ export class IItemSize {
 export class IItemName {
     itemid: number;
     name: string;
-    itemGroupWithID: string | IItemGroup[];
+    itemGroupWithID: IItemGroup[];
 }
 
 export class IItemFormBuildingBlocks {
