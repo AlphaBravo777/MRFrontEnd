@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray } from '@ng-stack/forms';
+import { IStockTakeAmountPerBatch } from 'projects/stock-take-service/src/lib/#shared-services/production-stock.interface';
 import { Subscription } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { IStockBatches } from '../../#shared-services/production.interface';
+import { IBatchInfo } from '../../#shared-services/production.interface';
 import { CreateBatchData$Service } from '../1#create-batch-services/create-batch-data$.service';
 import { CreateBatchFormService } from '../1#create-batch-services/create-batch-form.service';
 import { CreateBatchService } from '../1#create-batch-services/create-batch.service';
@@ -22,9 +23,9 @@ export class CreateBatchDataComponent implements OnInit, OnDestroy {
     If there is, then you add all the batches in the data store to the control
     After pressing the submit button, you have to insert the batches as well as check if there was a formControl that came with the batches, and if there was, then you have to add them (with there ids, to the formcontrol as well)
     */
-    batchFormArray: FormArray<IStockBatches>;
+    batchFormArray: FormArray<IBatchInfo>;
     subscription: Subscription;
-    stockBatchesFormArray: FormArray<IStockBatches>;
+    stockBatchesFormArray: FormArray<IBatchInfo>;
 
     constructor(
         private createBatchFormService: CreateBatchFormService,
