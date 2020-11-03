@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CustomMaterialModule } from 'src/app/home/shared/dropdown-table/custom-material.module';
 
 import { EntryComponent } from './entry.component';
 
@@ -10,7 +11,7 @@ describe('EntryComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ EntryComponent ],
-      imports: [ RouterTestingModule ]
+      imports: [ RouterTestingModule, CustomMaterialModule ]
     })
     .compileComponents();
   }));
