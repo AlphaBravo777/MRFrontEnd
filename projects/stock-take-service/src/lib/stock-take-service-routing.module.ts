@@ -20,6 +20,10 @@ const routes: Routes = [
             {
                 path: 'production-stock',
                 loadChildren: () => import('./production-stock-take/production-stock-take.module').then(m => m.ProductionStockTakeModule)
+            },
+            {
+                path: 'create-stock-take',
+                loadChildren: () => import('./stock-take-create/stock-take-create.module').then(m => m.StockTakeCreateModule)
             }
         ]
     }

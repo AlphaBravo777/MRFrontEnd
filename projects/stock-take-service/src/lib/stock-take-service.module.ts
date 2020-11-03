@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CustomMaterialModule } from 'src/app/home/shared/dropdown-table/custom-material.module';
 import { StockTakeServiceRoutingComponent, StockTakeServiceRoutingModule } from './stock-take-service-routing.module';
 
 
@@ -9,7 +10,8 @@ import { StockTakeServiceRoutingComponent, StockTakeServiceRoutingModule } from 
     ],
     imports: [
 
-        StockTakeServiceRoutingModule
+        StockTakeServiceRoutingModule,
+        CustomMaterialModule
     ],
     exports: []
 })
