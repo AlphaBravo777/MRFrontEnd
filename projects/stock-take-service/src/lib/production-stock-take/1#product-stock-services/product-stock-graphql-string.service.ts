@@ -59,6 +59,34 @@ export class ProductStockGraphqlStringService {
         }
     }`;
 
-
+    public GET_ALL_STOCKTAKE_AMOUNTS_FOR_STOCK_TAKE_INSTANCE = gql`
+    query StocktakeInstance ($timeStampid: Int) {
+        nodeStockTakeInstance(timeStampid: $timeStampid) {
+            edges{
+                node{
+                    stocktakeinstancepercontainerSet{
+                        edges{
+                            node{
+                                productContainerid
+                                stocktakebatchamountSet{
+                                    edges{
+                                        node{
+                                            batchid
+                                            amountString
+                                            batchNode{
+                                                weeknumber
+                                                year
+                                                day
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }`;
 
 }
