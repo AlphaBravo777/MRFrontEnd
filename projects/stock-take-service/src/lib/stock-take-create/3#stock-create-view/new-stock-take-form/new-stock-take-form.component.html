@@ -1,0 +1,35 @@
+<div>
+    <form [formGroup]="newStockTakeForm" (ngSubmit)="onSubmit()">
+        <div class='formGrid'>
+            <div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Stocktake name</mat-label>
+                        <input matInput type="text" formControlName="stockTakerName" spellcheck="false">
+                        <mat-icon matSuffix>face</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Parent Stocktake number</mat-label>
+                        <input matInput type="number" formControlName="parentStockTake" spellcheck="false">
+                        <mat-icon matSuffix>supervisor_account</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div id='checkbox'>
+                    <mat-checkbox color="primary" formControlName="isFullStockTake">Full stock take</mat-checkbox>
+                </div>
+            </div>
+            <div>
+                <div><span class='primary-color'>Date: </span><span>{{newStockTakeForm.get('shortDate').value}}</span></div>
+                <div><span class='primary-color'>Time: </span><span>{{newStockTakeForm.get('stockTakeTime').value}}</span></div>
+                <div><span class='primary-color'>StockTaker: </span><span>{{newStockTakeForm.get('stockTakerName').value}}</span></div>
+                <div><span class='primary-color'>Full stocktake?: </span><span>{{newStockTakeForm.get('isFullStockTake').value}}</span></div>
+                <button mat-raised-button color='primary' type="submit" [disabled]='newStockTakeForm.invalid'>Create</button>
+            </div>
+        </div>
+
+
+        <!-- <pre>{{newStockTakeForm.value | json}}</pre> -->
+    </form>
+</div>

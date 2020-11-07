@@ -1,0 +1,15 @@
+@import 'src/styles-theme.scss';
+
+.primary-color {
+    color: mat-color($my-app-primary) !important;
+    font-weight: bold;
+  }
+
+.formGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+button {
+    margin-top: 20px;
+}
