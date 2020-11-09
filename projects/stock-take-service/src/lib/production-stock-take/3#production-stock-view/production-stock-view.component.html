@@ -1,13 +1,37 @@
-<div class='printContainer' *ngIf='mainStockForm'>
-    <div *ngFor='let factoryArea of mainStockForm.controls'>
-        <div class='factoryAreas'>
-            Factory Area: 
-            <span>{{factoryArea.get('factoryAreaName').value}}</span>
+<!-- <div class='center-div'> -->
+    <div class='buttons center-div'>
+        <button mat-raised-button color='primary' type="submit" [disabled]='mainStockForm.invalid || mainStockForm.pristine'>
+            Submit Stocktake <mat-icon color='default'>add</mat-icon>
+        </button>
+        <button mat-raised-button color='primary' type="button" (click)=createBatch()>
+            {{batchWindowButtonText}}
+        </button>
+        <button mat-raised-button color='primary' type="button" (click)=returnToStockTakes()>
+            Return to stocktakes
+            <mat-icon color='default'>keyboard_return</mat-icon>
+        </button>
+        <button mat-raised-button color='primary' type="button" (click)=reloadContainers()>
+            Reload Containers
+            <mat-icon color='default'>replay</mat-icon>
+        </button>
+    </div>
+    <div class='mainContainer'>
+        <div class='printContainer' *ngIf='mainStockForm'>
+            <div *ngFor='let factoryArea of this.mainStockForm.get("containers").controls'>
+                <div class='factoryAreas'>
+                    Factory Area: 
+                    <span>{{factoryArea.get('factoryAreaName').value}}</span>
+                </div>
+                <div>
+                    <stock-stock-items
+                        [factoryAreaProducts]='factoryArea.get("factoryAreaProducts")'
+                    ></stock-stock-items>
+                </div>
+            </div>
         </div>
-        <div>
-            <stock-stock-items
-                [factoryAreaProducts]='factoryArea.get("factoryAreaProducts")'
-            ></stock-stock-items>
+        <div *ngIf='showCreateBatchWindow' class='addBatches'>
+            <lib-create-batch-data>
+            </lib-create-batch-data>
         </div>
     </div>
-</div>
+<!-- </div> --> 

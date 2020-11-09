@@ -1,7 +1,34 @@
 .printContainer {
     margin: 0 auto;
+    width: 100%;
     max-width: 700px;
     background: #ebebeb;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+// .addBatches {
+//     height: 400px;
+//     background: red;
+//     width: 300px;
+// }
+
+mat-icon{
+    margin-left: 8px;
+}
+
+button {
+    margin-right: 5px;
+}
+
+.mainContainer{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.buttons {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 
@@ -28,5 +55,26 @@
         padding: .4rem 0px;
         font-size: 1rem;
         font-weight: bold;
+    }
+
+    .printContainer {
+        margin: 0 auto;
+        max-width: 700px;
+        background: none;
+        overflow-y: none;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .buttons {
+        visibility: hidden;
+        width: 0px;
+        height: 0px
+    }
+
+    .addBatches {
+        visibility: hidden;
+        width: 0px;
+        height: 0px
     }
 }

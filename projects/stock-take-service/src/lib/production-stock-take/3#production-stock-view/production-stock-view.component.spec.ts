@@ -1,13 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ProductionStockByFactoryArea_MockFunction } from 'src/assets/mockData/stock-take-service/production-data-mocks';
-import { IProductionStockByFactoryArea, IProductionStock } from '../../#shared-services/production-stock.interface';
+import { IProductionStockByFactoryArea, IContainerWithStockTakeAmount } from '../../#shared-services/production-stock.interface';
 import { MockComponent } from 'ng-mocks';
 
 import { ProductionStockViewComponent } from './production-stock-view.component';
 import { StockItemsComponent } from './stock-items/stock-items.component';
 import { FormArray } from '@ng-stack/forms';
 import { ProductStockFormService } from '../1#product-stock-services/product-stock-form.service';
+import { MaterialConfigModule } from 'src/app/material-config/material-config.module';
 
 describe('ProductionStockViewComponent', () => {
     let component: ProductionStockViewComponent;
@@ -18,7 +19,8 @@ describe('ProductionStockViewComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ProductionStockViewComponent, MockComponent(StockItemsComponent)]
+            declarations: [ProductionStockViewComponent, MockComponent(StockItemsComponent)],
+            imports: [MaterialConfigModule]
         })
             .compileComponents();
     }));
@@ -28,7 +30,7 @@ describe('ProductionStockViewComponent', () => {
         productStockFormService = TestBed.inject(ProductStockFormService);
         component = fixture.componentInstance;
         productionStockListGroupsMock = ProductionStockByFactoryArea_MockFunction()
-        mainStockForm = productStockFormService.createMainStockForm(productionStockListGroupsMock)
+        mainStockForm = productStockFormService.createMainStockFormGroup(productionStockListGroupsMock)
         fixture.detectChanges();
     });
 
