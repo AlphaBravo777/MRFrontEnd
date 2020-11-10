@@ -1,0 +1,54 @@
+.stockItemRow {
+
+    column-gap: 2px;
+    border-bottom: 1px solid grey;
+    min-height: 20px;
+}
+
+.styleStockItemGrid {
+    display: grid;
+    grid-template-columns: 100px 150px 60px 1fr,
+}
+
+
+.proddescription {
+    display: inline-block;
+    width: 150px;
+    overflow: hidden;
+    white-space: normal;
+    font-size: 0.6rem;
+    margin-right: 5px;
+    max-height: 20px;
+}
+
+.container{
+    align-self: center;
+    overflow: hidden;
+    white-space: normal;
+    font-size: 0.6rem;
+}
+
+
+/* If the screen size is 751px wide or more */
+@media screen and (min-width: 751px) {
+    .stockItemRow {
+        // padding: 5px 0px;
+        font-size: 0.7rem;
+    }
+}
+
+/* If the screen size is 750px wide or less */
+@media screen and (max-width: 750px) {
+    .stockItemRow {
+        // padding: 5px 0px;
+        font-size: 0.6rem;
+    }
+}
+
+
+@media print {
+    .stockItemRow {
+        font-size: 0.7rem;
+        border-bottom: 1px solid grey;
+    }
+}
