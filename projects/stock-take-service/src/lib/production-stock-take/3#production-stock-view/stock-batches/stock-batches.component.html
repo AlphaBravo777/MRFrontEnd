@@ -1,0 +1,24 @@
+<div class='printContainer'>
+    <ng-container *ngIf="showBatchesBool; then showBatches; else doNotShowBatches"></ng-container>
+
+    <ng-template #showBatches>
+        <div class='flexBatches'>
+            <span *ngFor='let batch of batchesFormArray.controls'>
+                <mat-form-field appearance="none" class="my-form-field">
+                    <input matInput placeholder="{{batch.get('weekNumber').value}}:{{batch.get('dayNumber').value}}" [formControl]="batch.get('amountString')">
+                </mat-form-field>
+            </span>
+            <span class='buttons' (click)='createBatch()'><button type="button">+</button></span>
+        </div>
+    </ng-template>
+
+    <ng-template #doNotShowBatches>
+        <span *ngFor='let batch of batchesFormArray.controls'>
+            <mat-form-field appearance="none" class="my-form-field2">
+                <input matInput placeholder="Amount:" [formControl]="batch.get('amountString')">
+            </mat-form-field>
+        </span>
+    </ng-template>
+
+
+</div>

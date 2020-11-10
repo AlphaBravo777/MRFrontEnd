@@ -1,0 +1,43 @@
+.my-form-field{
+    width: 50px;
+    height: 100%;
+    .mat-form-field-wrapper{
+        margin-bottom: -1.25em;
+        padding-bottom: 0px;
+        // height: 18px;
+        height: 100%;
+        border: 1px solid gray;
+        .mat-form-field-flex .mat-form-field-infix {
+            padding: 0px;
+            border-top: none;
+        }
+    }
+}
+
+.my-form-field2{
+    width: 50px;
+    .mat-form-field-wrapper{
+        margin-bottom: -1.25em;
+        padding-bottom: 0px;
+        height: 18px;
+        .mat-form-field-flex .mat-form-field-infix {
+            padding: 0px;
+            border-top: none;
+        }
+    }
+}
+
+.flexBatches{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+@media print {
+
+    .buttons {
+        visibility: hidden;
+        width: 0px;
+        height: 0px
+    }
+}
