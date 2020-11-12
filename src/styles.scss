@@ -1,4 +1,4 @@
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~material-design-icons/iconfont/material-icons.css';
 
 // grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
@@ -44,6 +44,30 @@ color: #dbbda0; /* main  */
 color: #b9936f;
 color: #997049;
 
+}
+
+.alert-message {
+    background: #f44336 !important;
+    color: white !important;
+    button {
+        color: white;
+    }
+}
+
+.success-message {
+    background: #287709 !important;
+    color: white !important;
+    button {
+        color: white;
+    }
+}   
+
+.caution-message {
+    background: #9d9d00 !important;
+    color: white !important;
+    button {
+        color: white;
+    }
 }
 
 .buttonMenus {
@@ -394,3 +418,19 @@ h5 {
     }
 }
 
+@page {
+    margin: 10mm 0mm 10mm 0mm;
+}
+
+@media print {
+    body
+    {
+      margin: 0;
+    }
+}
+
+.center-div {
+    margin: 0 auto; 
+    width: max-content;
+    
+}

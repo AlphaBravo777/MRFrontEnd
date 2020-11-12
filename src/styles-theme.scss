@@ -1,0 +1,90 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+// The build does pull in the theme without really refreshing when you change the theme, so a last option (especially the first time you add a custom theme) is to stop the build, and build it all again from scratch
+
+// https://medium.com/wineofbits/how-to-change-angular-material-theme-in-just-5-minutes-d8719d1f026
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-meatrite: (
+    50 : #f3eee9,
+    100 : #e0d4c8,
+    200 : #ccb8a4,
+    300 : #b89b80,
+    400 : #a88564,
+    500 : #997049,
+    600 : #916842,
+    700 : #865d39,
+    800 : #7c5331,
+    900 : #6b4121,
+    A100 : #ffcdab,
+    A200 : #ffaf78,
+    A400 : #ff9145,
+    A700 : #ff822b,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+
+// $my-app-primary: mat-palette($mat-blue-grey);
+$my-app-primary: mat-palette($md-meatrite);
+$my-app-accent: mat-palette($mat-pink, 500, 900, A100);
+$my-app-warn: mat-palette($mat-deep-orange);
+
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+@include angular-material-theme($my-app-theme);
+
+.alternate-theme {
+    $alternate-primary: mat-palette($mat-light-blue);
+    $alternate-accent: mat-palette($mat-yellow, 400);
+
+    $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
+
+    @include angular-material-theme($alternate-theme);
+}
+
+
+
+
+
+// <mat-card>
+//   Main Theme:
+//   <button mat-raised-button color="primary">
+//     Primary
+//   </button>
+//   <button mat-raised-button color="accent">
+//     Accent
+//   </button>
+//   <button mat-raised-button color="warn">
+//     Warning
+//   </button>
+// </mat-card>
+
+// <mat-card class="alternate-theme">
+//   Alternate Theme:
+//   <button mat-raised-button color="primary">
+//     Primary
+//   </button>
+//   <button mat-raised-button color="accent">
+//     Accent
+//   </button>
+//   <button mat-raised-button color="warn">
+//     Warning
+//   </button>
+// </mat-card>

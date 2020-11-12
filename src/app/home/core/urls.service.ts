@@ -75,6 +75,8 @@ export class UrlsService {
 
         // == STOCKTAKE ==
         private stockTakeurl = this.mrGatewayService + environment.stockTakeurl; // NOT Tested
+         insertStockTakeInstance = this.stockTakeurl + environment.insertStockTakeInstance
+         insertStockTake = this.stockTakeurl + environment.insertStockTake
 
         // == PRODUCTS ==
         private productsUrl = this.mrGatewayService + 'products/'; // NOT Tested
@@ -87,8 +89,9 @@ export class UrlsService {
             allActiveProducts = this.productsUrl + 'noNewEndpointHereYet/'; // NOT Tested
             getAllStockForSpecificTime = this.productsUrl + 'noNewEndpointHereYet/'; // NOT Tested
 
-
-
+        // == PRODUCTION ==
+        private productionUrl = this.mrGatewayService + environment.productionUrl; // Tested
+            getBatchesIfExistElseInsert = this.productionUrl + environment.getBatchesIfExistElseInsert
 
 
 
