@@ -4,6 +4,7 @@ export class IStockTakeInstanceBackend {
     userid: number
     stockTakerName: string
     isFullStockTake: boolean
+    stockTakeLocked: boolean
     parentStockTake: number
 }
 

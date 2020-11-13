@@ -8,6 +8,7 @@ export function factory_stockTakeInstance_FrontendToBackend(stockTakeForm: IStoc
         stockTakerName: stockTakeForm.stockTakerName,
         userid: stockTakeForm.userid,
         isFullStockTake: stockTakeForm.isFullStockTake,
+        stockTakeLocked: stockTakeForm.stockTakeLocked,
         parentStockTake: stockTakeForm.parentStockTake,
     }
 }
@@ -19,13 +20,15 @@ export function factory_stockTakeInstance_BackendToFrontend(backendData: IStockT
         stockTakerName: backendData.stockTakerName,
         userid: backendData.userid,
         isFullStockTake: backendData.isFullStockTake,
+        stockTakeLocked: backendData.stockTakeLocked,
         parentStockTake: backendData.parentStockTake,
+        username: null,
         ID: null,
         dayNumber: null,
         shortDate: null,
         stockTakeTime: null,
         weekNumber: null,
-        year: null
+        year: null,
     }
 }
 
@@ -67,6 +70,7 @@ export function factory_createStockTake_fromInstanceAndContainers(stockTakeInsta
         ID: stockTakeInstance.ID,
         dayNumber: stockTakeInstance.dayNumber,
         isFullStockTake: stockTakeInstance.isFullStockTake,
+        stockTakeLocked: stockTakeInstance.stockTakeLocked,
         id: stockTakeInstance.id,
         parentStockTake: stockTakeInstance.parentStockTake,
         shortDate: stockTakeInstance.shortDate,
@@ -76,6 +80,7 @@ export function factory_createStockTake_fromInstanceAndContainers(stockTakeInsta
         userid: stockTakeInstance.userid,
         weekNumber: stockTakeInstance.weekNumber,
         year: stockTakeInstance.year,
-        containers: containers
+        containers: containers,
+        username: stockTakeInstance.username
     };
 }

@@ -50,8 +50,10 @@ export class IStockTakeInstance {
     ID: string;
     timeStampid: number
     userid: number
+    username: string
     stockTakerName: string
     isFullStockTake: boolean
+    stockTakeLocked: boolean
     parentStockTake: number
     year: number
     dayNumber: number
