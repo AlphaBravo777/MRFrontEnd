@@ -32,18 +32,15 @@ export class ProductionStockDataComponent implements OnInit, OnDestroy {
         this.getProductionStock()
     }
 
-    // Make create batch method
-    // Get todays batch (if not exist then create) so that we can add it to every containers batches
-
     getProductionStock() {
         this.stockTakeData$ = this.productionStockService.getStockTakeData()
         this.subscription = this.stockTakeData$.pipe(
             tap(data => console.log('THIS IS THE WORKING DATA: ',data)),
             tap(data => this.mainStockForm = this.productStockFormService.createMainStockFormGroup(data)),
-            catchError(error => {
-                    this.snackBarAlertService.alertBackendError(error)
-                    return of(error)
-                })
+            // catchError(error => {
+            //         this.snackBarAlertService.alertBackendError(error)
+            //         return of(error)
+            //     })
         ).subscribe()
     }
 
@@ -51,6 +48,7 @@ export class ProductionStockDataComponent implements OnInit, OnDestroy {
         this.productionStockService.submitStockTake(this.mainStockForm).pipe(
             take(1),
             tap(result => console.log('The stock result = ', result)),
+            tap(result => this.router.navigate(['main/stock-take/entry/create-stock-take'])),
             catchError(error => {
                 this.snackBarAlertService.alert(Object.keys(error.error)[0] + ': ' + error.error[Object.keys(error.error)[0]], 'X');
                 return of(error)

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@ng-stack/forms';
 import { IBatchInfo } from 'projects/production-service/src/lib/#shared-services/production.interface';
 import { CreateBatchData$Service } from 'projects/production-service/src/lib/create-batch/1#create-batch-services/create-batch-data$.service';
-import { CreateBatchService } from 'projects/production-service/src/lib/create-batch/1#create-batch-services/create-batch.service';
 import { IContainerWithStockTakeAmount, IProductionStockByFactoryArea, IStockTake, IStockTakeAmountPerBatch } from '../../#shared-services/production-stock.interface';
 
 @Injectable({
@@ -17,13 +16,18 @@ export class ProductStockFormService {
 
     private mainStockForm: FormGroup<IStockTake>
     private todaysBatch: IBatchInfo
+    private stockTakeLocked: boolean
 
     createMainStockFormGroup(stockData: IStockTake): FormGroup<IStockTake> {
 
         if (!stockData) return null
         
+        this.stockTakeLocked = stockData.stockTakeLocked
         this.todaysBatch = null // Make sure we reset for incase the days change, then we do not want to previous days data still
         this.mainStockForm = this.createMainStockForm(stockData)
+        if (stockData.stockTakeLocked) {
+            this.mainStockForm.disable()
+        }
         return this.mainStockForm
     }
 
@@ -32,6 +36,7 @@ export class ProductStockFormService {
             ID: new FormControl(stockData.ID),
             dayNumber: new FormControl(stockData.dayNumber),
             isFullStockTake: new FormControl(stockData.isFullStockTake),
+            stockTakeLocked: new FormControl(stockData.stockTakeLocked),
             id: new FormControl(stockData.id),
             parentStockTake: new FormControl(stockData.parentStockTake),
             shortDate: new FormControl(stockData.shortDate),
@@ -39,6 +44,7 @@ export class ProductStockFormService {
             stockTakerName: new FormControl(stockData.stockTakerName),
             timeStampid: new FormControl(stockData.timeStampid),
             userid: new FormControl(stockData.userid),
+            username: new FormControl(stockData.username),
             weekNumber: new FormControl(stockData.weekNumber),
             year: new FormControl(stockData.year),
             containers: this.createFactoryAreas(stockData.containers)
@@ -93,20 +99,20 @@ export class ProductStockFormService {
     private getCurrentDaysBatch(): IBatchInfo[] {
         // Maybe we should rather get this info from the stockTakeInstance, so that the batch is always the same as the instance, cause what if we pick the previous days instance, then we will give the previous days instance todays batches
         if (this.todaysBatch) {
-            console.log('There was a batch')
             return [this.todaysBatch]
         }
         else {
             this.todaysBatch = this.createBatchData$Service.todaysBatchValue
-            console.log('Current days batch is running')
             return [this.todaysBatch]
         }
     }
 
     createBatchesWithoutIncomingAmountsData(stockBatches: IBatchInfo[]): FormArray<IStockTakeAmountPerBatch> {
+
         if (!stockBatches) {
             stockBatches =  this.getCurrentDaysBatch()
         }
+
         const batches = new FormArray<IStockTakeAmountPerBatch>([])
         for (let index = 0; index < stockBatches.length; index++) {
             const element = stockBatches[index];
@@ -115,7 +121,7 @@ export class ProductStockFormService {
                 dayNumber: new FormControl(element.dayNumber),
                 weekNumber: new FormControl(element.weekNumber),
                 id: new FormControl(element.id),
-                amountString: new FormControl(null),
+                amountString: this.stockTakeLocked ? new FormControl('0') : new FormControl(null),
                 year: new FormControl(element.year),
             })
             batches.push(batch)
