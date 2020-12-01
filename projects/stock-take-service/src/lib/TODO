@@ -1,0 +1,27 @@
+✔ Auto create batches @done(20-10-29 15:54)
+☐ Move containers around (Best might be to just have a list with all containers and move them up and down)
+☐ Change look when reading in batches
+☐ Create new containers for pnp batches so that we use batches and not green-lug-1
+☐ Move over containers from previous stock take (Get all stock where "useBatches" = true and there last batches with values)
+✔ Reset containers @done(20-10-29 15:54)
+☐ Create "total stock at the moment" module (This is the current running stock, that gets reset with each stock take, but can also be changed through the shift as stock gets produced)
+    ☐ Total containers should also have a column where it shows the total weight of the prodducts, and now just the amount. In the laailys we are working with weights, and not amounts
+    ☐ We should have a column that says which containers are being used for the laailys - actually every container must be used in the laai lys in some way, else why count it. 
+        ☐ (Container = pnp, Container = standard (if it is standard, then we should check if it is boxes or crates))
+✔ Create internal ids for userids @done(20-11-13 15:14)
+☐ Create internal ids for productcontainers
+☐ Create internal ids for batches
+☐ Create internal ids for timeStamps? // All of these templates can easily be used by other services as well later
+☐ Create stock amount update module where you can update the current stock totals as they are
+☐ Must be able to delete stocktakeInstances
+
+ Insert all the interface tables into the database, 
+ change all the fields to use them in the stocktake backend,
+ make sure that if one of them is not yet on the list, that we look for it and insert it
+ as well as the graphql schemas
+ then also in the frontend where they must be converted to the original ids
+
+☐ Defekte program
+☐ Products service with cost prices
+☐ Employees register with warnings
+☐ Daily report
