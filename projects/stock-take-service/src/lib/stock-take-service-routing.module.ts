@@ -24,6 +24,10 @@ const routes: Routes = [
             {
                 path: 'create-stock-take',
                 loadChildren: () => import('./stock-take-create/stock-take-create.module').then(m => m.StockTakeCreateModule)
+            },
+            {
+                path: 'total-production-stock',
+                loadChildren: () => import('./total-stock-display/total-stock-display.module').then(m => m.TotalStockDisplayModule)
             }
         ]
     }

@@ -3,7 +3,6 @@ import { CustomMaterialModule } from 'src/app/home/shared/dropdown-table/custom-
 import { StockTakeServiceRoutingComponent, StockTakeServiceRoutingModule } from './stock-take-service-routing.module';
 
 
-
 @NgModule({
     declarations: [ 
         StockTakeServiceRoutingComponent
