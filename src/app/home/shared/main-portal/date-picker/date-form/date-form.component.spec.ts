@@ -74,7 +74,7 @@ describe('DateFormComponent', () => {
         const formYear = dateForm.get('year');
         expect(formYear.value).toEqual(dateFormTestData.dateAfterUsingDatePicker.year);
 
-        formYear.setValue('');
+        formYear.setValue(null);
         expect(formYear.hasError('required')).toBeTruthy();
 
         formYear.setValue(1);
@@ -98,13 +98,13 @@ describe('DateFormComponent', () => {
 
     it('form field "shift" should be valid', () => {
         const dateForm = component.dateForm;
-        const formShift = dateForm.get('shift').value;
+        const formShift = dateForm.get('shiftData').value;
         expect(formShift).toEqual(dateFormTestData.dateAfterUsingDatePicker.shiftid);
     });
 
     it('form field "time" should be valid', () => {
         const dateForm = component.dateForm;
-        const formTime = dateForm.get('time').value;
+        const formTime = dateForm.get('timeData').value;
         expect(formTime).toEqual(dateFormTestData.dateAfterUsingDatePicker.timeid);
     });
 

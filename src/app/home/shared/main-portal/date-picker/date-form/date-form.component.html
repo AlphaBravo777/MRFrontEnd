@@ -1,23 +1,62 @@
 <app-box-shadow-container>
-    <form [formGroup]="dateForm" (ngSubmit)=onSubmit()>
-        <table>
-            <tr>
-                <td class='title'>Year: </td>
-                <td><input id="yearInput" class='textBox' type="number" formControlName='year'></td>
-            </tr>
-            <tr>
-                <td class='title'>Week: </td>
-                <td><input class='textBox' type="number" formControlName='week'></td>
-            </tr>
-            <tr>
+    <div *ngIf='dateForm'>
+        <form [formGroup]="dateForm" (ngSubmit)=onSubmit()>
+            <table>
+                <tr class='track'>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Year</mat-label>
+                            <input matInput type="number" placeholder="" formControlName='year'>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr class='track'>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Week</mat-label>
+                            <input matInput type="number" placeholder="" formControlName='week'>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr class='track' formGroupName='weekDay'>
+                    <div *ngIf='weekDays'>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Weekday:</mat-label>
+                            <mat-select formControlName="id" (selectionChange)='weekDayChanged()'>
+                                <mat-option *ngFor="let weekDay of weekDays" [value]="weekDay.id">{{weekDay.weekDayName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </tr>
+                <tr class='track' formGroupName='timeData'>
+                    <div *ngIf='stockTimes'>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Time:</mat-label>
+                            <mat-select formControlName="id" (selectionChange)='timeChanged()'>
+                                <mat-option *ngFor="let time of stockTimes" [value]="time.id">{{time.times}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </tr>
+                <tr class='track' formGroupName='shiftData'>
+                    <div *ngIf='shifts'>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Shift:</mat-label>
+                            <mat-select formControlName="id" (selectionChange)='shiftChanged()'>
+                                <mat-option *ngFor="let shift of shifts" [value]="shift.id">{{shift.shiftName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </tr>
+                <!-- <tr>
                 <td class='title'>Day: </td>
                 <td class='selectBox' *ngIf='weekDays$ | async as weekDays'>
                     <select dir="rtl" formControlName="weekDay">
                         <option *ngFor="let weekDay of weekDays" [ngValue]="weekDay.id">{{weekDay.weekDayName}}</option>
                     </select>
                 </td>
-            </tr>
-            <tr>
+            </tr> -->
+                <!-- <tr>
                 <td class='title'>Shift: </td>
                 <td class='selectBox' *ngIf='shifts$ | async as shifts'>
                     <select dir="rtl" formControlName="shift">
@@ -32,13 +71,15 @@
                         <option *ngFor="let time of stockTimes" [ngValue]="time.id">{{time.times}}</option>
                     </select>
                 </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type='submit' class='niceButton meatriteButton' [disabled]='dateForm.invalid'>Change</button>
-                </td>
-            </tr>
-        </table>
-        <pre>{{dateForm.value | json}}</pre>
-    </form>
+            </tr> -->
+                <tr>
+                    <td>
+                        <button type='submit' class='niceButton meatriteButton'
+                            [disabled]='dateForm.invalid'>Change</button>
+                    </td>
+                </tr>
+            </table>
+            <!-- <pre>{{dateForm.value | json}}</pre> -->
+        </form>
+    </div>
 </app-box-shadow-container>
