@@ -17,6 +17,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatRippleModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     imports: [
@@ -37,7 +38,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatRadioModule,
         MatRippleModule,
         MatCheckboxModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatCardModule
 
     ],
     exports: [
@@ -57,7 +59,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatRadioModule,
         MatRippleModule,
         MatCheckboxModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatCardModule
 
     ],
     declarations: []

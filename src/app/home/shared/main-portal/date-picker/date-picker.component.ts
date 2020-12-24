@@ -36,7 +36,8 @@ export class DatePickerComponent implements OnInit, OnDestroy {
     subscibeToDateChanges() {
         this.subscription = this.getDate$Service.currentDatePackage$.pipe(
             tap(datePackage => this.currentWorkingDate = datePackage),
-            tap(() => this.populateDate())
+            tap(() => this.populateDate()),
+            tap(() => localStorage.setItem('datePackage', JSON.stringify(this.currentWorkingDate)))
         ).subscribe();
     }
 

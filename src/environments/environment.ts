@@ -47,9 +47,14 @@ export const environment = {
                 insertKafkaNewOrderDetails: 'insertKafkaNewOrderDetails/',
 
             stockTakeurl: 'stockTake/',
+                insertStockTakeInstance: 'insertStockTakeInstance/',
+                insertStockTake: 'insertStockTake/',
 
             routeUrl: 'route/',
-                getAllRoutes: 'getAllRoutes/'
+                getAllRoutes: 'getAllRoutes/',
+
+            productionUrl: 'production/',
+                getBatchesIfExistElseInsert: 'getBatchesIfExistElseCreate/'
 };
 
 /*

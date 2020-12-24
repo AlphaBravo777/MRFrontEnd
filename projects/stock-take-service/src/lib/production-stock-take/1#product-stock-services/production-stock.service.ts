@@ -85,7 +85,7 @@ export class ProductionStockService {
         // return ProductionStockList_GroupsMockFunc()
     }
 
-    private getGroupedContainers(stockTakeInstance: IStockTakeInstance): Observable<IProductionStockByFactoryArea[]> {
+    private getStocktakeDataAsGroupedContainers(stockTakeInstance: IStockTakeInstance): Observable<IProductionStockByFactoryArea[]> {
         return combineLatest([
             this.getContainersFromLocalStorageOrDatabase(),
             this.getCurrentStockTakeAmounts(stockTakeInstance),
@@ -96,18 +96,18 @@ export class ProductionStockService {
         )
     }
 
-    private addGroupedContainersToStockTakeInstance(stockTakeInstance: IStockTakeInstance): Observable<IStockTake> {
-        return this.getGroupedContainers(stockTakeInstance).pipe(
+    private continueWithGettingStocktakeData(stockTakeInstance: IStockTakeInstance): Observable<IStockTake> {
+        return this.getStocktakeDataAsGroupedContainers(stockTakeInstance).pipe(
             map(groupedContainers => factory_createStockTake_fromInstanceAndContainers(stockTakeInstance, groupedContainers))
         )
 
     }
 
     getStockTakeData(): Observable<IStockTake> {
-        const stockTakeInstance: IStockTakeInstance = this.stockCreateData$Service.stockInstanceValue
+        const stockTakeInstanceIsAvailable: IStockTakeInstance = this.stockCreateData$Service.stockInstanceValue
         return iif(() => 
-            stockTakeInstance !== null,
-            this.addGroupedContainersToStockTakeInstance(stockTakeInstance),
+            stockTakeInstanceIsAvailable !== null,
+            this.continueWithGettingStocktakeData(stockTakeInstanceIsAvailable),
             throwError(new Error('getStockTakeData - No stock take selection was found'))
         )
     }

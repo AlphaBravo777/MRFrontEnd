@@ -261,3 +261,12 @@ nav {
         width: 15px;
     }
 }
+
+
+@media print {
+    .compContainer {
+      visibility: hidden;
+      width:0px;
+      height:0px 
+    }
+  }

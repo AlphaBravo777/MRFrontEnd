@@ -22,6 +22,10 @@ export class GetDate$Service {
             );
     }
 
+    public get singleDatePackage() {
+        return this.datePackage.value;
+      }
+
     insertNewDatePackage(datePackage: IDate) {
         this.datePackage.next(datePackage);
     }

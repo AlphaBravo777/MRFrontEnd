@@ -24,6 +24,10 @@ export class ToolboxGroupService {
     }
 
     groupByArray(dataArray, key) {
+        if (!dataArray || !key) {
+            return null
+        }
+        
         return dataArray.reduce(function(rv, x) {
             const v = key instanceof Function ? key(x) : x[key];
             const el = rv.find(r => r && r.key === v);
@@ -39,6 +43,7 @@ export class ToolboxGroupService {
     // To call this function:
     // const result = this.toolBox.multipleGroupByArray(
     //    dataArray, (property: IProperty) => [property.prop1, property.prop2, property.prop3]);
+    // This does not give back an array inside an array: for instance 5 arrays with 5 arrays inside of them (25 groups in total). But rather one level of 25 arrays
     multipleGroupByArray(dataArray, groupPropertyArray) {
         const groups = {};
         dataArray.forEach(item => {
@@ -147,6 +152,27 @@ export class ToolboxGroupService {
             values[val] = true;
             return !exists;
         });
+    }
+
+    private itteratateObjects(obj: object) {
+        //  || key.toString().slice(0, 2) !== '__'
+        for (const [key, value] of Object.entries(obj)) {
+            if (key.toString() === 'data' || key.toString() === 'edges' || key.toString() === 'node') {
+                obj = this.refractureGraphqlRawData(value);
+            } else {
+                obj[key] = this.refractureGraphqlRawData(value);
+            }
+        }
+        return obj;
+    }
+
+    // This is to make the graphql return data easier to work with
+    refractureGraphqlRawData(data) {
+        if (typeof(data) === 'object' && data !== null) {
+            return this.itteratateObjects(data);
+        } else {
+            return data;
+        }
     }
 
 

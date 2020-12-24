@@ -71,7 +71,8 @@ export class ProductStockFormService {
         for (let index = 0; index < factoryAreaProducts.length; index++) {
             const element = factoryAreaProducts[index];
             const areaProduct: FormGroup<IContainerWithStockTakeAmount> = new FormGroup<IContainerWithStockTakeAmount>({
-                batchGroup: new FormControl(element.batchGroup),
+                batchGroupid: new FormControl(element.batchGroupid),
+                batchName: new FormControl(element.batchName),
                 batchRanking: new FormControl(element.batchRanking),
                 brand: new FormControl(element.brand),
                 containerName: new FormControl(element.containerName),
@@ -84,7 +85,7 @@ export class ProductStockFormService {
                 productMRid: new FormControl(element.productMRid),
                 productid: new FormControl(element.productid),
                 productonhold: new FormControl(element.productonhold),
-                rankingInGroup: new FormControl(element.rankingInGroup),
+                productRankingInBatch: new FormControl(element.productRankingInBatch),
                 unitWeight: new FormControl(element.unitWeight),
                 showBatches: new FormControl(element.showBatches),
                 stockTakeAmount: this.createBatchesThatHasIncomingAmountsData(element.stockTakeAmount),
@@ -114,6 +115,7 @@ export class ProductStockFormService {
         }
 
         const batches = new FormArray<IStockTakeAmountPerBatch>([])
+        const mnt: string = '0'
         for (let index = 0; index < stockBatches.length; index++) {
             const element = stockBatches[index];
             const batch: FormGroup<IStockTakeAmountPerBatch> = new FormGroup<IStockTakeAmountPerBatch>({
@@ -121,7 +123,7 @@ export class ProductStockFormService {
                 dayNumber: new FormControl(element.dayNumber),
                 weekNumber: new FormControl(element.weekNumber),
                 id: new FormControl(element.id),
-                amountString: this.stockTakeLocked ? new FormControl('0') : new FormControl(null),
+                amountString: this.stockTakeLocked ? new FormControl(mnt) : new FormControl(null),
                 year: new FormControl(element.year),
             })
             batches.push(batch)

@@ -19,3 +19,21 @@
                     0 3px 5px 0 rgba(0,0,0,.12);
 
 }
+
+// Do this or else it takes a very long time to work out the print view
+@media print { 
+    :host {
+        overflow: auto;
+        display: block;
+        // overflow: auto;
+        min-height: 20px;
+        // font-size: 20px;
+        // margin: none;
+        // padding: 5px 10px 5px 10px;
+        // background: var(--back);
+        background: none;
+        border-radius: none;
+        box-shadow: none;
+    
+    }
+}

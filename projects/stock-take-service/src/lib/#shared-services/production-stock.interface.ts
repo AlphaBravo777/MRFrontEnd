@@ -1,3 +1,4 @@
+import { IBatchGroupFrontEnd } from 'projects/product-service/src/lib/insert-batch-group/1#insert-batch-group-services/batch-group-interface';
 import { IBatchInfo } from 'projects/production-service/src/lib/#shared-services/production.interface';
 
 // Just the normal batch with its data, then we add the stocktake amount data to it
@@ -12,6 +13,7 @@ export class IStockTakeAmountPerContainer {
     stockBatches: IStockTakeAmountPerBatch[];
 }
 
+
 // This is just the container as it comes from localStorage or from the database
 export class IProductionContainer {
     containerid: number;
@@ -19,10 +21,11 @@ export class IProductionContainer {
     productMRid: string;
     productid: number;
     packageWeight: number;
-    rankingInGroup: number;
+    productRankingInBatch: number;
     proddescription: string;
     productonhold: boolean;
-    batchGroup: string;
+    batchGroupid: number;
+    batchName: string;
     batchRanking: number;
     packaging: number;
     brand: number;

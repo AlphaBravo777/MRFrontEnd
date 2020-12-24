@@ -1,0 +1,34 @@
+@import 'src/styles-theme.scss';
+
+$red: #E53030;
+$green: #0EC518;
+
+.mat-card {
+    width: 700px;
+    margin: 5px 0px;
+}
+
+.heading {
+    color: mat-color($my-app-primary) !important;
+    font-weight: bold;
+}
+
+@mixin round-button($baseColor:$blue, $hoverBaseColor:#333, $diameter:5vw) {
+    background: $baseColor;
+    border: 3px solid #fff;
+    border-radius: 100%;
+    box-shadow: 0 -2px 0 3px darken($baseColor, 10%) inset, 0 5px 5px rgba(darken($baseColor, 40%), 0.17), 0 15px rgba(#fff, 0.25) inset;
+    cursor: pointer;
+    float: right;
+    height: 20px;
+    width: 20px;
+}
+
+
+.red-circle {
+    @include round-button($red);
+}
+
+.green-circle {
+    @include round-button($green);
+}

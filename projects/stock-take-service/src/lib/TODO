@@ -4,16 +4,21 @@
 ☐ Create new containers for pnp batches so that we use batches and not green-lug-1
 ☐ Move over containers from previous stock take (Get all stock where "useBatches" = true and there last batches with values)
 ✔ Reset containers @done(20-10-29 15:54)
-☐ Create "total stock at the moment" module (This is the current running stock, that gets reset with each stock take, but can also be changed through the shift as stock gets produced)
-    ☐ Total containers should also have a column where it shows the total weight of the prodducts, and now just the amount. In the laailys we are working with weights, and not amounts
-    ☐ We should have a column that says which containers are being used for the laailys - actually every container must be used in the laai lys in some way, else why count it. 
-        ☐ (Container = pnp, Container = standard (if it is standard, then we should check if it is boxes or crates))
+✘ Create "total stock at the moment" module (This is the current running stock, that gets reset with each stock take, but can also be changed through the shift as stock gets produced) @cancelled(20-12-22 08:48)
+    ✘ This is the list that you would look at when you want to know where the laailys got its data from. It is basically the "VoorraadDB" lys. @cancelled(20-12-22 08:48)
+    ✘ Total containers should also have a column where it shows the total weight of the prodducts, and not just the amount. In the laailys we are working with weights, and not amounts @cancelled(20-12-22 08:48)
+    ✘ We should have a column that says which containers are being used for the laailys - actually every container must be used in the laai lys in some way, else why count it. @cancelled(20-12-22 08:48)
+        ✘ (Container = pnp, Container = standard (if it is standard, then we should check if it is boxes or crates)) @cancelled(20-12-22 08:48)
 ✔ Create internal ids for userids @done(20-11-13 15:14)
 ☐ Create internal ids for productcontainers
 ☐ Create internal ids for batches
 ☐ Create internal ids for timeStamps? // All of these templates can easily be used by other services as well later
 ☐ Create stock amount update module where you can update the current stock totals as they are
 ☐ Must be able to delete stocktakeInstances
+
+☐ Read in a full stock take and see if all the data is correct and adds up
+☐ Now that all the data is read in, see what needs to happen so that we can use it in the laailys excel sheet
+☐ Pull in the current full stock take, and then work from there
 
  Insert all the interface tables into the database, 
  change all the fields to use them in the stocktake backend,
@@ -25,3 +30,8 @@
 ☐ Products service with cost prices
 ☐ Employees register with warnings
 ☐ Daily report
+
+After the local server starts the console will display a message confirming that HMR is active:
+NOTICE: Hot Module Replacement (HMR) is enabled for the dev server.
+See https://webpack.js.org/guides/hot-module-replacement for information on working with HMR for webpack.
+Now during development the latest changes to components, templates and styles will be instantly updated into the running application. All without requiring a full page refresh. Data typed into forms are preserved as well as scroll position providing a boost to developer productivity.

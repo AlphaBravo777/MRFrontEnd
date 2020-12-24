@@ -1,0 +1,33 @@
+<div class='center-div'>
+    <button mat-raised-button color='primary' (click)='showNewStockTakeForm()'>
+        Create New Stock Take <mat-icon style='margin-left: 10px;'>create</mat-icon>
+    </button>
+    <div *ngIf='showStockTakeForm'>
+        <mat-card>
+            <stock-new-stock-take-form
+                (closeForm)='closeForm($event)'>
+            </stock-new-stock-take-form>
+        </mat-card>
+    </div>
+    <div *ngFor='let stockTake of stockTakeInstances'>
+        <mat-card (click)='stockTakeSelected(stockTake)'>
+            <div>
+                <span class='heading'>Stock take time: </span><span>{{stockTake.stockTakeTime}}</span>
+                <span class='heading'> Year: </span><span>{{stockTake.year}}</span>
+                <span class='heading'> Week: </span><span>{{stockTake.weekNumber}}</span>
+                <span class='heading'> Day: </span><span>{{stockTake.dayNumber}}</span>
+                <span class='heading'> Date: </span><span>{{stockTake.shortDate}}</span>
+                <span [ngClass]="stockTake.stockTakeLocked ? 'red-circle' : 'green-circle'"></span>
+            </div>
+            <div>
+                <span class='heading'>Stock counter: </span><span>{{stockTake.stockTakerName}}</span>
+                <span class='heading'> Stock read in by: </span><span>{{stockTake.username}}</span>
+            </div>
+            <div>
+                <span class='heading'>Stock take id: </span><span>{{stockTake.id}}</span>
+                <span class='heading'> Full stock take: </span><span>{{stockTake.isFullStockTake}}</span>
+                <span class='heading'> Previous stocktake id: </span><span>{{stockTake.parentStockTake}}</span>
+            </div>
+        </mat-card>
+    </div>
+</div>

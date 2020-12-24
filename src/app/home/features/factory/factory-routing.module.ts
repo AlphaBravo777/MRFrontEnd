@@ -4,6 +4,7 @@ import { AuthGuard } from '../admin/admin-services/auth.guard';
 import { FactoryEntryComponent } from './$factory-entry/factory-entry.component';
 import { FactoryMenuComponent } from './$factory-menu/factory-menu.component';
 
+
 const factoryRoutes: Routes = [
     {
         path: '',   // factory
@@ -17,6 +18,11 @@ const factoryRoutes: Routes = [
             {
                 path: 'dispatch',
                 loadChildren: () => import('./dispatch/dispatch.module').then(m => m.DispatchModule),
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'production',
+                loadChildren: () => import('projects/production-service/src/public-api').then(m => m.ProductionServiceModule),
                 canActivate: [AuthGuard],
             },
         ]

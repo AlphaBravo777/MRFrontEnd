@@ -39,17 +39,17 @@ export class ProductStockGraphqlApiService {
 
         // We get here by getting the stock data from the backend, but we also need the the data form every container that there is, because it may be that we are not going to get every container with data, but then we can not leave containers out. So when we get the data that was already inserted, we also need to get all containers, as wel as the stockTakeInstace data (that we should actually already have). We will have a createstocktake page, when we have created a stocktake and we select a createstocktake to use, we then store the data, and open up to this data container page that fetches that data.
 
-    getContainersData(): Observable<IStockTakeContainerHash> {
+    depricatedGetContainersData(): Observable<IStockTakeContainerHash> {
         return this.apollo
             .watchQuery<any>({
-                query: this.productStockGraphqlStringService.ALL_STOCKTAKE_CONTAINERS_DATA
+                query: this.productStockGraphqlStringService.DEPRICATED_ALL_STOCKTAKE_CONTAINERS_DATA
             })
             .valueChanges.pipe(
-                map(result => this.consolidateContainers(this.toolbox.refractureGraphqlRawData(result)['nodeProductlist']))
+                map(result => this.depricatedConsolidateContainers(this.toolbox.refractureGraphqlRawData(result)['nodeProductlist']))
             );
     }
 
-    private consolidateContainers(containerData): IStockTakeContainerHash {
+    private depricatedConsolidateContainers(containerData): IStockTakeContainerHash {
         const containerHash: IStockTakeContainerHash = {};
         for (let index = 0; index < containerData.length; index++) {
             const product = containerData[index];
@@ -68,19 +68,82 @@ export class ProductStockGraphqlApiService {
                     factoryAreaProductRanking: container.factoryRanking,
                     fullStockTake: container.deleteContainerAmount,
                     showBatches: container.showBatches,
-                    batchGroup: null,
+                    batchGroupid: null,
+                    batchName: null,
                     batchRanking: null,
                     brand: null,
                     packageWeight: null,
                     packaging: null,
                     productonhold: null,
-                    rankingInGroup: null,
+                    productRankingInBatch: null,
                     unitWeight: null
                 }
                 containerHash[newContainer.containerid] = newContainer
             }
             
         }
+        return containerHash
+    }
+
+    getContainersData(getOnlyActiveProducts: boolean = true): Observable<IStockTakeContainerHash> {
+        return this.apollo
+            .watchQuery<any>({
+                variables: {active: getOnlyActiveProducts},
+                query: this.productStockGraphqlStringService.ALL_STOCKTAKE_CONTAINERS_DATA
+            })
+            .valueChanges.pipe(
+                map(result => this.consolidateContainers(this.toolbox.refractureGraphqlRawData(result)['nodeProdmsItemGrouping']))
+            );
+    }
+
+    private consolidateContainers(containerData): IStockTakeContainerHash {
+
+        const isFullStockTake = (groupData) => {
+            let containerOnlyCountedDuringFullStockTake = false
+            groupData.forEach(group => {
+                if (group.productContainerGroupid.rowid === 1) {
+                    containerOnlyCountedDuringFullStockTake = true
+                }
+            });
+            return containerOnlyCountedDuringFullStockTake
+        }
+
+        console.log('consolidateContainers = ', containerData)
+        const containerHash: IStockTakeContainerHash = {};
+        for (let index = 0; index < containerData.length; index++) {
+            const product = containerData[index];
+            for (let i = 0; i < product.containerDetailNode.length; i++) {
+                const container = product.containerDetailNode[i];
+                for (let j = 0; j < container.productContainerid.productcontainerproductionareajunctionSet.length; j++) {
+                    const factoryArea = container.productContainerid.productcontainerproductionareajunctionSet[j];
+
+                    const newContainer: IProductionContainer = {
+                        containerid: container.productContainerid.rowid,
+                        containerName: container.productContainerid.containerNameid.containerName,
+                        productid: product.itemid.rowid,
+                        productMRid: product.itemid.defaultItemName,
+                        proddescription: product.itemid.description,
+                        factoryAreaName: factoryArea.productionAreaid.productionAreaName,
+                        factoryAreaRanking: factoryArea.productionAreaid.ranking,
+                        factoryAreaProductRanking: factoryArea.productionAreaRanking,
+                        fullStockTake: isFullStockTake(container.productContainerid.productcontainergroupjunctionSet),
+                        showBatches: container.showBatches,
+                        batchGroupid: null,
+                        batchName: null,
+                        batchRanking: null,
+                        brand: null,
+                        packageWeight: null,
+                        packaging: null,
+                        productonhold: null,
+                        productRankingInBatch: null,
+                        unitWeight: null
+                    }
+                    containerHash[newContainer.containerid] = newContainer
+                }
+            }
+            
+        }
+        console.log('Container hash = ', containerHash)
         return containerHash
     }
 
