@@ -8,7 +8,7 @@ import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbo
 export const createSingleBatch = (): IStockTakeAmountPerBatch => {
     return {
         id: 1,
-        amount: null,
+        amount: Math.floor((Math.random() * 200) + 1),
         amountString: null,
         dayNumber: Math.floor((Math.random() * 6) + 1),
         weekNumber: Math.floor((Math.random() * 52) + 1),
@@ -16,7 +16,7 @@ export const createSingleBatch = (): IStockTakeAmountPerBatch => {
     }
 }
 
-const createBatchArray = (): IStockTakeAmountPerBatch[] => {
+export const createBatchArray = (): IStockTakeAmountPerBatch[] => {
     const batchArray: IStockTakeAmountPerBatch[] = []
     const num = Math.floor((Math.random() * 6) + 1)
     for (let index = 0; index < num; index++) {
@@ -45,6 +45,9 @@ export const stockTakeInstance_mockFunc = (): IStockTakeInstance => {
     return stockTakeInstance.build()
 }
 
+export const containerList_mock = (): string[] => {
+    return ['box', 'bag', 'pnp half-lug', 'pnp shallow-lug', 'red crate', 'blue crate', 'vacuum', 'trolley', 'buggie']
+}
 
 export const ProductionStockList_GroupsMockFunc = (): IContainerWithStockTakeAmount[] => {
 
@@ -52,11 +55,12 @@ export const ProductionStockList_GroupsMockFunc = (): IContainerWithStockTakeAmo
     // const factoryAreaList: string[] = createStringList(faker.address.streetName)
     const batchGroupList: string[] = ['Smoke Vienna', 'Russian', 'Red Vienna', 'Smokies', 'OBC SV', 'PnP CCV', 'PnP CV', 'Beef Grillers', 'Smoke Grillers', 'Chilly Grillers', 'Hampers', 'Combos', 'Chicken Vienna', 'French Polony', 'Chicken Polony']
     const factoryAreaList: string[] = ['L-Shape front', 'L-Shape middle', 'L-Shape back', 'L-Shape PnP', 'Polony Pulldowns', 'Pulldown - Hot', 'Pulldown - Cold', 'Buggies', 'Polony Boxes']
-    const containerList: string[] = ['box', 'bag', 'pnp half-lug', 'pnp shallow-lug', 'red crate', 'blue crate', 'vacuum', 'trolley', 'buggie']
+    // const containerList: string[] = ['box', 'bag', 'pnp half-lug', 'pnp shallow-lug', 'red crate', 'blue crate', 'vacuum', 'trolley', 'buggie']
     const productMRidList: string[] = ['SV1', 'SV500', 'SV2', 'SVV2', 'SV5','RV1', 'RV500', 'RV2', 'RVV2', 'RV5','SS1', 'SS500', 'SS2', 'SSV2', 'SS5','ER1', 'ER500', 'ER2', 'ERV2', 'ER5', 'FP1', 'FP500', 'FP2', 'FPV2', 'FP5']
 
     const ProductionStockMock2 = Factory.Sync.makeFactory<IContainerWithStockTakeAmount>({
         factoryAreaProductRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
+        containerRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
         batchName: Factory.each(i => faker.random.arrayElement(batchGroupList)),
         batchGroupid: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
         factoryAreaName: Factory.each(i => faker.random.arrayElement(factoryAreaList)),
@@ -72,7 +76,7 @@ export const ProductionStockList_GroupsMockFunc = (): IContainerWithStockTakeAmo
         productRankingInBatch: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
         unitWeight: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
         factoryAreaRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
-        containerName: Factory.each(i => faker.random.arrayElement(containerList)),
+        containerName: Factory.each(i => faker.random.arrayElement(containerList_mock())),
         showBatches: Factory.each(i => faker.random.arrayElement([false, true, false, false, false])),
         stockTakeAmount: null,
         fullStockTake: Factory.each(i => faker.random.boolean()),
@@ -104,6 +108,7 @@ export const ProductionStockMock = Factory.Sync.makeFactory<IContainerWithStockT
     productid: Factory.each(i => faker.random.number({ min: 1, max: 1000 })),
     productMRid: Factory.each(i => faker.internet.password(Math.floor((Math.random() * 20) + 1), false, /[0-9A-Za-z]/)),
     proddescription: Factory.each(i => faker.commerce.productDescription()),
+    containerRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
     batchRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
     batchGroupid: Factory.each(i => faker.random.number({ min: 1, max: 1000 })),
     batchName: Factory.each(i => faker.company.companyName()),

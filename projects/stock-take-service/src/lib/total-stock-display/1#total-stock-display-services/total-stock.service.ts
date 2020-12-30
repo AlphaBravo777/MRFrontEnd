@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, combineLatest } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
 import { TotalStockInContainers_MockFunction } from 'src/assets/mockData/stock-take-service/total-stock-data.mocks';
 import { IContainerWithStockTakeAmount } from '../../#shared-services/production-stock.interface';
+import { ProductionStockService } from '../../production-stock-take/1#product-stock-services/production-stock.service';
 import { ITotalStockGroupedByBatches, ITotalStockGroupedByProducts } from '../../#shared-services/total-stock.interface';
+import { TotalStockGraphqlApiService } from './total-stock-graphql-api.service';
+import { IContainerInfo, IContainerInfoHash } from 'projects/production-service/src/lib/#shared-services/production.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -12,11 +15,45 @@ import { ITotalStockGroupedByBatches, ITotalStockGroupedByProducts } from '../..
 export class TotalStockService {
 
     constructor(
-        private toolbox: ToolboxGroupService
+        private toolbox: ToolboxGroupService,
+        private productionStockService: ProductionStockService,
+        private totalStockGraphqlApiService: TotalStockGraphqlApiService,
     ) { }
 
-    private getLatestTotalStockDataFromMockData(): Observable<IContainerWithStockTakeAmount[]> {
+    private mapContainerDataToHashByRanking(containerData: IContainerInfo[]): IContainerInfoHash {
+        const rankedContainers: IContainerInfo[] = this.toolbox.sorting(containerData, 'containerRanking')
+        const containerHash: IContainerInfoHash = {}
+        rankedContainers.forEach((containerObj, index) => {
+            containerHash[index] = containerObj
+        });
+        return rankedContainers
+    }
+
+    getContainerHash(): Observable<IContainerInfoHash> {
+        return this.totalStockGraphqlApiService.getContainersMock().pipe(
+            map(containerData => this.mapContainerDataToHashByRanking(containerData))
+        )
+    }
+
+    private getContainersAndInsertAmountsMock(): Observable<IContainerWithStockTakeAmount[]> {
         return of(TotalStockInContainers_MockFunction())
+    }
+
+    private getContainersAndInsertAmounts(): Observable<IContainerWithStockTakeAmount[]> {
+        return combineLatest([
+            this.productionStockService.getContainersFromLocalStorageOrDatabase(),
+            this.totalStockGraphqlApiService.getTotalStockTakeAmountsMock(),
+        ]).pipe(
+            map(([containers, stockTakeAmounts]) => this.productionStockService.insertStocktakeAmountsIntoContainers(containers, stockTakeAmounts))
+        )
+    }
+
+    private getLatestStockTakeDataThatAreGrouped(): Observable<ITotalStockGroupedByBatches[]> {
+        // return this.getContainersAndInsertAmounts().pipe(
+        return this.getContainersAndInsertAmountsMock().pipe(
+            tap(containersWithAmounts => console.log('This is what we have now: ', containersWithAmounts)),
+            map(containersWithAmounts => this.groupProductsByBatches(containersWithAmounts))
+        )
     }
 
     private groupContainersByProducts = (batchProducts): ITotalStockGroupedByProducts[] => {
@@ -51,9 +88,8 @@ export class TotalStockService {
         return totalStockTakeByBatches
     }
 
-    getLatestTotalStockDataPublicAPI(): Observable<any> {
-        return this.getLatestTotalStockDataFromMockData().pipe(
-            map(data => this.groupProductsByBatches(data))
+    getLatestTotalStockDataPublicAPI(): Observable<ITotalStockGroupedByBatches[]> {
+        return this.getLatestStockTakeDataThatAreGrouped().pipe(
         )
     }
 }

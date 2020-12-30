@@ -60,6 +60,7 @@ export class ProductStockGraphqlApiService {
                 const newContainer: IProductionContainer = {
                     containerid: container.rowid,
                     containerName: container.containernameid.containername,
+                    containerRanking: null,
                     productid: product.rowid,
                     productMRid: product.productid,
                     proddescription: product.proddescription,
@@ -120,6 +121,7 @@ export class ProductStockGraphqlApiService {
                     const newContainer: IProductionContainer = {
                         containerid: container.productContainerid.rowid,
                         containerName: container.productContainerid.containerNameid.containerName,
+                        containerRanking: null,
                         productid: product.itemid.rowid,
                         productMRid: product.itemid.defaultItemName,
                         proddescription: product.itemid.description,

@@ -11,3 +11,13 @@ export class IBatchInfoBackend {
     year: number;
     day: number;
 }
+
+export class IContainerInfo {
+    containerName: string;
+    containerid: number;
+    containerRanking: number;
+}
+
+export class IContainerInfoHash {
+    [containerid: number]: IContainerInfo;
+}

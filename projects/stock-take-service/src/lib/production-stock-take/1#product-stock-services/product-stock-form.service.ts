@@ -76,6 +76,7 @@ export class ProductStockFormService {
                 batchRanking: new FormControl(element.batchRanking),
                 brand: new FormControl(element.brand),
                 containerName: new FormControl(element.containerName),
+                containerRanking: new FormControl(element.containerRanking),
                 factoryAreaName: new FormControl(element.factoryAreaName),
                 factoryAreaProductRanking: new FormControl(element.factoryAreaProductRanking),
                 factoryAreaRanking: new FormControl(element.factoryAreaRanking),

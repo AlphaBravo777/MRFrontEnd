@@ -33,7 +33,7 @@ export class ProductionStockDataComponent implements OnInit, OnDestroy {
     }
 
     getProductionStock() {
-        this.stockTakeData$ = this.productionStockService.getStockTakeData()
+        this.stockTakeData$ = this.productionStockService.getStockTakeDataAPI()
         this.subscription = this.stockTakeData$.pipe(
             tap(data => console.log('THIS IS THE WORKING DATA: ',data)),
             tap(data => this.mainStockForm = this.productStockFormService.createMainStockFormGroup(data)),
@@ -45,7 +45,7 @@ export class ProductionStockDataComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
-        this.productionStockService.submitStockTake(this.mainStockForm).pipe(
+        this.productionStockService.submitStockTakeAPI(this.mainStockForm).pipe(
             take(1),
             tap(result => console.log('The stock result = ', result)),
             tap(result => this.router.navigate(['main/stock-take/entry/create-stock-take'])),

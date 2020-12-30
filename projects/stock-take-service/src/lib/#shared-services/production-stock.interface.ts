@@ -18,6 +18,7 @@ export class IStockTakeAmountPerContainer {
 export class IProductionContainer {
     containerid: number;
     containerName: string;
+    containerRanking: number;
     productMRid: string;
     productid: number;
     packageWeight: number;

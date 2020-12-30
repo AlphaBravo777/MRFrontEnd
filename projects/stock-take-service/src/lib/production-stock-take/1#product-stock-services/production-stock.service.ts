@@ -49,11 +49,11 @@ export class ProductionStockService {
         return this.productStockGraphqlApiService.getStockTakeAmountsForStockTakeInstance(stockTakeInstance).pipe()
     }
 
-    private insertStocktakeAmountsIntoContainers(containers: IStockTakeContainerHash, stockTakeAmounts: IStockTakeAmountHash): IContainerWithStockTakeAmount[] {
+    insertStocktakeAmountsIntoContainers(containers: IStockTakeContainerHash, stockTakeAmounts: IStockTakeAmountHash): IContainerWithStockTakeAmount[] {
         
         const containerWithStockDataArray: IContainerWithStockTakeAmount[] = []
 
-        const containerHasPreviouslyInsertedData = () => {
+        const containerHasStocktakeAmountsAvailable = () => {
             const containerWithStockData: IContainerWithStockTakeAmount = {...containers[key], stockTakeAmount: stockTakeAmounts[key].stockBatches}
             containerWithStockDataArray.push(containerWithStockData)
             delete stockTakeAmounts[key]
@@ -62,7 +62,7 @@ export class ProductionStockService {
         for (var key in containers) {
             if (containers.hasOwnProperty(key)) {
                 if (stockTakeAmounts[key] !== undefined) {
-                    containerHasPreviouslyInsertedData()
+                    containerHasStocktakeAmountsAvailable()
                 } else {
                     containerWithStockDataArray.push({...containers[key], stockTakeAmount: null});
                 }
@@ -103,7 +103,7 @@ export class ProductionStockService {
 
     }
 
-    getStockTakeData(): Observable<IStockTake> {
+    getStockTakeDataAPI(): Observable<IStockTake> {
         const stockTakeInstanceIsAvailable: IStockTakeInstance = this.stockCreateData$Service.stockInstanceValue
         return iif(() => 
             stockTakeInstanceIsAvailable !== null,
@@ -112,14 +112,14 @@ export class ProductionStockService {
         )
     }
 
-    getAllProducts(): Observable<IProductionStockByFactoryArea[]> {
+    // private getAllProducts(): Observable<IProductionStockByFactoryArea[]> {
 
-        return this.productStockGraphqlApiService.getAllProducts().pipe(
-            map(productionStock => this.groupProductionStockByFactoryArea(productionStock)),
-        )
-    }
+    //     return this.productStockGraphqlApiService.getAllProducts().pipe(
+    //         map(productionStock => this.groupProductionStockByFactoryArea(productionStock)),
+    //     )
+    // }
 
-    groupProductionStockByFactoryArea(productionStock: IContainerWithStockTakeAmount[]): IProductionStockByFactoryArea[] {
+    private groupProductionStockByFactoryArea(productionStock: IContainerWithStockTakeAmount[]): IProductionStockByFactoryArea[] {
 
         if (!productionStock) return null
 
@@ -137,7 +137,7 @@ export class ProductionStockService {
         return productionStockByFactoryAreaData
     }
 
-    filterOnlyAmountsThatWereChanged(stockTakeForm: FormArray<IProductionStockByFactoryArea>): IContainerWithStockTakeAmount[] {
+    private filterOnlyAmountsThatWereChanged(stockTakeForm: FormArray<IProductionStockByFactoryArea>): IContainerWithStockTakeAmount[] {
         const changedAmountsArray: IContainerWithStockTakeAmount[] = []
         stockTakeForm.controls.forEach(area => {
 
@@ -163,7 +163,7 @@ export class ProductionStockService {
         return changedAmountsArray
     }
 
-    submitStockTake(stockTakeForm: FormGroup<IStockTake>): Observable<any> {
+    submitStockTakeAPI(stockTakeForm: FormGroup<IStockTake>): Observable<any> {
         const changedAmountsArray = this.filterOnlyAmountsThatWereChanged(stockTakeForm.get('containers'))
         return this.productionStockRestApiService.insertStockTake(factory_stocktakeFrontEndToBackend(stockTakeForm.value, changedAmountsArray)).pipe()
     }
