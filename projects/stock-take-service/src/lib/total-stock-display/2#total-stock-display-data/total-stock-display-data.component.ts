@@ -30,6 +30,8 @@ export class TotalStockDisplayDataComponent implements OnInit, OnDestroy {
         this.createTotalStockForm()
     }
 
+    // This is test change 1
+
     // For the excel sheet it may be best to do most of the hard work in the backend where the programming is easier. 
 
     // With form, check how many containers there are, then create a form array for those many containers and set each value to null, as you then go through all the contianers in the data, for every container, get its index, and set that index to the amount. Let each container have their number, as well as the wieght and total weight of the container to easily use and add up
