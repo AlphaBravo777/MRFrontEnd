@@ -19,5 +19,5 @@ export class IContainerInfo {
 }
 
 export class IContainerInfoHash {
-    [containerid: number]: IContainerInfo;
+    [containerid: number]: number;
 }
