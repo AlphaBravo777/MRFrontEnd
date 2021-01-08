@@ -24,9 +24,15 @@ export class TotalStockService {
         const rankedContainers: IContainerInfo[] = this.toolbox.sorting(containerData, 'containerRanking')
         const containerHash: IContainerInfoHash = {}
         rankedContainers.forEach((containerObj, index) => {
-            containerHash[index] = containerObj
+            containerHash[index] = {
+                containerIndex: index,
+                containerName: containerObj.containerName,
+                containerRanking: containerObj.containerRanking,
+                containerid: containerObj.containerid
+            }
         });
-        return rankedContainers
+        console.log('Hash = ', containerHash)
+        return containerHash
     }
 
     getContainerHash(): Observable<IContainerInfoHash> {
