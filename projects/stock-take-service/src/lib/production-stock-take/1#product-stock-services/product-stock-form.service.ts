@@ -76,6 +76,7 @@ export class ProductStockFormService {
                 batchRanking: new FormControl(element.batchRanking),
                 brand: new FormControl(element.brand),
                 containerName: new FormControl(element.containerName),
+                containerNameid: new FormControl(element.containerNameid),
                 containerRanking: new FormControl(element.containerRanking),
                 factoryAreaName: new FormControl(element.factoryAreaName),
                 factoryAreaProductRanking: new FormControl(element.factoryAreaProductRanking),
@@ -92,6 +93,7 @@ export class ProductStockFormService {
                 stockTakeAmount: this.createBatchesThatHasIncomingAmountsData(element.stockTakeAmount),
                 containerid: new FormControl(element.containerid),
                 fullStockTake: new FormControl(element.fullStockTake),
+                stockTakeWeight: new FormControl(element.stockTakeWeight),
             })
             areaProducts.push(areaProduct)
         }
