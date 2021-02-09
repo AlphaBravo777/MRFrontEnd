@@ -62,6 +62,7 @@ export class ProductionGraphqlApiService {
                         factoryAreaProductRanking: factoryArea.productionAreaRanking,
                         fullStockTake: isFullStockTake(container.productContainerid.productcontainergroupjunctionSet),
                         showBatches: container.showBatches,
+                        productContainerWeight: container.productContainerWeight,
                         batchGroupid: product.groupid.rowid,
                         batchName: product.groupid.groupName,
                         batchRanking: product.groupid.rankingInGroup,
