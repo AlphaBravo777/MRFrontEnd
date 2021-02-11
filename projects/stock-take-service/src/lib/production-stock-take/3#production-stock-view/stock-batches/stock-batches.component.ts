@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormArray } from '@ng-stack/forms';
+import { FormArray, FormGroup } from '@ng-stack/forms';
 import { IBatchInfo } from 'projects/production-service/src/lib/#shared-services/production.interface';
 import { CreateBatchData$Service } from 'projects/production-service/src/lib/create-batch/1#create-batch-services/create-batch-data$.service';
-import { IStockTakeAmountPerBatch } from '../../../#shared-services/production-stock.interface';
+import { IContainerWithStockTakeAmount, IStockTakeAmountPerBatch } from '../../../#shared-services/production-stock.interface';
 import { ProductStockFormService } from '../../1#product-stock-services/product-stock-form.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { ProductStockFormService } from '../../1#product-stock-services/product-
 })
 export class StockBatchesComponent implements OnInit {
 
-    @Input() batchesFormArray: FormArray<IStockTakeAmountPerBatch>;
+    @Input() stockItem: FormGroup<IContainerWithStockTakeAmount>;
     @Input() showBatchesBool: boolean;
 
     constructor(
@@ -26,7 +26,11 @@ export class StockBatchesComponent implements OnInit {
 
     createBatch() {
         const batches: IBatchInfo[] = this.createBatchData$Service.stockBatchesFormArrayValue;
-        this.batchesFormArray = this.productStockFormService.createBatchesWithoutIncomingAmountsData(batches);
+        let batchesFormArray: FormArray<IStockTakeAmountPerBatch> = this.stockItem.get('stockTakeAmount')
+        batchesFormArray.clear()
+        batches.forEach(batch => {
+            batchesFormArray.push(this.productStockFormService.createSingleBatch(Object.assign({amount: null, amountString: null}, batch)))
+        });
     }
 
 }

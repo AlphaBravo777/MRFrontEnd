@@ -1,7 +1,11 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormArray, FormGroup } from '@ng-stack/forms';
+import { of } from 'rxjs';
+import { catchError, take, tap } from 'rxjs/operators';
+import { SnackBarAlertService } from 'src/app/home/core/alerts/snack-bar-alert-service/snack-bar-alert.service';
 import { IProductionStockByFactoryArea, IStockTake } from '../../#shared-services/production-stock.interface';
+import { ProductionStockService } from '../1#product-stock-services/production-stock.service';
 
 @Component({
     selector: 'stock-production-stock-view',
@@ -15,7 +19,11 @@ export class ProductionStockViewComponent implements OnInit {
     showCreateBatchWindow = false;
     batchWindowButtonText = 'Insert Batches'
 
-    constructor(private router: Router) { }
+    constructor(
+        private router: Router,
+        private productionStockService: ProductionStockService,
+        private snackBarAlertService: SnackBarAlertService
+    ) { }
 
     ngOnInit(): void {
         console.log('the data = ', this.mainStockForm)
@@ -40,6 +48,18 @@ export class ProductionStockViewComponent implements OnInit {
         localStorage.removeItem('stockTakeContainers')
         // this.ngOnInit()
         this.router.navigate(['main/stock-take/entry/create-stock-take'])
+    }
+
+    onSubmit() {
+        this.productionStockService.submitStockTakeAPI(this.mainStockForm).pipe(
+            take(1),
+            tap(result => console.log('The stock result = ', result)),
+            tap(result => this.router.navigate(['main/stock-take/entry/create-stock-take'])),
+            catchError(error => {
+                this.snackBarAlertService.alert(Object.keys(error.error)[0] + ': ' + error.error[Object.keys(error.error)[0]], 'X');
+                return of(error)
+            })
+        ).subscribe()
     }
 
 }

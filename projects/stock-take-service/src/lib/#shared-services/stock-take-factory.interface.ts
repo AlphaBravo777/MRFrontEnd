@@ -59,10 +59,12 @@ function factory_createStockTakeContainerData(containerData: IContainerWithStock
 
 
 export function factory_stocktakeFrontEndToBackend(stockTakeForm: IStockTake, containerData: IContainerWithStockTakeAmount[]): IStockTakeBackend  {
+    console.log('Starting factory settings')
     return {
         stockTakeInstance: factory_stockTakeInstance_FrontendToBackend(stockTakeForm),
         containers: factory_createStockTakeContainerData(containerData)
     };
+
 }
 
 export function factory_createStockTake_fromInstanceAndContainers(stockTakeInstance: IStockTakeInstance, containers: IProductionStockByFactoryArea[]): IStockTake  {

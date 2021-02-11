@@ -46,13 +46,14 @@ export const stockTakeInstance_mockFunc = (): IStockTakeInstance => {
 }
 
 export const containerList_mock = (): string[] => {
-    return ['box', 'bag', 'pnp half-lug', 'pnp shallow-lug', 'red crate', 'blue crate', 'vacuum', 'trolley', 'buggie']
+    return ['Box', 'Bag', 'PnP half-lug', 'PnP shallow-lug', 'Red crate', 'Blue crate', 'Vacuum', 'Trolley', 'Buggie']
 }
 
 export const ProductionStockList_GroupsMockFunc = (): IContainerWithStockTakeAmount[] => {
 
     // const batchGroupList: string[] = createStringList(faker.address.city)
     // const factoryAreaList: string[] = createStringList(faker.address.streetName)
+    const containerNameIDs = [2,15,48,61,45,68,23,6,98]
     const batchGroupList: string[] = ['Smoke Vienna', 'Russian', 'Red Vienna', 'Smokies', 'OBC SV', 'PnP CCV', 'PnP CV', 'Beef Grillers', 'Smoke Grillers', 'Chilly Grillers', 'Hampers', 'Combos', 'Chicken Vienna', 'French Polony', 'Chicken Polony']
     const factoryAreaList: string[] = ['L-Shape front', 'L-Shape middle', 'L-Shape back', 'L-Shape PnP', 'Polony Pulldowns', 'Pulldown - Hot', 'Pulldown - Cold', 'Buggies', 'Polony Boxes']
     // const containerList: string[] = ['box', 'bag', 'pnp half-lug', 'pnp shallow-lug', 'red crate', 'blue crate', 'vacuum', 'trolley', 'buggie']
@@ -65,6 +66,7 @@ export const ProductionStockList_GroupsMockFunc = (): IContainerWithStockTakeAmo
         batchGroupid: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
         factoryAreaName: Factory.each(i => faker.random.arrayElement(factoryAreaList)),
         productid: Factory.each(i => faker.random.number({ min: 1, max: 1000 })),
+        productContainerWeight: Factory.each(i => faker.random.number({ min: 1, max: 1000 })),
         productMRid: Factory.each(i => faker.random.arrayElement(productMRidList)),
         // productMRid: Factory.each(i => faker.internet.password(Math.floor((Math.random() * 10) + 1), false, /[0-9A-Za-z]/)),
         proddescription: Factory.each(i => faker.lorem.words(faker.random.number({ min: 1, max: 10 }))),
@@ -81,6 +83,8 @@ export const ProductionStockList_GroupsMockFunc = (): IContainerWithStockTakeAmo
         stockTakeAmount: null,
         fullStockTake: Factory.each(i => faker.random.boolean()),
         containerid: Factory.each(i => faker.random.number({ min: 1, max: 1000 })),
+        containerNameid: Factory.each(i => faker.random.arrayElement(containerNameIDs)),
+        stockTakeWeight: null
     });
 
     const buildRecord = () => {
@@ -103,31 +107,33 @@ export const ProductionStockList_GroupsMockFunc = (): IContainerWithStockTakeAmo
 }
 
 
-export const ProductionStockMock = Factory.Sync.makeFactory<IContainerWithStockTakeAmount>({
+// export const ProductionStockMock = Factory.Sync.makeFactory<IContainerWithStockTakeAmount>({
 
-    productid: Factory.each(i => faker.random.number({ min: 1, max: 1000 })),
-    productMRid: Factory.each(i => faker.internet.password(Math.floor((Math.random() * 20) + 1), false, /[0-9A-Za-z]/)),
-    proddescription: Factory.each(i => faker.commerce.productDescription()),
-    containerRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
-    batchRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
-    batchGroupid: Factory.each(i => faker.random.number({ min: 1, max: 1000 })),
-    batchName: Factory.each(i => faker.company.companyName()),
-    brand: Factory.each(i => faker.company.companyName()),
-    packageWeight: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
-    packaging: Factory.each(i => faker.lorem.word()),
-    productonhold: Factory.each(i => faker.random.boolean()),
-    productRankingInBatch: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
-    unitWeight: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
-    factoryAreaName: Factory.each(i => faker.address.streetName()),
-    factoryAreaRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
-    factoryAreaProductRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
-    containerName: Factory.each(i => faker.lorem.word()),
-    showBatches: Factory.each(i => faker.random.arrayElement([false, true, false, false, false])),
-    stockTakeAmount: createBatchArray(),
-    // amountString: Factory.each(i => faker.random.number({ min: 1, max: 100 }).toString() + '+' + faker.random.number({ min: 1, max: 100 }).toString() + '+' + faker.random.number({ min: 1, max: 100 }).toString()),
-    fullStockTake: Factory.each(i => faker.random.boolean()),
-    containerid: Factory.each(i => faker.random.number({ min: 1, max: 1000 })),
-});
+//     productid: Factory.each(i => faker.random.number({ min: 1, max: 1000 })),
+//     productMRid: Factory.each(i => faker.internet.password(Math.floor((Math.random() * 20) + 1), false, /[0-9A-Za-z]/)),
+//     proddescription: Factory.each(i => faker.commerce.productDescription()),
+//     containerRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
+//     batchRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
+//     batchGroupid: Factory.each(i => faker.random.number({ min: 1, max: 1000 })),
+//     batchName: Factory.each(i => faker.company.companyName()),
+//     brand: Factory.each(i => faker.company.companyName()),
+//     packageWeight: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
+//     packaging: Factory.each(i => faker.lorem.word()),
+//     productonhold: Factory.each(i => faker.random.boolean()),
+//     productRankingInBatch: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
+//     unitWeight: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
+//     factoryAreaName: Factory.each(i => faker.address.streetName()),
+//     factoryAreaRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
+//     factoryAreaProductRanking: Factory.each(i => faker.random.number({ min: 1, max: 100 })),
+//     containerName: Factory.each(i => faker.lorem.word()),
+//     showBatches: Factory.each(i => faker.random.arrayElement([false, true, false, false, false])),
+//     stockTakeAmount: createBatchArray(),
+//     // amountString: Factory.each(i => faker.random.number({ min: 1, max: 100 }).toString() + '+' + faker.random.number({ min: 1, max: 100 }).toString() + '+' + faker.random.number({ min: 1, max: 100 }).toString()),
+//     fullStockTake: Factory.each(i => faker.random.boolean()),
+//     containerid: Factory.each(i => faker.random.number({ min: 1, max: 1000 })),
+//     containerNameid: Factory.each(i => faker.random.arrayElement(containerNameIDs)),
+//     stockTakeWeight: null
+// });
 
 
 const groupProductionStockByFactoryArea = (productionStock: IContainerWithStockTakeAmount[]): IProductionStockByFactoryArea[] => {

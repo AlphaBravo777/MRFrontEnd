@@ -12,6 +12,7 @@ import { ProductionStockRestApiService } from './production-stock-rest-api.servi
 import { SnackBarAlertService } from 'src/app/home/core/alerts/snack-bar-alert-service/snack-bar-alert.service';
 import { CreateBatchService } from 'projects/production-service/src/lib/create-batch/1#create-batch-services/create-batch.service';
 import { Router } from '@angular/router';
+import { ProductionService } from 'projects/production-service/src/lib/#shared-services/production.service';
 
 @Injectable({
     providedIn: 'root'
@@ -25,28 +26,26 @@ export class ProductionStockService {
         private productionStockRestApiService: ProductionStockRestApiService,
         private snackBarAlertService: SnackBarAlertService,
         private createBatchService: CreateBatchService,
-        private router: Router
+        private router: Router,
+        private productionService: ProductionService
         ) { }
 
 
-    getContainersFromLocalStorageOrDatabase(): Observable<IStockTakeContainerHash> {
-        const stockTakeContainers: IStockTakeContainerHash = JSON.parse(localStorage.getItem('stockTakeContainers'))
-        if (stockTakeContainers) {
-            return of(stockTakeContainers)
-        } else {
-            return this.productStockGraphqlApiService.getContainersData().pipe(
-                tap(containerData => localStorage.setItem('stockTakeContainers', JSON.stringify(containerData)))
-            )
-        }
-    }
+
 
     private getCurrentStockTakeAmounts(stockTakeInstance: IStockTakeInstance): Observable<IStockTakeAmountHash>  {
+        // Here we have to look if the stocktake was already taken (locked), which means we get the data for the stocktake, or if it is a new stocktake, then get current stock amounts so that we can know what batches are available
         if (!stockTakeInstance) {
             this.snackBarAlertService.alert('getCurrentStockTakeAmounts - No stock take selection was found', 'X')
             this.router.navigate(['main/stock-take/entry/create-stock-take']);
             throw new Error('getCurrentStockTakeAmounts - No stock take selection was found')
         }
-        return this.productStockGraphqlApiService.getStockTakeAmountsForStockTakeInstance(stockTakeInstance).pipe()
+        // return this.productStockGraphqlApiService.getStockTakeAmountsForStockTakeInstance(stockTakeInstance).pipe()
+        return iif(() => 
+            stockTakeInstance.stockTakeLocked,
+            this.productStockGraphqlApiService.getStockTakeAmountsForStockTakeInstance(stockTakeInstance),
+            this.productStockGraphqlApiService.getTotalStockTakeAmountsToGetBatchesInUse()
+        ).pipe()
     }
 
     insertStocktakeAmountsIntoContainers(containers: IStockTakeContainerHash, stockTakeAmounts: IStockTakeAmountHash): IContainerWithStockTakeAmount[] {
@@ -64,11 +63,12 @@ export class ProductionStockService {
                 if (stockTakeAmounts[key] !== undefined) {
                     containerHasStocktakeAmountsAvailable()
                 } else {
-                    containerWithStockDataArray.push({...containers[key], stockTakeAmount: null});
+                    containerWithStockDataArray.push({...containers[key], stockTakeAmount: null, stockTakeWeight: null});
                 }
             }
         }
 
+        // The use of this check is because you do not want there to be amounts available, without a container to put it in. But this might be problamatic due to the fact that if you de-activate a container (it is no longer in use), you will still have it last stocktake amount without having the container, which is a perfectly legitimate situation
         const checkThatAllAmountsHasAContainer = () => {
             if (Object.keys(stockTakeAmounts).length > 0) {
                 let orphaneContainers: string = '';
@@ -79,7 +79,7 @@ export class ProductionStockService {
             }
         }
 
-        checkThatAllAmountsHasAContainer()
+        // checkThatAllAmountsHasAContainer()
 
         return containerWithStockDataArray
         // return ProductionStockList_GroupsMockFunc()
@@ -87,7 +87,7 @@ export class ProductionStockService {
 
     private getStocktakeDataAsGroupedContainers(stockTakeInstance: IStockTakeInstance): Observable<IProductionStockByFactoryArea[]> {
         return combineLatest([
-            this.getContainersFromLocalStorageOrDatabase(),
+            this.productionService.getContainersFromLocalStorageOrDatabase(),
             this.getCurrentStockTakeAmounts(stockTakeInstance),
             this.createBatchService.getTodaysBatch()
         ]).pipe(

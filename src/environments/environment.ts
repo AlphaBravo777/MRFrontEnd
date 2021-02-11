@@ -48,6 +48,7 @@ export const environment = {
 
             stockTakeurl: 'stockTake/',
                 insertStockTakeInstance: 'insertStockTakeInstance/',
+                deleteStockTakeInstance: 'deleteStockTakeInstance/',
                 insertStockTake: 'insertStockTake/',
 
             routeUrl: 'route/',

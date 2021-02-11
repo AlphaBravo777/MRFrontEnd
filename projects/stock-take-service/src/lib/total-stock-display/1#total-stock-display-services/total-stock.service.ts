@@ -8,6 +8,7 @@ import { ProductionStockService } from '../../production-stock-take/1#product-st
 import { ITotalStockGroupedByBatches, ITotalStockGroupedByProducts } from '../../#shared-services/total-stock.interface';
 import { TotalStockGraphqlApiService } from './total-stock-graphql-api.service';
 import { IContainerInfo, IContainerInfoHash } from 'projects/production-service/src/lib/#shared-services/production.interface';
+import { ProductionService } from 'projects/production-service/src/lib/#shared-services/production.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +18,7 @@ export class TotalStockService {
     constructor(
         private toolbox: ToolboxGroupService,
         private productionStockService: ProductionStockService,
+        private productionService: ProductionService,
         private totalStockGraphqlApiService: TotalStockGraphqlApiService,
     ) { }
 
@@ -28,7 +30,8 @@ export class TotalStockService {
                 containerIndex: index,
                 containerName: containerObj.containerName,
                 containerRanking: containerObj.containerRanking,
-                containerid: containerObj.containerid
+                containerid: containerObj.containerid,
+                showContainer: containerObj.showContainer
             }
         });
         console.log('Hash = ', containerHash)
@@ -36,29 +39,31 @@ export class TotalStockService {
     }
 
     getContainerHash(): Observable<IContainerInfoHash> {
-        return this.totalStockGraphqlApiService.getContainersMock().pipe(
+        // return this.totalStockGraphqlApiService.getContainersMock().pipe(
+        return this.totalStockGraphqlApiService.getContainers().pipe(
             map(containerData => this.mapContainerDataToHashByRanking(containerData))
         )
     }
 
-    private getContainersAndInsertAmountsMock(): Observable<IContainerWithStockTakeAmount[]> {
+    private getProductContainersAndInsertAmountsMock(): Observable<IContainerWithStockTakeAmount[]> {
         return of(TotalStockInContainers_MockFunction())
     }
 
-    private getContainersAndInsertAmounts(): Observable<IContainerWithStockTakeAmount[]> {
+    private getProductContainersAndInsertAmounts(): Observable<IContainerWithStockTakeAmount[]> {
         return combineLatest([
-            this.productionStockService.getContainersFromLocalStorageOrDatabase(),
-            this.totalStockGraphqlApiService.getTotalStockTakeAmountsMock(),
+            this.productionService.getContainersFromLocalStorageOrDatabase(),
+            // this.totalStockGraphqlApiService.getTotalStockTakeAmountsMock(),
+            this.totalStockGraphqlApiService.getTotalStockTakeAmounts(),
         ]).pipe(
             map(([containers, stockTakeAmounts]) => this.productionStockService.insertStocktakeAmountsIntoContainers(containers, stockTakeAmounts))
         )
     }
 
     private getLatestStockTakeDataThatAreGrouped(): Observable<ITotalStockGroupedByBatches[]> {
-        // return this.getContainersAndInsertAmounts().pipe(
-        return this.getContainersAndInsertAmountsMock().pipe(
+        return this.getProductContainersAndInsertAmounts().pipe(
+        // return this.getContainersAndInsertAmountsMock().pipe(
+            map(containersWithAmounts => this.groupProductsByBatches(containersWithAmounts)),
             tap(containersWithAmounts => console.log('This is what we have now: ', containersWithAmounts)),
-            map(containersWithAmounts => this.groupProductsByBatches(containersWithAmounts))
         )
     }
 
@@ -70,9 +75,11 @@ export class TotalStockService {
                 productContainerData: productGroup.values,
                 productMRid: productGroup.key,
                 productRanking: productGroup.values[0].productRankingInBatch,
-                productid: productGroup.values[0].productid
+                productid: productGroup.values[0].productid,
+                productWeight: 0,
             })
         });
+        // console.log('GROUP BY PRODUCTS: ', tempBatchProductsArray)
         this.toolbox.sorting(tempBatchProductsArray, 'productRanking')
         return tempBatchProductsArray
     }

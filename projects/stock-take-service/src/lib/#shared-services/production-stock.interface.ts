@@ -18,6 +18,7 @@ export class IStockTakeAmountPerContainer {
 export class IProductionContainer {
     containerid: number;
     containerName: string;
+    containerNameid: number;
     containerRanking: number;
     productMRid: string;
     productid: number;
@@ -36,11 +37,13 @@ export class IProductionContainer {
     factoryAreaProductRanking: number
     showBatches: boolean;
     fullStockTake: boolean;
+    productContainerWeight: number;
 }
 
-// This are the amounts that come form the stock take, and are added to the containers
+// These are the amounts that come form the stock take, and are added to the containers
 export class IContainerWithStockTakeAmount extends IProductionContainer {
     stockTakeAmount: IStockTakeAmountPerBatch[];
+    stockTakeWeight: number;
 }
 
 export class IProductionStockByFactoryArea {

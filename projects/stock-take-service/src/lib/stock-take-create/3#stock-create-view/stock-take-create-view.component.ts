@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { take, tap } from 'rxjs/operators';
 import { IStockTakeInstance } from '../../#shared-services/production-stock.interface';
 import { StockCreateData$Service } from '../1#stock-create-services/stock-create-data$.service';
+import { StockCreateService } from '../1#stock-create-services/stock-create.service';
 
 @Component({
     selector: 'stock-stock-take-create-view',
@@ -15,6 +17,7 @@ export class StockTakeCreateViewComponent implements OnInit {
 
     constructor(
         private stockCreateData$Service: StockCreateData$Service,
+        private stockCreateService: StockCreateService,
         private router: Router
         ) { }
 
@@ -32,6 +35,18 @@ export class StockTakeCreateViewComponent implements OnInit {
 
     closeForm(value) {
         this.showNewStockTakeForm()
+    }
+
+    deleteStocktakeInstance(stockTake: IStockTakeInstance) {
+        this.stockCreateService.deleteStockTakeInstance(stockTake).pipe(
+            take(1),
+            tap((data) => {
+                console.log('Deleted result = ', data);
+                this.stockTakeInstances.forEach((item, index) => {
+                    if(item.id === stockTake.id) this.stockTakeInstances.splice(index,1);
+                });
+            }),
+        ).subscribe()
     }
 
 }

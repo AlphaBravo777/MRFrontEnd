@@ -76,6 +76,7 @@ export class UrlsService {
         // == STOCKTAKE ==
         private stockTakeurl = this.mrGatewayService + environment.stockTakeurl; // NOT Tested
          insertStockTakeInstance = this.stockTakeurl + environment.insertStockTakeInstance
+         deleteStockTakeInstance = this.stockTakeurl + environment.deleteStockTakeInstance
          insertStockTake = this.stockTakeurl + environment.insertStockTake
 
         // == PRODUCTS ==

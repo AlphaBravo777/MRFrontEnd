@@ -2,16 +2,11 @@
     <ng-container *ngIf="mainStockForm; then dataAvailable; else noData"></ng-container>
 
     <ng-template #dataAvailable>
-
-        <form [formGroup]="mainStockForm" (ngSubmit)="onSubmit()">
-            <div id='content'>
-                <stock-production-stock-view
-                    [mainStockForm]='mainStockForm'>
-                </stock-production-stock-view>
-            </div>
-            <button mat-raised-button color='primary' type="submit" [disabled]='mainStockForm.invalid || mainStockForm.pristine'>Submit Stocktake</button>
-            <pre>{{mainStockForm.value | json}}</pre>
-        </form>
+        <div id='content'>
+            <stock-production-stock-view
+                [mainStockForm]='mainStockForm'>
+            </stock-production-stock-view>
+        </div>
     </ng-template>
 
     <ng-template #noData>

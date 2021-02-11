@@ -17,4 +17,9 @@ export class StockCreateRestApiService {
         console.log('The stockTakeInstance that will be inserted = ', stockTakeInstance);
         return this.http.post<any>(this.urlService.insertStockTakeInstance, stockTakeInstance).pipe();
     }
+
+    deleteStockTakeInstance(stockTakeInstance: IStockTakeInstanceBackend): Observable<any> {
+        console.log('The stockTakeInstance that will be deleted = ', stockTakeInstance);
+        return this.http.delete<any>(this.urlService.deleteStockTakeInstance + stockTakeInstance.id).pipe();
+    }
 }

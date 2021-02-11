@@ -16,16 +16,27 @@
 ☐ Create stock amount update module where you can update the current stock totals as they are
 ☐ Must be able to delete stocktakeInstances
 
-☐ Read in a full stock take and see if all the data is correct and adds up
-☐ Now that all the data is read in, see what needs to happen so that we can use it in the laailys excel sheet
-☐ Pull in the current full stock take, and then work from there
+☐ The Total stock data needs some work where many of the products are in the wrong place, and some new batches need to be created. Also the batches need to be add to the top of the bathces list
 
- Insert all the interface tables into the database, 
- change all the fields to use them in the stocktake backend,
- make sure that if one of them is not yet on the list, that we look for it and insert it
- as well as the graphql schemas
- then also in the frontend where they must be converted to the original ids
+✔ Clear batches in stock take first before adding new batches. Right now the new batches jsut gets added on top of the old batches. @done(21-02-09 08:18)
+✘ In the beginning we have to just insert all trolleys, and then later we will make them hot or cold with the production program where you move the trollies around @cancelled(21-02-09 08:23)
+✔ When stock take is taken, the numbers now is 0 instead of null, which means that the batches are not showing (This means that if a stocktake is not locked, all the amounts should be set to null, else it should be the amount, and if there is no amount it should be 0) @done(21-02-09 10:53)
+☐ Delete a stocktake instance, so that everything else will also be deleted
+☐  If there are batches for a product, you must still add the batch of today if it is not there yet
+☐ Excel - What needs to be sorted out are things like blue lugs and pasturized packets. Just pull in all the containers, and then put it into its ritefull place
+☐ Also, the pnp stock should not be pulled into the laailys sheet, but rather into the PNP sheet, and the days should be put under the correct place
+✔ New stock take should take batches of previous stock take into account, this is why parent stock take is needed (Or rather just overall stock take, maybe batches were added or changed) @done(21-02-09 15:19)
+☐ Sort out the polony laailys
+☐ Beautify stock lys
+☐ Should be able to change stock on stock lys
 
+---- Finishing up the stock take program ----
+☐ When you have a stocktake amount for an item, but there is no container, this might be because the container was discontinued, so you should not get an error because the contianer might have been discontinued even though there are still stock available
+
+
+☐ NB! Produksie trollies rond skuif program
+☐ NB! HPP program
+☐ NB! Nuwe Producte in lees program
 ☐ Defekte program
 ☐ Products service with cost prices
 ☐ Employees register with warnings

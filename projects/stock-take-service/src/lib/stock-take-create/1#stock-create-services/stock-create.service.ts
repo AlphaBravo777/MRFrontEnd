@@ -38,4 +38,9 @@ export class StockCreateService {
             tap(() => this.stockCreateData$Service.addStockInstanceToList(stockInstance))
         )
     }
+
+    deleteStockTakeInstance(stockInstance: IStockTakeInstance): Observable<any> {
+        return this.stockCreateRestApiService.deleteStockTakeInstance(stockInstance)
+    }
+
 }

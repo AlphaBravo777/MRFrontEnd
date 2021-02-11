@@ -9,7 +9,7 @@ import { AlertService } from './alert.service';
 @Component({
     selector: 'app-auth-alert',
     templateUrl: './alert.component.html',
-    styleUrls: ['./alert.component.css']
+    styleUrls: ['./alert.component.scss']
 })
 
 export class AlertComponent implements OnInit, OnDestroy {

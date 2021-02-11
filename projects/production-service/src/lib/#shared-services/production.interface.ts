@@ -17,6 +17,7 @@ export class IContainerInfo {
     containerid: number;
     containerRanking: number;
     containerIndex: number;
+    showContainer: boolean;
 }
 
 export class IContainerInfoHash {

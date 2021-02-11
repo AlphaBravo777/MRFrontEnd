@@ -1,22 +1,26 @@
-<div *ngFor='let stockItem of factoryAreaProducts.controls; let i=index'>
-    <div class='stockItemRow'>
-        <!-- <div [ngStyle]="styleStockItemGrid"> -->
-        <div class="styleStockItemGrid">
-            <span #productMRid class='productMRid'>
-                {{stockItem.get('productMRid').value}}
-            </span>
-            <span #proddescription class='proddescription'>
-                {{stockItem.get('proddescription').value}}
-            </span>
-            <span class='container'>
-                {{stockItem.get('containerName').value}}
-            </span>
-            <span>
-                <stock-stock-batches
-                    [batchesFormArray]='stockItem.get("stockTakeAmount")'
-                    [showBatchesBool]='stockItem.get("showBatches").value'>
-                </stock-stock-batches>
-            </span>
+<div [formGroup]="factoryArea">
+    <div formArrayName="factoryAreaProducts">
+        <div *ngFor='let stockItem of factoryArea.get("factoryAreaProducts").controls; let stockItemIndex = index'>
+            <div class='stockItemRow' [formGroupName]="stockItemIndex">
+                <!-- <div [ngStyle]="styleStockItemGrid"> -->
+                <div class="styleStockItemGrid">
+                    <span #productMRid class='productMRid'>
+                        {{stockItem.get('productMRid').value}}
+                    </span>
+                    <span #proddescription class='proddescription'>
+                        {{stockItem.get('proddescription').value}}
+                    </span>
+                    <span class='container'>
+                        {{stockItem.get('containerName').value}}
+                    </span>
+                    <span>
+                        <stock-stock-batches
+                            [stockItem]='stockItem'
+                            [showBatchesBool]='stockItem.get("showBatches").value'>
+                        </stock-stock-batches>
+                    </span>
+                </div>
+            </div>
         </div>
-    </div>
+    <div>
 </div>

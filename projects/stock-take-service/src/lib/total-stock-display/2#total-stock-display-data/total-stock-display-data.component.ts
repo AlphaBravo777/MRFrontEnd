@@ -17,6 +17,7 @@ export class TotalStockDisplayDataComponent implements OnInit, OnDestroy {
 
     subscription: Subscription
     totalStockForm: FormArray<ITotalStockGroupedByBatches>
+    containerHash: IContainerInfoHash
     totalStockData$: Observable<ITotalStockGroupedByBatches[]>
     containerHash$: Observable<IContainerInfoHash>
 
@@ -48,28 +49,15 @@ export class TotalStockDisplayDataComponent implements OnInit, OnDestroy {
 
         this.subscription = combineLatest([this.totalStockData$, this.containerHash$]).pipe(
             tap(data => this.totalStockForm = this.totalStockFormService.createTotalStockFormAPI(data[0], data[1])),
+            tap(data => this.containerHash = data[1]),
             tap(() => console.log('THIS IS THE WORKING DATA: ', this.totalStockForm)),
             catchError(error => {
+                console.log('There is an error: ', error)
                 this.snackBarAlertService.alertBackendError(error)
                 return of(error)
             })
         ).subscribe()
     }
-
-    // private createTotalStockForm() {
-    //     const totalStockData$ = this.totalStockService.getLatestTotalStockDataPublicAPI()
-    //     const containerHash$ = this.totalStockService.getContainerHash()
-    //     this.subscription = this.totalStockService.getLatestTotalStockDataPublicAPI().pipe(
-    //         tap(data => console.log('THIS IS THE WORKING DATA: ',data)),
-    //         concatMap(() => this.totalStockService.getContainerHash()),
-    //         tap(data2 => console.log('This is the container data ',data2)),
-    //         map()
-    //         catchError(error => {
-    //                 this.snackBarAlertService.alertBackendError(error)
-    //                 return of(error)
-    //             })
-    //     ).subscribe()
-    // }
 
     ngOnDestroy() {
         if (this.subscription) {

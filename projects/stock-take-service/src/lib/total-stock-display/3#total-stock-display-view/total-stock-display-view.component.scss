@@ -1,0 +1,11 @@
+.stockValue{
+    text-align: center;
+}
+
+th:nth-child(even) {
+    background: teal;
+}
+
+td:nth-child(even) {
+    background: #CCC;
+}

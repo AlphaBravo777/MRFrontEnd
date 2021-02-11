@@ -31,4 +31,12 @@ $green: #0EC518;
 
 .green-circle {
     @include round-button($green);
+
+}
+
+.deleteInstance {
+    height: 15px;
+    padding-right: 5px;
+    float: right;
+    cursor: pointer;
 }

@@ -37,24 +37,15 @@ export class ProductionStockDataComponent implements OnInit, OnDestroy {
         this.subscription = this.stockTakeData$.pipe(
             tap(data => console.log('THIS IS THE WORKING DATA: ',data)),
             tap(data => this.mainStockForm = this.productStockFormService.createMainStockFormGroup(data)),
-            // catchError(error => {
-            //         this.snackBarAlertService.alertBackendError(error)
-            //         return of(error)
-            //     })
+            catchError(error => {
+                    console.error(error)
+                    this.snackBarAlertService.alertBackendError(error)
+                    return of(error)
+                })
         ).subscribe()
     }
 
-    onSubmit() {
-        this.productionStockService.submitStockTakeAPI(this.mainStockForm).pipe(
-            take(1),
-            tap(result => console.log('The stock result = ', result)),
-            tap(result => this.router.navigate(['main/stock-take/entry/create-stock-take'])),
-            catchError(error => {
-                this.snackBarAlertService.alert(Object.keys(error.error)[0] + ': ' + error.error[Object.keys(error.error)[0]], 'X');
-                return of(error)
-            })
-        ).subscribe()
-    }
+
 
 
     ngOnDestroy() {

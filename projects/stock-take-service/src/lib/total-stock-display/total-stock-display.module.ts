@@ -6,12 +6,14 @@ import { TotalStockDisplayDataComponent } from './2#total-stock-display-data/tot
 import { TotalStockDisplayViewComponent } from './3#total-stock-display-view/total-stock-display-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialConfigModule } from 'src/app/material-config/material-config.module';
+import { StockValueComponent } from './3#total-stock-display-view/stock-value/stock-value.component';
 
 
 @NgModule({
   declarations: [
       TotalStockDisplayDataComponent,
-      TotalStockDisplayViewComponent
+      TotalStockDisplayViewComponent,
+      StockValueComponent
   ],
   imports: [
     CommonModule,

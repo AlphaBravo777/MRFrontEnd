@@ -16,18 +16,20 @@ export class ProductStockFormService {
 
     private mainStockForm: FormGroup<IStockTake>
     private todaysBatch: IBatchInfo
-    private stockTakeLocked: boolean
+    private isStockTakeLocked: boolean
 
     createMainStockFormGroup(stockData: IStockTake): FormGroup<IStockTake> {
 
         if (!stockData) return null
         
-        this.stockTakeLocked = stockData.stockTakeLocked
+        this.isStockTakeLocked = stockData.stockTakeLocked
         this.todaysBatch = null // Make sure we reset for incase the days change, then we do not want to previous days data still
         this.mainStockForm = this.createMainStockForm(stockData)
-        if (stockData.stockTakeLocked) {
+
+        if (this.isStockTakeLocked) {
             this.mainStockForm.disable()
         }
+
         return this.mainStockForm
     }
 
@@ -87,10 +89,11 @@ export class ProductStockFormService {
                 productMRid: new FormControl(element.productMRid),
                 productid: new FormControl(element.productid),
                 productonhold: new FormControl(element.productonhold),
+                productContainerWeight: new FormControl(element.productContainerWeight),
                 productRankingInBatch: new FormControl(element.productRankingInBatch),
                 unitWeight: new FormControl(element.unitWeight),
                 showBatches: new FormControl(element.showBatches),
-                stockTakeAmount: this.createBatchesThatHasIncomingAmountsData(element.stockTakeAmount),
+                stockTakeAmount: this.createBatches(element.stockTakeAmount),
                 containerid: new FormControl(element.containerid),
                 fullStockTake: new FormControl(element.fullStockTake),
                 stockTakeWeight: new FormControl(element.stockTakeWeight),
@@ -100,59 +103,50 @@ export class ProductStockFormService {
         return areaProducts
     }
 
-    private getCurrentDaysBatch(): IBatchInfo[] {
-        // Maybe we should rather get this info from the stockTakeInstance, so that the batch is always the same as the instance, cause what if we pick the previous days instance, then we will give the previous days instance todays batches
+    private getCurrentDaysBatch(): IBatchInfo {
         if (this.todaysBatch) {
-            return [this.todaysBatch]
+            return this.todaysBatch
         }
         else {
             this.todaysBatch = this.createBatchData$Service.todaysBatchValue
-            return [this.todaysBatch]
+            return this.todaysBatch
         }
     }
 
-    createBatchesWithoutIncomingAmountsData(stockBatches: IBatchInfo[]): FormArray<IStockTakeAmountPerBatch> {
-
-        if (!stockBatches) {
-            stockBatches =  this.getCurrentDaysBatch()
-        }
-
-        const batches = new FormArray<IStockTakeAmountPerBatch>([])
-        const mnt: string = '0'
-        for (let index = 0; index < stockBatches.length; index++) {
-            const element = stockBatches[index];
-            const batch: FormGroup<IStockTakeAmountPerBatch> = new FormGroup<IStockTakeAmountPerBatch>({
-                amount: new FormControl(null),
-                dayNumber: new FormControl(element.dayNumber),
-                weekNumber: new FormControl(element.weekNumber),
-                id: new FormControl(element.id),
-                amountString: this.stockTakeLocked ? new FormControl(mnt) : new FormControl(null),
-                year: new FormControl(element.year),
-            })
-            batches.push(batch)
-        }
-        return batches
+    createSingleBatch(batch: IStockTakeAmountPerBatch): FormGroup<IStockTakeAmountPerBatch> {
+        const formBatch: FormGroup<IStockTakeAmountPerBatch> = new FormGroup<IStockTakeAmountPerBatch>({
+            amount: new FormControl(batch.amount), // We might need to change all the values to 0 so that people can not see what was there before
+            dayNumber: new FormControl(batch.dayNumber),
+            weekNumber: new FormControl(batch.weekNumber),
+            id: new FormControl(batch.id),
+            amountString: new FormControl(batch.amountString),
+            year: new FormControl(batch.year),
+        })
+        return formBatch
     }
 
-    createBatchesThatHasIncomingAmountsData(stockBatches: IStockTakeAmountPerBatch[]): FormArray<IStockTakeAmountPerBatch> {
-        if (!stockBatches) {
-            return this.createBatchesWithoutIncomingAmountsData(this.getCurrentDaysBatch())
+    createBatches(stockBatches: IStockTakeAmountPerBatch[]): FormArray<IStockTakeAmountPerBatch> {
+
+        const checkIfThereIsStocktakeDataElseCreateEmptyBatch = () => {
+            if (!stockBatches) {
+                const todaysBatch: IBatchInfo =  this.getCurrentDaysBatch()
+                if (this.isStockTakeLocked) { // Is the stock being entered (values should be null), or is an old stocktake just being viewed (value should be 0)
+                    stockBatches = [Object.assign({amount:0, amountString: '0'}, todaysBatch)]
+                } else {
+                    stockBatches = [Object.assign({amount: null, amountString: null}, todaysBatch)]
+                }
+            }
         }
+
+        checkIfThereIsStocktakeDataElseCreateEmptyBatch()
 
         const batches = new FormArray<IStockTakeAmountPerBatch>([])
         for (let index = 0; index < stockBatches.length; index++) {
             const element = stockBatches[index];
-            const batch: FormGroup<IStockTakeAmountPerBatch> = new FormGroup<IStockTakeAmountPerBatch>({
-                amount: new FormControl(element.amount),
-                dayNumber: new FormControl(element.dayNumber),
-                weekNumber: new FormControl(element.weekNumber),
-                id: new FormControl(element.id),
-                amountString: new FormControl(element.amountString),
-                year: new FormControl(element.year),
-            })
-            batches.push(batch)
+            batches.push(this.createSingleBatch(element))
         }
         return batches
+
     }
 
 }

@@ -32,12 +32,15 @@ export const totalStockContainerAmounts_MockFunction = (): IStockTakeAmountHash 
 
 
 export const containerDetailList_mockFunction = (): IContainerInfo[] => {
+    const containerIDs = [2,15,48,61,45,68,23,6,98]
     const contianerList: IContainerInfo[] = []
-    containerList_mock().forEach(element => {
+    containerList_mock().forEach((element, index) => {
         const containerInfo: IContainerInfo = {
             containerName: element,
             containerRanking: Math.floor((Math.random() * 50) + 1),
-            containerid: Math.floor((Math.random() * 50) + 1)
+            containerid: containerIDs[index],
+            containerIndex: null,
+            showContainer: false
         }
         contianerList.push(containerInfo)
     });

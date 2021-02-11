@@ -1,4 +1,12 @@
-<stock-total-stock-display-view
-    [totalStockForm]='totalStockForm'
-    [containerHash]='containerHash'>
-</stock-total-stock-display-view>
+<ng-container *ngIf="totalStockForm && containerHash;then dataAvailable; else noData"></ng-container>
+
+<ng-template #dataAvailable>
+    <stock-total-stock-display-view
+        [totalStockForm]='totalStockForm'
+        [containerHash]='containerHash'>
+    </stock-total-stock-display-view>
+</ng-template>
+
+<ng-template #noData>
+    There is no data available
+</ng-template>

@@ -11,7 +11,7 @@ import { IContainerWithStockTakeAmount, IProductionStockByFactoryArea } from '..
 export class StockItemsComponent implements OnInit, AfterViewInit {
 
     @Input() productionStockList: IContainerWithStockTakeAmount[]
-    @Input() factoryAreaProducts: FormArray<IContainerWithStockTakeAmount>;
+    @Input() factoryArea: FormGroup<IProductionStockByFactoryArea>;
     @ViewChildren('productMRid') productMRidElements: QueryList<ElementRef>;
     @ViewChildren('proddescription') proddescriptionElements: QueryList<ElementRef>;
 
