@@ -17,6 +17,7 @@ export class ProductStockFormService {
     private mainStockForm: FormGroup<IStockTake>
     private todaysBatch: IBatchInfo
     private isStockTakeLocked: boolean
+    private showBatches: boolean
 
     createMainStockFormGroup(stockData: IStockTake): FormGroup<IStockTake> {
 
@@ -71,7 +72,10 @@ export class ProductStockFormService {
     private createFactoryAreaProductsArray(factoryAreaProducts: IContainerWithStockTakeAmount[]): FormArray<IContainerWithStockTakeAmount> {
         const areaProducts = new FormArray<IContainerWithStockTakeAmount>([])
         for (let index = 0; index < factoryAreaProducts.length; index++) {
+
             const element = factoryAreaProducts[index];
+            this.showBatches = element.showBatches
+
             const areaProduct: FormGroup<IContainerWithStockTakeAmount> = new FormGroup<IContainerWithStockTakeAmount>({
                 batchGroupid: new FormControl(element.batchGroupid),
                 batchName: new FormControl(element.batchName),
@@ -115,7 +119,7 @@ export class ProductStockFormService {
 
     createSingleBatch(batch: IStockTakeAmountPerBatch): FormGroup<IStockTakeAmountPerBatch> {
         const formBatch: FormGroup<IStockTakeAmountPerBatch> = new FormGroup<IStockTakeAmountPerBatch>({
-            amount: new FormControl(batch.amount), // We might need to change all the values to 0 so that people can not see what was there before
+            amount: new FormControl(batch.amount),
             dayNumber: new FormControl(batch.dayNumber),
             weekNumber: new FormControl(batch.weekNumber),
             id: new FormControl(batch.id),
@@ -127,18 +131,62 @@ export class ProductStockFormService {
 
     createBatches(stockBatches: IStockTakeAmountPerBatch[]): FormArray<IStockTakeAmountPerBatch> {
 
-        const checkIfThereIsStocktakeDataElseCreateEmptyBatch = () => {
-            if (!stockBatches) {
-                const todaysBatch: IBatchInfo =  this.getCurrentDaysBatch()
-                if (this.isStockTakeLocked) { // Is the stock being entered (values should be null), or is an old stocktake just being viewed (value should be 0)
-                    stockBatches = [Object.assign({amount:0, amountString: '0'}, todaysBatch)]
-                } else {
-                    stockBatches = [Object.assign({amount: null, amountString: null}, todaysBatch)]
+        const todaysBatch: IBatchInfo =  this.getCurrentDaysBatch()
+
+        // What we want to do is to add todays batch to stocktake data to make sure that todays batch is always an option.
+            // If there are no other data we can just add the batch, if there are other data, then we have to check if the batch does not already exist
+                // If it does exist, then do nothing, else add it
+
+        // const checkIfThereIsStocktakeDataElseCreateEmptyBatch = () => {
+        //     if (!stockBatches) {
+        //         const todaysBatch: IBatchInfo =  this.getCurrentDaysBatch()
+        //         if (this.isStockTakeLocked) { // Is the stock being entered (values should be null), or is an old stocktake just being viewed (value should be 0)
+        //             stockBatches = [Object.assign({amount:0, amountString: '0'}, todaysBatch)]
+        //         } else {
+        //             stockBatches = [Object.assign({amount: null, amountString: null}, todaysBatch)]
+        //         }
+        //     }
+        // }
+
+        // checkIfThereIsStocktakeDataElseCreateEmptyBatch()
+        const thereAreNoStocktakeBatches = () => {
+            return stockBatches === null
+        }
+
+        const weMustShowBatches = () => {
+            return this.showBatches
+        }
+
+        const insertTodaysBatchData = () => {
+            if (this.isStockTakeLocked) { // Is the stock being entered (values should be null), or is an old stocktake just being viewed (value should be 0)
+                stockBatches.push(Object.assign({amount:0, amountString: '0'}, todaysBatch))
+            } else {
+                stockBatches.push(Object.assign({amount: null, amountString: null}, todaysBatch))
+            }
+        }
+
+        const todaysBatchIsNotOneOfTheBatches = () => {
+            for (let index = 0; index < stockBatches.length; index++) {
+                const element: IStockTakeAmountPerBatch = stockBatches[index];
+                if (element.id === todaysBatch.id) {
+                    return false
+                }
+            }
+            return true
+        }
+
+        const checkIfTodaysBatchIsAvailableElseAddIt = () => {
+            if (thereAreNoStocktakeBatches()) {
+                stockBatches = []
+                insertTodaysBatchData()
+            } else {
+                if (todaysBatchIsNotOneOfTheBatches() && !this.isStockTakeLocked && weMustShowBatches()) {
+                    insertTodaysBatchData()
                 }
             }
         }
 
-        checkIfThereIsStocktakeDataElseCreateEmptyBatch()
+        checkIfTodaysBatchIsAvailableElseAddIt()
 
         const batches = new FormArray<IStockTakeAmountPerBatch>([])
         for (let index = 0; index < stockBatches.length; index++) {
