@@ -164,7 +164,7 @@ export class UrlsService {
         // * enterContainerRankings = this.stockUrl + 'containerRankings/update/'; // Old url that is not really used
 
 
-    currentVersion = '2.0.6';
+    currentVersion = '2.0.7';
 
 }
 

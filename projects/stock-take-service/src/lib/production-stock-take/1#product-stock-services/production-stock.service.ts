@@ -34,13 +34,13 @@ export class ProductionStockService {
 
 
     private getCurrentStockTakeAmounts(stockTakeInstance: IStockTakeInstance): Observable<IStockTakeAmountHash>  {
-        // Here we have to look if the stocktake was already taken (locked), which means we get the data for the stocktake, or if it is a new stocktake, then get current stock amounts so that we can know what batches are available
+
         if (!stockTakeInstance) {
             this.snackBarAlertService.alert('getCurrentStockTakeAmounts - No stock take selection was found', 'X')
             this.router.navigate(['main/stock-take/entry/create-stock-take']);
             throw new Error('getCurrentStockTakeAmounts - No stock take selection was found')
         }
-        // return this.productStockGraphqlApiService.getStockTakeAmountsForStockTakeInstance(stockTakeInstance).pipe()
+        // Here we have to look if the stocktake was already taken (locked), which means we get the data for the stocktake, or if it is a new stocktake, then get curre stock amounts so that we can know what batches are available
         return iif(() => 
             stockTakeInstance.stockTakeLocked,
             this.productStockGraphqlApiService.getStockTakeAmountsForStockTakeInstance(stockTakeInstance),
@@ -48,37 +48,45 @@ export class ProductionStockService {
         ).pipe()
     }
 
-    insertStocktakeAmountsIntoContainers(containers: IStockTakeContainerHash, stockTakeAmounts: IStockTakeAmountHash): IContainerWithStockTakeAmount[] {
-        
+    insertStocktakeAmountsIntoContainers(containersHash: IStockTakeContainerHash, stockTakeAmountsHash: IStockTakeAmountHash): IContainerWithStockTakeAmount[] {
+
         const containerWithStockDataArray: IContainerWithStockTakeAmount[] = []
 
-        const containerHasStocktakeAmountsAvailable = () => {
-            const containerWithStockData: IContainerWithStockTakeAmount = {...containers[key], stockTakeAmount: stockTakeAmounts[key].stockBatches}
+        const containerHasAStocktakeAmountAvailable = () => {
+            return stockTakeAmountsHash[key] !== undefined
+        }
+
+        const insertStocktakeAmountsForContainer = () => {
+            const containerWithStockData: IContainerWithStockTakeAmount = {...containersHash[key], stockTakeAmount: stockTakeAmountsHash[key].stockBatches}
             containerWithStockDataArray.push(containerWithStockData)
-            delete stockTakeAmounts[key]
+            // Key was deleted to check if there was amounts that we had without having a container for it. 
+            delete stockTakeAmountsHash[key]
         }
 
-        for (var key in containers) {
-            if (containers.hasOwnProperty(key)) {
-                if (stockTakeAmounts[key] !== undefined) {
-                    containerHasStocktakeAmountsAvailable()
-                } else {
-                    containerWithStockDataArray.push({...containers[key], stockTakeAmount: null, stockTakeWeight: null});
-                }
-            }
+        const insertNullValueForStocktakeAmount = () => {
+            containerWithStockDataArray.push({...containersHash[key], stockTakeAmount: null, stockTakeWeight: null});
         }
 
-        // The use of this check is because you do not want there to be amounts available, without a container to put it in. But this might be problamatic due to the fact that if you de-activate a container (it is no longer in use), you will still have it last stocktake amount without having the container, which is a perfectly legitimate situation
+        // The use of this check is because you do not want there to be amounts available, without a container to put it in. But this might be problamatic due to the fact that if you de-activate a container (it is no longer in use), you will still have its last stocktake amount without having the container, which is a perfectly legitimate situation
         const checkThatAllAmountsHasAContainer = () => {
-            if (Object.keys(stockTakeAmounts).length > 0) {
+            if (Object.keys(stockTakeAmountsHash).length > 0) {
                 let orphaneContainers: string = '';
-                for (var key in stockTakeAmounts) {
+                for (var key in stockTakeAmountsHash) {
                     orphaneContainers += key.toString() + ', '
                 } 
                 throw new Error('There was no container id that matched the amountid: ' + orphaneContainers);
             }
         }
 
+        for (var key in containersHash) {
+            if (containersHash.hasOwnProperty(key)) {
+                if (containerHasAStocktakeAmountAvailable()) {
+                    insertStocktakeAmountsForContainer()
+                } else {
+                    insertNullValueForStocktakeAmount()
+                }
+            }
+        }
         // checkThatAllAmountsHasAContainer()
 
         return containerWithStockDataArray
@@ -137,7 +145,7 @@ export class ProductionStockService {
         return productionStockByFactoryAreaData
     }
 
-    private filterOnlyAmountsThatWereChanged(stockTakeForm: FormArray<IProductionStockByFactoryArea>): IContainerWithStockTakeAmount[] {
+    private filterOnlyAmountsThatWereChangedAndIsNotEmpty(stockTakeForm: FormArray<IProductionStockByFactoryArea>): IContainerWithStockTakeAmount[] {
         const changedAmountsArray: IContainerWithStockTakeAmount[] = []
         stockTakeForm.controls.forEach(area => {
 
@@ -146,7 +154,7 @@ export class ProductionStockService {
                 const changedBatches: IStockTakeAmountPerBatch[] = []
                 container.get('stockTakeAmount').controls.forEach(batch => {
 
-                    if (batch.get('amountString').dirty) {
+                    if (batch.get('amountString').dirty && batch.get('amountString').value !== '') {
                         changedBatches.push(batch.value)
                     }
                 })
@@ -164,7 +172,7 @@ export class ProductionStockService {
     }
 
     submitStockTakeAPI(stockTakeForm: FormGroup<IStockTake>): Observable<any> {
-        const changedAmountsArray = this.filterOnlyAmountsThatWereChanged(stockTakeForm.get('containers'))
+        const changedAmountsArray = this.filterOnlyAmountsThatWereChangedAndIsNotEmpty(stockTakeForm.get('containers'))
         return this.productionStockRestApiService.insertStockTake(factory_stocktakeFrontEndToBackend(stockTakeForm.value, changedAmountsArray)).pipe()
     }
 

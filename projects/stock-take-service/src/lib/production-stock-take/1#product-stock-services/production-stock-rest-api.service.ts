@@ -16,8 +16,8 @@ export class ProductionStockRestApiService {
 
     insertStockTake(stockTake: IStockTakeBackend): Observable<IStockTakeBackend> {
         console.log('This is the stock that will be entered: ', stockTake)
-        // return this.http.post<any>(this.urlService.insertStockTake, stockTake).pipe();
-        return of()
+        return this.http.post<any>(this.urlService.insertStockTake, stockTake).pipe();
+        // return of()
     }
 
     

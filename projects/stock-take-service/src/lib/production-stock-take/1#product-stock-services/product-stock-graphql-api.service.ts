@@ -6,7 +6,7 @@ import { IProductionContainer, IStockTakeContainerHash, IContainerWithStockTakeA
 import { ProductStockGraphqlStringService } from './product-stock-graphql-string.service';
 import { TotalStockGraphqlApiService } from '../../total-stock-display/1#total-stock-display-services/total-stock-graphql-api.service';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -34,7 +34,7 @@ export class ProductStockGraphqlApiService {
     }
 
     private consolidateStockTakeAmounts(amountData): IStockTakeAmountHash {
-        // console.table('consolidateStockTakeAmounts: ', amountData)
+        // console.table('ALFHA - consolidateStockTakeAmounts: ', amountData)
         const stockTakeAmountHash: IStockTakeAmountHash = {};
         for (let index = 0; index < amountData.length; index++) {
             const instanceContainer = amountData[index];
@@ -61,6 +61,7 @@ export class ProductStockGraphqlApiService {
     }
 
     getTotalStockTakeAmountsToGetBatchesInUse(): Observable<IStockTakeAmountHash> {
+        
         return this.totalStockGraphqlApiService.getTotalStockTakeAmounts().pipe()
     }
 

@@ -36,7 +36,7 @@ export class TotalStockGraphqlApiService {
     private consolidateStockTotalAmounts(amountData): IStockTakeAmountHash {
 
 
-        // console.log('+ + + + + + + amountData ', amountData)
+        console.log('+ + + + + + + amountData ', amountData)
 
         const createStockBatchArray = (batches): IStockTakeAmountPerBatch[] => {
 
@@ -49,7 +49,7 @@ export class TotalStockGraphqlApiService {
             for (let index = 0; index < batches.length; index++) {
                 const batch = batches[index];
                 const containerHash: IStockTakeAmountPerBatch = {
-                    id: batch.rowid,
+                    id: batch.batchid,
                     amount: batch.amount,
                     amountString: null,
                     dayNumber: batch.batchNode.day,
