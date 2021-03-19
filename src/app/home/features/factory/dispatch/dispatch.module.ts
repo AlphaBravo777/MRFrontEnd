@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedComponentsModule } from 'src/app/home/shared/components/shared-components.module';
 
 import { DispatchRoutingModule } from './dispatch-routing.module';
 import { DispatchEntryComponent } from './$dispatch-entry/dispatch-entry.component';
@@ -26,7 +27,8 @@ import { HppPalletsDataComponent } from './dispatch-hpp-pallets/2#hpp-pallets-da
     imports: [
         CommonModule,
         DispatchRoutingModule,
-        CustomMaterialModule
+        CustomMaterialModule,
+        SharedComponentsModule
     ]
 })
 export class DispatchModule { }

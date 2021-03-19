@@ -28,6 +28,14 @@ const routes: Routes = [
             {
                 path: 'total-production-stock',
                 loadChildren: () => import('./total-stock-display/total-stock-display.module').then(m => m.TotalStockDisplayModule)
+            },
+            {
+                path: 'total-raw_material-stock',
+                loadChildren: () => import('./raw-material-stock-take/raw-material-stock-take.module').then(m => m.RawMaterialStockTakeModule)
+            },
+            {
+                path: 'create-raw-material-stock-take',
+                loadChildren: () => import('./raw-material-stock-take/raw-material-stock-take.module').then(m => m.RawMaterialStockTakeModule)
             }
         ]
     }

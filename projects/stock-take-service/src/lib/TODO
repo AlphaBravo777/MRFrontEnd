@@ -37,14 +37,6 @@
 ☐ When you have a stocktake amount for an item, but there is no container, this might be because the container was discontinued, so you should not get an error because the contianer might have been discontinued even though there are still stock available
 
 
-☐ NB! NB! NB! Nuwe Producte in lees program met pryse vir hele Meatrite (Must give CEO something to do and check)
-☐ NB! Produksie trollies rond skuif program
-☐ NB! HPP program
-☐ Defekte program
-☐ Products service with cost prices
-☐ Employees register with warnings
-☐ Daily report
-
 After the local server starts the console will display a message confirming that HMR is active:
 NOTICE: Hot Module Replacement (HMR) is enabled for the dev server.
 See https://webpack.js.org/guides/hot-module-replacement for information on working with HMR for webpack.
