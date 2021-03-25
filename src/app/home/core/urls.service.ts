@@ -12,13 +12,13 @@ export class UrlsService {
     // Development Server (Localhost)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    root = environment.root; // Local Meatrite dev backend servers // There is a problem where if you load the route from the enviroment it builds a strange url with double the root in the url
+    // root = environment.root; // Local Meatrite dev backend servers // There is a problem where if you load the route from the enviroment it builds a strange url with double the root in the url
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Production (27) Server (New Docker Server)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    // root = 'http://192.168.2.27';
+    root = 'http://192.168.2.27';
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Links that should work on all servers
