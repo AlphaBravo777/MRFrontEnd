@@ -13,7 +13,7 @@ export class ProductApiService {
     constructor(private urlService: UrlsService, private http: HttpClient) { }
 
     insertOrUpdateItem(item: IItemBackend): Observable<any> {
-        return this.http.post<any>( this.urlService.mrProductService + 'productModule/insertOrUpdateItem/', item).pipe(
+        return this.http.post<any>( this.urlService.insertOrUpdateItem, item).pipe(
             tap(response => console.log('The kafka response = ', response)),
             map(() => item),
             catchError(error => {

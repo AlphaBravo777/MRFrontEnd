@@ -55,7 +55,14 @@ export const environment = {
                 getAllRoutes: 'getAllRoutes/',
 
             productionUrl: 'production/',
-                getBatchesIfExistElseInsert: 'getBatchesIfExistElseCreate/'
+                getBatchesIfExistElseInsert: 'getBatchesIfExistElseCreate/',
+
+            productsUrl: 'products/',
+                insertOrUpdateItem: 'productModule/insertOrUpdateItem/',
+
+            accountsUrl: 'accounts/',
+                insertOrUpdateAccount: 'insertOrUpdateAccount/',
+                deleteAccount: 'deleteAccount/'
 };
 
 /*

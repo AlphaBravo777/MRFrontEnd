@@ -13,18 +13,17 @@ export class AccountApiService {
 
     constructor(private http: HttpClient, private urlService: UrlsService) { }
 
-    private accountServiceUrl = this.urlService.mrAccountService;
 
     submitAccountForm(accountBackend: IAccountBackend) {
         console.log('Backend data is: ', accountBackend);
-        return this.http.put<any>(this.accountServiceUrl + 'accounts/insertOrUpdateAccount/', accountBackend).pipe(
+        return this.http.put<any>(this.urlService.insertOrUpdateAccount, accountBackend).pipe(
             tap(acount => console.log('Returned data = ', acount))
         );
     }
 
     deleteAccount(accountid: number) {
         console.log('deleting account: ', accountid);
-        return this.http.delete<any>(this.accountServiceUrl + 'accounts/deleteAccount/' + accountid);
+        return this.http.delete<any>(this.urlService.deleteAccount + accountid);
         // return of([]);
     }
 

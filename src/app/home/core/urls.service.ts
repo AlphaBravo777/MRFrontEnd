@@ -12,7 +12,7 @@ export class UrlsService {
     // Development Server (Localhost)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    root = environment.root; // Local Meatrite dev backend servers
+    root = environment.root; // Local Meatrite dev backend servers // There is a problem where if you load the route from the enviroment it builds a strange url with double the root in the url
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Production (27) Server (New Docker Server)
@@ -25,6 +25,7 @@ export class UrlsService {
     // -----------------------------------------------------------------------------------------------------------------------
 
         mrGatewayService = this.root + environment.mrGatewayService; // Tested
+        // mrGatewayService = environment.mrGatewayService; // Tested
 
         // == ADMIN ==
         adminUrl = this.mrGatewayService + environment.adminUrl; // Tested
@@ -80,7 +81,7 @@ export class UrlsService {
          insertStockTake = this.stockTakeurl + environment.insertStockTake
 
         // == PRODUCTS ==
-        private productsUrl = this.mrGatewayService + 'products/'; // NOT Tested
+        private productsUrl = this.mrGatewayService + environment.productsUrl; // NOT Tested
             getProductContainersUrl = this.productsUrl + 'containers/'; // NOT Tested
             deleteProcessedStock = this.productsUrl + 'delete/'; // NOT Tested
             getProcessedStockContainersToDeleteUrl = this.productsUrl + 'delete/containers/half'; // NOT Tested
@@ -90,81 +91,21 @@ export class UrlsService {
             allActiveProducts = this.productsUrl + 'noNewEndpointHereYet/'; // NOT Tested
             getAllStockForSpecificTime = this.productsUrl + 'noNewEndpointHereYet/'; // NOT Tested
 
+            insertOrUpdateItem = this.productsUrl + + environment.insertOrUpdateItem; // This url was only added to avoid an error in component that uses it (Not working)
+
+
         // == PRODUCTION ==
         private productionUrl = this.mrGatewayService + environment.productionUrl; // Tested
-            getBatchesIfExistElseInsert = this.productionUrl + environment.getBatchesIfExistElseInsert
+            getBatchesIfExistElseInsert = this.productionUrl + environment.getBatchesIfExistElseInsert;
+
+        // == ACCOUNTS ==
+        private accountsUrl = this.mrGatewayService + environment.accountsUrl; // Not Tested
+            insertOrUpdateAccount = this.accountsUrl + environment.insertOrUpdateAccount; // Not Tested
+            deleteAccount = this.accountsUrl + environment.deleteAccount; // Not Tested
 
 
 
-
-
-    monolithBackendUrl = this.root + ':8011/';  // Meatrite test server
-    mrOrderService = this.root + ':8013/';  // Use gateway service
-    mrAccountService = this.root + ':8014/';  // Use gateway service
-    mrProductService = this.root + ':8015/';  // Use gateway service
-    mrStocktakeService = this.root + ':8017/';  // Use gateway service
-    sagaCoordinatorMS = this.root + ':8070/';  // Use gateway service
-
-    // - USER -
-        // * private mrUserService = this.mrGatewayService + 'user/';
-        // * loginUrl = this.mrUserService + 'login/';
-        // loginUrl = this.monolithBackendUrl + 'user/api-token-auth/';
-        // * verifyTokenUrl = this.mrUserService + 'verify-user/';
-        // verifyTokenUrl = this.monolithBackendUrl + 'user/api-token-verify/';
-        // permissionsUrl = this.monolithBackendUrl + 'user/groups/';
-        // * permissionsUrl = this.mrUserService + 'groups/';
-        // * registerUrl = this.monolithBackendUrl + 'api/rest-auth/registration/';
-
-    // - DAILYREPORT -
-        // * private dailyReportUrl = this.monolithBackendUrl + 'dailyreport/';
-            // * enterNewReportUrl = this.dailyReportUrl + 'enterNewReport/';
-            // * updateReportUrl = this.dailyReportUrl + 'updateReport/';
-            // * insertReportImageUrl = this.dailyReportUrl + 'insertReportImage/';
-            // * deleteReportUrl = this.dailyReportUrl + 'deleteReport/';
-
-    // - TIMESTAMP -
-        // * private timeStampUrl = this.monolithBackendUrl + 'dateTime/';
-            // * getTimeStampIDUrl = this.timeStampUrl + 'getOrCreateTimeStamp/';
-            // * getStockTimes = this.timeStampUrl + 'stockTakingTimeMany/';
-
-    // -----------------------------------------------------------------------------------------------------------------------
-
-    // - PRODUCTS -
-        // Create mrMonolith user that would be unable to access the products table on the mrMonolithService db so that we can see who needs to use those tables
-        // Change getting product ids from the mrMonolithService to the mrProductService
-        // Move the models on the testMono to the old module of the programService
-        // Make sure that now all product references everywhere is to the new ProductService
-        // Go through all the microservices and make sure that there links are also working
-        // Meatrite order entry not working when entering shop code
-        // * productsUrl = this.monolithBackendUrl + 'api/products/';
-            // * getProductContainersUrl = this.productsUrl + 'containers/'; // First Meatrite stocktake app
-            // * deleteProcessedStock = this.productsUrl + 'delete/'; // First Meatrite stocktake app
-            // * getProcessedStockContainersToDeleteUrl = this.productsUrl + 'delete/containers/half'; // First Meatrite stocktake app
-            // * updateProcessedStockContainerDeleteUrl = this.productsUrl + 'delete/containerUpdate/'; // First Meatrite stocktake app
-            // * checkConnectionWithDelete = this.productsUrl + 'testDelete/'; // First Meatrite stocktake app
-            // * enterAllProcessedProducts = this.productsUrl + 'input/'; // First Meatrite stocktake app
-            // getStockTimes = this.productsUrl + 'getStockTimes/'; // Timestamp app
-
-    // - OFFICE -
-        // * private officeUrl = this.monolithBackendUrl + 'office/'; //
-
-    // - CHECKLIST -
-        // * private checklistUrl = this.officeUrl + 'checklists/'; // !!!!!!!!!!!!!  // Old url that is not really used
-            // * enterNewChecklistUrl = this.checklistUrl + 'enterNew/'; // Old checklist url that is not really used
-
-    // // * - ORDERS -
-    //     private orderUrl = this.officeUrl + 'orders/'; // Decided not to transfer these urls, cause there is already an orders service
-    //         // enterOrderDetailsUrl = this.orderUrl + 'enterDetails/'; // NB This is the enter new orders link
-    //         enterProductAmountsUrl = this.orderUrl + 'enterProductAmounts/'; // This url seems to just be commented out at the backend
-
-    // * - STOCK -
-        // * private stockUrl = this.monolithBackendUrl + 'stock/'; // Not currently in use
-
-        // * enterProcessedStock = this.stockUrl + 'procStock/update/'; // Old url that is not really used
-        // * enterContainerRankings = this.stockUrl + 'containerRankings/update/'; // Old url that is not really used
-
-
-    currentVersion = '2.0.7';
+    currentVersion = '3.0.0';
 
 }
 
@@ -209,6 +150,14 @@ export class UrlsService {
 // 2.0.6
     // Complete refracturing off the orders totals view components
     // Now has the shop totals on the top line as well
+// 2.0.7
+    // Mayor new update where every rest-api-call points to the gateway, and gets redirected from there
+    // All backends also gets upgraded to new services
+    // nginx will also be the web server of choise from here on to help with refreshing pages
+
+// 3.0.0
+    // We are now running on the new version
+    // Add hints on mouse over for stocktake batches
 
 
 

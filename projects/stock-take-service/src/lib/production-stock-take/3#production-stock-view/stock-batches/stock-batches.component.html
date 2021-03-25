@@ -4,13 +4,24 @@
     <ng-template #showBatches>
         <div class='flexBatches' formArrayName="stockTakeAmount">
             <span *ngFor='let batch of this.stockItem.get("stockTakeAmount").controls; let batchIndex = index'>
-                <span [formGroupName]="batchIndex">
+                <span 
+                    [formGroupName]="batchIndex"
+                    matTooltip="{{batch.get('weekNumber').value}}:{{batch.get('dayNumber').value}}"
+                    matTooltipPosition="left"
+                    matTooltipShowDelay="0"
+                    matTooltipHideDelay="0"
+                    matTooltipClass="example-tooltip-red">
                     <mat-form-field appearance="none" class="my-form-field">
-                        <input matInput placeholder="{{batch.get('weekNumber').value}}:{{batch.get('dayNumber').value}}" [formControl]="batch.get('amountString')">
+                        <!-- <mat-label>{{batch.get('weekNumber').value}}:{{batch.get('dayNumber').value}}</mat-label> -->
+                        <input 
+                            matInput
+
+                            placeholder="{{batch.get('weekNumber').value}}:{{batch.get('dayNumber').value}}" 
+                            [formControl]="batch.get('amountString')">
                     </mat-form-field>
                 </span>
             </span>
-            <span class='buttons' (click)='createBatch()'><button type="button">+</button></span>
+            <span class='buttons' (click)='createBatch()'><button type="button" tabindex="-1">+</button></span>
         </div>
     </ng-template>
 
