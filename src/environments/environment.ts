@@ -6,6 +6,8 @@ export const environment = {
 
     production: false,
 
+    currentVersion: '3.0.1',
+
     root: 'http://localhost',
 
         mrGatewayService: ':8010/',

@@ -12,13 +12,13 @@ export class UrlsService {
     // Development Server (Localhost)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    // root = environment.root; // Local Meatrite dev backend servers // There is a problem where if you load the route from the enviroment it builds a strange url with double the root in the url
+    root = environment.root; // Local Meatrite dev backend servers // There is a problem where if you load the route from the enviroment it builds a strange url with double the root in the url
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Production (27) Server (New Docker Server)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    root = 'http://192.168.2.27';
+    // root = 'http://192.168.2.27';
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Links that should work on all servers
@@ -105,7 +105,7 @@ export class UrlsService {
 
 
 
-    currentVersion = '3.0.0';
+    currentVersion = environment.currentVersion;
 
 }
 
@@ -158,6 +158,9 @@ export class UrlsService {
 // 3.0.0
     // We are now running on the new version
     // Add hints on mouse over for stocktake batches
+// 3.0.1
+    // Enter does not submit stock take
+    // Input fields for stocktake is larger
 
 
 

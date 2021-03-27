@@ -3,6 +3,11 @@
     overflow: auto;								
 }
 
+.version {
+    color: dimgray;
+    font-size: small;
+}
+
 
 img {
   max-width: 100%;

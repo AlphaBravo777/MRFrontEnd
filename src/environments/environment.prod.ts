@@ -1,5 +1,7 @@
 export const environment = {
     production: true,
+
+    currentVersion: '3.0.1',
   
     // root: 'http://192.168.2.27',
     root: '',
