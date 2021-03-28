@@ -137,19 +137,8 @@ export class ProductStockFormService {
             // If there are no other data we can just add the batch, if there are other data, then we have to check if the batch does not already exist
                 // If it does exist, then do nothing, else add it
 
-        // const checkIfThereIsStocktakeDataElseCreateEmptyBatch = () => {
-        //     if (!stockBatches) {
-        //         const todaysBatch: IBatchInfo =  this.getCurrentDaysBatch()
-        //         if (this.isStockTakeLocked) { // Is the stock being entered (values should be null), or is an old stocktake just being viewed (value should be 0)
-        //             stockBatches = [Object.assign({amount:0, amountString: '0'}, todaysBatch)]
-        //         } else {
-        //             stockBatches = [Object.assign({amount: null, amountString: null}, todaysBatch)]
-        //         }
-        //     }
-        // }
 
-        // checkIfThereIsStocktakeDataElseCreateEmptyBatch()
-        const thereAreNoStocktakeBatches = () => {
+        const thereAreNoStocktakeBatches = () => { // Checks if there are other stocktake batches
             return stockBatches === null
         }
 
@@ -165,7 +154,7 @@ export class ProductStockFormService {
             }
         }
 
-        const todaysBatchIsNotOneOfTheBatches = () => {
+        const todaysBatchIsNotOneOfTheBatches = () => { // Check if todays batch is in the list of othe batches that the productContainer has
             for (let index = 0; index < stockBatches.length; index++) {
                 const element: IStockTakeAmountPerBatch = stockBatches[index];
                 if (element.id === todaysBatch.id) {

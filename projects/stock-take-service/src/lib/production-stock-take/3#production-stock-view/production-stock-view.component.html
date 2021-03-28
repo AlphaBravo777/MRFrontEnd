@@ -37,6 +37,6 @@
         </div>
     </div>
     <!-- <button mat-raised-button color='primary' type="submit" [disabled]='mainStockForm.invalid || mainStockForm.pristine'>Submit Stocktake</button> -->
-    <button mat-raised-button color='primary' type="button" (click)="onSubmit()" [disabled]='mainStockForm.invalid || mainStockForm.pristine'>Submit Stocktake</button>
+    <button mat-raised-button color='primary' type="button" (click)="onSubmit()" [disabled]='(mainStockForm.invalid || mainStockForm.pristine) && !mainStockForm.value.stockTakeLocked'>Submit Stocktake</button>
     <!-- <pre>{{mainStockForm.value | json}}</pre> -->
 </form> 

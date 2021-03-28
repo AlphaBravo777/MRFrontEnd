@@ -2,10 +2,9 @@
     <div formArrayName="factoryAreaProducts">
         <div *ngFor='let stockItem of factoryArea.get("factoryAreaProducts").controls; let stockItemIndex = index'>
             <div class='stockItemRow' [formGroupName]="stockItemIndex">
-                <!-- <div [ngStyle]="styleStockItemGrid"> -->
                 <div class="styleStockItemGrid">
                     <span #productMRid class='productMRid'>
-                        {{stockItem.get('productMRid').value}}
+                        <span>{{stockItem.get('productMRid').value}}</span>
                     </span>
                     <span #proddescription class='proddescription'>
                         {{stockItem.get('proddescription').value}}

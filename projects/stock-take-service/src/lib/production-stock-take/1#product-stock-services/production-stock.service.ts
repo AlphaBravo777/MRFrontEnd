@@ -93,6 +93,15 @@ export class ProductionStockService {
         // return ProductionStockList_GroupsMockFunc()
     }
 
+    private removeContainersThatShouldNotBeCounted(productionStock: IContainerWithStockTakeAmount[], isFullStocktake: boolean): IContainerWithStockTakeAmount[] {
+
+        if (isFullStocktake) {
+            return productionStock
+        }
+
+        return productionStock.filter(element => element.fullStockTake !== true)
+    }
+
     private getStocktakeDataAsGroupedContainers(stockTakeInstance: IStockTakeInstance): Observable<IProductionStockByFactoryArea[]> {
         return combineLatest([
             this.productionService.getContainersFromLocalStorageOrDatabase(),
@@ -100,7 +109,9 @@ export class ProductionStockService {
             this.createBatchService.getTodaysBatch()
         ]).pipe(
             map(([containers, stockTakeAmounts]) => this.insertStocktakeAmountsIntoContainers(containers, stockTakeAmounts)),
-            map(containersWithAmounts => this.groupProductionStockByFactoryArea(containersWithAmounts))
+            map(containersWithAmounts => this.removeContainersThatShouldNotBeCounted(containersWithAmounts, stockTakeInstance.isFullStockTake)),
+            tap(containersWithAmounts => console.log('The current container data looks like: ', containersWithAmounts)),
+            map(usableContainersWithAmounts => this.groupProductionStockByFactoryArea(usableContainersWithAmounts))
         )
     }
 
@@ -145,7 +156,7 @@ export class ProductionStockService {
         return productionStockByFactoryAreaData
     }
 
-    private filterOnlyAmountsThatWereChangedAndIsNotEmpty(stockTakeForm: FormArray<IProductionStockByFactoryArea>): IContainerWithStockTakeAmount[] {
+    private filterOnlyAmountsThatWereChangedAndIsNotEmpty(stockTakeForm: FormArray<IProductionStockByFactoryArea>, stockTakeLocked: boolean): IContainerWithStockTakeAmount[] {
         const changedAmountsArray: IContainerWithStockTakeAmount[] = []
         stockTakeForm.controls.forEach(area => {
 
@@ -154,8 +165,14 @@ export class ProductionStockService {
                 const changedBatches: IStockTakeAmountPerBatch[] = []
                 container.get('stockTakeAmount').controls.forEach(batch => {
 
-                    if (batch.get('amountString').dirty && batch.get('amountString').value !== '') {
-                        changedBatches.push(batch.value)
+                    if (stockTakeLocked) {
+                        if (batch.get('amountString').value !== '' && batch.get('amountString').value !== '0' && batch.get('amountString').value !== '-- Do not Count --') {
+                            changedBatches.push(batch.value)
+                        }
+                    } else {
+                        if (batch.get('amountString').dirty && batch.get('amountString').value !== '' && batch.get('amountString').value !== '0' && batch.get('amountString').value !== '-- Do not Count --') {
+                            changedBatches.push(batch.value)
+                        }
                     }
                 })
                 if (changedBatches.length > 0) {
@@ -172,7 +189,9 @@ export class ProductionStockService {
     }
 
     submitStockTakeAPI(stockTakeForm: FormGroup<IStockTake>): Observable<any> {
-        const changedAmountsArray = this.filterOnlyAmountsThatWereChangedAndIsNotEmpty(stockTakeForm.get('containers'))
+        const changedAmountsArray = this.filterOnlyAmountsThatWereChangedAndIsNotEmpty(stockTakeForm.get('containers'), stockTakeForm.get('stockTakeLocked').value)
+        console.log('STOCK TO SUBMIT = ', changedAmountsArray)
+        // return of([])
         return this.productionStockRestApiService.insertStockTake(factory_stocktakeFrontEndToBackend(stockTakeForm.value, changedAmountsArray)).pipe()
     }
 

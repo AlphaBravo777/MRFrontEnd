@@ -10,9 +10,27 @@
     grid-template-columns: 100px 150px 60px 1fr,
 }
 
+.stockItemRow:focus-within {
+    .productMRid {
+        background-color: yellow;
+    }
+}
+
+.productMRid {
+    span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 22px;
+    }
+}
+
 
 .proddescription {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    // justify-content: center;
+    // display: inline-block;
     width: 150px;
     overflow: hidden;
     white-space: normal;
@@ -22,10 +40,12 @@
 }
 
 .container{
-    align-self: center;
+    display: inline-flex;
+    align-items: center;
     overflow: hidden;
     white-space: normal;
     font-size: 0.6rem;
+    height: 22px;
 }
 
 
