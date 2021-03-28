@@ -15,6 +15,11 @@
             <mat-icon color='default'>replay</mat-icon>
         </button>
     </div>
+    <div class='stockTakeHeading center-div'>
+        <span>Time: {{this.mainStockForm.get("stockTakeTime").value}} </span>
+        <span>Date: {{this.mainStockForm.get("shortDate").value}} </span>
+        <span>Stocktaker: {{this.mainStockForm.get("stockTakerName").value}} </span>
+    </div>
     <div class='mainContainer'  >
         <div class='printContainer' formArrayName="containers">
             <div *ngFor='let factoryArea of this.mainStockForm.get("containers").controls; let factoryAreaIndex = index'>
