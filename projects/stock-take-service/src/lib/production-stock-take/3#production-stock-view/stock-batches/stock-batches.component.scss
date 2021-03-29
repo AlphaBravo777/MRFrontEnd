@@ -29,8 +29,16 @@
 }
 
 
-input:focus {
-    background-color: yellow;
+.my-form-field {
+    input:focus {
+        background-color: yellow;
+    }
+}
+
+.my-form-field2 {
+    input:focus {
+        background-color: yellow;
+    }
 }
 
 input {

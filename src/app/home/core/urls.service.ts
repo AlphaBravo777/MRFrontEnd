@@ -161,6 +161,9 @@ export class UrlsService {
 // 3.0.1
     // Enter does not submit stock take
     // Input fields for stocktake is larger
+// 3.0.2
+    // Highlight input boxes as you tab down
+    // You can now read in half a stock take
 
 
 
