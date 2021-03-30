@@ -12,13 +12,13 @@ export class UrlsService {
     // Development Server (Localhost)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    root = environment.root; // Local Meatrite dev backend servers // There is a problem where if you load the route from the enviroment it builds a strange url with double the root in the url
+    // root = environment.root; // Local Meatrite dev backend servers // There is a problem where if you load the route from the enviroment it builds a strange url with double the root in the url
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Production (27) Server (New Docker Server)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    // root = 'http://192.168.2.27';
+    root = 'http://192.168.2.27';
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Links that should work on all servers
@@ -82,16 +82,16 @@ export class UrlsService {
 
         // == PRODUCTS ==
         private productsUrl = this.mrGatewayService + environment.productsUrl; // NOT Tested
-            getProductContainersUrl = this.productsUrl + 'containers/'; // NOT Tested
-            deleteProcessedStock = this.productsUrl + 'delete/'; // NOT Tested
-            getProcessedStockContainersToDeleteUrl = this.productsUrl + 'delete/containers/half'; // NOT Tested
-            updateProcessedStockContainerDeleteUrl = this.productsUrl + 'delete/containerUpdate/'; // NOT Tested
-            checkConnectionWithDelete = this.productsUrl + 'testDelete/'; // NOT Tested
-            enterAllProcessedProducts = this.productsUrl + 'input/'; // NOT Tested
-            allActiveProducts = this.productsUrl + 'noNewEndpointHereYet/'; // NOT Tested
-            getAllStockForSpecificTime = this.productsUrl + 'noNewEndpointHereYet/'; // NOT Tested
+            // getProductContainersUrl = this.productsUrl + 'containers/'; // NOT Tested
+            // deleteProcessedStock = this.productsUrl + 'delete/'; // NOT Tested
+            // getProcessedStockContainersToDeleteUrl = this.productsUrl + 'delete/containers/half'; // NOT Tested
+            // updateProcessedStockContainerDeleteUrl = this.productsUrl + 'delete/containerUpdate/'; // NOT Tested
+            // checkConnectionWithDelete = this.productsUrl + 'testDelete/'; // NOT Tested
+            // enterAllProcessedProducts = this.productsUrl + 'input/'; // NOT Tested
+            // allActiveProducts = this.productsUrl + 'noNewEndpointHereYet/'; // NOT Tested
+            // getAllStockForSpecificTime = this.productsUrl + 'noNewEndpointHereYet/'; // NOT Tested
 
-            insertOrUpdateItem = this.productsUrl + + environment.insertOrUpdateItem; // This url was only added to avoid an error in component that uses it (Not working)
+            // insertOrUpdateItem = this.productsUrl + + environment.insertOrUpdateItem; // This url was only added to avoid an error in component that uses it (Not working)
 
 
         // == PRODUCTION ==
@@ -105,7 +105,7 @@ export class UrlsService {
 
 
 
-    currentVersion = environment.currentVersion;
+    currentVersion = '3.0.3';
 
 }
 

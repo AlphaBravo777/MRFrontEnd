@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular-boost';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ToolboxGroupService } from '../../../../../shared/services/toolbox/toolbox-group.service';
 import { IProcessedStock, IProcessedStockAmounts } from './processed-stock';
@@ -18,11 +18,13 @@ export class ProcStockApiService {
         private urlService: UrlsService) { }
 
     enterAllProcessedProductsIntoDB(timeAndData) {
-        return this.http.post<any>(this.urlService.enterAllProcessedProducts, timeAndData); // Double check rest endpoint, they may have changed
+        // return this.http.post<any>(this.urlService.enterAllProcessedProducts, timeAndData); // Double check rest endpoint, they may have changed
+        return of([])
     }
 
     enterNewContainerRankingsIntoDB(changedContainers) {
-        return this.http.post<any>(this.urlService.enterAllProcessedProducts, changedContainers); // Double check rest endpoint, they may have changed
+        // return this.http.post<any>(this.urlService.enterAllProcessedProducts, changedContainers); // Double check rest endpoint, they may have changed
+        return of([])
     }
 
     getGraphQLProcContainers(): Observable<any> {
