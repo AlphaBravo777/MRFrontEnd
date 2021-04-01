@@ -52,7 +52,7 @@ export class InsertOrderApiService {
                                 packageWeight
                                 productNode{
                                     id
-                                    productid
+                                    defaultItemName
                                     rowid
                                 }
                             }

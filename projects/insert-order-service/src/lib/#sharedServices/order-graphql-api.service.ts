@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { IOrderDetails, IWeeklyOrdersDetails } from './interfaces/order-service-Interfaces';
 import { Observable, of } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
-import { Apollo, gql, DocumentNode } from 'apollo-angular-boost';
+import { Apollo, DocumentNode } from 'apollo-angular-boost';
 import { map } from 'rxjs/operators';
 import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
 import { INodeOrderDetailsMicroService,
     IOrderproductamountsmicroserviceSet,
     } from './interfaces/order-backend-interfaces';
+import { OrderGraphqlApiStringService } from './order-graphql-api-string.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,111 +16,12 @@ import { INodeOrderDetailsMicroService,
 
 export class OrderGraphqlApiService {
 
-    public MAIN_QUERY_FOR_SEARCHING_ORDERS = gql`
-    query searchForOrder($accountid:Int, $timeStampid:Int, $routeid: Int){
-        nodeOrderDetailsMicroService(timeStampid:$timeStampid, accountid:$accountid, routeid: $routeid){
-            edges{
-                node{
-                    rowid
-                    id
-                    accountid
-                    accountMRid
-                    commonName
-                    orderDate
-                    dateCreated
-                    lastModified
-                    userid
-                    routeid
-                    delivered
-                    orderNumber
-                    timeStampid
-                    orderproductamountsmicroserviceSet{
-                        edges{
-                            node{
-                                id
-                                rowid
-                                productNode {
-                                    id
-                                    rowid
-                                    proddescription
-                                    productonhold
-                                    batchranking
-                                    rankingInGroup
-                                    brand{
-                                        id
-                                        brand
-                                    }
-                                    unitweight{
-                                        id
-                                        unitAmount
-                                        measuringUnit
-                                    }
-                                    packaging{
-                                        id
-                                        rowid
-                                        packagingType
-                                    }
-                                    packagingShipping{
-                                        id
-                                        packagingWeight
-                                    }
-                                }
-                                productMRid
-                                amount
-                                status
-                                lastModified
-                                userid
-                                packageWeight
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }`;
-
-    public QUERY_FOR_GETTING_MINIMAL_ROUTE_DATA_FOR_DATE = gql`
-    query getOrderRoutesForDay($timeStampid: Int) {
-        nodeOrderDetailsMicroService(timeStampid:$timeStampid){
-        edges{
-            node{
-                id
-                orderTotalAmount
-                routeid
-                }
-            }
-        }
-    }`;
-
-    public QUERY_FOR_GETTING_WEEKLY_DATA = gql`
-    query getWeeklyOrders($weekNr:Int){
-        nodeWeeklyOrdersMicroService(weekNum:$weekNr){
-            edges{
-                node{
-                    timeStampid{
-                        weekDay{
-                            weekDayNumber
-                            weekDayNames
-                            weekDayRanking
-                        }
-                    }
-                    productNode{
-                        rowid
-                        packageweight
-                        productid
-                    }
-                    productTotalAmount
-                }
-            }
-        }
-    }`;
-
-    constructor(private apollo: Apollo) { }
+    constructor(private apollo: Apollo, private orderGraphqlApiStringService: OrderGraphqlApiStringService) { }
 
     searchForOrdersMain(accountid: number,
         datePackage: IDate,
         routeid: number,
-        queryString: DocumentNode = this.MAIN_QUERY_FOR_SEARCHING_ORDERS,
+        queryString: DocumentNode = this.orderGraphqlApiStringService.MAIN_QUERY_FOR_SEARCHING_ORDERS,
         headers = {}): Observable<IOrderDetails[]> {
         console.log('Fox(b) = ', accountid, datePackage.id, routeid, queryString, headers);
         return this.apollo
@@ -133,8 +35,6 @@ export class OrderGraphqlApiService {
     }
 
     private consolidateDailyOrders(data: INodeOrderDetailsMicroService): IOrderDetails[] {
-        // const defaultValues: INodeOrderDetailsMicroService = getDefaultINodeOrderDetailsMicroService();
-        // console.log('DEFAULT VALUES: ', defaultValues);
 
         function calculateLugSize(containerid) {
             if (containerid === 7) {
@@ -204,7 +104,7 @@ export class OrderGraphqlApiService {
         return this.apollo
             .watchQuery<INodeOrderDetailsMicroService>({
                 variables: { timeStampid: datePackage.id },
-                query: this.QUERY_FOR_GETTING_MINIMAL_ROUTE_DATA_FOR_DATE,
+                query: this.orderGraphqlApiStringService.QUERY_FOR_GETTING_MINIMAL_ROUTE_DATA_FOR_DATE,
             })
             .valueChanges.pipe(
                 map(result => this.consolidateDailyOrders(result.data['nodeOrderDetailsMicroService'])));
@@ -218,7 +118,7 @@ export class OrderGraphqlApiService {
         return this.apollo
             .watchQuery<INodeOrderDetailsMicroService>({
                 variables: { weekNr: datePackage.week },
-                query: this.QUERY_FOR_GETTING_WEEKLY_DATA,
+                query: this.orderGraphqlApiStringService.QUERY_FOR_GETTING_WEEKLY_DATA,
             })
             .valueChanges.pipe(
                 map(result => this.consolidateWeeklyOrders(result.data['nodeWeeklyOrdersMicroService'].edges)));

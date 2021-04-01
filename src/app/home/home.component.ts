@@ -8,8 +8,6 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeComponent implements OnInit {
 
-    currentVersion = environment.currentVersion
-
     constructor() { }
 
     ngOnInit() {

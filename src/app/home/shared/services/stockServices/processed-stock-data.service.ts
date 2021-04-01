@@ -15,12 +15,14 @@ export class ProcessedStockData$Service {
 
      }
 
+    // Depricated
     getDBProcessedStock(): void {
         this.processedStockApi.getTimedStock('12:00').subscribe(data => {
             this.processedStock.next(data);
         });
     }
 
+    // Depricated
     changeStock() {
         this.processedStock.next([{name: 'Lets try this again'}, {name: 'And Again'}]);
     }

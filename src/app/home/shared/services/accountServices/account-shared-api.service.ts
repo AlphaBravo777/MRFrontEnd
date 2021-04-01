@@ -29,7 +29,7 @@ export class AccountSharedApiService {
                         productGroupNode{
                             rowid
                             id
-                            groupname
+                            groupName
                         }
                         routeid{
                             rowid
@@ -58,7 +58,7 @@ export class AccountSharedApiService {
             productGroupNode{
                 rowid
                 id
-                groupname
+                groupName
             }
             routeid{
                 rowid

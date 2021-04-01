@@ -60,7 +60,7 @@ export class InsertFormService {
 
     private productFields(product: IProductDetails) {
             if (!product) {
-                console.log('! ! ! ! ! - ERROR - PRODUCT MAY NOT BE IN THE ACCOUNTS PRODUCT GROUP ! ! ! ! !');
+                console.error('! ! ! ! ! - ERROR - PRODUCT MAY NOT BE IN THE ACCOUNTS PRODUCT GROUP ! ! ! ! !');
             }
             // console.log('PRODUCT IS: ', JSON.parse(JSON.stringify(product.productid)));
             return this.fb.group({
