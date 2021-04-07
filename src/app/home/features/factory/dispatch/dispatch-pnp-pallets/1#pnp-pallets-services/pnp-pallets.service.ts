@@ -5,9 +5,7 @@ import { PnpPickPalletsService } from './pnp-pick-pallets.service';
 import { IPalletPickedDetails, IPnPRegions } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
 import { PnpSharedApiService } from 'src/app/home/shared/services/pnpServices/pnp-shared-api.service';
 import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/order-service-Interfaces';
-import { tap } from 'rxjs/operators';
 import { OrderGraphqlApiService } from 'projects/insert-order-service/src/lib/#sharedServices/order-graphql-api.service';
-import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 
 @Injectable({
     providedIn: 'root'

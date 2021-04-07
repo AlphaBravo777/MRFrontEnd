@@ -1,4 +1,4 @@
-import { IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 
 export class IProductDetailsStockDepricated {
     brand: string;

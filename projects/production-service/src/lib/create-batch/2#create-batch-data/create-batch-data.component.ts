@@ -3,7 +3,7 @@ import { FormArray } from '@ng-stack/forms';
 import { IStockTakeAmountPerBatch } from 'projects/stock-take-service/src/lib/#shared-services/production-stock.interface';
 import { Subscription } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { IBatchInfo } from '../../#shared-services/production.interface';
+import { IBatchInfo } from '../../#shared-services/interfaces/production.interface';
 import { CreateBatchData$Service } from '../1#create-batch-services/create-batch-data$.service';
 import { CreateBatchFormService } from '../1#create-batch-services/create-batch-form.service';
 import { CreateBatchService } from '../1#create-batch-services/create-batch.service';

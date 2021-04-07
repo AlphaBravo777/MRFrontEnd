@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@ng-stack/forms';
-import { IContainerInfoHash } from 'projects/production-service/src/lib/#shared-services/production.interface';
+import { IContainerInfoHash } from 'projects/production-service/src/lib/#shared-services/interfaces/production.interface';
 import { Observable, of, Subscription, combineLatest } from 'rxjs';
 import { catchError, concatMap, tap } from 'rxjs/operators';
 import { SnackBarAlertService } from 'src/app/home/core/alerts/snack-bar-alert-service/snack-bar-alert.service';

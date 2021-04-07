@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IItemBasic } from './interfaces/item';
+import { IItemBasic } from './interfaces/item.interface';
 import { ProductGraphqlApiService } from './product-graphql-api.service';
 import { Observable } from 'rxjs';
 import { IMeasuringUnit, IPackaging, IItemVendor, IDepartment } from './interfaces/auxiliary';

@@ -4,7 +4,7 @@ import { IProcessedStockProducts, IContainerGroups } from '../../../stock-servic
 import { ProcessedStockService } from '../../../stock-services/processed-stock.service';
 import { StockAPIService } from '../../../stock-services/stock-api.service';
 import { AuthGuard } from '../../../../admin/admin-services/auth.guard';
-import { IProductGroupName } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductGroupName } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 
 @Component({
     selector: 'app-stock-products',
@@ -80,16 +80,16 @@ export class StockProductsComponent implements OnInit {
         this.authGuard.canActivate().subscribe(x => {
             console.log(x);
         });
-        this.apiService.checkConnectionWithDelete().subscribe(
-            (response) => {
-                console.log(response.ok);
-                if (response.ok) {
-                    console.log('Things will be send now');
-                    this.processedStockService.insertProcStockIntoDB(time);
-                } else {
-                }
-            }
-        );
+        // this.apiService.checkConnectionWithDelete().subscribe(
+        //     (response) => {
+        //         console.log(response.ok);
+        //         if (response.ok) {
+        //             console.log('Things will be send now');
+        //             this.processedStockService.insertProcStockIntoDB(time);
+        //         } else {
+        //         }
+        //     }
+        // );
     }
 
     confirmClearAllProducts() {

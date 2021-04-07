@@ -5,7 +5,7 @@ import { map, tap } from 'rxjs/operators';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { IDate } from 'src/public_api';
 import { factory_batches_backendToFrontend, factory_batches_frontendToBackend } from '../../#shared-services/production-factory.interface';
-import { IBatchInfo } from '../../#shared-services/production.interface';
+import { IBatchInfo } from '../../#shared-services/interfaces/production.interface';
 import { CreateBatchData$Service } from './create-batch-data$.service';
 import { CreateBatchRestApiService } from './create-batch-rest-api.service';
 

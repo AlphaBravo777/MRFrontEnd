@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormGroup } from '@ng-stack/forms';
-import { IBatchInfo } from 'projects/production-service/src/lib/#shared-services/production.interface';
+import { IBatchInfo } from 'projects/production-service/src/lib/#shared-services/interfaces/production.interface';
 import { CreateBatchData$Service } from 'projects/production-service/src/lib/create-batch/1#create-batch-services/create-batch-data$.service';
 import { IContainerWithStockTakeAmount, IStockTakeAmountPerBatch } from '../../../#shared-services/production-stock.interface';
 import { ProductStockFormService } from '../../1#product-stock-services/product-stock-form.service';

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { InsertOrderData$Service } from '../../1#insert-order-services/insert-order-data$.service';
-import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import { tap, take, concatMap } from 'rxjs/operators';
 import { InsertFormChangesService } from '../../1#insert-order-services/insert-form-changes.service';
 import { OrderService } from '../../../#sharedServices/order.service';
@@ -9,6 +8,7 @@ import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-s
 import { Subscription, Observable } from 'rxjs';
 import { IOrderDetails } from '../../../#sharedServices/interfaces/order-service-Interfaces';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
+import { IAccountDetails } from 'projects/accounts-service/src/lib/#sharedServices/interfaces/account-interface';
 
 @Component({
     selector: 'mr-insert-account-view',

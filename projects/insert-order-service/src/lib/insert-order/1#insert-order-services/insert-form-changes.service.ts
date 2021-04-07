@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { InsertFormService } from './insert-form.service';
 import { FormGroup, FormArray } from '@angular/forms';
-import { IProductGroupName, IProductDetails, IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
-import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
+import { IProductGroupName, IProductDetails, IProductOrderDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { ICustomRadioButton } from 'src/app/home/shared/components/custom-radio-group/radio-button-interface';
+import { IAccountDetails } from 'projects/accounts-service/src/lib/#sharedServices/interfaces/account-interface';
 
 @Injectable({
     providedIn: 'root'

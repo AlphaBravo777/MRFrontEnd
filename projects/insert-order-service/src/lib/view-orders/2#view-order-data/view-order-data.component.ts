@@ -25,12 +25,13 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
         private getDateService: GetDate$Service) {}
 
     ngOnInit() {
+        console.log('You are about to view the order')
         this.gatherAllNeededDataForRouteSummary();
-        this.testingModule();
     }
 
     gatherAllNeededDataForRouteSummary() {
         this.subscription = this.viewOrderService.getViewOrderInitialData().pipe(
+            tap(routes => console.log('The returning order data = ', routes)),
             tap(routes => this.smallRoutesForDay = routes),
             tap(routes => this.totalWeightForTheDay = this.viewOrderService.getTotalDailyWeightAndRoutePercentage(routes)),
             concatMap(() => this.viewOrderDataService.currentDatePackageForSpecificRoute$),
@@ -51,10 +52,6 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
             // // tap(viewOrderDataService)
             // tap(() => this.weeklyOrdersHaveBeenRetrieved = true)
         );
-    }
-
-    testingModule() {
-
     }
 
     ngOnDestroy() {

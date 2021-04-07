@@ -8,9 +8,9 @@ import { FormGroup } from '@angular/forms';
 import { OrderService } from '../../#sharedServices/order.service';
 import { IInserOrderErrors, IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
 import { InsertOrderService } from '../1#insert-order-services/insert-order.service';
-import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import { InsertOrderData$Service } from '../1#insert-order-services/insert-order-data$.service';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
+import { IAccountDetails } from 'projects/accounts-service/src/lib/#sharedServices/interfaces/account-interface';
 
 @Component({
     selector: 'mr-insert-insert-order-data',

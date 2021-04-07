@@ -39,7 +39,7 @@ export class GetDate$Service {
 
     // This is an api where you can just give a number of days forwards or backwards, and it will return the day id for those days
     // This is quite a high traffic api point
-    getDatePackageForCurrentDateMinusPlusDays(daysToAdd: number): Observable<IDate> {
+    getDatePackageForCurrentDateMinusOrPlusDays(daysToAdd: number): Observable<IDate> {
         const longDate =  new Date(new Date().setDate(new Date().getDate() + daysToAdd));
         console.log('* * * * New date = ', longDate);
         return this.getDatePackageForGivenLongDate(longDate).pipe();

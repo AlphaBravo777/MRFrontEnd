@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IItemBackend, factory_createBackendItemFromForm } from '../../#shared-services/interfaces/backend-item.interface';
-import { IItemForm, IItemName, IItemGroup } from '../../#shared-services/interfaces/item';
+import { IItemForm, IItemName, IItemGroup } from '../../#shared-services/interfaces/item.interface';
 import { ProductApiService } from '../../#shared-services/product-api.service';
 import { Observable } from 'rxjs';
 

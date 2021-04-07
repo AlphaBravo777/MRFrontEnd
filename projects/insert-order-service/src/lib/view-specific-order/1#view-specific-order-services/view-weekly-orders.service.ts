@@ -6,7 +6,7 @@ import { concatMap, tap, map, switchMap } from 'rxjs/operators';
 import { ViewOrdersGraphqlStringsService } from '../../view-orders/1#view-order-services/view-orders-graphql-strings.service';
 import { OrderService } from '../../#sharedServices/order.service';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
-import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductOrderDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -46,7 +46,8 @@ export class ViewWeeklyOrdersService {
                     unitsPerMaxShippingWeight: null,
                     amount: weeklyOrders[ord].productTotalAmount,
                     orderDetailsid: null,
-                    userid: null
+                    userid: null,
+                    productActive: null
                 };
                 if (weeklyOrders[ord].weekDayNumber in weeklyOrdersDictionary) {
                     weeklyOrdersDictionary[weeklyOrders[ord].weekDayNumber].products.push(product);

@@ -1,11 +1,12 @@
 import { Injectable, Renderer2 } from '@angular/core';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
-import { IUniqueProductsDetails, IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
+import { IUniqueProductTotals } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { InsertOrderData$Service } from '../../insert-order/1#insert-order-services/insert-order-data$.service';
 import { OrderService } from '../../#sharedServices/order.service';
 import { take, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { IRow } from './table.interface';
+import { ProductGraphqlApiService } from 'projects/product-service/src/lib/#shared-services/product-graphql-api.service';
 
 @Injectable({
     providedIn: 'root'

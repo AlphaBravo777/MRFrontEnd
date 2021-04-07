@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IItemBasic } from '../../#shared-services/interfaces/item';
+import { IItemBasic } from '../../#shared-services/interfaces/item.interface';
 import { IMeasuringUnit, IPackaging, IItemVendor, IDepartment } from '../../#shared-services/interfaces/auxiliary';
 
 @Component({

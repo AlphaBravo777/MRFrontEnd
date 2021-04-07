@@ -4,7 +4,7 @@ import { tap, concatMap } from 'rxjs/operators';
 import { AccountService } from '../../#sharedServices/account.service';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { IFranchise } from '../../#sharedServices/interfaces/franchise-interface';
-import { IProductGroupName } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductGroupName } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { AddAccountFormService } from '../1#add-account-services/add-account-form.service';
 import { IAccountFrontend } from '../../#sharedServices/interfaces/account-interface';
 import { FormGroup } from '@ng-stack/forms';

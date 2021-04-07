@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { InsertFormChangesService } from '../../../1#insert-order-services/insert-form-changes.service';
-import { IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 
 @Component({
     selector: 'mr-insert-products-available-view',

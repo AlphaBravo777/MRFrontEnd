@@ -1,4 +1,4 @@
-import { IBatchInfo, IBatchInfoBackend } from './production.interface';
+import { IBatchInfo, IBatchInfoBackend } from './interfaces/production.interface';
 
 export function factory_batches_frontendToBackend(frontendBatches: IBatchInfo[]): IBatchInfoBackend[] {
     const backendBatchArray: IBatchInfoBackend[] = []

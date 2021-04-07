@@ -26,6 +26,7 @@ export class ViewOrderService {
         return this.insertOrderData$Service.currentRoutes$.pipe(
             // extract the getRoutesData service here out of the data, and go look for the routes, and when it returns and it is
             // empty then just call it again, until it returns data
+            tap(routes => console.log(`The getViewOrderInitialData is: `, routes)),
             tap(routes => this.currentRoutes = routes),
             concatMap(() => this.viewOrderData$Service.currentDatePackageForSpecificRoute$),
             concatMap(datePackage => {
@@ -35,7 +36,7 @@ export class ViewOrderService {
                     return this.getDateService.currentDatePackage$;
                 }
             }),
-            // concatMap(() => this.getDateService.currentDatePackage$),
+            tap(datePackage => console.log('The working datepackage is now: ', datePackage )),
             switchMap(datePackage => this.getRoutesForDatePackage(datePackage)),
             map(orders => this.calculateRoutesAndTotalAmounts(orders)),
             map(routes => this.addRouteNamesToRoutes(routes, this.currentRoutes)),

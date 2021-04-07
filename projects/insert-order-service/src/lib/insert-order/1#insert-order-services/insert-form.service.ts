@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IProductDetails, IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductDetails, IProductOrderDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -70,7 +70,7 @@ export class InsertFormService {
                 packageWeight: [product.packageWeight],
                 rankingInGroup: [product.rankingInGroup],
                 proddescription: [product.proddescription],
-                productonhold: [product.productonhold],
+                productActive: [product.productActive],  // TODO refracture this line to productActive
                 batchRanking: [product.batchRanking],
                 packaging: [product.packaging],
                 brand: [product.brand],

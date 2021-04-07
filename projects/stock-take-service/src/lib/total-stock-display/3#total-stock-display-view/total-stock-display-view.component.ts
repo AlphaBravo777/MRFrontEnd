@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray } from '@ng-stack/forms';
-import { IContainerInfoHash } from 'projects/production-service/src/lib/#shared-services/production.interface';
+import { IContainerInfoHash } from 'projects/production-service/src/lib/#shared-services/interfaces/production.interface';
 import { ITotalStockGroupedByBatches } from '../../#shared-services/total-stock.interface';
 
 @Component({

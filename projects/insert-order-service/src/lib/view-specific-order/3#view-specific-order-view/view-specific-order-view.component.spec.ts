@@ -11,7 +11,7 @@ import { MinimalisticButtonComponent } from 'src/app/home/shared/components/mini
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApolloTestingModule } from 'apollo-angular/testing';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
-import { IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
+import { IUniqueProductTotals } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { IViewRoutesData } from '../../view-orders/1#view-order-services/view-order-interface';
 import { RouterTestingModule } from '@angular/router/testing';
 

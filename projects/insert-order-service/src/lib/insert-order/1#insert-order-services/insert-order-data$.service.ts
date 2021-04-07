@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
-import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
-import { IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { OrderService } from '../../#sharedServices/order.service';
 import { take, tap } from 'rxjs/operators';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
+import { IAccountDetails } from 'projects/accounts-service/src/lib/#sharedServices/interfaces/account-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -28,13 +28,15 @@ export class InsertOrderData$Service {
     orderNumbersToPickFrom$ = this.orderNumbersToPickFrom.asObservable();
 
     constructor(private orderService: OrderService) {
+        console.log('We are not trying to get all the routes')
         this.getAllRoutes();
     }
 
     private getAllRoutes() {
         this.orderService.getAllRoutes().pipe(
             take(1),
-            tap(routes => this.setRoutes(routes))
+            tap(routes => this.setRoutes(routes)),
+            tap(routes => console.log('all the routes that we have gotten = ', routes))
         ).subscribe();
     }
 
@@ -52,7 +54,6 @@ export class InsertOrderData$Service {
     }
 
     setOrderNumbers(orders: IOrderDetails[]) {
-        // console.log('Working account have been set - ', account);
         this.orderNumbersToPickFrom.next(orders);
     }
 

@@ -4,7 +4,7 @@ import {
     Validator, Validators, AbstractControl, ValidationErrors
 } from '@angular/forms';
 import { FormGroup, FormControl } from '@ng-stack/forms';
-import { IItemSingleInfo } from '../../../#shared-services/interfaces/item';
+import { IItemSingleInfo } from '../../../#shared-services/interfaces/item.interface';
 
 @Component({
     selector: 'mr-product-product-form-singles',

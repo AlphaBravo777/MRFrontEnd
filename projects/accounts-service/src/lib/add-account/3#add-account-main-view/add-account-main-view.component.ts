@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@ng-stack/forms';
 import { IAccountFrontend } from '../../#sharedServices/interfaces/account-interface';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { IFranchise } from '../../#sharedServices/interfaces/franchise-interface';
-import { IProductGroupName } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductGroupName } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { AccountService } from '../../#sharedServices/account.service';
 import { take, tap } from 'rxjs/operators';
 import { AddAccountFormService } from '../1#add-account-services/add-account-form.service';

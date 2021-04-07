@@ -7,7 +7,7 @@ import { IContainerWithStockTakeAmount } from '../../#shared-services/production
 import { ProductionStockService } from '../../production-stock-take/1#product-stock-services/production-stock.service';
 import { ITotalStockGroupedByBatches, ITotalStockGroupedByProducts } from '../../#shared-services/total-stock.interface';
 import { TotalStockGraphqlApiService } from './total-stock-graphql-api.service';
-import { IContainerInfo, IContainerInfoHash } from 'projects/production-service/src/lib/#shared-services/production.interface';
+import { IContainerInfo, IContainerInfoHash } from 'projects/production-service/src/lib/#shared-services/interfaces/production.interface';
 import { ProductionService } from 'projects/production-service/src/lib/#shared-services/production.service';
 
 @Injectable({

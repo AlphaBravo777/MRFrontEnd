@@ -1,5 +1,5 @@
 import { IBatchGroupFrontEnd } from 'projects/product-service/src/lib/insert-batch-group/1#insert-batch-group-services/batch-group-interface';
-import { IBatchInfo } from 'projects/production-service/src/lib/#shared-services/production.interface';
+import { IBatchInfo } from 'projects/production-service/src/lib/#shared-services/interfaces/production.interface';
 
 // Just the normal batch with its data, then we add the stocktake amount data to it
 export class IStockTakeAmountPerBatch extends IBatchInfo {

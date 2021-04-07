@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@ng-stack/forms';
-import { IItemForm, IItemBasic, IItemFormString } from '../../../#shared-services/interfaces/item';
+import { IItemForm, IItemBasic, IItemFormString } from '../../../#shared-services/interfaces/item.interface';
 import { IMeasuringUnit, IPackaging, IItemVendor, IDepartment } from '../../../#shared-services/interfaces/auxiliary';
 import { InsertProductService } from '../../1#insert-product-services/insert-product.service';
 import { take } from 'rxjs/operators';

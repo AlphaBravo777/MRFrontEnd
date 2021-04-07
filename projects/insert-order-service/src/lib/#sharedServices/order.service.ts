@@ -3,26 +3,26 @@ import { of, Observable, from, BehaviorSubject } from 'rxjs';
 import { tap, concatMap, take } from 'rxjs/operators';
 import { IOrderDetails, IWeeklyOrdersDetails, IInserOrderErrors } from './interfaces/order-service-Interfaces';
 import { InsertOrderApiService } from './insert-order-api.service';
-import { IProductOrderDetails, IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductOrderDetails, IProductDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
-import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
-import { ProductSharedApiService } from 'src/app/home/shared/services/productServices/product-shared-api.service';
-import { AccountSharedApiService } from 'src/app/home/shared/services/accountServices/account-shared-api.service';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { RoutesSharedApiService } from 'src/app/home/shared/services/routesServices/routes-shared-api.service';
 import { OrderGraphqlApiService } from './order-graphql-api.service';
 import { IViewRoutesData } from '../view-orders/1#view-order-services/view-order-interface';
 import { DocumentNode } from 'graphql';
+import { ProductGraphqlApiService } from 'projects/product-service/src/lib/#shared-services/product-graphql-api.service';
+import { IAccountDetails } from 'projects/accounts-service/src/lib/#sharedServices/interfaces/account-interface';
+import { AccountGraphqlApiService } from 'projects/accounts-service/src/lib/#sharedServices/account-graphql-api.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class OrderService {
     constructor(private insertOrderApiService: InsertOrderApiService,
-        private productSharedAPIService: ProductSharedApiService,
-        private accountSharedAPIService: AccountSharedApiService,
+        private productGraphqlApiService: ProductGraphqlApiService,
         private routesSharedAPIService: RoutesSharedApiService,
-        private orderGraphQlApiService: OrderGraphqlApiService
+        private orderGraphQlApiService: OrderGraphqlApiService,
+        private accountGraphqlApiService: AccountGraphqlApiService
         ) {}
 
     private ordersInserted = new BehaviorSubject<IOrderDetails[]>([]);
@@ -70,7 +70,7 @@ export class OrderService {
 
     searchForOrder(datePackage: IDate, accountid: number): Observable<IOrderDetails[]> {  // IOrderDetails
         console.log('The date package = ', datePackage, accountid);
-        return this.insertOrderApiService.searchForOrder(datePackage, accountid).pipe(
+        return this.orderGraphQlApiService.searchForOrder(datePackage, accountid).pipe(
             take(1),
             tap(order => console.log('Alfa (returned order) = ', order)),
         );
@@ -103,14 +103,14 @@ export class OrderService {
     }
 
     getProductListToPickFromForAccount(account: IAccountDetails): Observable<IProductDetails[]> {
-        return this.productSharedAPIService.getProductsOfProductGroup(account.productGroupid.ID).pipe(
+        return this.productGraphqlApiService.getProductsOfProductGroup(account.productGroupid.ID).pipe(
             take(1),
-            tap(data => console.log('getProductsOfProductGroup = ', data)),
+            tap(data => console.log('* * * * * * * * getProductsOfProductGroup = ', account.productGroupid.ID, data)),
         );
     }
 
     getUserInputAccountOrCommonName(accountMRid: string, accountString: string): Observable<IAccountDetails[]> {
-        return this.accountSharedAPIService.searchAccountsOrCommonNames(accountMRid, accountString).pipe(
+        return this.accountGraphqlApiService.searchAccountsOrCommonNames(accountMRid, accountString).pipe(
             take(1),
             tap(data => console.log('getUserInputCommonNameAccounts = ', data))
         );
@@ -125,7 +125,7 @@ export class OrderService {
     }
 
     getAccountFromAccountid(accountid: number): Observable<IAccountDetails> {
-        return this.accountSharedAPIService.getAccountByAccountid(accountid).pipe();
+        return this.accountGraphqlApiService.getAccountByAccountid(accountid).pipe();
     }
 
     updateRouteDate(route: IViewRoutesData, currentDatePackage: IDate, newDatePackage: IDate): Observable<IInserOrderErrors> {

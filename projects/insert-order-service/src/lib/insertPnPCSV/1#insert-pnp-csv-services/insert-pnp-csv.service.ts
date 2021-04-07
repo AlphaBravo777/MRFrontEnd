@@ -9,7 +9,7 @@ import { take, concatMap, tap, map } from 'rxjs/operators';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
 import { IPnPCSVData, IPnPCSVFormat } from '../../#sharedServices/interfaces/pnp-csv-interface';
-import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductOrderDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { datePackage_factory } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 
 @Injectable({

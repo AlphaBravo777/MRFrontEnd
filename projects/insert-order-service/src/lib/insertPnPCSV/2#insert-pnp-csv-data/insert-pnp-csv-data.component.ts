@@ -4,7 +4,7 @@ import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-In
 import { OrderService } from '../../#sharedServices/order.service';
 import { Subscription } from 'rxjs';
 import { tap, concatMap } from 'rxjs/operators';
-import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductOrderDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 
 
 @Component({

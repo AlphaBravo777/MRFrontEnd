@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@ng-stack/forms';
-import { IContainerInfo } from 'projects/production-service/src/lib/#shared-services/production.interface';
+import { IContainerInfo } from 'projects/production-service/src/lib/#shared-services/interfaces/production.interface';
 import { IContainerWithStockTakeAmount, IStockTakeAmountPerBatch } from '../../../#shared-services/production-stock.interface';
 import { ITotalStockGroupedByProducts } from '../../../#shared-services/total-stock.interface';
 

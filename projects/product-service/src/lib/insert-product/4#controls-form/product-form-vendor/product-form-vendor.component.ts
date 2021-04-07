@@ -4,7 +4,7 @@ import {
     Validator, Validators, AbstractControl, ValidationErrors
 } from '@angular/forms';
 import { FormGroup, FormControl, FormArray } from '@ng-stack/forms';
-import { IItemBasic } from '../../../#shared-services/interfaces/item';
+import { IItemBasic } from '../../../#shared-services/interfaces/item.interface';
 import { IItemVendor } from '../../../#shared-services/interfaces/auxiliary';
 
 @Component({

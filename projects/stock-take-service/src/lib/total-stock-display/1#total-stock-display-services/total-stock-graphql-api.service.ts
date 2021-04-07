@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IContainerInfo } from 'projects/production-service/src/lib/#shared-services/production.interface';
+import { IContainerInfo } from 'projects/production-service/src/lib/#shared-services/interfaces/production.interface';
 import { Observable, of } from 'rxjs';
 import { totalStockContainerAmounts_MockFunction, containerDetailList_mockFunction } from 'src/assets/mockData/stock-take-service/total-stock-data.mocks';
 import { IStockTakeAmountHash, IStockTakeAmountPerBatch, IStockTakeAmountPerContainer } from '../../#shared-services/production-stock.interface';

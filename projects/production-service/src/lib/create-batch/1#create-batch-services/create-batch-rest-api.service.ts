@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { SnackBarAlertService } from 'src/app/home/core/alerts/snack-bar-alert-service/snack-bar-alert.service';
 import { UrlsService } from 'src/app/home/core/urls.service';
-import { IBatchInfoBackend } from '../../#shared-services/production.interface';
+import { IBatchInfoBackend } from '../../#shared-services/interfaces/production.interface';
 
 @Injectable({
     providedIn: 'root'

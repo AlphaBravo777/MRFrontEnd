@@ -1,88 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular-boost';
+import { Apollo } from 'apollo-angular-boost';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IFranchise } from './interfaces/franchise-interface';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
-import { IAccountFrontendBasicID, IAccountFrontend } from './interfaces/account-interface';
+import { IAccountFrontendBasicID, IAccountFrontend, IAccountDetails } from './interfaces/account-interface';
+import { AccountGraphqlApiStringService } from './account-graphql-api-string.service';
+import { IProductGroupName } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
+import { IAccountNameMicroServiceTypeConnection, IAccountNameMicroServiceTypeNodes, IAccountNameMicroServiceType, IAccountNameMicroServiceQuery, IFranchiseMicroServiceTypeConnection, IFranchiseMicroServiceTypeNodes } from './interfaces/account-graphql.interface';
+import { IGroupType } from 'projects/product-service/src/public-api';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AccountGraphqlApiService {
 
-    ALL_FRANCHISES_QUERY = gql`
-    query Franchises{
-        nodeFranchiseMicroService{
-            edges{
-                node{
-                    franchiseName
-                    rowid
-                    }
-                }
-            }
-        }
-    `;
-
-    ACCOUNT_MR_IDs_QUERY = gql`
-    query AccountMRids {
-        nodeAccountNameMicroService{
-          edges{
-            node{
-              rowid
-              accountMRid
-            }
-          }
-        }
-      }
-      `;
-
-    GET_SINGLE_ACCOUNT_QUERY = gql`
-    query SingleAccountDetail ($accountMRid:String="S57"){
-        nodeAccountNameMicroService(accountMRid:$accountMRid){
-            edges{
-                node{
-                    rowid
-                    accountMRid
-                    commonName
-                    accountName
-                    parentAccountid{
-                        accountMRid
-                        rowid
-                    }
-                    routeid {
-                        routeName
-                        rowid
-                    }
-                    productGroupid{
-                        groupname
-                        rowid
-                    }
-                    accountAccessDBid
-                    franchise{
-                        franchiseName
-                        rowid
-                    }
-                }
-            }
-        }
-    }
-    `;
-
-    constructor(private apollo: Apollo, private toolBoxService: ToolboxGroupService) { }
+    constructor(
+        private apollo: Apollo,
+        private toolBoxService: ToolboxGroupService,
+        private accountGraphqlApiStringService: AccountGraphqlApiStringService) { }
 
     getAllFranchises(): Observable<IFranchise[]> {
         return this.apollo
-            .watchQuery<any>({
-                // context: { headers: headers},
-                // variables: { accountid: accountid, timeStampid: datePackage.id, routeid: routeid},
-                query: this.ALL_FRANCHISES_QUERY,
+            .watchQuery<IFranchiseMicroServiceTypeConnection>({
+                query: this.accountGraphqlApiStringService.ALL_FRANCHISES_QUERY,
             })
             .valueChanges.pipe(
-                map(result => this.consolidateFranchises(result.data['nodeFranchiseMicroService'].edges)));
+                map(result => this.consolidateFranchises(result.data.nodeFranchiseMicroService.edges)));
     }
 
-    private consolidateFranchises(data): IFranchise[] {
+    private consolidateFranchises(data: IFranchiseMicroServiceTypeNodes[]): IFranchise[] {
         if (data.length > 0) {
             const franchisesArray: IFranchise[] = [];
             for (let fran = 0; fran < data.length; fran++) {
@@ -99,16 +46,14 @@ export class AccountGraphqlApiService {
 
     getAllAccountMRids(): Observable<IAccountFrontendBasicID[]> {
         return this.apollo
-            .watchQuery<any>({
-                // context: { headers: headers},
-                // variables: { accountid: accountid, timeStampid: datePackage.id, routeid: routeid},
-                query: this.ACCOUNT_MR_IDs_QUERY,
+            .watchQuery<IAccountNameMicroServiceTypeConnection>({
+                query: this.accountGraphqlApiStringService.ACCOUNT_MR_IDs_QUERY,
             })
             .valueChanges.pipe(
-                map(result => this.consolidateAccountMRids(result.data['nodeAccountNameMicroService'].edges)));
+                map(result => this.consolidateAccountMRids(result.data.nodeAccountNameMicroService.edges)));
     }
 
-    private consolidateAccountMRids(data): IAccountFrontendBasicID[] {
+    private consolidateAccountMRids(data: IAccountNameMicroServiceTypeNodes[]): IAccountFrontendBasicID[] {
 
         if (data.length > 0) {
             const accountsArray: IAccountFrontendBasicID[] = [];
@@ -126,16 +71,16 @@ export class AccountGraphqlApiService {
 
     getAllAccountsContainingArgument(accountMRid): Observable<IAccountFrontend[]> {
         return this.apollo
-            .watchQuery<any>({
+            .watchQuery<IAccountNameMicroServiceTypeConnection>({
                 // context: { headers: headers},
                 variables: {accountMRid: accountMRid},
-                query: this.GET_SINGLE_ACCOUNT_QUERY,
+                query: this.accountGraphqlApiStringService.GET_SINGLE_ACCOUNT_QUERY,
             })
             .valueChanges.pipe(
-                map(result => this.consolidateAllAccountsContainingArgument(result.data['nodeAccountNameMicroService'].edges)));
+                map(result => this.consolidateAllAccountsContainingArgument(result.data.nodeAccountNameMicroService.edges)));
     }
 
-    private consolidateAllAccountsContainingArgument(data): IAccountFrontend[] {
+    private consolidateAllAccountsContainingArgument(data: IAccountNameMicroServiceTypeNodes[]): IAccountFrontend[] {
 
         function getParentAccountid(parentData) {
             if (!parentData) {
@@ -166,8 +111,8 @@ export class AccountGraphqlApiService {
                     parentAccountMRid: getParentAccountMRid(data[acc].node.parentAccountid),
                     routeid: data[acc].node.routeid.rowid,
                     routeName: data[acc].node.routeid.routeName,
-                    productGroupid: data[acc].node.productGroupid.rowid,
-                    productGroupName: data[acc].node.productGroupid.groupname,
+                    productGroupid: data[acc].node.productGroupNode.rowid,
+                    productGroupName: data[acc].node.productGroupNode.groupName,
                     accountAccessDBid: data[acc].node.accountAccessDBid,
                     franchiseid: data[acc].node.franchise.rowid,
                     franchiseName: data[acc].node.franchise.franchiseName,
@@ -182,5 +127,68 @@ export class AccountGraphqlApiService {
         return [];
     }
 
+    searchAccountsOrCommonNames(accountMRid: string = '', commonName: string= ''): Observable<IAccountDetails[]> {
+        console.log(accountMRid, commonName);
+        return this.apollo
+            .watchQuery<IAccountNameMicroServiceTypeConnection>({
+                variables: { accountMRid: accountMRid, commonName: commonName },
+                query: this.accountGraphqlApiStringService.SEARCH_ACCOUNTS_MRID_OR_COMMONNAMES_QUERY
+            })
+            .valueChanges.pipe(
+                map(result => this.consolidateAccountsData(result.data.nodeAccountNameMicroService.edges)));
+    }
+
+    private consolidateAccountsData(data: IAccountNameMicroServiceTypeNodes[]): IAccountDetails[] {
+
+        const flattendData: IAccountDetails[] = [];
+
+        for (let array = 0; array < data.length; ++array) {
+            const element = data[array].node
+
+            flattendData.push(this.createAccountData(element));
+        }
+        return flattendData;
+    }
+
+    getAccountByAccountid(accountid: number): Observable<IAccountDetails> {
+        return this.apollo
+            .watchQuery<IAccountNameMicroServiceQuery>({
+                variables: { accountid: accountid },
+                query: this.accountGraphqlApiStringService.SEARCH_ACCOUNTIDS_QUERY
+            })
+            .valueChanges.pipe(
+                map(result => this.createAccountData(result.data.getAccountMicroService)));
+    }
+
+    
+    private createAccountData(account: IAccountNameMicroServiceType): IAccountDetails {
+
+        const createGroup = (group: IGroupType): IProductGroupName => {
+            const singleGroup: IProductGroupName = {
+                id: group.rowid,
+                ID: group.id,
+                groupName: group.groupName
+            };
+            return singleGroup
+        }
+
+        const singleAccount: IAccountDetails = {
+            accountid: account.rowid,
+            accountID: account.id,
+            accountMRid: account.accountMRid,
+            accountName: account.accountName,
+            commonName: account.commonName,
+            routeid: account.routeid.rowid,
+            routeName: account.routeid.routeName,
+            franchiseid: account.franchise.rowid,
+            franchiseName: account.franchise.franchiseName,
+            productGroupid: createGroup(account.productGroupNode),
+            childAccount: [],
+            parentAccountid: null,
+            franchiseRanking: null,
+            rankingInFranchise: null
+        };
+        return singleAccount
+    }
 
 }

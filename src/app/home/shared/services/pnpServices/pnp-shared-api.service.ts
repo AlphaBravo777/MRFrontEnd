@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { IDate } from '../../main-portal/date-picker/date-picker-service/date-interface';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IProductOrderDetails, IProductDetails } from '../productServices/products-interface';
+import { IProductOrderDetails, IProductDetails } from '../../../../../../projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/order-service-Interfaces';
 
 @Injectable({
@@ -82,7 +82,8 @@ export class PnpSharedApiService {
                     orderDetailsid: null,
                     userid: null,
                     packagingShippingWeight: null,
-                    unitsPerMaxShippingWeight: null
+                    unitsPerMaxShippingWeight: null,
+                    productActive: null
                 };
                 flattenProducts.push(singleProduct);
             }
@@ -153,7 +154,7 @@ export class PnpSharedApiService {
                 packageWeight: data[array].node.packageweight,
                 proddescription: data[array].node.proddescription,
                 rankingInGroup: data[array].node.rankingInGroup,
-                productonhold: data[array].node.productonhold,
+                productActive: data[array].node.productonhold,
                 lugSize: null,
                 packagingShippingWeight: null,
                 unitsPerMaxShippingWeight: null,

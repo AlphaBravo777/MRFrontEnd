@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { IOrderDetails} from '../../#sharedServices/interfaces/order-service-Interfaces';
-import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
-import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductOrderDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { DatePickerService } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-picker.service';
 import { IPnPCSVData } from '../../#sharedServices/interfaces/pnp-csv-interface';
+import { IAccountDetails } from 'projects/accounts-service/src/lib/#sharedServices/interfaces/account-interface';
 
 @Injectable({
     providedIn: 'root'
@@ -220,7 +220,8 @@ export class ConvertPnpStructureToOrdersService {
                 orderDetailsid: null,
                 userid: JSON.parse(localStorage.getItem('userID')),
                 packagingShippingWeight: null,
-                unitsPerMaxShippingWeight: null
+                unitsPerMaxShippingWeight: null,
+                productActive: null,
             };
             if (newPnPProductObj.productid === null) {
                 console.log('unknownProduct === ', newPnPProductObj);

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { Observable } from 'rxjs';
-import { IRoute } from './routes-interface';
+import { IDeliveryRoutesTypeNodes, IRoute, IDeliveryRoutesTypeConnection } from './routes-interface';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -26,20 +26,21 @@ export class RoutesSharedApiService {
 
     getAllRoutes(): Observable<IRoute[]> {
         return this.apollo
-            .watchQuery({
+            .watchQuery<IDeliveryRoutesTypeConnection>({
                 query: this.GET_ROUTES_QUERY
             })
             .valueChanges.pipe(
-                map(result => this.consolidateRoutes(result.data['nodeDeliveryroutes'].edges))
+                map(result => this.consolidateRoutes(result.data.nodeDeliveryroutes.edges))
             );
     }
 
-    private consolidateRoutes(data): IRoute[] {
+    private consolidateRoutes(data: IDeliveryRoutesTypeNodes[]): IRoute[] {
         const flattendData: IRoute[] = [];
         for (let array = 0; array < data.length; ++array) {
-            const singleData: IRoute = { routeName: null, routeid: null };
-            singleData.routeName = data[array].node.routeName;
-            singleData.routeid = data[array].node.rowid;
+            const singleData: IRoute = { 
+            routeName: data[array].node.routeName,
+            routeid: data[array].node.rowid
+            };
             flattendData.push(singleData);
         }
         return flattendData;

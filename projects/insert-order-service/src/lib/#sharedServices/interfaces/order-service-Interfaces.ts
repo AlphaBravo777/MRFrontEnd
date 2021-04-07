@@ -1,5 +1,5 @@
-import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
-import { IProductOrderDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IAccountDetails } from 'projects/accounts-service/src/lib/#sharedServices/interfaces/account-interface';
+import { IProductOrderDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 
 //  Frontend Interface
 export class IOrderDetails extends IAccountDetails {

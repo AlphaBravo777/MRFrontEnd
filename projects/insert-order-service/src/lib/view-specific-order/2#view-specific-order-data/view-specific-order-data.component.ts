@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { ViewSpecificOrderService } from '../1#view-specific-order-services/view-specific-order.service';
 import { tap, concatMap } from 'rxjs/operators';
 import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-Interfaces';
-import { IUniqueProductTotals } from 'src/app/home/shared/services/productServices/products-interface';
+import { IUniqueProductTotals } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { ViewOrderData$Service } from '../../view-orders/1#view-order-services/view-order-data$.service';
 import { IViewRoutesData } from '../../view-orders/1#view-order-services/view-order-interface';
 import { SpinnerVisibilityService } from 'ng-http-loader';

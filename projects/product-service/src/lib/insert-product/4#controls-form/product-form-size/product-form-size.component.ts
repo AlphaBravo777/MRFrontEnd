@@ -4,7 +4,7 @@ import {
     Validator, Validators, AbstractControl, ValidationErrors
 } from '@angular/forms';
 import { FormGroup, FormControl, FormArray } from '@ng-stack/forms';
-import { IItemFormBuildingBlocks, IItemForm, IItemBasic, IItemSize } from '../../../#shared-services/interfaces/item';
+import { IItemFormBuildingBlocks, IItemForm, IItemBasic, IItemSize } from '../../../#shared-services/interfaces/item.interface';
 import { IMeasuringUnit } from '../../../#shared-services/interfaces/auxiliary';
 
 @Component({

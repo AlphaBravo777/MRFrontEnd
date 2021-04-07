@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@ng-stack/forms';
-import { IBatchInfo } from 'projects/production-service/src/lib/#shared-services/production.interface';
+import { IBatchInfo } from 'projects/production-service/src/lib/#shared-services/interfaces/production.interface';
 import { CreateBatchData$Service } from 'projects/production-service/src/lib/create-batch/1#create-batch-services/create-batch-data$.service';
 import { IContainerWithStockTakeAmount, IProductionStockByFactoryArea, IStockTake, IStockTakeAmountPerBatch } from '../../#shared-services/production-stock.interface';
 

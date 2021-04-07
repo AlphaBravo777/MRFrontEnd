@@ -4,7 +4,7 @@ import { IColorChangeInputBoxInterface } from 'src/app/home/shared/components/sh
 import { ProductValidationService } from '../insert-products-services/product-validation.service';
 import { InsertFormChangesService } from '../../../1#insert-order-services/insert-form-changes.service';
 import { OrderService } from 'projects/insert-order-service/src/lib/#sharedServices/order.service';
-import { IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 
 @Component({
     selector: 'mr-insert-insert-product-view',
@@ -72,7 +72,8 @@ export class InsertProductViewComponent implements OnInit {
             packageWeight: null,
             rankingInGroup: null,
             packagingShippingWeight: null,
-            unitsPerMaxShippingWeight: null
+            unitsPerMaxShippingWeight: null,
+            productActive: null
         };
         this.insertFormChangesService.removeAnyOrderedProductsFromAvailableList();
         this.insertFormChangesService.addAvailableProductToOrderedProducts(product);

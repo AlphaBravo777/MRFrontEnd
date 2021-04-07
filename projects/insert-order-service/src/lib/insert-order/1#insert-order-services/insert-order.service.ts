@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { IAccountDetails } from 'src/app/home/shared/services/accountServices/account-interface';
 import { OrderService } from '../../#sharedServices/order.service';
 import { InsertFormChangesService } from './insert-form-changes.service';
 import { take, tap, switchMap, delay, map } from 'rxjs/operators';
@@ -10,6 +9,7 @@ import { IOrderDetails } from '../../#sharedServices/interfaces/order-service-In
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { FormGroup, FormArray } from '@angular/forms';
 import { InsertOrderApiService } from '../../#sharedServices/insert-order-api.service';
+import { IAccountDetails } from 'projects/accounts-service/src/lib/#sharedServices/interfaces/account-interface';
 
 @Injectable({
     providedIn: 'root'

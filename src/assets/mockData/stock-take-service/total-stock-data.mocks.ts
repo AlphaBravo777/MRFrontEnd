@@ -1,6 +1,6 @@
 import * as Factory from "factory.ts";
 import * as faker from "faker";
-import { IContainerInfo } from 'projects/production-service/src/lib/#shared-services/production.interface';
+import { IContainerInfo } from 'projects/production-service/src/lib/#shared-services/interfaces/production.interface';
 import { IContainerWithStockTakeAmount, IStockTakeAmountHash, IStockTakeAmountPerContainer, IStockTakeContainerHash } from 'projects/stock-take-service/src/lib/#shared-services/production-stock.interface';
 import { ProductionStockList_GroupsMockFunc, createBatchArray, containerList_mock } from './production-data-mocks';
 

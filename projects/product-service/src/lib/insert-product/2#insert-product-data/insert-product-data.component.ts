@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IPackaging, IDepartment, ICategory, IGroup, IMeasuringUnit, IItemVendor } from '../../#shared-services/interfaces/auxiliary';
-import { IItemBasic } from '../../#shared-services/interfaces/item';
+import { IItemBasic } from '../../#shared-services/interfaces/item.interface';
 import { Subscription, Observable } from 'rxjs';
 import { ProductService } from '../../#shared-services/product.service';
 import { tap, concatMap, switchMap } from 'rxjs/operators';

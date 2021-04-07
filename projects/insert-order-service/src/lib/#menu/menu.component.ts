@@ -19,17 +19,18 @@ export class MenuComponent implements OnInit {
         private viewOrdersDataService: ViewOrderData$Service) {}
 
     ngOnInit() {
-        this.viewOrdersDataService.setSpecificRouteDatePackage(null);
+        // This does nothing when you pass it null, you can rather move this into the component
+        this.viewOrdersDataService.setSpecificRouteDatePackage(null);  
     }
 
     ordersLoadingToday() {
         console.log('We are loading today');
-        this.getDateService.getDatePackageForCurrentDateMinusPlusDays(this.loadingOrdersDateDifference).pipe(
+        // There is no reason why we can not just do this when we are loading the component
+        this.getDateService.getDatePackageForCurrentDateMinusOrPlusDays(this.loadingOrdersDateDifference).pipe(
             take(1),
             tap(datePackage => this.viewOrdersDataService.setSpecificRouteDatePackage(datePackage)),
             tap(() => this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-order']))
         ).subscribe();
-        // this.router.navigate(['/main/admin-office/insertOrderService/entry/view-orders/view-order']);
     }
 
     ordersDeliveringToday() {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { InsertFormChangesService } from '../../../1#insert-order-services/insert-form-changes.service';
 import { InsertOrderData$Service } from '../../../1#insert-order-services/insert-order-data$.service';
 import { take, tap } from 'rxjs/operators';
-import { IProductDetails } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { FormControl } from '@angular/forms';
 
 @Injectable({

@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { AccountGraphqlApiService } from './account-graphql-api.service';
 import { IFranchise } from './interfaces/franchise-interface';
 import { Observable, of } from 'rxjs';
-import { ProductSharedApiService } from 'src/app/home/shared/services/productServices/product-shared-api.service';
-import { IProductGroupName } from 'src/app/home/shared/services/productServices/products-interface';
+import { IProductGroupName } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { IAccountFrontendBasicID, IAccountFrontend, IAccountBackend } from './interfaces/account-interface';
 import { map, concatMap } from 'rxjs/operators';
 import { AccountApiService } from './account-api.service';
+import { ProductGraphqlApiService } from 'projects/product-service/src/lib/#shared-services/product-graphql-api.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +14,7 @@ import { AccountApiService } from './account-api.service';
 export class AccountService {
 
     constructor(private accountGraphqlApiService: AccountGraphqlApiService,
-        private productSharedApiService: ProductSharedApiService,
+        private productGraphqlApiService: ProductGraphqlApiService,
         private accountApiService: AccountApiService) { }
 
     getAllFranchises(): Observable<IFranchise[]> {
@@ -22,7 +22,7 @@ export class AccountService {
     }
 
     getAllProductGroupNames(): Observable<IProductGroupName[]> {
-        return this.productSharedApiService.getAllProductGroupNames();
+        return this.productGraphqlApiService.getAllProductGroupNames();
     }
 
     getAllAccountMRids(): Observable<IAccountFrontendBasicID[]> {

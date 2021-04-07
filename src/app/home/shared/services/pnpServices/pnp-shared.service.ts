@@ -5,7 +5,7 @@ import { Observable, of, combineLatest } from 'rxjs';
 import { switchMap, tap, map } from 'rxjs/operators';
 import { IPnPOrderMatrix, IPnPOrderTotals, IPalletPickedDetails } from './pnp-shared-interfaces';
 import { ToolboxGroupService } from '../toolbox/toolbox-group.service';
-import { IProductOrderDetails } from '../productServices/products-interface';
+import { IProductOrderDetails } from '../../../../../../projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/order-service-Interfaces';
 
 @Injectable({

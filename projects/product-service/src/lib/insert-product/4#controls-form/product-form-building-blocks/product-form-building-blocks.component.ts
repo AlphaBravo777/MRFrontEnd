@@ -4,7 +4,7 @@ import {
     Validator, Validators, AbstractControl, ValidationErrors
 } from '@angular/forms';
 import { FormGroup, FormControl, FormArray } from '@ng-stack/forms';
-import { IItemFormBuildingBlocks, IItemForm, IItemBasic } from '../../../#shared-services/interfaces/item';
+import { IItemFormBuildingBlocks, IItemForm, IItemBasic } from '../../../#shared-services/interfaces/item.interface';
 
 @Component({
   selector: 'mr-product-product-form-building-blocks',

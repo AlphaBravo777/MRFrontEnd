@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@ng-stack/forms';
-import { IContainerInfoHash } from 'projects/production-service/src/lib/#shared-services/production.interface';
+import { IContainerInfoHash } from 'projects/production-service/src/lib/#shared-services/interfaces/production.interface';
 import { IContainerWithStockTakeAmount, IProductionContainer, IStockTakeAmountPerBatch } from '../../#shared-services/production-stock.interface';
 import { ITotalStockGroupedByBatches, ITotalStockGroupedByProducts } from '../../#shared-services/total-stock.interface';
 

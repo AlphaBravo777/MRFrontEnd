@@ -3,7 +3,7 @@ import { FormArray } from '@ng-stack/forms';
 import { IStockTakeAmountPerBatch } from 'projects/stock-take-service/src/lib/#shared-services/production-stock.interface';
 import { BehaviorSubject } from 'rxjs';
 import { ToolboxGroupService } from 'src/app/home/shared/services/toolbox/toolbox-group.service';
-import { IBatchInfo } from '../../#shared-services/production.interface';
+import { IBatchInfo } from '../../#shared-services/interfaces/production.interface';
 
 @Injectable({
     providedIn: 'root'

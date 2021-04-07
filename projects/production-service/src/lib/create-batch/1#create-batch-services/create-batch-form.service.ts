@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@ng-stack/forms';
 import { IDate } from 'src/public_api';
-import { IBatchInfo } from '../../#shared-services/production.interface';
+import { IBatchInfo } from '../../#shared-services/interfaces/production.interface';
 
 @Injectable({
     providedIn: 'root'

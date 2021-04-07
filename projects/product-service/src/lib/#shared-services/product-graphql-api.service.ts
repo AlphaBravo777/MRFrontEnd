@@ -1,120 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular-boost';
-import { IItemBasic } from './interfaces/item';
+import { Apollo } from 'apollo-angular-boost';
+import { IItemBasic } from './interfaces/item.interface';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IMeasuringUnit, IPackaging, IItemVendor, IDepartment, ICategory, IGroup } from './interfaces/auxiliary';
+import { ProductGraphqlApiStringService } from './product-graphql-api-string.service';
+import { ICategoryTypeNodes, IDepartmentTypeConnection, IDepartmentTypeNodes, IGroupTypeNodes, IItemGroupingTypeConnection, IItemGroupingTypeEdges, IItemGroupingTypeNodes, IItemTypeConnection, IItemTypeNodes, IMeasuringUnitTypeNodes, INewPackagingTypeConnection, INewPackagingTypeNodes, ItemVendorTypeConnection, ItemVendorTypeNodes, MeasuringUnitTypeConnection } from './interfaces/item-graphql.interface';
+import { IProductDetails, IProductGroupName } from './interfaces/products-interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProductGraphqlApiService {
 
-    public ALL_ITEMS_BASIC_QUERY = gql`
-        query ItemsBasic {
-            nodeProdmsItem {
-                edges{
-                    node{
-                        name
-                        rowid
-                    }
-                }
-            }
-        }`;
-
-    public MEASURING_UNITS = gql`
-        query MeasuringUnits {
-            nodeProdmsMeasuringUnit{
-                edges{
-                    node{
-                        unit
-                        convertionToMainUnitAmount
-                        mainUnit{
-                            unit
-                        }
-                        rowid
-                    }
-                }
-            }
-        }`;
-
-    public PACKAGING = gql`
-        query Packaging {
-            nodeProdmsPackaging{
-                edges{
-                    node{
-                        packaging
-                        weight
-                        rowid
-                    }
-                }
-            }
-        }`;
-
-    public VENDORS = gql`
-        query Vendors {
-            nodeProdmsItemVendor{
-                edges{
-                    node{
-                        name
-                        rowid
-                    }
-                }
-            }
-        }`;
-
-    public ALL_GROUPING_CATAGORIES = gql`
-        query Groupings{
-            nodeProdmsDepartment{
-                edges{
-                    node{
-                        name
-                        rankingInDepartment
-                        rowid
-                        categorySet{
-                            edges{
-                                node{
-                                    name
-                                    rankingInCategory
-                                    rowid
-                                    groupSet{
-                                        edges{
-                                            node{
-                                                name
-                                                rankingInGroup
-                                                rowid
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }`;
-
-
-    constructor(private apollo: Apollo) { }
+    constructor(
+        private apollo: Apollo,
+        private productGraphqlApiStringService: ProductGraphqlApiStringService
+    ) { }
 
     getAllItemsBasicInfo(): Observable<IItemBasic[]> {
         return this.apollo
-            .watchQuery<any>({
-                // context: { headers: headers},
-                // variables: { accountid: accountid, timeStampid: datePackage.id, routeid: routeid},
-                query: this.ALL_ITEMS_BASIC_QUERY,
+            .watchQuery<IItemTypeConnection>({
+                query: this.productGraphqlApiStringService.ALL_ITEMS_BASIC_QUERY,
             })
             .valueChanges.pipe(
-                map(result => this.consolidateBasicItems(result.data['nodeProdmsItem'].edges)));
+                map(result => this.consolidateBasicItems(result.data.nodeProdmsItem.edges)));
     }
 
-    private consolidateBasicItems(data): IItemBasic[] {
+    private consolidateBasicItems(data: IItemTypeNodes[]): IItemBasic[] {
         if (data.length > 0) {
             const itemBasicsArray: IItemBasic[] = [];
             for (let prod = 0; prod < data.length; prod++) {
                 const element = data[prod].node;
                 const weeklyProduct: IItemBasic = {
-                    itemName: element.name,
+                    itemName: element.defaultItemName,
                     itemid: element.rowid
                 };
                 itemBasicsArray.push(weeklyProduct);
@@ -127,16 +46,14 @@ export class ProductGraphqlApiService {
 
     getMeasuringUnits(): Observable<IMeasuringUnit[]> {
         return this.apollo
-            .watchQuery<any>({
-                // context: { headers: headers},
-                // variables: { accountid: accountid, timeStampid: datePackage.id, routeid: routeid},
-                query: this.MEASURING_UNITS,
+            .watchQuery<MeasuringUnitTypeConnection>({
+                query: this.productGraphqlApiStringService.MEASURING_UNITS,
             })
             .valueChanges.pipe(
-                map(result => this.consolidateMeasuringUnits(result.data['nodeProdmsMeasuringUnit'].edges)));
+                map(result => this.consolidateMeasuringUnits(result.data.nodeProdmsMeasuringUnit.edges)));
     }
 
-    private consolidateMeasuringUnits(data): IMeasuringUnit[] {
+    private consolidateMeasuringUnits(data: IMeasuringUnitTypeNodes[]): IMeasuringUnit[] {
         if (data.length > 0) {
             const measureingUnitsArray: IMeasuringUnit[] = [];
             for (let unit = 0; unit < data.length; unit++) {
@@ -145,8 +62,8 @@ export class ProductGraphqlApiService {
                     unit: element.unit,
                     unitid: element.rowid,
                     convertionToMainUnitAmount: element.convertionToMainUnitAmount,
-                    mainUnitid: element.mainUnit.unit,
-                    mianUnit: element.mainUnit.rowid
+                    mainUnitid: element.mainUnit.rowid,
+                    mianUnit: element.mainUnit.unit
                 };
                 measureingUnitsArray.push(weeklyProduct);
             }
@@ -158,24 +75,22 @@ export class ProductGraphqlApiService {
 
     getPackaging(): Observable<IPackaging[]> {
         return this.apollo
-            .watchQuery<any>({
-                // context: { headers: headers},
-                // variables: { accountid: accountid, timeStampid: datePackage.id, routeid: routeid},
-                query: this.PACKAGING,
+            .watchQuery<INewPackagingTypeConnection>({
+                query: this.productGraphqlApiStringService.PACKAGING,
             })
             .valueChanges.pipe(
-                map(result => this.consolidatePackaging(result.data['nodeProdmsPackaging'].edges)));
+                map(result => this.consolidatePackaging(result.data.nodeProdmsPackaging.edges)));
     }
 
-    private consolidatePackaging(data): IPackaging[] {
+    private consolidatePackaging(data: INewPackagingTypeNodes[]): IPackaging[] {
         if (data.length > 0) {
             const packagingArray: IPackaging[] = [];
             for (let prod = 0; prod < data.length; prod++) {
                 const element = data[prod].node;
                 const weeklyProduct: IPackaging = {
-                    packaging: element.packaging,
+                    packaging: element.packagingName,
                     packagingid: element.rowid,
-                    weight: element.weight
+                    weight: element.weightOfPackaging
                 };
                 packagingArray.push(weeklyProduct);
             }
@@ -187,22 +102,20 @@ export class ProductGraphqlApiService {
 
     getVendors(): Observable<IItemVendor[]> {
         return this.apollo
-            .watchQuery<any>({
-                // context: { headers: headers},
-                // variables: { accountid: accountid, timeStampid: datePackage.id, routeid: routeid},
-                query: this.VENDORS,
+            .watchQuery<ItemVendorTypeConnection>({
+                query: this.productGraphqlApiStringService.VENDORS,
             })
             .valueChanges.pipe(
-                map(result => this.consolidateVendors(result.data['nodeProdmsItemVendor'].edges)));
+                map(result => this.consolidateVendors(result.data.nodeProdmsItemVendor.edges)));
     }
 
-    private consolidateVendors(data): IItemVendor[] {
+    private consolidateVendors(data: ItemVendorTypeNodes[]): IItemVendor[] {
         if (data.length > 0) {
             const vendorArray: IItemVendor[] = [];
             for (let prod = 0; prod < data.length; prod++) {
                 const element = data[prod].node;
                 const weeklyProduct: IItemVendor = {
-                    vendor: element.name,
+                    vendor: element.vendorid.vendorName,
                     vendorid: element.rowid,
                 };
                 vendorArray.push(weeklyProduct);
@@ -215,22 +128,20 @@ export class ProductGraphqlApiService {
 
     getAllGroupingCatagories(): Observable<IDepartment[]> {
         return this.apollo
-            .watchQuery<any>({
-                // context: { headers: headers},
-                // variables: { accountid: accountid, timeStampid: datePackage.id, routeid: routeid},
-                query: this.ALL_GROUPING_CATAGORIES,
+            .watchQuery<IDepartmentTypeConnection>({
+                query: this.productGraphqlApiStringService.ALL_GROUPING_CATAGORIES,
             })
             .valueChanges.pipe(
-                map(result => this.consolidateDepartments(result.data['nodeProdmsDepartment'].edges)));
+                map(result => this.consolidateDepartments(result.data.nodeProdmsDepartment.edges)));
     }
 
-    private consolidateDepartments(data): IDepartment[] {
+    private consolidateDepartments(data: IDepartmentTypeNodes[]): IDepartment[] {
         if (data.length > 0) {
             const departmentArray: IDepartment[] = [];
             for (let prod = 0; prod < data.length; prod++) {
                 const element = data[prod].node;
                 const weeklyProduct: IDepartment = {
-                    name: element.name,
+                    name: element.departmentName,
                     departmentid: element.rowid,
                     rankingInDepartment: element.rankingInDepartment,
                     categories: this.consolidateCategories(element.categorySet.edges)
@@ -243,13 +154,13 @@ export class ProductGraphqlApiService {
         return [];
     }
 
-    private consolidateCategories(data): ICategory[] {
+    private consolidateCategories(data: ICategoryTypeNodes[]): ICategory[] {
         if (data.length > 0) {
             const categoryArray: ICategory[] = [];
             for (let prod = 0; prod < data.length; prod++) {
                 const element = data[prod].node;
                 const weeklyProduct: ICategory = {
-                    name: element.name,
+                    name: element.categoryName,
                     categoryid: element.rowid,
                     rankingInCategory: element.rankingInCategory,
                     groups: this.consolidateGroups(element.groupSet.edges)
@@ -262,13 +173,13 @@ export class ProductGraphqlApiService {
         return [];
     }
 
-    private consolidateGroups(data): IGroup[] {
+    private consolidateGroups(data: IGroupTypeNodes[]): IGroup[] {
         if (data.length > 0) {
             const groupArray: IGroup[] = [];
             for (let prod = 0; prod < data.length; prod++) {
                 const element = data[prod].node;
                 const weeklyProduct: IGroup = {
-                    name: element.name,
+                    name: element.groupName,
                     groupid: element.rowid,
                     rankingInGroup: element.rankingInGroup,
                 };
@@ -278,6 +189,74 @@ export class ProductGraphqlApiService {
             return groupArray;
         }
         return [];
+    }
+
+
+
+    getProductsOfProductGroup(groupid: string, vendorDepartment: string = 'RGVwYXJ0bWVudFR5cGU6NQ==', active: boolean = true): Observable<IProductDetails[]> {
+        console.log('Variables = ', groupid, vendorDepartment, active)
+        return this.apollo
+            .watchQuery<IItemGroupingTypeConnection>({
+                variables: { groupid: groupid, vendorDepartment: vendorDepartment, active:active },
+                query: this.productGraphqlApiStringService.GET_PRODUCTS_OF_PRODUCTGROUP
+            })
+            .valueChanges.pipe(
+                map(result =>
+                    this.consolidateProducts(result.data.nodeProdmsItemGrouping)
+                )
+            );
+    }
+
+    private consolidateProducts(data: IItemGroupingTypeEdges): IProductDetails[] {
+        console.log('* * * * * Here is the products data: ', data);
+        const flattendData: IProductDetails[] = [];
+        for (let array = 0; array < data.edges.length; ++array) {
+            const element: IItemGroupingTypeNodes = data.edges[array]
+            const singleData: IProductDetails = {
+                productid: element.node.itemid.rowid,
+                productMRid: element.node.itemid.defaultItemName,
+                proddescription: element.node.itemid.description,
+                lugSize: element.node.itemid.itempackaging.unitPackagingid.rowid,
+                batchRanking: null,
+                packageWeight: element.node.itemid.itemweightorsize.itemShippingSize,
+                // productonhold: element.itemid.active,
+                productActive: element.node.itemid.active,
+                rankingInGroup: null,
+                packagingShippingWeight: null,
+                unitsPerMaxShippingWeight: null
+            };
+        flattendData.push(singleData);
+        }
+        console.log('Here is the products data: ', flattendData);
+        return flattendData;
+    }
+
+    getAllProductGroupNames(departmentid: string = 'RGVwYXJ0bWVudFR5cGU6NQ==', categoryid: string ='Q2F0ZWdvcnlUeXBlOjE4'): Observable<IProductGroupName[]> {
+        return this.apollo
+            .watchQuery<IDepartmentTypeConnection>({
+                // departmentid = "Vendor Product Groups", categoryid = "Vendor Product Groups"
+                variables: { departmentid: departmentid, categoryid: categoryid },
+                query: this.productGraphqlApiStringService.ALL_PRODUCTGROUPNAMES_QUERY,
+            })
+            .valueChanges.pipe(
+                map(result => this.consolidateProductGroupNames(result.data.nodeProdmsDepartment.edges[0].node.categorySet.edges[0].node.groupSet.edges)));
+    }
+
+    private consolidateProductGroupNames(data: IGroupTypeNodes[]): IProductGroupName[] {
+        if (data.length > 0) {
+            const productGroupNameArray: IProductGroupName[] = [];
+            for (let grp = 0; grp < data.length; grp++) {
+                const element = data[grp]
+                const productGroup: IProductGroupName = {
+                    id: element.node.rowid,
+                    groupName: element.node.groupName,
+                    ID: null
+                };
+                productGroupNameArray.push(productGroup);
+            }
+            console.log('ALPHA (consolidateProductGroupNames) = ', productGroupNameArray);
+            return productGroupNameArray;
+        }
     }
 
 }

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormArray } from '@ng-stack/forms';
-import { IBatchInfo } from 'projects/production-service/src/lib/#shared-services/production.interface';
+import { IBatchInfo } from 'projects/production-service/src/lib/#shared-services/interfaces/production.interface';
 import { MaterialConfigModule } from 'src/app/material-config/material-config.module';
 import { ProductionStockByFactoryArea_MockFunction } from 'src/assets/mockData/stock-take-service/production-data-mocks';
 import { IContainerWithStockTakeAmount, IProductionStockByFactoryArea } from '../../../#shared-services/production-stock.interface';

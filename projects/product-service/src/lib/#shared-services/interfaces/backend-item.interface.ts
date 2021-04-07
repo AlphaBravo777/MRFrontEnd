@@ -1,4 +1,4 @@
-import { IItemGroup, IItemForm, IItemFormBuildingBlocks, IItemPrice } from './item';
+import { IItemGroup, IItemForm, IItemFormBuildingBlocks, IItemPrice } from './item.interface';
 
 class IItemBuildingBlocks {
     itemid: number;

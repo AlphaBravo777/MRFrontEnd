@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray } from '@ng-stack/forms';
-import { IBatchInfo } from '../../#shared-services/production.interface';
+import { IBatchInfo } from '../../#shared-services/interfaces/production.interface';
 
 @Component({
     selector: 'lib-create-batch-view',

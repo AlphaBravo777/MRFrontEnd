@@ -28,15 +28,15 @@ export class ViewOrdersGraphqlStringsService {
                                 productNode{
                                     id
                                     rowid
-                                    unitsPerMaxShippingWeight
-                                    packagingShipping{
-                                        id
-                                        packagingWeight
+                                        itemweightorsize{
+                                        maxUnitsPerShippingUnit
+                                        itemShippingSize
+                                        weightOrSize
+                                    }
+                                    itempackaging{
+                                        unitPackagingid{
+                                            rowid
                                         }
-                                    packaging{
-                                        id
-                                        packagingWeight
-                                        rowid
                                     }
                                 }
                             }

@@ -1,14 +1,4 @@
-import { IProductOrderDetails } from '../productServices/products-interface';
-import { IAccountDetails } from '../accountServices/account-interface';
-
-// export class IPnPOrder {
-//     accountID: string;
-//     commonName: string;
-//     orderDate: string;
-//     delivered: boolean;
-//     // products: IPnPOrderProduct[];
-//     orders: IProductOrderDetails[];
-// }
+import { IProductOrderDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 
 export class IPnPOrderMatrix {
     heading: any[];
@@ -16,7 +6,6 @@ export class IPnPOrderMatrix {
 }
 
 class IProductsMatrix {
-    // productName: IPnPOrderProduct;
     productName: IProductOrderDetails;
     productAmounts: number[];
     productWeights: number[];
@@ -48,10 +37,3 @@ export class IPnPRegions {
     totalPallets: number;
 }
 
-// accountID: undefined
-// amount: 66
-// largeLugs: 15
-// products: (12) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-// regionName: "KZN - PnP Premium/NN"
-// smallLugSpace: 81
-// smallLugs: 51

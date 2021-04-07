@@ -98,14 +98,63 @@ export class OrderGraphqlApiStringService {
                     }
                     productNode{
                         rowid
-                        packageweight
-                        productid
+                        defaultItemName
+                        itemweightorsize{
+                            weightOrSize
+                      }
                     }
                     productTotalAmount
                 }
             }
         }
     }`;
+
+    public SEARCH_FOR_ORDER_QUERY = gql`
+    query searchForOrder($accountid:Int, $timestampid:Int){
+        nodeOrderDetailsMicroService(timeStampid:$timestampid, accountid:$accountid){
+            edges{
+                node{
+                    rowid
+                    id
+                    accountid
+                    accountMRid
+                    commonName
+                    orderDate
+                    dateCreated
+                    lastModified
+                    userid
+                    routeid
+                    delivered
+                    orderNumber
+                    timeStampid
+                    orderproductamountsmicroserviceSet{
+                        edges{
+                            node{
+                                rowid
+                                id
+                                productMRid
+                                amount
+                                status
+                                lastModified
+                                userid
+                                packageWeight
+                                productNode{
+                                    id
+                                    defaultItemName
+                                    itemweightorsize{
+                                            itemShippingSize
+                                            maxUnitsPerShippingUnit
+                                        }
+                                    rowid
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+  `;
 
 
 }
