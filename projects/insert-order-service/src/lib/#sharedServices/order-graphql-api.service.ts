@@ -5,9 +5,8 @@ import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-s
 import { Apollo, DocumentNode } from 'apollo-angular-boost';
 import { map, take } from 'rxjs/operators';
 import { IProductOrderDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
-import { IOrderproductamountsmicroserviceSetNode } from './interfaces/order-backend-interfaces';
+import { IOrderDetailsMicroServiceTypeConnection, IOrderDetailsMicroServiceTypeNodes, IOrderProductAmountsMicroServiceType, IOrderProductAmountsMicroServiceTypeEdges,  IWeeklyOrdersCacheTypeConnection, IWeeklyOrdersCacheTypeNodes } from './interfaces/order-graphql.interface';
 import { OrderGraphqlApiStringService } from './order-graphql-api-string.service';
-import { IOrderDetailsMicroServiceTypeConnection, IOrderDetailsMicroServiceTypeNodes, IOrderProductAmountsMicroServiceType, IOrderProductAmountsMicroServiceTypeEdges,  IOrderProductAmountsMicroServiceTypeNodes,  IWeeklyOrdersCacheTypeConnection, IWeeklyOrdersCacheTypeNodes } from './interfaces/order-graphql.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,10 @@ import { IOrderDetailsMicroServiceTypeConnection, IOrderDetailsMicroServiceTypeN
 
 export class OrderGraphqlApiService {
 
-    constructor(private apollo: Apollo, private orderGraphqlApiStringService: OrderGraphqlApiStringService) { }
+    constructor(
+        private apollo: Apollo,
+        private orderGraphqlApiStringService: OrderGraphqlApiStringService
+    ) { }
 
     searchForOrdersMain(accountid: number,
         datePackage: IDate,

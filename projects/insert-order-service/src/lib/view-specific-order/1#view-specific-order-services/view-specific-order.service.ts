@@ -8,10 +8,10 @@ import { OrderService } from '../../#sharedServices/order.service';
 import { IViewRoutesData } from '../../view-orders/1#view-order-services/view-order-interface';
 import { ViewOrdersGraphqlStringsService } from '../../view-orders/1#view-order-services/view-orders-graphql-strings.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
-import { IUniqueProductTotals } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { ViewWeeklyOrdersService } from './view-weekly-orders.service';
 import { ViewSpecificOrderApiService } from './view-specific-order-api.service';
+import { IUniqueProductTotals } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 
 @Injectable({
     providedIn: 'root'

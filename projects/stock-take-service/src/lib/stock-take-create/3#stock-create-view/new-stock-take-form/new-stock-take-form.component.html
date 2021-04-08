@@ -1,5 +1,5 @@
 <div>
-    <form [formGroup]="newStockTakeForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="newStockTakeForm" autocomplete="off" (ngSubmit)="onSubmit()">
         <div class='formGrid'>
             <div>
                 <div>
@@ -22,7 +22,7 @@
             </div>
             <div>
                 <div><span class='primary-color'>Date: </span><span>{{newStockTakeForm.get('shortDate').value}}</span></div>
-                <div><span class='primary-color'>Time: </span><span>{{newStockTakeForm.get('stockTakeTime').value}}</span></div>
+                <div><span class='primary-color'>Time: </span><span style="color: red; font-weight: bold;">{{newStockTakeForm.get('stockTakeTime').value}}</span></div>
                 <div><span class='primary-color'>StockTaker: </span><span>{{newStockTakeForm.get('stockTakerName').value}}</span></div>
                 <div><span class='primary-color'>Full stocktake?: </span><span>{{newStockTakeForm.get('isFullStockTake').value}}</span></div>
                 <button mat-raised-button color='primary' type="submit" [disabled]='newStockTakeForm.invalid'>Create</button>

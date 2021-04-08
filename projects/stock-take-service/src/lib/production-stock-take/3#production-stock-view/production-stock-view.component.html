@@ -1,4 +1,4 @@
-<form [formGroup]="mainStockForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="mainStockForm" autocomplete="off" (ngSubmit)="onSubmit()">
     <div class='buttons center-div'>
         <button mat-raised-button color='primary' type="button" (click)="onSubmit()" [disabled]='mainStockForm.invalid || mainStockForm.pristine'>
             Submit Stocktake <mat-icon color='default'>add</mat-icon>
@@ -16,9 +16,10 @@
         </button>
     </div>
     <div class='stockTakeHeading center-div'>
-        <span>Time: {{this.mainStockForm.get("stockTakeTime").value}} </span>
-        <span>Date: {{this.mainStockForm.get("shortDate").value}} </span>
-        <span>Stocktaker: {{this.mainStockForm.get("stockTakerName").value}} </span>
+        <span>Time: </span><span class='subject'>{{this.mainStockForm.get("stockTakeTime").value}} </span>
+        <span>Date: </span><span class='subject'>{{this.mainStockForm.get("shortDate").value}} </span>
+        <span>Stocktaker: </span><span class='subject'>{{this.mainStockForm.get("stockTakerName").value}} </span>
+        <span>ID: </span><span class='subject'>{{this.mainStockForm.get("id").value}} </span>
     </div>
     <div class='mainContainer'  >
         <div class='printContainer' formArrayName="containers">

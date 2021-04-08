@@ -101,6 +101,9 @@ export class OrderGraphqlApiStringService {
                         defaultItemName
                         itemweightorsize{
                             weightOrSize
+                            weightOrSizeMeasuringUnitid{
+                                convertionToMainUnitAmount
+                            }
                       }
                     }
                     productTotalAmount

@@ -24,9 +24,9 @@
                 <span class='heading'> Stock read in by: </span><span>{{stockTake.username}}</span>
             </div>
             <div>
-                <span class='heading'>Stock take id: </span><span>{{stockTake.id}}</span>
+                <span class='heading'>Stock take id: </span><span style="color: red; font-weight: bold;">{{stockTake.id}}</span>
                 <span class='heading'> Full stock take: </span><span>{{stockTake.isFullStockTake}}</span>
-                <span class='heading'> Previous stocktake id: </span><span>{{stockTake.parentStockTake}}</span>
+                <span class='heading'> Previous stocktake id: </span><span >{{stockTake.parentStockTake}}</span>
                 <span class='heading'><img class='deleteInstance' src="assets/images/delete.png" (click)='deleteStocktakeInstance(stockTake)'></span>
             </div>
         </mat-card>
