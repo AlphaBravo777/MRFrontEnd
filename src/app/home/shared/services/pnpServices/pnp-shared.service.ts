@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { PnpSharedApiService } from './pnp-shared-api.service';
-import { GetDate$Service } from '../../main-portal/date-picker/date-picker-service/get-date$.service';
 import { Observable, of, combineLatest } from 'rxjs';
 import { switchMap, tap, map } from 'rxjs/operators';
 import { IPnPOrderMatrix, IPnPOrderTotals, IPalletPickedDetails } from './pnp-shared-interfaces';
 import { ToolboxGroupService } from '../toolbox/toolbox-group.service';
-import { IProductOrderDetails } from '../../../../../../projects/product-service/src/lib/#shared-services/interfaces/products-interface';
 import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/order-service-Interfaces';
+import { IProductOrderDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
+import { GetDate$Service } from '../../main-portal/date-picker/date-picker-service/get-date$.service';
 
 @Injectable({
     providedIn: 'root'
@@ -54,38 +54,38 @@ export class PnpSharedService {
         return of(combinedOrderArray);
     }
 
-    calculateTotalPnPOrderWeightForDate(orders?: IOrderDetails[]): Observable<IPnPOrderTotals> {
+    calculateTotalPnPOrderWeightForDate(orders: IOrderDetails[]): Observable<IPnPOrderTotals> {
 
-        const addProductWeightsTogether = (workingOrders: IOrderDetails[]): Observable<IPnPOrderTotals> => {
+        // const addProductWeightsTogether = (workingOrders: IOrderDetails[]): Observable<IPnPOrderTotals> => {
             let pnpOrderTotalWeight = 0;
             let pnpOrderTotalLugs = 0;
 
-            for (let order = 0; order < workingOrders.length; order++) {
-                for (let product = 0; product < workingOrders[order].orders.length; product++) {
-                    const productWeight = workingOrders[order].orders[product].amount *
-                        workingOrders[order].orders[product].packageWeight;
+            for (let order = 0; order < orders.length; order++) {
+                for (let product = 0; product < orders[order].orders.length; product++) {
+                    const productWeight = orders[order].orders[product].amount *
+                        orders[order].orders[product].packageWeight;
                     pnpOrderTotalWeight = pnpOrderTotalWeight + productWeight;
-                    pnpOrderTotalLugs = pnpOrderTotalLugs + workingOrders[order].orders[product].amount;
+                    pnpOrderTotalLugs = pnpOrderTotalLugs + orders[order].orders[product].amount;
                 }
             }
             // console.log('The total number of pnp Lugs are: ', pnpOrderTotalLugs);
             return of({pnpOrderTotalWeight: pnpOrderTotalWeight,
                 pnpOrderTotalLugs: pnpOrderTotalLugs, pnpOrderTotalPallets: null});
-        };
+        // };
 
-        if (orders) {
-            return addProductWeightsTogether(orders);
-        } else {
-            return this.getSelectedDayPnPOrders().pipe(
-                switchMap(newlyFetchedOrders => addProductWeightsTogether(newlyFetchedOrders))
-            );
-        }
+        // if (orders) {
+        //     return addProductWeightsTogether(orders);
+        // } else {
+        //     return this.getSelectedDayPnPOrders().pipe(
+        //         switchMap(newlyFetchedOrders => addProductWeightsTogether(newlyFetchedOrders))
+        //     );
+        // }
     }
 
-    createPnPRegionsAndProductsMatrix(orders?: IOrderDetails[]): Observable<IPnPOrderMatrix> {
+    createPnPRegionsAndProductsMatrix(orders: IOrderDetails[]): Observable<IPnPOrderMatrix> {
         // console.log('Here is the Matrix order data: ', JSON.parse(JSON.stringify(orders)));
 
-        const pnpRegionsAndProductsMatrix = (workingOrders: IOrderDetails[]): Observable<IPnPOrderMatrix> => {
+        // const pnpRegionsAndProductsMatrix = (workingOrders: IOrderDetails[]): Observable<IPnPOrderMatrix> => {
 
             const pnpOrderMatrix: IPnPOrderMatrix = {heading: [], products: []};
 
@@ -141,27 +141,27 @@ export class PnpSharedService {
             };
 
             const allPnPActiveProducts$ = this.getAllPnPProductsThatAreActive();
-            const pnpOrders$ =  this.addPnPRegionsDeliAndPremiumOrderTogether(JSON.parse(JSON.stringify(workingOrders)));
-            const pnpproductTotals$ = this.getTotalAmountOfEachPnPProductForDate(JSON.parse(JSON.stringify(workingOrders)));
+            const pnpOrders$ =  this.addPnPRegionsDeliAndPremiumOrderTogether(JSON.parse(JSON.stringify(orders)));
+            const pnpproductTotals$ = this.getTotalAmountOfEachPnPProductForDate(JSON.parse(JSON.stringify(orders)));
             return combineLatest([allPnPActiveProducts$, pnpOrders$, pnpproductTotals$]).pipe(
                 tap(data => console.log('PnP Orders Matrix ', data)),
                 map(data => createPnPMatrix(data[0], data[1], data[2])),
             );
 
-        };
+        // };
 
-        if (orders) {
-            return pnpRegionsAndProductsMatrix(orders);
-        } else {
-            return this.getSelectedDayPnPOrders().pipe(
-                switchMap(newlyFetchedOrders => pnpRegionsAndProductsMatrix(newlyFetchedOrders))
-            );
-        }
+        // if (orders) {
+        //     return pnpRegionsAndProductsMatrix(orders);
+        // } else {
+        //     return this.getSelectedDayPnPOrders().pipe(
+        //         switchMap(newlyFetchedOrders => pnpRegionsAndProductsMatrix(newlyFetchedOrders))
+        //     );
+        // }
     }
 
-    getTotalAmountOfEachPnPProductForDate(orders?: IOrderDetails[]): Observable<IProductOrderDetails[]> {
+    private getTotalAmountOfEachPnPProductForDate(orders: IOrderDetails[]): Observable<IProductOrderDetails[]> {
 
-        const addSameProductsTogether = (workingOrders: IOrderDetails[]): Observable<IProductOrderDetails[]> => {
+        // const addSameProductsTogether = (workingOrders: IOrderDetails[]): Observable<IProductOrderDetails[]> => {
             let productGroup: IProductOrderDetails[]  = [];
 
             const individualProducts = (orderProduct: IProductOrderDetails) => {
@@ -177,41 +177,41 @@ export class PnpSharedService {
                 }
             };
 
-            for (let order = 0; order < workingOrders.length; order++) {
-                for (let product = 0; product < workingOrders[order].orders.length; product++) {
-                    individualProducts(workingOrders[order].orders[product]);
+            for (let order = 0; order < orders.length; order++) {
+                for (let product = 0; product < orders[order].orders.length; product++) {
+                    individualProducts(orders[order].orders[product]);
                 }
             }
             this.toolBoxService.sorting(productGroup, 'rankingInGroup');
             productGroup = this.calculateTotalWeightForEachProduct(productGroup);
             return of(productGroup);
-        };
+        // };
 
-        if (orders) {
-            return addSameProductsTogether(orders);
-        } else {
-            return this.getSelectedDayPnPOrders().pipe(
-                switchMap(newlyFetchedOrders => addSameProductsTogether(newlyFetchedOrders))
-            );
-        }
+        // if (orders) {
+        //     return addSameProductsTogether(orders);
+        // } else {
+        //     return this.getSelectedDayPnPOrders().pipe(
+        //         switchMap(newlyFetchedOrders => addSameProductsTogether(newlyFetchedOrders))
+        //     );
+        // }
     }
 
-    calculateTotalWeightForEachProduct = (products: IProductOrderDetails[]) => {
+    private calculateTotalWeightForEachProduct = (products: IProductOrderDetails[]) => {
             products.forEach(product => product.unitWeight = product.amount * product.packageWeight);
             return products;
     }
 
-    getSelectedDayPnPOrders(): Observable<IOrderDetails[]> {
-        return this.getDateService.currentDatePackage$.pipe(
-            switchMap(datePackage => {
-                if (datePackage.id === null) {
-                    return of([]);
-                } else {
-                    return this.pnpSharedApiService.getPnPOrder(datePackage);
-                }
-            })
-        );
-    }
+    // private getSelectedDayPnPOrders(): Observable<IOrderDetails[]> {
+    //     return this.getDateService.currentDatePackage$.pipe(
+    //         switchMap(datePackage => {
+    //             if (datePackage.id === null) {
+    //                 return of([]);
+    //             } else {
+    //                 return this.pnpSharedApiService.getPnPOrder(datePackage);
+    //             }
+    //         })
+    //     );
+    // }
 
     calculateTotalPalletsForOrder(pallets: IPalletPickedDetails[]): Observable<number> {
         let totalPalletsForOrder = 0;

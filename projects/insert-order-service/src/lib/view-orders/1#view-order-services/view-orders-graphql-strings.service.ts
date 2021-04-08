@@ -37,6 +37,9 @@ export class ViewOrdersGraphqlStringsService {
                                         unitPackagingid{
                                             rowid
                                         }
+                                        shippingPackagingid{
+                                            weightOfPackaging
+                                        }
                                     }
                                 }
                             }

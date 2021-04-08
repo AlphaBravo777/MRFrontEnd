@@ -1,9 +1,12 @@
 <app-box-shadow-container>
     <mr-insert-view-order-main-view
-        *ngIf='smallRoutesForDay'
+        *ngIf='smallRoutesForDay; else noData'
         [smallRoutesForDay]='smallRoutesForDay'
         [totalWeightForTheDay]='totalWeightForTheDay'
         [currentDisplayingDate]='currentDisplayingDate'
         [weeklyOrdersHaveBeenRetrieved]='weeklyOrdersHaveBeenRetrieved'>
     </mr-insert-view-order-main-view>
+    <ng-template #noData>
+        There are no orders available yet for this day...
+    </ng-template> 
 </app-box-shadow-container>

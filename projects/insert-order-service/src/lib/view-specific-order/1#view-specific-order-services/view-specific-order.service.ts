@@ -69,17 +69,20 @@ export class ViewSpecificOrderService {
         const uniqueProductDetails: Set<IUniqueProductTotals> = new Set<IUniqueProductTotals>();
         orders.forEach(order => {
             order.orders.forEach(product => {
+                const weightOfHoldingContianers = Math.ceil(product.amount / product.unitsPerMaxShippingWeight) * product.packagingShippingWeight
+                const weightOfTotalProduct = product.amount * product.packageWeight
                 if (product.productid in uniqueProductDetails) {
                     uniqueProductDetails[product.productid].totalAmount += product.amount;
                     uniqueProductDetails[product.productid].totalWeight += product.amount * product.packageWeight;
-                    uniqueProductDetails[product.productid].totalWeightWithCrates += (Math.ceil(product.amount /
-                        product.unitsPerMaxShippingWeight) * product.packagingShippingWeight) + (product.amount * product.packageWeight);
+                    uniqueProductDetails[product.productid].totalWeightWithCrates += weightOfHoldingContianers + weightOfTotalProduct;
                 } else {
                     const uniqueProduct: IUniqueProductTotals = {
-                        productMRid: product.productMRid, rowNumber: null, totalAmount: product.amount,
-                        totalWeight: product.amount * product.packageWeight, unitWeight: product.packageWeight,
-                        totalWeightWithCrates: (Math.ceil(product.amount / product.unitsPerMaxShippingWeight) *
-                        product.packagingShippingWeight) + (product.amount * product.packageWeight)
+                        productMRid: product.productMRid,
+                        rowNumber: null,
+                        totalAmount: product.amount,
+                        totalWeight: product.amount * product.packageWeight,
+                        unitWeight: product.packageWeight,
+                        totalWeightWithCrates: weightOfHoldingContianers + weightOfTotalProduct
                     };
                     uniqueProductDetails[product.productid] = uniqueProduct;
                 }
@@ -108,7 +111,8 @@ export class ViewSpecificOrderService {
         return newOrders;
     }
 
-    calculateRouteWeightWithAndWithoutCrates(uniqueProductsDetails: Set<IUniqueProductTotals>): Array<any> {
+    calculateRouteWeightWithAndWithoutCrates(uniqueProductsDetails: Set<IUniqueProductTotals>): Array<number> {
+        console.log('The unique products = ', uniqueProductsDetails)
         let totalWeight = 0;
         let totalWeightWithCrates = 0;
         for (const key in uniqueProductsDetails) {

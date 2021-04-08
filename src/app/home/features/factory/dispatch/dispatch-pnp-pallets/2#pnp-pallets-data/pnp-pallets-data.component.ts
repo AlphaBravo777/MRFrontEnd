@@ -47,8 +47,8 @@ export class PnpPalletsDataComponent implements OnInit, OnDestroy {
         ).subscribe();
     }
 
+    // This function needs some serious refracturing
     getPnPOrdersForDate(datePackage: IDate): Observable<any> {
-        // return this.pnpPalletService.getPnPOrderForDateGiven(datePackage).pipe(
         return this.pnpPalletService.searchForOrdersMain(undefined, datePackage, 18).pipe(
             tap(data => console.log('The data of the pnp Order = ', data)),
             tap(data => this.orders = data),

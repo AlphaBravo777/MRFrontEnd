@@ -67,7 +67,7 @@ export class OrderGraphqlApiService {
                         productActive: null,
                         lugSize: calculateLugSize(productAmount.productNode.itempackaging.unitPackagingid.rowid),
                         rankingInGroup: null, // productAmount.productrankingInGroup,
-                        packagingShippingWeight: productAmount.productNode.itemweightorsize.itemShippingSize || 0,
+                        packagingShippingWeight: productAmount.productNode.itempackaging.shippingPackagingid.weightOfPackaging,
                         unitsPerMaxShippingWeight: productAmount.productNode.itemweightorsize.maxUnitsPerShippingUnit,
                     };
                     products.push(singleGroup);

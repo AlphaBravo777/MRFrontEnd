@@ -62,5 +62,6 @@ export class IUniqueProductTotals {
     totalAmount: number;
     totalWeight: number;
     totalWeightWithCrates: number;
+    // packagingType: number
 }
 

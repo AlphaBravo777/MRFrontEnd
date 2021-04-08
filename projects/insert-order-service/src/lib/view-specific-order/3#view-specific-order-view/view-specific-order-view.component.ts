@@ -32,6 +32,7 @@ export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         console.log('The current route = ', this.currentRoute);
         this.insertSpecificRouteTable();
+        this.calculateCratesWeight()
     }
 
     insertSpecificRouteTable() {
@@ -40,6 +41,11 @@ export class ViewSpecificOrderViewComponent implements OnInit, AfterViewInit {
         this.table = returnTable;
         this.maxShopLength = this.specificRouteTable.calculateLongestHeading(returnTableArray);
         this.tableDiv.nativeElement.appendChild(this.table);
+    }
+
+    calculateCratesWeight() {
+        // For some reason this function was just missing (maybe a bad git commit), and I added it by guessing how it used to work
+        [this.totalRouteWeight, this.totalRouteWeightWithCrates] = this.viewSpecificOrderService.calculateRouteWeightWithAndWithoutCrates(this.uniqueProductsDetails)
     }
 
     onClick(event) {

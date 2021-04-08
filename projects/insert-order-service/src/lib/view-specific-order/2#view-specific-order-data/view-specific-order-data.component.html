@@ -1,12 +1,13 @@
-<!-- <app-is-data-available
-    [noDataMessage]='"There are no orders available, or you must select a route again"'
-    [data]='orders'> -->
 <app-main-outside-container>
-    <mr-insert-view-specific-order-view
-        *ngIf='orders.length > 0'
+    <ng-container *ngIf="orders.length > 0; then showBlock; else notShowBlock"></ng-container>
+    <ng-template #showBlock>
+        <mr-insert-view-specific-order-view
         [orders]='orders'
         [currentRoute]='currentRoute'
         [uniqueProductsDetails]='uniqueProductsDetails'>
     </mr-insert-view-specific-order-view>
+    </ng-template>            
+    <ng-template #notShowBlock>
+        There are no orders available
+    </ng-template> 
 </app-main-outside-container>
-<!-- </app-is-data-available> -->

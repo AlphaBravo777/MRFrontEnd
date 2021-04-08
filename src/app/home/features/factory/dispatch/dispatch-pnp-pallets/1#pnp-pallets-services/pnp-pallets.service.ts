@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
 import { PnpPickPalletsService } from './pnp-pick-pallets.service';
 import { IPalletPickedDetails, IPnPRegions } from 'src/app/home/shared/services/pnpServices/pnp-shared-interfaces';
-import { PnpSharedApiService } from 'src/app/home/shared/services/pnpServices/pnp-shared-api.service';
 import { IOrderDetails } from 'projects/insert-order-service/src/lib/#sharedServices/interfaces/order-service-Interfaces';
 import { OrderGraphqlApiService } from 'projects/insert-order-service/src/lib/#sharedServices/order-graphql-api.service';
 
@@ -14,13 +13,7 @@ export class PnpPalletsService {
 
     constructor(
         private pickPalletsService: PnpPickPalletsService,
-        private pnpSharedApiService: PnpSharedApiService,
         private orderGraphqlApiService: OrderGraphqlApiService) {}
-
-    getPnPOrderForDateGiven(datePackage: IDate): Observable<IOrderDetails[]> {
-        // This line needs to be refractored to the new DB table
-        return this.pnpSharedApiService.getPnPOrder(datePackage).pipe();
-    }
 
     searchForOrdersMain(account: number, datePackage: IDate, routeid: number): Observable<IOrderDetails[]> {
         return this.orderGraphqlApiService.searchForOrdersMain(account, datePackage, routeid);
