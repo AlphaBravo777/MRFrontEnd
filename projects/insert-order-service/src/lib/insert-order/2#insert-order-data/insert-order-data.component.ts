@@ -11,6 +11,7 @@ import { InsertOrderService } from '../1#insert-order-services/insert-order.serv
 import { InsertOrderData$Service } from '../1#insert-order-services/insert-order-data$.service';
 import { IRoute } from 'src/app/home/shared/services/routesServices/routes-interface';
 import { IAccountDetails } from 'projects/accounts-service/src/lib/#sharedServices/interfaces/account-interface';
+import { SnackBarAlertService } from 'src/app/home/core/alerts/snack-bar-alert-service/snack-bar-alert.service';
 
 @Component({
     selector: 'mr-insert-insert-order-data',
@@ -29,7 +30,8 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
         private getDateService: GetDate$Service,
         private orderService: OrderService,
         private insertOrderService: InsertOrderService,
-        private insertOrderData$Service: InsertOrderData$Service) {}
+        private insertOrderData$Service: InsertOrderData$Service,
+        private snackBarAlertService: SnackBarAlertService) {}
 
     ngOnInit() {
         this.mainInsertForm = this.insertFormChangesService.getOrderInsertForm();
@@ -57,6 +59,7 @@ export class InsertOrderDataComponent implements OnInit, OnDestroy {
         orders[0].routeName = orders[1].routeName;
         this.orderService.insertNewOrderAndProducts([orders[0]]).pipe(
             take(1),
+            tap(() => this.snackBarAlertService.success('Order Inserted', 'X', 2000)),
             tap(response => {
                 if ('error' in response) {
                     this.errorMessages.push({error: response.error});

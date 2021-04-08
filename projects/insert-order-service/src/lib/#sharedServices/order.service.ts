@@ -96,9 +96,9 @@ export class OrderService {
         this.unknownProducts.next(products);
     }
 
-    deleteProductFromOrder(amountid: number) {
-        this.insertOrderApiService.deleteProductFromOrder(amountid).subscribe(
-            data => console.log('Alfa(delete product return data) = ', data)
+    deleteProductFromOrder(amountid: number): Observable<any> {
+        return this.insertOrderApiService.deleteProductFromOrder(amountid).pipe(
+            tap(data => console.log('Alfa(delete product return data) = ', data))
         );
     }
 

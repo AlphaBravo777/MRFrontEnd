@@ -13,10 +13,7 @@ export class SnackBarAlertService {
 
     constructor(public snackBar: MatSnackBar) {}
 
-    // alertBackendError(error) {
-    //     const errorMessage: string = Object.keys(error.error)[0] + ': ' + error.error[Object.keys(error.error)[0]]
-    //     this.alert(errorMessage, 'X', 5000)
-    // }
+    // You might get an error if you pass in a time that is less that 1000ms (1s)
 
     alertBackendError(error) {
         let errorMessage = '';

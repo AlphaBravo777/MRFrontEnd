@@ -5,6 +5,8 @@ import { ProductValidationService } from '../insert-products-services/product-va
 import { InsertFormChangesService } from '../../../1#insert-order-services/insert-form-changes.service';
 import { OrderService } from 'projects/insert-order-service/src/lib/#sharedServices/order.service';
 import { IProductDetails } from 'projects/product-service/src/lib/#shared-services/interfaces/products-interface';
+import { take, tap } from 'rxjs/operators';
+import { SnackBarAlertService } from 'src/app/home/core/alerts/snack-bar-alert-service/snack-bar-alert.service';
 
 @Component({
     selector: 'mr-insert-insert-product-view',
@@ -37,7 +39,8 @@ export class InsertProductViewComponent implements OnInit {
     constructor(private fgd: FormGroupDirective,
         private productValidationService: ProductValidationService,
         private insertFormChangesService: InsertFormChangesService,
-        private insertOrderService: OrderService) {}
+        private insertOrderService: OrderService,
+        private snackBarAlertService: SnackBarAlertService) {}
 
     ngOnInit() {
         console.log('insert Products', this.productsOrderedFormControl);
@@ -50,7 +53,10 @@ export class InsertProductViewComponent implements OnInit {
         // Check if product has an orderid, true = send request to backend to delete product
         const amountid = this.insertFormChangesService.deleteOrder(index);
         if (amountid) {
-            this.insertOrderService.deleteProductFromOrder(amountid);
+            this.insertOrderService.deleteProductFromOrder(amountid).pipe(
+                take(1),
+                tap(() => this.snackBarAlertService.caution('Product deleted', 'X', 1000)),
+            ).subscribe();
         }
         console.log('Alpha(Remove order) = ', amountid);
     }
