@@ -12,13 +12,13 @@ export class UrlsService {
     // Development Server (Localhost)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    // root = environment.root; // Local Meatrite dev backend servers // There is a problem where if you load the route from the enviroment it builds a strange url with double the root in the url
+    root = environment.root; // Local Meatrite dev backend servers // There is a problem where if you load the route from the enviroment it builds a strange url with double the root in the url
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Production (27) Server (New Docker Server)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    root = 'http://192.168.2.27';
+    // root = 'http://192.168.2.27';
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Links that should work on all servers
@@ -105,7 +105,7 @@ export class UrlsService {
 
 
 
-    currentVersion = '3.1.0';
+    currentVersion = '3.1.1';
 
 }
 
@@ -164,9 +164,12 @@ export class UrlsService {
 // 3.0.2
     // Highlight input boxes as you tab down
     // You can now read in half a stock take
-// 3.1.0
+// 3.1.0 (Release 2021/04/09)
     // Changed ordersService to work from productionService and no longer productMSdb
     // Added smaller things like green confirm when ientering order
+// 3.1.1
+    // All orders weekly cache now gets inserted with backend tests
+    // Can now pick weekly orders cache display data with year included, and not just weekNr
 
 
 

@@ -13,6 +13,7 @@ import { DocumentNode } from 'graphql';
 import { ProductGraphqlApiService } from 'projects/product-service/src/lib/#shared-services/product-graphql-api.service';
 import { IAccountDetails } from 'projects/accounts-service/src/lib/#sharedServices/interfaces/account-interface';
 import { AccountGraphqlApiService } from 'projects/accounts-service/src/lib/#sharedServices/account-graphql-api.service';
+import { InsertOrderData$Service } from '../insert-order/1#insert-order-services/insert-order-data$.service';
 
 @Injectable({
     providedIn: 'root'
@@ -22,8 +23,14 @@ export class OrderService {
         private productGraphqlApiService: ProductGraphqlApiService,
         private routesSharedAPIService: RoutesSharedApiService,
         private orderGraphQlApiService: OrderGraphqlApiService,
-        private accountGraphqlApiService: AccountGraphqlApiService
-        ) {}
+        private accountGraphqlApiService: AccountGraphqlApiService,
+        private insertOrderData$Service: InsertOrderData$Service
+        ) {
+            this.getAllRoutes().pipe(
+                take(1)
+            ).subscribe();
+        }
+
 
     private ordersInserted = new BehaviorSubject<IOrderDetails[]>([]);
     currentOrdersInserted$ = this.ordersInserted.asObservable();
@@ -60,12 +67,33 @@ export class OrderService {
         );
     }
 
-    changeOrderDetails(orders: IOrderDetails[]): Observable<IOrderDetails> {
+    deleteOrder(order: IOrderDetails) {  // There would need to be a cache check when changing order details
+        // const orderAccount: IAccountDetails = Object.assign({}, order);
+        this.insertOrderApiService.deleteOrder(order.orderid).pipe(
+            take(1),
+            tap(() => this.insertOrderData$Service.setWorkingAccount(null))
+        ).subscribe(
+            data => console.log('Alfa(delete order return data) = ', data)
+        );
+    }
+
+    changeOrderDetails(orders: IOrderDetails[]): Observable<IOrderDetails> {   // There would need to be a cache check when changing order details
         console.log('Bravo(c) = ', JSON.parse(JSON.stringify(orders)));
         return from(orders).pipe(
             tap(order => order.orders = null),
             concatMap(order => this.insertOrderApiService.enterNewOrderDetails(order)),
         );
+    }
+
+    deleteProductFromOrder(amountid: number): Observable<any> {
+        return this.insertOrderApiService.deleteProductFromOrder(amountid).pipe(
+            tap(data => console.log('Alfa(delete product return data) = ', data))
+        );
+    }
+
+    updateRouteDate(route: IViewRoutesData, currentDatePackage: IDate, newDatePackage: IDate): Observable<IInserOrderErrors> { // There would need to be a cache check when changing order details
+        console.log('The route change data = ', route, currentDatePackage);
+        return this.insertOrderApiService.updateRouteDate(route, currentDatePackage, newDatePackage);
     }
 
     searchForOrder(datePackage: IDate, accountid: number): Observable<IOrderDetails[]> {  // IOrderDetails
@@ -96,11 +124,7 @@ export class OrderService {
         this.unknownProducts.next(products);
     }
 
-    deleteProductFromOrder(amountid: number): Observable<any> {
-        return this.insertOrderApiService.deleteProductFromOrder(amountid).pipe(
-            tap(data => console.log('Alfa(delete product return data) = ', data))
-        );
-    }
+
 
     getProductListToPickFromForAccount(account: IAccountDetails): Observable<IProductDetails[]> {
         return this.productGraphqlApiService.getProductsOfProductGroup(account.productGroupid.ID).pipe(
@@ -117,7 +141,9 @@ export class OrderService {
     }
 
     getAllRoutes(): Observable<IRoute[]> {
-        return this.routesSharedAPIService.getAllRoutes();
+        return this.routesSharedAPIService.getAllRoutes().pipe(
+            tap(routes => this.insertOrderData$Service.setRoutes(routes)),
+        )
     }
 
     getWeeklyOrders(datePackage: IDate): Observable<IWeeklyOrdersDetails[]> {
@@ -128,9 +154,6 @@ export class OrderService {
         return this.accountGraphqlApiService.getAccountByAccountid(accountid).pipe();
     }
 
-    updateRouteDate(route: IViewRoutesData, currentDatePackage: IDate, newDatePackage: IDate): Observable<IInserOrderErrors> {
-        console.log('The route change data = ', route, currentDatePackage);
-        return this.insertOrderApiService.updateRouteDate(route, currentDatePackage, newDatePackage);
-    }
+
 
 }

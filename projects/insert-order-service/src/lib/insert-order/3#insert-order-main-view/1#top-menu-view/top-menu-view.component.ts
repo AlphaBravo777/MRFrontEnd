@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IOrderDetails } from '../../../#sharedServices/interfaces/order-service-Interfaces';
-import { InsertOrderService } from '../../1#insert-order-services/insert-order.service';
+import { OrderService } from '../../../#sharedServices/order.service';
 
 @Component({
     selector: 'mr-insert-top-menu-view',
@@ -13,11 +13,11 @@ export class TopMenuViewComponent implements OnInit {
     @Input() mainInsertForm: FormGroup;
     @Input() routeForm: FormGroup;
 
-    constructor(private insertOrderService: InsertOrderService) {}
+    constructor(private orderService: OrderService) {}
 
     ngOnInit() {}
 
     deleteOrder(order: IOrderDetails) {
-        this.insertOrderService.deleteOrder(order);
+        this.orderService.deleteOrder(order);
     }
 }

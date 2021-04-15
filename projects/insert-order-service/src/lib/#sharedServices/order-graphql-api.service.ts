@@ -114,14 +114,13 @@ export class OrderGraphqlApiService {
     }
 
     getWeeklyOrders(datePackage: IDate): Observable<IWeeklyOrdersDetails[]> {
-        // NB NB NB NB Here we need to get the year as well, so that we do not pull in last years orders as well
         // if (datePackage.id === null) {  // Do this, else if datePackage === null EVERY order will be returned
         //     return of([]);
         // }
         console.log('getweeklyOrders date package = ', datePackage);
         return this.apollo
             .watchQuery<IWeeklyOrdersCacheTypeConnection>({
-                variables: { weekNr: datePackage.week },
+                variables: { weekNr: datePackage.week, year: datePackage.year },
                 query: this.orderGraphqlApiStringService.QUERY_FOR_GETTING_WEEKLY_DATA,
             })
             .valueChanges.pipe(

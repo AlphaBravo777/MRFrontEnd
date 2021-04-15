@@ -20,7 +20,7 @@ export class InsertOrderService {
         private insertFormChangesService: InsertFormChangesService,
         private insertOrderService: OrderService,
         private insertOrderData$Service: InsertOrderData$Service,
-        private insertOrderApiService: InsertOrderApiService) {}
+        ) {}
 
     datePackageOrAccountChanged(workingAccount: IAccountDetails, datePackage: IDate): Observable<any> {
         console.log(' - - - - - Account Selection is running - - - - - ', workingAccount);
@@ -90,13 +90,5 @@ export class InsertOrderService {
         }
     }
 
-    deleteOrder(order: IOrderDetails) {
-        // const orderAccount: IAccountDetails = Object.assign({}, order);
-        this.insertOrderApiService.deleteOrder(order.orderid).pipe(
-            take(1),
-            tap(() => this.insertOrderData$Service.setWorkingAccount(null))
-        ).subscribe(
-            data => console.log('Alfa(delete order return data) = ', data)
-        );
-    }
+
 }

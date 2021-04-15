@@ -51,6 +51,10 @@ export class InsertProductViewComponent implements OnInit {
 
     deleteProduct(index: number) {
         // Check if product has an orderid, true = send request to backend to delete product
+        if (index === 0) {
+            this.snackBarAlertService.alert('You must have at least one product in an order. Delete the whole order or add another product before deleting this one', 'X', 10000)
+            return
+        }
         const amountid = this.insertFormChangesService.deleteOrder(index);
         if (amountid) {
             this.insertOrderService.deleteProductFromOrder(amountid).pipe(

@@ -27,18 +27,22 @@ export class InsertOrderData$Service {
     private orderNumbersToPickFrom = new BehaviorSubject<IOrderDetails[]>([]);
     orderNumbersToPickFrom$ = this.orderNumbersToPickFrom.asObservable();
 
-    constructor(private orderService: OrderService) {
-        console.log('We are not trying to get all the routes')
-        this.getAllRoutes();
-    }
+    // constructor(private orderService: OrderService) {
+    //     console.log('We are now trying to get all the routes')
+    //     this.getAllRoutes();
+    // }
 
-    private getAllRoutes() {
-        this.orderService.getAllRoutes().pipe(
-            take(1),
-            tap(routes => this.setRoutes(routes)),
-            tap(routes => console.log('all the routes that we have gotten = ', routes))
-        ).subscribe();
-    }
+    constructor() {}
+
+    // We must refracture get all routes out of here in to a service that does not need to be added. DataServices do not need to use a service
+
+    // private getAllRoutes() {
+    //     this.orderService.getAllRoutes().pipe(
+    //         take(1),
+    //         tap(routes => this.setRoutes(routes)),
+    //         tap(routes => console.log('all the routes that we have gotten = ', routes))
+    //     ).subscribe();
+    // }
 
     setRoutes(routes: IRoute[]) {
         this.routes.next(routes);

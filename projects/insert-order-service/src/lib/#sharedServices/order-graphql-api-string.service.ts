@@ -85,8 +85,8 @@ export class OrderGraphqlApiStringService {
     }`;
 
     public QUERY_FOR_GETTING_WEEKLY_DATA = gql`
-    query getWeeklyOrders($weekNr:Int){
-        nodeWeeklyOrdersMicroService(weekNum:$weekNr){
+    query getWeeklyOrders($weekNr:Int, $year:Int){
+        nodeWeeklyOrdersMicroService(weekNum:$weekNr, year:$year){
             edges{
                 node{
                     timeStampid{
