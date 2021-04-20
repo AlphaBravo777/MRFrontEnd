@@ -12,13 +12,13 @@ export class UrlsService {
     // Development Server (Localhost)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    root = environment.root; // Local Meatrite dev backend servers // There is a problem where if you load the route from the enviroment it builds a strange url with double the root in the url
+    // root = environment.root; // Local Meatrite dev backend servers // There is a problem where if you load the route from the enviroment it builds a strange url with double the root in the url
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Production (27) Server (New Docker Server)
     // -----------------------------------------------------------------------------------------------------------------------
 
-    // root = 'http://192.168.2.27';
+    root = 'http://192.168.2.27';
 
     // -----------------------------------------------------------------------------------------------------------------------
     // Links that should work on all servers
@@ -170,6 +170,7 @@ export class UrlsService {
 // 3.1.1
     // All orders weekly cache now gets inserted with backend tests
     // Can now pick weekly orders cache display data with year included, and not just weekNr
+    // Also made it so that an order can not have less than 1 products when deleting products
 
 
 

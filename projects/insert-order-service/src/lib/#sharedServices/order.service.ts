@@ -67,7 +67,7 @@ export class OrderService {
         );
     }
 
-    deleteOrder(order: IOrderDetails) {  // There would need to be a cache check when changing order details
+    deleteOrder(order: IOrderDetails) {
         // const orderAccount: IAccountDetails = Object.assign({}, order);
         this.insertOrderApiService.deleteOrder(order.orderid).pipe(
             take(1),
@@ -77,7 +77,7 @@ export class OrderService {
         );
     }
 
-    changeOrderDetails(orders: IOrderDetails[]): Observable<IOrderDetails> {   // There would need to be a cache check when changing order details
+    changeOrderDetails(orders: IOrderDetails[]): Observable<IOrderDetails> {
         console.log('Bravo(c) = ', JSON.parse(JSON.stringify(orders)));
         return from(orders).pipe(
             tap(order => order.orders = null),

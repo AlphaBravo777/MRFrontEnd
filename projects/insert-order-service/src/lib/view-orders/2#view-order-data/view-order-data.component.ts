@@ -6,6 +6,7 @@ import { tap, concatMap } from 'rxjs/operators';
 import { ViewOrderData$Service } from '../1#view-order-services/view-order-data$.service';
 import { GetDate$Service } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/get-date$.service';
 import { IDate } from 'src/app/home/shared/main-portal/date-picker/date-picker-service/date-interface';
+import { OrderService } from '../../#sharedServices/order.service';
 
 @Component({
     selector: 'mr-insert-view-order-data',
@@ -22,7 +23,9 @@ export class ViewOrderDataComponent implements OnInit, OnDestroy {
 
     constructor(private viewOrderService: ViewOrderService,
         private viewOrderDataService: ViewOrderData$Service,
-        private getDateService: GetDate$Service) {}
+        private getDateService: GetDate$Service,
+        private orderService: OrderService // We need to load this service so that the route names will show up
+    ) {}
 
     ngOnInit() {
         console.log('You are about to view the order')
